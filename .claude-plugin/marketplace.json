@@ -1,0 +1,11 @@
+{
+  "name": "cerebro-vivo",
+  "owner": { "name": "Darwin" },
+  "plugins": [
+    {
+      "name": "plantilla-prompt",
+      "source": "./plantilla-prompt",
+      "description": "Panel con una plantilla opcional para el prompt inicial de un proyecto (comando /plantilla)"
+    }
+  ]
+}

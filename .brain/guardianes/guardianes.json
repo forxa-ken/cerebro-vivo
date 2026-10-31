@@ -1,0 +1,131 @@
+{
+  "_ayuda": "Ajustes neutros de los guardianes de Cerebro Vivo (repo del arnés). Cada proyecto edita solo su copia.",
+  "registro": ".brain/decisions.log",
+  "pendientes": ".brain/pendientes.md",
+  "tope_pendientes_bytes": 8192,
+  "claude_md": "CLAUDE.md",
+  "indices_entrada": [
+    "CLAUDE.md"
+  ],
+  "tope_claude_md_bytes": 5120,
+  "ignorar_cambios": [
+    ".brain/*",
+    ".claude/*",
+    "*.migrado",
+    "__pycache__/*",
+    "*.pyc",
+    "*.bak*"
+  ],
+  "plugins_requeridos": [
+    "plantilla-prompt@cerebro-vivo"
+  ],
+  "alerta_contexto_tokens": 300000,
+  "longitud_activa": true,
+  "longitud_aviso_tokens": 200000,
+  "longitud_repetir_tokens": 100000,
+  "modo_auto_activo": true,
+  "modo_auto": {
+    "chat_nuevo_max_mensajes": 4,
+    "relevo_tokens": 200000,
+    "base_fija": "copias_bd/modo_auto_base.db",
+    "base_prueba": "copias_bd/modo_auto_prueba.db"
+  },
+  "poda_activa": true,
+  "poda_excluir": [],
+  "tope_registros_bytes": 61440,
+  "base_datos_activo": false,
+  "base_datos": {
+    "ruta": "",
+    "copias_carpeta": "copias_bd",
+    "copias_max": 5,
+    "triggers": [],
+    "esquema_desde": ""
+  },
+  "secretos_activo": true,
+  "secretos": {
+    "dias_aviso_historial": 30,
+    "archivos_secretos": [
+      ".env"
+    ],
+    "permitidos": [],
+    "patrones": [
+      {
+        "nombre": "token de bot de Discord",
+        "confianza": "alta",
+        "regex": "(?<![A-Za-z0-9+/_-])[MN][A-Za-z0-9]{23,25}\\.[A-Za-z0-9_-]{6}\\.[A-Za-z0-9_-]{27,}"
+      },
+      {
+        "nombre": "clave de Google/Gemini",
+        "confianza": "alta",
+        "regex": "(?<![A-Za-z0-9+/_-])AIza[0-9A-Za-z_-]{35}"
+      },
+      {
+        "nombre": "token de GitHub",
+        "confianza": "alta",
+        "regex": "(?<![A-Za-z0-9+/_-])gh[pousr]_[A-Za-z0-9]{36,}"
+      },
+      {
+        "nombre": "clave sk-",
+        "confianza": "alta",
+        "regex": "(?<![A-Za-z0-9+/_-])sk[-_](?:live_|proj-)?[A-Za-z0-9_-]{24,}"
+      },
+      {
+        "nombre": "token de Slack",
+        "confianza": "alta",
+        "regex": "(?<![A-Za-z0-9+/_-])xox[bpas]-[A-Za-z0-9-]{10,}"
+      },
+      {
+        "nombre": "llave privada",
+        "confianza": "alta",
+        "regex": "-----BEGIN [A-Z ]*PRIVATE KEY-----"
+      },
+      {
+        "nombre": "webhook de Discord",
+        "confianza": "alta",
+        "regex": "https://(?:discord|discordapp)\\.com/api/webhooks/\\d{17,20}/[A-Za-z0-9_-]{60,}"
+      },
+      {
+        "nombre": "asignación sospechosa",
+        "confianza": "baja",
+        "regex": "(?i)\\b\\w*(?:secret|token|passw(?:or)?d|api_?key)\\w*\\s*[:=]\\s*[\"']([A-Za-z0-9_\\-/+=]{24,})[\"']"
+      }
+    ]
+  },
+  "librerias_activo": true,
+  "librerias": {
+    "requisitos": "requirements.txt",
+    "dias_aviso": 10,
+    "timeout": 7,
+    "avisar_version_mayor": true,
+    "ignorar": []
+  },
+  "pruebas_activo": true,
+  "pruebas": {
+    "carpeta": ".brain/pruebas"
+  },
+  "analisis_activo": false,
+  "analisis": {
+    "archivos": [
+      "*.py"
+    ],
+    "tope_funcion_nueva": 150,
+    "margen_crecimiento": 20,
+    "margen_archivo_lineas": 300,
+    "sql_excepciones": [],
+    "reglas": [
+      {
+        "tipo": "llamada_con_timeout",
+        "llamadas": [
+          "urllib.request.urlopen",
+          "urlopen",
+          "requests.get",
+          "requests.post",
+          "requests.put",
+          "requests.delete",
+          "requests.request"
+        ]
+      }
+    ]
+  },
+  "arnes_repo": ""
+}

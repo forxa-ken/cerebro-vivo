@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejemplo del kit de traducción</title>
+</head>
+<body>
+  <!-- El selector se rellena solo con los idiomas de idiomas.js -->
+  <select data-i18n-selector aria-label="Idioma"></select>
+  <h1 data-i18n="app.titulo">Mi proyecto</h1>
+  <p data-i18n="app.bienvenida">Bienvenido</p>
+  <p data-i18n="app.descripcion">Esta página cambia de idioma sin recargar.</p>
+  <input data-i18n-placeholder="form.buscar" placeholder="Buscar…">
+  <button data-i18n="form.enviar">Enviar</button>
+  <script src="idiomas.js"></script>
+  <script src="i18n_motor.js"></script>
+</body>
+</html>

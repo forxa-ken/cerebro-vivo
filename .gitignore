@@ -1,0 +1,8 @@
+__pycache__/
+/.brain/guardianes/librerias_estado.json
+/.brain/guardianes/longitud_estado.json
+/.brain/copias_arnes/
+.env
+node_modules/
+/.brain/modo_auto.json
+copias_bd/

@@ -1,0 +1,6 @@
+{
+  "name": "plantilla-prompt",
+  "version": "0.2.0",
+  "description": "Panel con una plantilla opcional para el prompt inicial de un proyecto",
+  "types": "./types/index.d.ts"
+}
