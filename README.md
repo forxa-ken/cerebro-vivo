@@ -5,11 +5,10 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 **Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**
 
 ## Qué lleva
-- **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, tokens, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats y **modo auto**.
+- **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, medidor, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats.
 - **Manual y carta** (`.brain/biblioteca/CEREBRO_VIVO.md`, `CARTA_META_ARNES.md`), plantillas de traspaso y nota de chat.
 - **Kits**: de arranque (monta el método en un proyecto nuevo) y de traducción es/en/pt.
 - **Skills** genéricas en `.claude/skills/` (incluida `/prompt-inicial`) y sus **pruebas** en `tests/`.
-- **Plugin `/plantilla`** (`plantilla-prompt/`) con su `marketplace.json`: el repo también es el marketplace.
 
 ## Qué está demostrado y qué no (medición de 2026-11-01, specs 001-003)
 - **Demostrado:** al retomar un trabajo en un chat nuevo, con el arnés se respetó lo acordado 5 de 5 veces; sin él, 0 de 5 (inventaba el formato). En tareas sueltas y pequeñas los dos funcionan igual.
@@ -40,5 +39,3 @@ python actualizar.py RUTA_PROYECTO
 ## Para mejorar el arnés
 Cambiar aquí, subir `VERSION`, anotar en `CAMBIOS.md`, lanzar `python generar_manifiesto.py` y las pruebas (`python -m unittest discover tests`).
 
-## Instalar el plugin `/plantilla`
-En la app de escritorio: **+** junto a la caja del chat → **Agregar plugins** → **+** (Agregar marketplace) → **Agregar desde un repositorio** → `forxa-ken/cerebro-vivo` → agregar `plantilla-prompt`. En terminal: `claude plugin install plantilla-prompt --marketplace forxa-ken/cerebro-vivo`. Un repo privado necesita credencial de git para github.com.

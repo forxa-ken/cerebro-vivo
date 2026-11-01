@@ -34,7 +34,7 @@ class TestRepoArnes(unittest.TestCase):
     def test_el_manifiesto_no_reparte_datos_ni_configuracion_de_proyecto(self):
         for rel in json.loads(leer("manifiesto.json"))["archivos"]:
             self.assertFalse(rel.startswith((".brain/specs/0", ".brain/decisions", ".brain/archive", ".brain/notas-chats")), rel)
-            self.assertNotIn(rel, (".brain/pendientes.md", ".brain/guardianes/guardianes.json", ".brain/modo_auto.json"))
+            self.assertNotIn(rel, (".brain/pendientes.md", ".brain/guardianes/guardianes.json"))
             self.assertFalse(rel.endswith((".db", ".log")), rel)
 
     def test_configuracion_neutra(self):
@@ -45,27 +45,16 @@ class TestRepoArnes(unittest.TestCase):
         self.assertEqual(cfg["arnes_repo"], "")
 
     def test_sin_rastros_de_otros_proyectos(self):
-        lista = list(json.loads(leer("manifiesto.json"))["archivos"]) + ["README.md", ".claude-plugin/marketplace.json"]
-        for base, dirs, nombres in os.walk(os.path.join(RAIZ, "plantilla-prompt")):
-            dirs[:] = [d for d in dirs if d != "node_modules"]
-            lista += [os.path.relpath(os.path.join(base, n), RAIZ).replace("\\", "/") for n in nombres]
+        lista = list(json.loads(leer("manifiesto.json"))["archivos"]) + ["README.md"]
         for rel in lista:
             if rel in PERMITIDOS or rel.startswith("tests/") or not rel.lower().endswith((".py", ".md", ".json", ".js", ".ts", ".tsx", ".html", ".bat")):
                 continue
             m = RASTROS.search(leer(rel))
             self.assertIsNone(m, "Rastro de un proyecto concreto en %s: %s" % (rel, m and m.group(0)))
 
-    def test_plugin_y_marketplace_coherentes(self):
-        mercado = json.loads(leer(".claude-plugin/marketplace.json"))
-        self.assertEqual(mercado["name"], "cerebro-vivo")
-        plugin = json.loads(leer("plantilla-prompt/.claude-plugin/plugin.json"))
-        self.assertEqual(plugin["name"], "plantilla-prompt")
-        self.assertEqual([p["name"] for p in mercado["plugins"]], ["plantilla-prompt"])
-        self.assertTrue(os.path.isdir(os.path.join(RAIZ, mercado["plugins"][0]["source"])))
-        cfg = json.loads(leer(".brain/guardianes/guardianes.json"))
-        self.assertEqual(cfg["plugins_requeridos"], ["plantilla-prompt@cerebro-vivo"])
-        neutros = json.loads(leer(".brain/biblioteca/kit-arranque/ajustes_neutros.json"))
-        self.assertEqual(neutros["plugins_requeridos"], ["plantilla-prompt@cerebro-vivo"])
+    def test_sin_plugins_requeridos(self):
+        self.assertEqual(json.loads(leer(".brain/guardianes/guardianes.json"))["plugins_requeridos"], [])
+        self.assertEqual(json.loads(leer(".brain/biblioteca/kit-arranque/ajustes_neutros.json"))["plugins_requeridos"], [])
 
     def test_el_actualizador_del_proyecto_esta_en_el_manifiesto_y_en_el_kit(self):
         self.assertIn(".brain/guardianes/actualizar_arnes.py", json.loads(leer("manifiesto.json"))["archivos"])

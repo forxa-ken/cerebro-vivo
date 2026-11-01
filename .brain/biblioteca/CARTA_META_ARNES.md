@@ -68,7 +68,7 @@ FUNCIONALIDADES.md           mapa de lo que hace el producto (fiel al código)
   specs/_template.md + NNN-*.md      especificaciones aprobadas antes de programar
   architecture/<área>.md     una ficha por área técnica
   archive/                   hechos.md + hechos-indice.md + historial antiguo + índice
-  guardianes/                cierre.py · arranque.py · cerrar.py · poda.py · uso_tokens.py · analisis.py · analisis_base.json · guardianes.json
+  guardianes/                cierre.py · arranque.py · cerrar.py · poda.py · medir.py · analisis.py · analisis_base.json · guardianes.json
   biblioteca/                CARTA_META_ARNES.md · CEREBRO_VIVO.md · herramientas.md
 .claude/settings.json        hook Stop que activa el guardián de cierre
 tests/test_cerebro_indices.py   test de coherencia de los índices
@@ -127,7 +127,7 @@ Solo Python estándar; ajustes en `guardianes.json`; nada del proyecto de origen
 | 12 | **Longitud de chat** (`longitud.py`, spec 056, D-051) | El hook de cierre (`Stop`) mide el contexto real del chat y, al pasar 200k tokens (y cada 100k más), avisa **una vez por tramo** para abrir un chat nuevo, con la frase de traspaso lista. Solo avisa; solo en Claude Code (en Gemini y Codex sigue manual). Genérico (kit de arranque). |
 | 13 | **Notas en chat abierto** (`notas_abiertas.py`, spec 081, D-072) | Al enviar el dueño un mensaje, imprime las notas nuevas de chats auxiliares que ese chat aún no recibió; sin notas, calla; no mueve nada | Hook `UserPromptSubmit` (Claude Code) |
 | – | **Cierre rápido** (`cerrar.py`) | Añade la línea del registro con su formato; en un cambio de una línea basta con ella | A mano |
-| 3 | **Medidor de tokens** (`uso_tokens.py`) | Por chat: tokens nuevos, caché, salida, arranque, contexto máximo; marca chats largos (umbral 300k) | A mano |
+| 3 | **Medidor de tokens** (`medir.py`) | Por chat: coste ponderado, tokens nuevos, salida, arranque y correcciones; compara dos proyectos | A mano |
 
 **Qué no hacen:** no leen mensajes, no envían datos fuera, no bloquean commits, no sustituyen el juicio.
 **Cobertura por IA:** Claude Code → todos. Otras IA sin hooks (Gemini/Antigravity, GPT Codex) → solo 2 y la disciplina del manual. GPT Codex (probado el 2026-10-28, #41): con `AGENTS.md` actualizado y en un chat nuevo sí hizo el inicio solo (la primera vez, en el chat equivocado, no se pudo afirmar); ejecuta `arranque.py` bien cuando se lo indica el texto; **no** tiene aviso al terminar (el cierre con `cerrar.py` es manual y lo vigila el test); no abrió la constitución al no ser una orden escrita, por eso `AGENTS.md` la manda leer explícitamente. Mientras tanto, cualquier IA puede ejecutar `arranque.py` y `cerrar.py` a mano.

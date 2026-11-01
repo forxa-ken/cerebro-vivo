@@ -17,7 +17,7 @@ description: Use when Darwin wants to start a project or task with a complete pr
 - Empezar a programar con un encargo a medias: sin criterio de «hecho» ni límites, la IA inventa y hay que rehacer.
 
 ## Dónde está en el repo
-- Spec 084 y D-075; el panel visual es el plugin `plantilla-prompt` del repo privado `forxa-ken/cerebro-vivo` (spec 085, D-076; pasos en `.brain/mods/README.md`).
+- Spec 084 y D-075.
 
 ## Fuente
 - D-075, spec 084 (punto 81)
