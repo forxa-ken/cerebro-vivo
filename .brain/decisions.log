@@ -18,3 +18,7 @@
 2026-11-01 | Claude (cerebro-vivo #2) | Spec 003: tanda T2 (5+5, v1.3.1): ambos 5/5, coste CON +16% (borde del criterio); linea auto escrita en las 5 | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #2) | Spec 003 completa: T3 CON 5/5 vs SIN 0/5 (efectividad demostrada), coste CON +7% (T1), +16% (T2), +59% (T3, sesgado); ahorro de tokens no demostrado; informe final en 003-resultados.md | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #2) | Pruebas de medicion cerradas por orden de Darwin; README y pendientes recogen lo demostrado (efectividad en retomar trabajo), lo medido (coste +7-16% en tareas pequenas) y la hipotesis de ahorro a la larga sin medir | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Descartada la prueba con los proyectos gemelos (Darwin adapta los cambios de uno a otro: no son independientes); pendiente 4 y traspaso actualizados | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Escrita la spec 004 (prueba del indice), sin aprobar ni lanzar | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Spec 004 aprobada; programados bench/indice (montar, verificar, preguntas) y sus pruebas; sin lanzar chats | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Spec 004 medida: indice no mejora acierto (30/30) y cuesta +19% con ~80 fichas; informe 004-resultados.md | Fast-Track

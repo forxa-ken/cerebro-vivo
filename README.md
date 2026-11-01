@@ -13,7 +13,8 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 - **Demostrado:** al retomar un trabajo en un chat nuevo, con el arnés se respetó lo acordado 5 de 5 veces; sin él, 0 de 5 (inventaba el formato). En tareas sueltas y pequeñas los dos funcionan igual.
 - **Coste:** en tareas pequeñas el arnés gasta de un 7 % a un 16 % más que no usarlo (caché igualada, sonnet 5.5). No ahorra en esas tareas.
 - **Hipótesis (sin medir aún):** en un proyecto real y largo, el arnés ahorra a la larga porque evita repetir explicaciones y rehacer trabajo por errores; sin método, esas repeticiones cuestan más. Se comprueba con `python .brain/guardianes/medir.py` en proyectos reales durante semanas.
-- Detalle: `.brain/specs/001-resultados.md`, `002-resultados.md`, `003-resultados.md`.
+- **Índices (spec 004, un solo proyecto real):** con ~80 fichas, tener índice no mejoró el acierto (30/30 en los tres casos) y salió ~19 % más caro que no tenerlo; un índice con filas falsas tampoco hizo fallar. No se demuestra que el índice ahorre a ese tamaño.
+- Detalle: `.brain/specs/001-resultados.md`, `002-resultados.md`, `003-resultados.md`, `004-resultados.md`.
 
 ## Empezar un proyecto nuevo
 ```bash
