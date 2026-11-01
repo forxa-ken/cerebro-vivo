@@ -1,12 +1,12 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "bc8eaab151f713f3f8932e93366a901ab6f24f031d4e2f348e0fd32dbb5b8753",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "e7dfe282daaf2ab778a410f7043cb3fd1a7d8b654418d789425152da81b0ba91",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "92b211b6e3bf7a836b4b2e42001d8ea94d85a45837f28bd4dac885865e5857e9",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "6adab64fb37c2a22f6a5242ac650b6d64b37dadf7c18d34ff7d11a441c2f5876",
-  ".brain/biblioteca/kit-arranque/instalar.py": "7ac1aafc9842e5ac212c87cff9587387de4a3e0c64bce20d02c18293898db6ce",
+  ".brain/biblioteca/kit-arranque/instalar.py": "d6efab476af3f706e88dc3d0a2253f9f6a3b7a5d1192b05e61b383d865129ac4",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "acb2fec0c6724d25e33ec246573a72ae97c36e01b539e212fed16d054c27ecd5",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "95c33226e9351cd0fa8c417f7c55217949fc689e5d58e6b22ca3ade9e57c30f9",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
@@ -23,13 +23,14 @@
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
   ".brain/guardianes/actualizar_arnes.py": "9dd482ec0a2fddec08cb11e70d491418b568c6b12cd0c592cb16005a8f17579b",
   ".brain/guardianes/analisis.py": "9646dccc07930ec06f449edd06c0bca5635266ccd69b32276dbe8c2d6608150d",
-  ".brain/guardianes/arranque.py": "60bee8d895460c1ff6648f54434b71401c6f0bf0738313585464baf86a0473fa",
+  ".brain/guardianes/arranque.py": "cf8547d46151e6bd61bc3cd1cd0862f0bd51236895abf69bdd21d820e35e902a",
   ".brain/guardianes/base_datos.py": "698453c784d76cfe5c27eccaf4727001da02ee07af6f72205090a1fd821b7924",
   ".brain/guardianes/cerrar.py": "1c47348c9c4c3da2a17762ed226bb5465bc9cf476198eb18784cdca778a402cf",
-  ".brain/guardianes/cierre.py": "5d1269567744a563a65e2b57e735fe735b0d01ad67a63e53706b67c04d5330cd",
+  ".brain/guardianes/cierre.py": "f1b6f2611a22d1b975c02ce954f4f5d861e6e395f8b25be41c6ea33302d58777",
   ".brain/guardianes/indices.py": "5b7186efcde640789a9694df2da39afa57bf10b2f6df91e2f753a4a4097e3368",
   ".brain/guardianes/librerias.py": "dccf7b68bc5fed342b2c5def99f1e03b007334dacfa04a2bed2b5c9907df3178",
   ".brain/guardianes/longitud.py": "93f5118487c8d08239cd6747c06178a388830a7c17ff7d60572fec22930eac0f",
+  ".brain/guardianes/medir.py": "6fb7366347877912adfd38a9ac985c8e5e21209dc35a362b3f25c6b0646480ba",
   ".brain/guardianes/modo_auto.py": "85d697067fc21f81557f7663b47f6f3a84b49bc67aad390f794176bf327c0c90",
   ".brain/guardianes/notas_abiertas.py": "ad763b49ecd3cebae3b4f35e74939015d8ca4f784287e5d361ca37f300eb91e3",
   ".brain/guardianes/poda.py": "f9702c0f5c423da5eecba19d12acdcd9ff1bd5d70c64e11f80a9495fd4ee25bb",
@@ -63,7 +64,9 @@
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
   "tests/test_longitud.py": "b2062ab17549729323b6a055c2fec5daf7078dc9e036e9d3fbf4e2f96f6a069f",
+  "tests/test_medir.py": "81f41a30f0ecb2c5f698c5d6dce64574f4a305f5f359364b9569af2e7133ebeb",
   "tests/test_modo_auto.py": "cfc395caacf3a75c460e1c2f3196317b799aa260a00a030abe741cc44bae91fc",
+  "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
   "tests/test_poda.py": "7a1afbd3632f38989e833f2f8dcf2ed2970a24ba73b4333ddabc796754f43ec8",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980"
@@ -81,7 +84,9 @@
   "tests.test_pruebas",
   "tests.test_experiencia",
   "tests.test_instalar_gui",
-  "tests.test_analisis"
+  "tests.test_analisis",
+  "tests.test_medir",
+  "tests.test_modo_ligero"
  ],
- "version": "1.0.0"
+ "version": "1.3.1"
 }

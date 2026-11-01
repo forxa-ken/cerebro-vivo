@@ -3,6 +3,11 @@
   "registro": ".brain/decisions.log",
   "pendientes": ".brain/pendientes.md",
   "tope_pendientes_bytes": 8192,
+  "modo_ligero_activo": true,
+  "modo_ligero": {
+    "max_archivos": 2,
+    "sensibles": ["pago", "payment", "licen", "permis", "auth", "login", "password", "secret", "deploy", "despliegue", ".env", "migrac", "migrat", "schema", "esquema", ".db"]
+  },
   "claude_md": "CLAUDE.md",
   "indices_entrada": [
     "CLAUDE.md"
