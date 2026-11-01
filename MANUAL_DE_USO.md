@@ -18,28 +18,16 @@ Un conjunto de carpetas, avisos automáticos y costumbres para que la IA **recue
 python .brain/biblioteca/kit-arranque/instalar.py RUTA_DEL_PROYECTO --nombre MiProyecto --dueno Darwin --nivel completo
 ```
 2. Abre un chat en la carpeta del proyecto. El arranque mostrará solo un resumen del estado.
-3. Para el primer encargo, usa `/prompt-inicial` en el chat o el panel `/plantilla` (los dos se explican en la sección 3 bis).
+3. Para el primer encargo, usa `/prompt-inicial` en el chat (se explica en la sección 3 bis).
 
-## 3 bis. Empezar bien un chat: `/prompt-inicial`, `/plantilla` y las demás plantillas
-Un encargo completo evita idas y vueltas. Hay dos ayudas para escribirlo; ambas piden lo mismo: **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo trabajar** (spec con aprobación o rápido, modo auto o paso a paso), **plazos, costes, idioma y qué debo probar yo**. Te avisan de lo que falta y esperan tu visto bueno antes de actuar. En un proyecto ya empezado ofrecen además retomar el traspaso, un pendiente, una spec o el estado.
+## 3 bis. Empezar bien un chat: `/prompt-inicial` y las demás plantillas
+Un encargo completo evita idas y vueltas. **`/prompt-inicial`** te ayuda a escribirlo: escribe `/prompt-inicial` en el chat. Viene incluida al instalar el arnés (carpeta `.claude/skills/prompt-inicial`), no hay que instalar nada más y no gasta IA extra.
 
-| Ayuda | Cómo se usa | Gasta IA extra |
-|---|---|---|
-| **`/prompt-inicial`** (skill) | Escribe `/prompt-inicial` en el chat. Viene incluida al instalar el arnés (carpeta `.claude/skills/prompt-inicial`); no hay que instalar nada más | No |
-| **`/plantilla`** (panel visual, plugin `plantilla-prompt`) | Abre un panel con la plantilla para rellenar. Tiene un botón **Mejorar con IA**: reescribe el prompt armado con Haiku, te enseña la propuesta y tú eliges «Usar» o «Descartar»; nunca se envía sola | Un poco, solo si pulsas «Mejorar con IA» |
+Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo trabajar** (spec con aprobación o rápido, paso a paso), **plazos, costes, idioma y qué debo probar yo**. Te avisa de lo que falta y espera tu visto bueno antes de actuar. En un proyecto ya empezado ofrece además retomar el traspaso, un pendiente, una spec o el estado.
 
-**Instalar el plugin `/plantilla` (una sola vez, en la app de escritorio):**
-1. Pulsa el **+** junto a la caja del chat → **Agregar plugins**.
-2. Pulsa **+** (Agregar marketplace) → **Agregar desde un repositorio**.
-3. Escribe `forxa-ken/cerebro-vivo` y agrega el plugin `plantilla-prompt`.
+**Para Gemini o Codex:** pídele a Claude «la versión para Gemini/Codex» y deja la plantilla en blanco en `.brain/biblioteca/PLANTILLA_PROMPT_INICIAL.md`.
 
-En terminal, lo mismo:
-```bash
-claude plugin install plantilla-prompt --marketplace forxa-ken/cerebro-vivo
-```
-- **Ojo:** este repo está hoy solo en tu ordenador (subirlo a GitHub es el pendiente 1). Mientras no esté en GitHub, esa instalación no funcionará. Un repositorio privado también necesita que tengas la credencial de git para github.com.
-- Si falta, el aviso de arranque (`arranque.py`) te lo recuerda. Más detalle en `plantilla-prompt/README.md` (en este repo) o en `.brain/mods/README.md` (en los proyectos que lo instalaron).
-- **Para Gemini o Codex:** pídele a Claude «la versión para Gemini/Codex» y deja la plantilla en blanco en `.brain/biblioteca/PLANTILLA_PROMPT_INICIAL.md`.
+*(El panel `/plantilla` y su plugin se quitaron en la versión 1.4.0 por poco útiles.)*
 
 **Otras plantillas que usa el método (ya vienen con el arnés):**
 | Plantilla | Para qué | Dónde |
@@ -95,7 +83,6 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 - **Cierre** (al acabar una respuesta): avisa si falta la línea del registro. Una sola vez.
 - **Modo ligero:** en tareas pequeñas con pruebas en verde, la línea del registro se escribe sola.
 - **Secretos:** `python .brain/guardianes/secretos.py` busca claves o datos personales; `--historial` revisa también lo ya guardado en git. Pásalo antes de subir nada a internet.
-- **Modo auto** (`modo_auto.py`): deja que la IA avance sola dentro de una spec aprobada y bloquea lo que se sale. Solo si tú lo activas; `desactivar` lo apaga.
 
 ## 10. Reglas para ti
 - No subas nada a GitHub sin pasar por `secretos.py` y sin decidirlo tú.

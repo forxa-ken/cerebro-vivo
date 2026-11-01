@@ -2,7 +2,7 @@
   "_ayuda": "Ajustes que sustituyen a los del proyecto de origen al instalar el kit (instalar.py los mezcla sobre .brain/guardianes/guardianes.json). Aqui no debe quedar ningun dato de un proyecto concreto.",
   "ignorar_cambios": [".brain/*", ".claude/*", "*.migrado", "__pycache__/*", "*.pyc", "*.bak*"],
   "poda_excluir": [],
-  "plugins_requeridos": ["plantilla-prompt@cerebro-vivo"],
+  "plugins_requeridos": [],
   "base_datos_activo": false,
   "base_datos": {"ruta": "", "copias_carpeta": "copias_bd", "copias_max": 5, "triggers": [], "esquema_desde": ""},
   "secretos": {"archivos_secretos": [".env"], "permitidos": []},

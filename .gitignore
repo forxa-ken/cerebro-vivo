@@ -4,5 +4,4 @@ __pycache__/
 /.brain/copias_arnes/
 .env
 node_modules/
-/.brain/modo_auto.json
 copias_bd/

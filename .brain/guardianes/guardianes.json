@@ -21,20 +21,11 @@
     "*.pyc",
     "*.bak*"
   ],
-  "plugins_requeridos": [
-    "plantilla-prompt@cerebro-vivo"
-  ],
+  "plugins_requeridos": [],
   "alerta_contexto_tokens": 300000,
   "longitud_activa": true,
   "longitud_aviso_tokens": 200000,
   "longitud_repetir_tokens": 100000,
-  "modo_auto_activo": true,
-  "modo_auto": {
-    "chat_nuevo_max_mensajes": 4,
-    "relevo_tokens": 200000,
-    "base_fija": "copias_bd/modo_auto_base.db",
-    "base_prueba": "copias_bd/modo_auto_prueba.db"
-  },
   "poda_activa": true,
   "poda_excluir": [],
   "tope_registros_bytes": 61440,

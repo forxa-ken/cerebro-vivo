@@ -25,3 +25,4 @@
 2026-11-01 | Claude (cerebro-vivo #3) | Preparada la variante nombres planos de la prueba del indice (montar.py --nombres-planos + prueba); sin lanzar chats | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #3) | Escrito MANUAL_DE_USO.md (guia diaria en llano) y enlazado desde el README | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #3) | Manual de uso: añadida seccion de /prompt-inicial, /plantilla, instalacion del plugin y plantillas | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #4) | Quitados uso_tokens, modo auto y plugin plantilla (spec 005, version 1.4.0); 181 pruebas en verde | Fast-Track

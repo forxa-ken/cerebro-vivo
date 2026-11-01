@@ -17,7 +17,6 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 ## Cómo se reparte el arnés
 * Lo que llega a los proyectos está listado en **`manifiesto.json`** (huella de cada archivo) con la versión de **`VERSION`**. Tras cambiar cualquier archivo del arnés: subir `VERSION`, anotar en `CAMBIOS.md` y lanzar `python generar_manifiesto.py` (una prueba falla si se olvida).
 * Un proyecto se actualiza con `python .brain/guardianes/actualizar_arnes.py --simular` (y luego sin `--simular`), o desde aquí con `python actualizar.py RUTA --simular`. No pisa lo modificado a mano ni toca datos ni configuración.
-* El plugin `/plantilla` (`plantilla-prompt/`) y `.claude-plugin/marketplace.json` viven aquí: el repo también es el marketplace.
 * Esto es el origen único: nada de LoboHook ni de otro proyecto entra aquí (lo vigila `tests/test_arnes_repo.py`).
 
 ## Reglas esenciales

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Medidor de ahorro y efectividad (spec 001): totales iguales a uso_tokens y detección de correcciones."""
+"""Medidor de ahorro y efectividad (spec 001): detección de correcciones."""
 import importlib.util
 import json
 import os
@@ -43,9 +43,8 @@ class TestMedir(unittest.TestCase):
         d = medir.medir_chat(self.escribir("b.jsonl", ["No toques nada fuera de X"]))
         self.assertEqual(d["correcciones"], 0)
 
-    def test_tokens_iguales_a_uso_tokens(self):
+    def test_tokens_nuevos_del_chat(self):
         r = self.escribir("c.jsonl", ["a", "b"])
-        self.assertEqual(medir.medir_chat(r)["nuevos"], medir.uso.leer_chat(r)["nuevos"])
         self.assertEqual(medir.medir_chat(r)["nuevos"], 220)
 
     def test_ignora_avisos_automaticos_y_filtra_por_tarea(self):

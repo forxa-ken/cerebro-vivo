@@ -16,15 +16,56 @@ Uso:
 
 import argparse
 import glob
-import importlib.util
+import json
 import os
 import re
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-_e = importlib.util.spec_from_file_location("uso_tokens", os.path.join(AQUI, "uso_tokens.py"))
-uso = importlib.util.module_from_spec(_e)
-_e.loader.exec_module(uso)
+RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+
+
+def leer_chat(ruta):
+    """Devuelve dict con los totales de un chat, sin contar dos veces el mismo mensaje
+    (Claude Code repite la línea mientras la respuesta se va escribiendo)."""
+    por_mensaje = {}
+    primera_fecha, titulo = None, ""
+    with open(ruta, encoding="utf-8", errors="replace") as f:
+        for linea in f:
+            try:
+                e = json.loads(linea)
+            except ValueError:
+                continue
+            if not primera_fecha and e.get("timestamp"):
+                primera_fecha = e["timestamp"][:10]
+            msg = e.get("message") or {}
+            if e.get("type") == "user" and not titulo:
+                c = msg.get("content")
+                if isinstance(c, list):
+                    c = " ".join(b.get("text", "") for b in c if isinstance(b, dict) and b.get("type") == "text")
+                if isinstance(c, str) and c.strip() and not c.lstrip().startswith("<"):
+                    titulo = " ".join(c.split())[:45]
+            uso = msg.get("usage")
+            if e.get("type") == "assistant" and isinstance(uso, dict):
+                por_mensaje[msg.get("id") or e.get("uuid") or len(por_mensaje)] = uso
+    nuevos = cache = salida = maximo = 0
+    primero = list(por_mensaje.values())[:1]
+    arranque = sum((primero[0].get(x, 0) or 0) for x in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")) if primero else 0
+    for u in por_mensaje.values():
+        ent = u.get("input_tokens", 0) or 0
+        esc = u.get("cache_creation_input_tokens", 0) or 0
+        lec = u.get("cache_read_input_tokens", 0) or 0
+        nuevos += ent + esc
+        cache += lec
+        salida += u.get("output_tokens", 0) or 0
+        maximo = max(maximo, ent + esc + lec)
+    return {"id": os.path.basename(ruta)[:8], "fecha": primera_fecha or "?", "mensajes": len(por_mensaje),
+            "nuevos": nuevos, "cache": cache, "salida": salida, "maximo": maximo, "arranque": arranque, "titulo": titulo or "(sin título)"}
+
+
+def k(n):
+    return "%dk" % round(n / 1000) if n >= 1000 else str(n)
+
 
 AVISOS = re.compile(r"<system-reminder>.*?</system-reminder>", re.S)
 # Palabras con las que empieza un mensaje tuyo cuando estás corrigiendo o repitiendo algo.
@@ -42,7 +83,7 @@ def mensajes_usuario(ruta):
     with open(ruta, encoding="utf-8", errors="replace") as f:
         for linea in f:
             try:
-                e = uso.json.loads(linea)
+                e = json.loads(linea)
             except ValueError:
                 continue
             if e.get("type") != "user" or e.get("isMeta"):
@@ -68,7 +109,7 @@ def mensajes_ia(ruta):
     with open(ruta, encoding="utf-8", errors="replace") as f:
         for linea in f:
             try:
-                e = uso.json.loads(linea)
+                e = json.loads(linea)
             except ValueError:
                 continue
             m = e.get("message") or {}
@@ -86,7 +127,7 @@ def coste(ent, esc, lec, sal):
 
 
 def medir_chat(ruta):
-    d = uso.leer_chat(ruta)
+    d = leer_chat(ruta)
     msgs = mensajes_ia(ruta)
     d["coste"] = sum(coste(*m[:4]) for m in msgs)
     d["frio"] = bool(msgs) and msgs[0][2] < FRIO_LECTURA_MAX
@@ -135,7 +176,7 @@ def main(argv=None):
     except Exception:
         pass
     ap = argparse.ArgumentParser(description="Mide ahorro y efectividad por chat")
-    ap.add_argument("--proyecto", default=uso.RAIZ)
+    ap.add_argument("--proyecto", default=RAIZ)
     ap.add_argument("--comparar", nargs=2, metavar=("CON", "SIN"))
     ap.add_argument("--desglose", metavar="ID", help="coste mensaje a mensaje de un chat (los primeros caracteres de su id)")
     ap.add_argument("--ultimos", type=int, default=0)
@@ -155,7 +196,7 @@ def main(argv=None):
         for i, (ent, esc, lec, sal, tools) in enumerate(mensajes_ia(rutas[0]), 1):
             c = coste(ent, esc, lec, sal)
             total += c
-            print("%3d %8d %8d %8d %7s %9s  %s" % (i, esc, lec, sal, uso.k(c), uso.k(total), ", ".join(tools)))
+            print("%3d %8d %8d %8d %7s %9s  %s" % (i, esc, lec, sal, k(c), k(total), ", ".join(tools)))
         return 0
     chats = chats_de(carpeta_de(a.proyecto), a.ultimos, a.tarea)
     if not chats:
@@ -163,11 +204,11 @@ def main(argv=None):
         return 1
     print("%-9s %-11s %5s %8s %8s %8s %8s %6s %6s %-6s %s" % ("Chat", "Fecha", "IA", "Coste", "Nuevos", "Salida", "Arranque", "Tuyos", "Corr.", "Caché", "Empieza con…"))
     for c in chats:
-        print("%-9s %-11s %5d %8s %8s %8s %8s %6d %6d %-6s %s" % (c["id"], c["fecha"], c["mensajes"], uso.k(c["coste"]), uso.k(c["nuevos"]), uso.k(c["salida"]),
-                                                              uso.k(c["arranque"]), c["turnos"], c["correcciones"], "fría" if c["frio"] else "caliente", (c["encargo"] or c["titulo"])[:40]))
+        print("%-9s %-11s %5d %8s %8s %8s %8s %6d %6d %-6s %s" % (c["id"], c["fecha"], c["mensajes"], k(c["coste"]), k(c["nuevos"]), k(c["salida"]),
+                                                              k(c["arranque"]), c["turnos"], c["correcciones"], "fría" if c["frio"] else "caliente", (c["encargo"] or c["titulo"])[:40]))
     print("-" * 100)
     print("Por chat (media): coste %s · nuevos %s · salida %s · arranque %s · tus mensajes %.1f · correcciones %.2f"
-          % (uso.k(media(chats, "coste")), uso.k(media(chats, "nuevos")), uso.k(media(chats, "salida")), uso.k(media(chats, "arranque")),
+          % (k(media(chats, "coste")), k(media(chats, "nuevos")), k(media(chats, "salida")), k(media(chats, "arranque")),
              media(chats, "turnos"), media(chats, "correcciones")))
     return 0
 

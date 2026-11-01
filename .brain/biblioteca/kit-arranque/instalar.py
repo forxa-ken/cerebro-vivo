@@ -24,7 +24,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["arranque", "cierre", "cerrar", "poda", "uso_tokens", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "modo_auto", "actualizar_arnes"]
+GUARDIANES = ["arranque", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -183,7 +183,6 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         "hooks": {
             "SessionStart": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/arranque.py"' % hook_py, "timeout": 20}]}],
             "Stop": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/cierre.py"' % hook_py, "timeout": 20}]}],
-            "PreToolUse": [{"matcher": "Edit|Write|NotebookEdit|MultiEdit|Bash", "hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/modo_auto.py"' % hook_py, "timeout": 10}]}],
             "UserPromptSubmit": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/notas_abiertas.py"' % hook_py, "timeout": 10}]}],
         },
         "permissions": {"deny": ["Read(./%s)" % a for a in cfg["secretos"]["archivos_secretos"]]},
