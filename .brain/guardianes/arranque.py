@@ -270,6 +270,8 @@ def resumen(raiz, cfg):
             lineas.append("- Plugins sin instalar: %s (pasos en el README de github.com/forxa-ken/cerebro-vivo)." % ", ".join(falta))
     except Exception:
         pass
+    if cfg.get("modo_ligero_activo"):  # spec 002: el resumen solo lleva lo que pide acción
+        lineas = [l for l in lineas if not re.search(r"sin avisos|sin hallazgos|todo en orden|al día\.?$", l)]
     lineas += leer_traspaso(raiz)
     lineas += leer_notas_chats(raiz)
     lineas.append("- Lee CLAUDE.md, la constitución y pendientes.md; cierra cada tarea con su línea en el registro.")
@@ -277,8 +279,8 @@ def resumen(raiz, cfg):
 
 
 # La app de escritorio no pinta el `systemMessage` del hook: se pide a la IA que lo muestre ella.
-ORDEN_A_LA_IA = ("INSTRUCCIÓN para el asistente: en tu primera respuesta de esta sesión, empieza copiando "
-                 "este resumen a Darwin tal cual (en 4-5 viñetas, sin jerga) antes de seguir con lo que pida.\n")
+ORDEN_A_LA_IA = ("INSTRUCCIÓN para el asistente: en tu primera respuesta de esta sesión, dile a Darwin el resumen en "
+                 "4-5 viñetas sin jerga (o en una línea si no hay nada que requiera acción) antes de seguir con lo que pida.\n")
 
 
 def main():

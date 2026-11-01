@@ -11,6 +11,7 @@ Solo librería estándar. Ajustes en guardianes.json."""
 import fnmatch
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -79,6 +80,79 @@ def analizar_respuesta(transcript_path, registro):
     return editado, registro_tocado
 
 
+def detalle_respuesta(transcript_path, raiz):
+    """Para el cierre ligero (spec 002): archivos que editó la IA desde el último mensaje del usuario (rutas relativas
+    al proyecto) y si el último comando de pruebas salió en verde (True/False; None si no corrió ninguno)."""
+    archivos, ordenes, verde = [], {}, None
+    try:
+        with open(transcript_path, encoding="utf-8") as f:
+            lineas = f.read().splitlines()
+    except Exception:
+        return [], None
+    for linea in lineas:
+        try:
+            e = json.loads(linea)
+        except ValueError:
+            continue
+        contenido = (e.get("message") or {}).get("content")
+        if e.get("type") == "user":
+            if isinstance(contenido, str) or any(isinstance(b, dict) and b.get("type") == "text" for b in (contenido or [])):
+                archivos, ordenes, verde = [], {}, None  # mensaje nuevo del usuario: empieza otra respuesta
+            for b in contenido if isinstance(contenido, list) else []:
+                if isinstance(b, dict) and b.get("type") == "tool_result" and b.get("tool_use_id") in ordenes:
+                    texto = b.get("content")
+                    if isinstance(texto, list):
+                        texto = " ".join(str(x.get("text", "")) for x in texto if isinstance(x, dict))
+                    texto = str(texto)
+                    verde = bool(re.search(r"\bOK\b|\d+ passed", texto)) and not re.search(r"FAILED|Traceback|\d+ failed|Error", texto)
+        elif e.get("type") == "assistant" and isinstance(contenido, list):
+            for b in contenido:
+                if not (isinstance(b, dict) and b.get("type") == "tool_use"):
+                    continue
+                entrada = b.get("input") or {}
+                if b.get("name") in ("Edit", "Write", "NotebookEdit", "MultiEdit"):
+                    ruta = str(entrada.get("file_path", ""))
+                    try:
+                        ruta = os.path.relpath(ruta, raiz)
+                    except ValueError:
+                        pass
+                    archivos.append(ruta.replace("\\", "/"))
+                elif b.get("name") == "Bash" and re.search(r"unittest|pytest", str(entrada.get("command", ""))):
+                    ordenes[b.get("id")] = True
+                    verde = None  # hay una corrida nueva pendiente de resultado
+    return archivos, verde
+
+
+def cierre_ligero(cfg, archivos, verde):
+    """Spec 002. Devuelve el texto de la línea automática si la tarea es pequeña, no sensible y con pruebas en verde;
+    None si hay que cerrar como siempre. Función pura, probada en tests."""
+    lig = cfg.get("modo_ligero") or {}
+    if not cfg.get("modo_ligero_activo") or verde is not True:
+        return None
+    propios = sorted({a for a in archivos if a and not esta_ignorada(a, cfg["ignorar_cambios"]) and not a.startswith("..")})
+    if len(propios) != len(set(a for a in archivos if a and not a.startswith(".."))) or not propios:
+        return None  # tocó algo de .brain/ u otra zona ignorada, o no tocó nada del proyecto: cierre normal
+    if len(propios) > lig.get("max_archivos", 2):
+        return None
+    if any(clave in a.lower() for a in propios for clave in lig.get("sensibles", [])):
+        return None
+    return "(auto) tocó %s; pruebas en verde" % ", ".join(propios)
+
+
+def escribir_linea_auto(raiz, cfg, texto):
+    import datetime
+    ruta = os.path.join(raiz, cfg["registro"])
+    try:  # no repetir la misma línea automática en respuestas seguidas
+        with open(ruta, encoding="utf-8") as f:
+            previas = [l for l in f.read().splitlines() if l.strip()]
+        if previas and texto in previas[-1]:
+            return
+    except OSError:
+        pass
+    with open(ruta, "a", encoding="utf-8") as f:
+        f.write("%s | Claude (auto) | %s | Fast-Track\n" % (datetime.date.today().isoformat(), texto))
+
+
 def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None):
     """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests."""
     avisos = []
@@ -92,7 +166,7 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
         avisos.append(
             "Hay cambios en el proyecto (%s) y falta la línea en %s. "
-            "Cierra la tarea: línea en el registro, pendientes al día y, si hubo una decisión importante, su ficha D-NNN."
+            "Cierra la tarea (solo con las pruebas en verde): línea en el registro, pendientes al día y, si hubo una decisión importante, su ficha D-NNN."
             % (", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
     if tam_pendientes is not None and tam_pendientes > cfg["tope_pendientes_bytes"]:
         avisos.append(
@@ -118,6 +192,17 @@ def main():
         ediciones, en_registro = (None, None)
         if datos.get("transcript_path"):
             ediciones, en_registro = analizar_respuesta(datos["transcript_path"], cfg["registro"])
+            if ediciones is not None and not en_registro:  # spec 002: tarea pequeña y en verde -> el guardián escribe la línea, sin vuelta extra de la IA
+                try:
+                    archivos, verde = detalle_respuesta(datos["transcript_path"], RAIZ)
+                    if not archivos and verde is True:  # spec 003: la IA editó con la terminal (no con Edit/Write): vale lo que git ve cambiado
+                        archivos = [c for c in cambios_git(RAIZ) if not esta_ignorada(c, cfg["ignorar_cambios"])]
+                    linea_auto = cierre_ligero(cfg, archivos, verde)
+                    if linea_auto:
+                        escribir_linea_auto(RAIZ, cfg, linea_auto)
+                        en_registro = True
+                except Exception:
+                    pass
         avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util

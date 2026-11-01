@@ -88,6 +88,8 @@ Idea ──► [spec aprobada] ──► Falta programar ──► Implementada
 5. Si cambió una funcionalidad, actualizar el mapa de funcionalidades.
 6. Resumen al dueño en lenguaje llano: qué quedó, qué falta probar, qué no se verificó.
 
+**Modo ligero (v1.2.0):** si la tarea fue pequeña (hasta 2 archivos, ninguno sensible, sin tocar `.brain/`) y las pruebas salieron en verde, el guardián `cierre.py` escribe solo la línea del registro (`Claude (auto)`) y los pasos 3-5 no hacen falta. Se apaga con `modo_ligero_activo` en `guardianes.json`. Motivo: en la medición de la spec 001 el cierre completo costaba entre un 17 % y un 43 % más de tokens en tareas pequeñas.
+
 ## 7. Reglas de conducta de la IA
 - **Alcance estricto:** tocar solo lo que pide la tarea; nada de refactors no pedidos.
 - **Tests siempre en verde;** si no hay fallo comprobado, no se reescribe código que funciona.

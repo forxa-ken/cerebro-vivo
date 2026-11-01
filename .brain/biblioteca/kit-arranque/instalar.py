@@ -24,7 +24,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["arranque", "cierre", "cerrar", "poda", "uso_tokens", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "modo_auto", "actualizar_arnes"]
+GUARDIANES = ["arranque", "cierre", "cerrar", "poda", "uso_tokens", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "modo_auto", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -83,9 +83,9 @@ def bloque_ia(ia, nivel, py):
               "* **Al terminar cada tarea**, registrar la línea con el cierre rápido (no hay aviso automático):\n  ```\n"
               "  %s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" --quien \"%s\" \"qué se hizo, en una frase\"\n  ```" % (py, py, ia))
     if ia == "Claude":
-        return ("* **Al iniciar sesión** el resumen de arranque llega solo (hook `SessionStart`); copiarlo al usuario en 4-5 viñetas. Leer "
-                "`.brain/constitution.md` y `.brain/pendientes.md`.\n* **Al terminar cada tarea:** el hook `Stop` avisa si falta la línea en `decisions.log`; "
-                "cierre rápido: `%s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" \"qué se hizo\"`." % py)
+        return ("* **Al iniciar sesión** el resumen de arranque llega solo (hook `SessionStart`) con el estado real; no hace falta releer nada para una tarea pequeña. "
+                "Leer `.brain/constitution.md` y `.brain/pendientes.md` solo si la tarea es grande, toca una decisión o hay duda de reglas.\n* **Al terminar cada tarea pequeña** (hasta 2 archivos, nada sensible, pruebas en verde): NO escribas la línea del registro, el hook `Stop` la pone solo (modo ligero). "
+                "**Tarea grande, sensible o con una decisión:** cierre rápido: `%s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" \"qué se hizo\"`." % py)
     return manual
 
 
