@@ -68,6 +68,18 @@ class TestBenchIndice(unittest.TestCase):
         correr("a", "1", "--origen", o, "--destino", d)
         self.assertTrue(os.listdir(os.path.join(d, "_historial")))
 
+    def test_nombres_planos(self):
+        o, d = origen_falso(), tempfile.mkdtemp()
+        self.assertEqual(correr("c", "1", "--origen", o, "--destino", d, "--nombres-planos").returncode, 0)
+        dec = os.path.join(d, "lado_c", ".brain", "decisions")
+        self.assertTrue(os.path.isfile(os.path.join(dec, "D-062.md")))
+        self.assertFalse(os.path.exists(os.path.join(dec, "D-062-e.md")))
+        with open(os.path.join(dec, "indice.md"), encoding="utf-8") as f:
+            t = f.read()
+        self.assertNotRegex(t, r"D-\d+-[a-z]\.md")
+        self.assertIn("(D-062.md)", t)  # c cruza D-054 con D-062: aun asi los enlaces son planos
+        self.assertTrue(os.path.isfile(os.path.join(o, "decisions", "D-062-e.md")))  # el origen no cambia
+
     def test_origen_inexistente_falla(self):
         self.assertNotEqual(correr("a", "1", "--origen", os.path.join(tempfile.mkdtemp(), "no"), "--destino", tempfile.mkdtemp()).returncode, 0)
 

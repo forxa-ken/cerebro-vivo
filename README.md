@@ -2,6 +2,8 @@
 
 El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin perder el contexto entre chats y gastando pocos tokens, más las herramientas que lo hacen cumplir. Un solo repositorio, y cada proyecto decide cuándo traerse las mejoras.
 
+**Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**
+
 ## Qué lleva
 - **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, tokens, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats y **modo auto**.
 - **Manual y carta** (`.brain/biblioteca/CEREBRO_VIVO.md`, `CARTA_META_ARNES.md`), plantillas de traspaso y nota de chat.
