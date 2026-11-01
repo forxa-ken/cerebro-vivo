@@ -39,3 +39,10 @@
 2026-11-01 | Claude (cerebro-vivo #6) | Spec 006 probada por Darwin y archivada; commit del arnes 1.4.2 | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #6) | Pendiente 2 archivado (repo viejo sin tocar); spec 007 en borrador (pendientes 6 y 7); grafico del arnes | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.5.0 (spec 007): instalador crea objetivo.md enlazado y regla en constitucion; skills tambien a .agents/skills si hay Codex; 185 pruebas en verde | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.5.1: /pendiente describe completo lo que le toca hacer a Darwin | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Guia de instalacion actualizada en biblioteca/GUIA_INSTALACION.md; spec 008 en borrador (migrar objetivo en proyectos empezados) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Guia de instalacion: anotado el panel /plantilla (plugin aparte, ya no se reparte desde el repo) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.6.0 (spec 008): actualizar_arnes.py --migrar-objetivo para proyectos ya instalados; 7 pruebas nuevas; guia al dia | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Spec 009 en borrador: recuperar el panel /plantilla del historial (e1e604e~1) y adaptarlo | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Spec 009 aprobada por Darwin; se programa en el chat #7 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #7) | Spec 009 hecha: plugin /plantilla recuperado (plantilla-prompt 0.3.0, botones a /pendiente y /resumen), arnes 1.7.0, prueba test_plugin_plantilla; logica TS 9/9 con shim, panel sin probar; pendiente 11 | Fast-Track

@@ -7,6 +7,7 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 ## Qué lleva
 - **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, medidor, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats.
 - **Manual y carta** (`.brain/biblioteca/CEREBRO_VIVO.md`, `CARTA_META_ARNES.md`), plantillas de traspaso y nota de chat.
+- **Plugin `/plantilla`** (`plantilla-prompt/`, panel de Claude Code; se instala aparte, no lo reparte el actualizador).
 - **Kits**: de arranque (monta el método en un proyecto nuevo) y de traducción es/en/pt.
 - **Skills** genéricas en `.claude/skills/` (incluidas `/prompt-inicial`, `/resumen` y `/pendiente`) y sus **pruebas** en `tests/`.
 

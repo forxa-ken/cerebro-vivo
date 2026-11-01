@@ -16,4 +16,6 @@ Estado al 2026-11-01 (cerebro-vivo #6): arnés 1.4.1 subido a GitHub; spec 006 p
 ## Esperando tu prueba (Darwin)
 - **6 y 7:** (spec 007, arnés 1.5.0, sin commitear) instala el arnés en un proyecto de prueba con Codex y comprueba: existe `.brain/architecture/objetivo.md` y los índices lo citan primero; existe `.agents/skills/`; abre un chat nuevo de Codex, pregúntale el objetivo y escribe `$resumen`. Si va bien, retirar.
 
+- **11:** (spec 009, arnés 1.7.0, sin commitear) instala/actualiza el plugin `plantilla-prompt` desde este repo (pasos en `plantilla-prompt/README.md`), escribe `/plantilla` y comprueba: el panel abre, «Ver los pendientes» y «Resumen del estado» ponen `/pendiente` y `/resumen` en el chat, insertar en el chat y guardar la plantilla en blanco funcionan. Si va bien, retirar.
+
 ## Acciones tuyas

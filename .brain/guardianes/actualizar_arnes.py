@@ -19,6 +19,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -202,6 +203,80 @@ def localizar_repo(proyecto, indicado):
     return os.path.abspath(carpeta), None
 
 
+OBJETIVO = os.path.join(".brain", "architecture", "objetivo.md")
+PLANTILLA_OBJETIVO = os.path.join(".brain", "biblioteca", "kit-arranque", "plantillas", "objetivo.md")
+INDICES_ENTRADA = ("CLAUDE.md", "GEMINI.md", "AGENTS.md")
+LINEA_OBJETIVO = "* **Objetivo del proyecto (leer primero):** [`.brain/architecture/objetivo.md`](.brain/architecture/objetivo.md)."
+
+
+def migrar_objetivo(proyecto, simular=False, ahora=None):
+    """Spec 008: en un proyecto ya instalado crea `objetivo.md`, lo enlaza en los índices de entrada y añade la regla a la constitución.
+    Idempotente; no pisa nada (solo añade) y guarda copia de lo que modifica. Devuelve {'creados', 'modificados', 'avisos'}."""
+    proyecto = os.path.abspath(proyecto)
+    res = {"creados": [], "modificados": [], "avisos": []}
+    dueno = cargar_registro(proyecto).get("dueno") or DUENO_ORIGINAL
+    cambios = []  # (ruta relativa, texto nuevo)
+    ruta_obj = os.path.join(proyecto, OBJETIVO)
+    if not os.path.exists(ruta_obj):
+        plantilla = os.path.join(proyecto, PLANTILLA_OBJETIVO)
+        if os.path.isfile(plantilla):
+            texto = leer_bytes(plantilla).decode("utf-8").replace("{{NOMBRE}}", os.path.basename(proyecto)).replace("{{DUENO}}", dueno)
+            res["creados"].append(OBJETIVO)
+            cambios.append((OBJETIVO, texto))
+        else:
+            res["avisos"].append("Falta la plantilla del objetivo: actualiza primero con `actualizar_arnes.py`.")
+    for nombre in INDICES_ENTRADA:
+        ruta = os.path.join(proyecto, nombre)
+        if not os.path.isfile(ruta):
+            continue
+        texto = leer_bytes(ruta).decode("utf-8")
+        if "architecture/objetivo.md" in texto:
+            continue
+        salto = "\r\n" if "\r\n" in texto else "\n"
+        lineas = texto.split(salto)
+        donde = next((i for i, l in enumerate(lineas) if l.lstrip().startswith("* **Pendientes:**")), None)
+        if donde is None:
+            res["avisos"].append("%s: no encuentro dónde insertarlo; añade a mano esta línea al principio de la lista de memoria: %s" % (nombre, LINEA_OBJETIVO))
+            continue
+        lineas.insert(donde, LINEA_OBJETIVO)
+        res["modificados"].append(nombre)
+        cambios.append((nombre, salto.join(lineas)))
+    ruta = os.path.join(proyecto, ".brain", "constitution.md")
+    if os.path.isfile(ruta):
+        texto = leer_bytes(ruta).decode("utf-8")
+        if "objetivo.md" not in texto:
+            salto = "\r\n" if "\r\n" in texto else "\n"
+            numeros = [int(m) for m in re.findall(r"^(\d+)\.", texto, re.M)]
+            regla = ("%d. **El objetivo se escribe:** todo objetivo o cambio de objetivo que %s dé en un chat se anota en "
+                     "`.brain/architecture/objetivo.md` en esa misma respuesta; lo que solo está en el chat se pierde.") % (max(numeros, default=0) + 1, dueno)
+            res["modificados"].append(os.path.join(".brain", "constitution.md"))
+            cambios.append((os.path.join(".brain", "constitution.md"), texto.rstrip("\r\n") + salto + regla + salto))
+    else:
+        res["avisos"].append("No hay `.brain/constitution.md`: no se añadió la regla del objetivo.")
+    if simular or not cambios:
+        return res
+    sello = (ahora or datetime.datetime.now()).strftime("%Y%m%d-%H%M%S")
+    for rel, texto in cambios:
+        destino = os.path.join(proyecto, rel)
+        if os.path.exists(destino):
+            copia = os.path.join(proyecto, COPIAS, sello, rel)
+            os.makedirs(os.path.dirname(copia), exist_ok=True)
+            shutil.copyfile(destino, copia)
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        with open(destino, "wb") as f:
+            f.write(texto.encode("utf-8"))
+    return res
+
+
+def informe_migracion(res, simular):
+    L = ["Migración del objetivo (%s):" % ("simulación, no se escribió nada" if simular else "aplicada")]
+    L += ["  + creado %s" % r for r in res["creados"]] + ["  ~ modificado %s" % r for r in res["modificados"]]
+    if not res["creados"] and not res["modificados"]:
+        L.append("  Nada que cambiar: el proyecto ya tiene el objetivo, sus enlaces y la regla.")
+    L += ["  ⚠ " + a for a in res["avisos"]]
+    return "\n".join(L)
+
+
 def informe(res, simular):
     L = ["Arnés %s → %s%s" % (res["version_antes"] or "sin registrar", res["version"], " (simulación: no se escribió nada)" if simular else "")]
     for clave, titulo in (("nuevos", "Archivos nuevos"), ("actualizados", "Archivos que se actualizan"), ("forzados", "Archivos pisados con --forzar")):
@@ -233,10 +308,17 @@ def main(argv=None, repo=None):
     ap.add_argument("--forzar", action="append", default=[], metavar="RUTA", help="pisa este archivo aunque se haya modificado a mano")
     ap.add_argument("--forzar-todo", action="store_true", help="pisa TODO lo modificado a mano (con copia); para adoptar el arnés por primera vez en un proyecto antiguo")
     ap.add_argument("--dueno", help="nombre del dueño (si el proyecto no lo tiene registrado)")
+    ap.add_argument("--migrar-objetivo", action="store_true", help="crea objetivo.md, lo enlaza en los índices y añade la regla a la constitución (solo añade; con --simular no escribe)")
     ap.add_argument("--sin-pruebas", action="store_true", help="no corre las pruebas del método al terminar")
     a = ap.parse_args(argv)
     proyecto = os.path.abspath(a.proyecto if repo else RAIZ_PROPIA)
     temporal = None
+    if a.migrar_objetivo:
+        if not os.path.isdir(proyecto):
+            print("❌ No existe la carpeta del proyecto: %s" % proyecto)
+            return 2
+        print(informe_migracion(migrar_objetivo(proyecto, simular=a.simular), a.simular))
+        return 0
     try:
         if not repo:
             repo, temporal = localizar_repo(proyecto, a.repo)

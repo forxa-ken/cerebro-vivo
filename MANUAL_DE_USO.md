@@ -27,7 +27,7 @@ Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo
 
 **Para Gemini o Codex:** pídele a Claude «la versión para Gemini/Codex» y deja la plantilla en blanco en `.brain/biblioteca/PLANTILLA_PROMPT_INICIAL.md`.
 
-*(El panel `/plantilla` y su plugin se quitaron en la versión 1.4.0 por poco útiles.)*
+**Panel `/plantilla`:** formulario con botones para escribir el encargo e insertarlo en el chat. Es un plugin de Claude Code (`plantilla-prompt/`) que se instala una vez por equipo, no con el actualizador; cómo, en `plantilla-prompt/README.md`.
 
 **Otras plantillas que usa el método (ya vienen con el arnés):**
 | Plantilla | Para qué | Dónde |
