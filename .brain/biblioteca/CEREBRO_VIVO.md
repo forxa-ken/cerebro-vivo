@@ -62,6 +62,8 @@ GEMINI.md                  ← mismo índice para otra IA (si se usa más de una
 
 Una spec es corta: objetivo, qué entra y qué no, archivos que se tocan, cómo se prueba, riesgos. Su valor es que **el dueño aprueba antes de gastar tokens programando algo equivocado**.
 
+**Encargo con autoevaluación (v1.4.1):** en un encargo grande, la spec o el mensaje cierra con criterios de éxito comprobables («1) … 2) … 3) …») y esta orden: *«Antes de entregarme el resultado, revísalo tú contra esos criterios, corrige lo que falle y dime cuáles cumples y cuáles no. Si no puedes comprobar uno, dilo en vez de darlo por bueno.»*
+
 ## 5. Ciclo de vida de una tarea (y de un punto de `pendientes.md`)
 
 ```
@@ -87,6 +89,7 @@ Idea ──► [spec aprobada] ──► Falta programar ──► Implementada
 4. Actualizar `pendientes.md` (y transferir a `hechos` si el dueño ya probó).
 5. Si cambió una funcionalidad, actualizar el mapa de funcionalidades.
 6. Resumen al dueño en lenguaje llano: qué quedó, qué falta probar, qué no se verificó.
+7. Antes de dar algo por hecho, dos preguntas (v1.4.1): ¿hay algo aquí que no sea verdad o que no haya probado? ¿hay algo que el dueño no diría o no entendería así?
 
 **Modo ligero (v1.2.0):** si la tarea fue pequeña (hasta 2 archivos, ninguno sensible, sin tocar `.brain/`) y las pruebas salieron en verde, el guardián `cierre.py` escribe solo la línea del registro (`Claude (auto)`) y los pasos 3-5 no hacen falta. Se apaga con `modo_ligero_activo` en `guardianes.json`. Motivo: en la medición de la spec 001 el cierre completo costaba entre un 17 % y un 43 % más de tokens en tareas pequeñas.
 

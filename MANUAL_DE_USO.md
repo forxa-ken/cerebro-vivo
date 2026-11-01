@@ -64,6 +64,10 @@ python .brain/guardianes/cerrar.py --chat "Proyecto #N" "qué se hizo"
 | Planes aprobados | `.brain/specs/` |
 | El método completo | `.brain/biblioteca/CEREBRO_VIVO.md` |
 
+**Los índices (`decisions/indice.md`, `archive/hechos-indice.md`) son a demanda:** el arranque no los lee; solo se abren cuando hace falta buscar una ficha. En la prueba (spec 004, ~80 fichas) no mejoraron el acierto y costaron algo más, así que se mantienen pero sin cargarlos siempre. Los archivos de entrada (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) se mantienen cortos y con enlaces al cerebro.
+
+**Gemini y Codex:** `/prompt-inicial` y los ganchos de Claude Code (el resumen automático al abrir y el aviso al cerrar) no funcionan allí; el proyecto se adapta al método escrito en `GEMINI.md` / `AGENTS.md`. En Codex las skills se invocan con `$prompt-inicial` y deben estar en `.agents/skills/` (Codex no lee `.claude/skills/`). Abre siempre un chat nuevo: un chat ya abierto no recarga el archivo de entrada.
+
 ## 7. Traer mejoras a un proyecto que ya lo usa
 Primero **simular** (no escribe nada), luego actualizar:
 ```bash
