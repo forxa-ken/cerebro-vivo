@@ -194,12 +194,13 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     poner(".claude/settings.json", json.dumps(ajustes_claude, ensure_ascii=False, indent=2) + "\n")
     if simular:
         return hechos
-    manifiesto = os.path.join(RAIZ_FUENTE, "manifiesto.json")
-    if os.path.exists(manifiesto) and destino != RAIZ_FUENTE:  # spec 087: skills, kits, manual y pruebas del método, con su registro de versión
+    repo_arnes = RAIZ_FUENTE if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")) else cfg.get("arnes_repo")
+    manifiesto = os.path.join(repo_arnes, "manifiesto.json") if repo_arnes else ""
+    if os.path.exists(manifiesto) and destino != repo_arnes:  # spec 087: skills, kits, manual y pruebas del método, con su registro de versión
         espec = importlib.util.spec_from_file_location("actualizar_arnes", os.path.join(GUARDIANES_FUENTE, "actualizar_arnes.py"))
         actualizador = importlib.util.module_from_spec(espec)
         espec.loader.exec_module(actualizador)
-        res = actualizador.sincronizar(RAIZ_FUENTE, destino, dueno=dueno, adoptar=hechos["creados"])
+        res = actualizador.sincronizar(repo_arnes, destino, dueno=dueno, adoptar=hechos["creados"])
         hechos["creados"] += [os.path.join(destino, r) for r in res["nuevos"]]
         hechos["avisos"].append("Arnés %s instalado: se actualiza con `python .brain/guardianes/actualizar_arnes.py --simular`." % res["version"])
     ignorar = os.path.join(destino, ".gitignore")

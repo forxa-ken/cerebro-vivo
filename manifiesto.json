@@ -6,7 +6,7 @@
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "9b57ca75e02dc06c059e03846c390d9c1f38a1ae6622549d0f03fb2c3b4a8441",
-  ".brain/biblioteca/kit-arranque/instalar.py": "d1fb300581fd02a3ccb224a9f6bf24ce75ddf49b8463411d8693da9556db7aa7",
+  ".brain/biblioteca/kit-arranque/instalar.py": "07616da333d95886847a7f19760849051ea484078bb559154d11eaee1ffb9270",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "acb2fec0c6724d25e33ec246573a72ae97c36e01b539e212fed16d054c27ecd5",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "39b83c17a0ac470dfba6cdf8efd57494278a96a5f8173db0dd1ba268d45605a6",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
@@ -67,7 +67,6 @@
   "tests/test_longitud.py": "b2062ab17549729323b6a055c2fec5daf7078dc9e036e9d3fbf4e2f96f6a069f",
   "tests/test_medir.py": "f6bb5990b4bec7e87dcf682899acc9ac3e45381cb44c55b4c7850c2f7879a530",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
-  "tests/test_plugin_plantilla.py": "acb9a19578b24f1fd266913c0f91d65f5ed7c3a8ba1c958f4917897f8c70e5a2",
   "tests/test_poda.py": "7a1afbd3632f38989e833f2f8dcf2ed2970a24ba73b4333ddabc796754f43ec8",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980"

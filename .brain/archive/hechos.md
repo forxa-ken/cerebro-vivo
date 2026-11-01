@@ -23,3 +23,11 @@ Arnés 1.4.2. Probado por Darwin en un chat nuevo.
 ## 2 · Retirar el repo viejo `cerebro-vivo-plugins` (decisión tomada)
 **Fecha:** 2026-11-01
 Darwin pidió retirar el punto de pendientes. El repo viejo NO se ha borrado ni tocado: borrarlo es irreversible y requiere su orden expresa sobre el repo.
+
+## 6 · objetivo.md en el instalador (spec 007, arnés 1.5.0)
+**Fecha:** 2026-11-01
+Probado por Darwin en `F:\prueba` con Codex: existe `.brain/architecture/objetivo.md` y el chat nuevo lo leyó y dijo que el objetivo aún está por definir (correcto en un proyecto recién creado). La parte `.agents/skills/` (punto 7) sigue abierta.
+
+## 12 · Migrar el objetivo a proyectos ya instalados (spec 008, arnés 1.6.0)
+**Fecha:** 2026-11-01
+Probado por Darwin: `--migrar-objetivo` creó el objetivo en un proyecto ya instalado (lo usó con Gemini). No se comprobó después la pregunta del objetivo en un chat nuevo de Codex.
