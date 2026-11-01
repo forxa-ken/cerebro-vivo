@@ -3,7 +3,8 @@
 """Prepara una carpeta de la prueba del índice (spec 004). Copia SOLO LECTURA de un `.brain` real (LoboHook) a una
 carpeta FUERA de los dos proyectos. Lados: a (con índice), b (sin índice), c (índice con 5 filas falsas).
 
-Uso:  python bench/indice/montar.py a|b|c 1..5 [--origen RUTA_.brain] [--destino RUTA]
+Uso:  python bench/indice/montar.py a|b|c 1..5 [--origen RUTA_.brain] [--destino RUTA] [--nombres-planos]
+`--nombres-planos`: las fichas pasan de `D-062-creditos-de-ia.md` a `D-062.md` (sin pista en el nombre) y el destino por defecto es `bench-indice-planos`.
 Lo que hubiera se MUEVE a `_historial/` (no se borra). Imprime el texto exacto a pegar en el chat nuevo."""
 import argparse
 import os
@@ -19,6 +20,7 @@ from preguntas import PREGUNTAS, FORMATO  # noqa: E402
 REPO = os.path.dirname(os.path.dirname(AQUI))
 ORIGEN = os.path.join(os.path.dirname(REPO), "LoboHook", ".brain")
 DESTINO = os.path.join(os.path.dirname(REPO), "bench-indice")
+DESTINO_PLANOS = os.path.join(os.path.dirname(REPO), "bench-indice-planos")
 
 CLAUDE = {
     "a": "# Memoria del proyecto\nSolo lectura: no modifiques ningún archivo. Responde en español.\n"
@@ -35,6 +37,22 @@ ARCHIVOS = [os.path.join("archive", "hechos.md"), os.path.join("archive", "hecho
 def _fila(texto, ident):
     m = re.search(r"^\| \[%s\]\(([^)]+)\) \| (.*)$" % re.escape(ident), texto, re.M)
     return m
+
+
+def aplanar(decisiones):
+    """Quita la descripción del nombre de cada ficha (D-062-xxx.md -> D-062.md), también en `archivo/`, y arregla los enlaces del índice."""
+    for raiz, _, nombres in os.walk(decisiones):
+        for n in nombres:
+            m = re.match(r"^(D-\d+)-.+\.md$", n)
+            if m:
+                os.rename(os.path.join(raiz, n), os.path.join(raiz, m.group(1) + ".md"))
+    ind = os.path.join(decisiones, "indice.md")
+    if os.path.isfile(ind):
+        with open(ind, encoding="utf-8") as f:
+            t = f.read()
+        t = re.sub(r"\((archivo/)?(D-\d+)-[^)]*\.md\)", lambda m: "(%s%s.md)" % (m.group(1) or "", m.group(2)), t)
+        with open(ind, "w", encoding="utf-8") as f:
+            f.write(t)
 
 
 def estropear(texto):
@@ -61,8 +79,10 @@ def main(argv=None):
     ap.add_argument("lado", choices=["a", "b", "c"])
     ap.add_argument("pregunta", type=int, choices=sorted(PREGUNTAS))
     ap.add_argument("--origen", default=ORIGEN)
-    ap.add_argument("--destino", default=DESTINO)
+    ap.add_argument("--destino")
+    ap.add_argument("--nombres-planos", action="store_true")
     a = ap.parse_args(argv)
+    a.destino = a.destino or (DESTINO_PLANOS if a.nombres_planos else DESTINO)
     if not os.path.isdir(os.path.join(a.origen, "decisions")):
         print("No encuentro %s" % a.origen)
         return 1
@@ -79,6 +99,8 @@ def main(argv=None):
     os.makedirs(os.path.join(cerebro, "archive"))
     for f in ARCHIVOS:
         shutil.copy(os.path.join(a.origen, f), os.path.join(cerebro, f))
+    if a.nombres_planos:
+        aplanar(os.path.join(cerebro, "decisions"))
     if a.lado == "b":
         for i in INDICES:
             os.remove(os.path.join(cerebro, i))

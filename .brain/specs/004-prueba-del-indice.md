@@ -52,3 +52,6 @@ Las preguntas 1-3 piden un detalle que está en la ficha y **no** en la línea d
 ## 7. Cierre
 - [x] Spec aprobada por Darwin antes de programar
 - [x] Línea añadida a `.brain/decisions.log`
+
+## 8. Variante «nombres planos» (preparada, sin lanzar)
+`python bench/indice/montar.py LADO PREGUNTA --nombres-planos` renombra las fichas a `D-062.md` (sin pista en el nombre) y monta en `bench-indice-planos`. Misma tanda de 30 chats; se compara con los resultados de 004-resultados.md. Se lanza solo con orden de Darwin.
