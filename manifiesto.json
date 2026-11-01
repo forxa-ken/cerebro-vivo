@@ -1,7 +1,7 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "1a4330e7a678d27d8d38cb5b715f75e65b9031e06d6145c76ffa6b3f1c09622f",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "edaa208bf5db2a5ead97d95b0b97862d2805f855c7451b14fa66220d37bb3ba1",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "b1706bb0319be89c76362467fa9778bd6c4831dd845e3208ca9a2eb2341e6ce6",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
@@ -44,10 +44,12 @@
   ".claude/skills/implementada-no-es-hecha/SKILL.md": "0eb40e628e7e01235086b1fc6c8a4706815a5814f7b3f8a526d3f926099577cd",
   ".claude/skills/licencia-antes-de-usar/SKILL.md": "2c9a974ff67fc97aaf0819ee519d726990eaf8b02bae9126e24972449c54ed7f",
   ".claude/skills/mover-no-borrar/SKILL.md": "be3933dfade79aaa4aa1a7c1f7eae56e5db3b63fc419ff6b8eeac2864521fad4",
+  ".claude/skills/pendiente/SKILL.md": "645cb6785dc8e147877f9dce525cd52a07399c2af360b9e92ea31d115a8332d6",
   ".claude/skills/pendientes-solo-lo-que-falta/SKILL.md": "d5017213d08b015a30a47b09aaa73469e8967a52de30625345b7dbcc9066cedf",
   ".claude/skills/probar-guardian-en-windows/SKILL.md": "7ccdfb29fce8cabe5041c62a0966e82888ce439520b3438d97a509eeb46a2f65",
-  ".claude/skills/prompt-inicial/SKILL.md": "f04b48e5e0963648c328b3c69b0e25563980329cdd9c8f84978346bc538b29d3",
+  ".claude/skills/prompt-inicial/SKILL.md": "7bb81d5f8affcbbce997941b0ddd9258f3774098a9ef0d76793c58ffe809c384",
   ".claude/skills/quitar-codigo-antiguo-con-test/SKILL.md": "f0e8009c06718777958e1c88da120b0b0a65c3fa4332ac7c4d7ab2542aaed0f6",
+  ".claude/skills/resumen/SKILL.md": "df5ba100b58e7f5d1596a6b58293466f3642d32248e42d22a8e245a09a9c37a0",
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "f77829644713ff6b2cefebc760d6f566830c1c0b0fe2819fad6c4ed042f543ef",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
   ".claude/skills/traspaso-entre-chats/SKILL.md": "188474b37c2e216aa91df1580b4e03bd58a7b4d0eef5273fed68e33d466985d2",
@@ -84,5 +86,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.4.1"
+ "version": "1.4.2"
 }

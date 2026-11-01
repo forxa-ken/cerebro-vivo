@@ -23,7 +23,7 @@ python .brain/biblioteca/kit-arranque/instalar.py RUTA_DEL_PROYECTO --nombre MiP
 ## 3 bis. Empezar bien un chat: `/prompt-inicial` y las demás plantillas
 Un encargo completo evita idas y vueltas. **`/prompt-inicial`** te ayuda a escribirlo: escribe `/prompt-inicial` en el chat. Viene incluida al instalar el arnés (carpeta `.claude/skills/prompt-inicial`), no hay que instalar nada más y no gasta IA extra.
 
-Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo trabajar** (spec con aprobación o rápido, paso a paso), **plazos, costes, idioma y qué debo probar yo**. Te avisa de lo que falta y espera tu visto bueno antes de actuar. En un proyecto ya empezado ofrece además retomar el traspaso, un pendiente, una spec o el estado.
+Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo trabajar** (spec con aprobación o rápido, paso a paso), **plazos, costes, idioma y qué debo probar yo**. Te avisa de lo que falta y espera tu visto bueno antes de actuar. Solo sirve para escribir encargos. Para saber cómo va el proyecto escribe **`/resumen`** (cuenta el estado en pocas viñetas, sin escribir nada); para ver una lista escribe **`/pendiente`** (te deja elegir: falta programar, esperando tu prueba, acciones tuyas o specs abiertas, o escribe `/pendiente programar`).
 
 **Para Gemini o Codex:** pídele a Claude «la versión para Gemini/Codex» y deja la plantilla en blanco en `.brain/biblioteca/PLANTILLA_PROMPT_INICIAL.md`.
 
