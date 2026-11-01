@@ -90,7 +90,10 @@ def bloque_ia(ia, nivel, py):
 
 
 def mapa(nivel):
-    lineas = ["* **Pendientes:** [`.brain/pendientes.md`](.brain/pendientes.md) es la lista viva de **solo lo que falta**; leerla al iniciar.",
+    lineas = []
+    if nivel != "ligero":
+        lineas.append("* **Objetivo del proyecto (leer primero):** [`.brain/architecture/objetivo.md`](.brain/architecture/objetivo.md).")
+    lineas += ["* **Pendientes:** [`.brain/pendientes.md`](.brain/pendientes.md) es la lista viva de **solo lo que falta**; leerla al iniciar.",
               "* **Registro:** [`.brain/decisions.log`](.brain/decisions.log): una línea por tarea terminada."]
     if nivel != "ligero":
         lineas += ["* **Reglas innegociables:** [`.brain/constitution.md`](.brain/constitution.md).",
@@ -164,6 +167,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     poner(".brain/archive/hechos-indice.md", plantilla("hechos_indice.md"))
     poner(".brain/referencias.md", plantilla("referencias.md"))
     poner(".brain/specs/_template.md", fuente(BRAIN_FUENTE, "specs", "_template.md"))
+    poner(".brain/architecture/objetivo.md", plantilla("objetivo.md"))
     poner(".brain/architecture/README.md", "# Arquitectura\n\nUna ficha corta por área del proyecto. Se leen solo las del área en la que se trabaja.\n")
     if nivel == "medio":
         return hechos

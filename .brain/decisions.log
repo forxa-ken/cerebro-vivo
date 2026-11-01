@@ -37,3 +37,5 @@
 2026-11-01 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.4.2: skills /resumen y /pendiente nuevas, /prompt-inicial solo plantilla (spec 006); manifiesto y pruebas en verde | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #6) | Spec 006 probada por Darwin y archivada; commit del arnes 1.4.2 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Pendiente 2 archivado (repo viejo sin tocar); spec 007 en borrador (pendientes 6 y 7); grafico del arnes | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.5.0 (spec 007): instalador crea objetivo.md enlazado y regla en constitucion; skills tambien a .agents/skills si hay Codex; 185 pruebas en verde | Fast-Track

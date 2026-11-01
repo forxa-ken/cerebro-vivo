@@ -6,13 +6,14 @@
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "9b57ca75e02dc06c059e03846c390d9c1f38a1ae6622549d0f03fb2c3b4a8441",
-  ".brain/biblioteca/kit-arranque/instalar.py": "1fe57acfcd1490466e3dc64c1c75fcced405aee4947c261af60f8858a6a9f7bd",
+  ".brain/biblioteca/kit-arranque/instalar.py": "d1fb300581fd02a3ccb224a9f6bf24ce75ddf49b8463411d8693da9556db7aa7",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "acb2fec0c6724d25e33ec246573a72ae97c36e01b539e212fed16d054c27ecd5",
-  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "95c33226e9351cd0fa8c417f7c55217949fc689e5d58e6b22ca3ade9e57c30f9",
+  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "39b83c17a0ac470dfba6cdf8efd57494278a96a5f8173db0dd1ba268d45605a6",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.md": "7c43a6c1527772f7aed6f68c7418508b84e4e1d690533618fb7e57f9e3c73591",
   ".brain/biblioteca/kit-arranque/plantillas/hechos_indice.md": "8f704bd4326b6382a4f389450821973f6f4bca56c809d71d0803435c8b29351c",
   ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "f1c91880c2c0fae9812e8e7d617b8ed4522e23a3f4147fcb4a4e3c56b4045ea3",
+  ".brain/biblioteca/kit-arranque/plantillas/objetivo.md": "7760b4baa031704b311804a4cdeb5830f52c8234559550e15323616bc111e092",
   ".brain/biblioteca/kit-arranque/plantillas/pendientes.md": "a02fc52f2ebe2bfd2a83bac411b1095c74b35557766eebfe6ac44184b92db590",
   ".brain/biblioteca/kit-arranque/plantillas/pruebas_indice.md": "7d90fb2d89dc884b9dd9cfe0d28f5b488cb4dabbc5b2daf7293eac974e8fd80a",
   ".brain/biblioteca/kit-arranque/plantillas/referencias.md": "49ccf9fd2ca9e248c4daca110a2305118dc68fb46b3a99ca6824bf580ae487d3",
@@ -21,7 +22,7 @@
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
   ".brain/biblioteca/kit-traduccion/idiomas.js": "eb75510aff146b5c17fa4abf15bc20590525ff73b3844b37325012407af170e6",
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
-  ".brain/guardianes/actualizar_arnes.py": "9dd482ec0a2fddec08cb11e70d491418b568c6b12cd0c592cb16005a8f17579b",
+  ".brain/guardianes/actualizar_arnes.py": "228f568ba762924902a2c81070afd41629e14bf2bcc2df31cdeae1da67e51704",
   ".brain/guardianes/analisis.py": "9646dccc07930ec06f449edd06c0bca5635266ccd69b32276dbe8c2d6608150d",
   ".brain/guardianes/arranque.py": "cf8547d46151e6bd61bc3cd1cd0862f0bd51236895abf69bdd21d820e35e902a",
   ".brain/guardianes/base_datos.py": "698453c784d76cfe5c27eccaf4727001da02ee07af6f72205090a1fd821b7924",
@@ -60,7 +61,7 @@
   "tests/test_cerebro_indices.py": "771fabb209a61f9265547a6a46da6361242fcf3216eb227338da5663a55770b2",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_instalar_gui.py": "986dee5aa6c09cce30fad78c6a2431e46b9102a07a227a03ab0997bcf0a7c0f7",
-  "tests/test_kit_arranque.py": "f5a7bb57f28842610baaf537027b92f1f2dc102ebd553fee40f52cfe5ba5833d",
+  "tests/test_kit_arranque.py": "b19fd36f428795b745b4e146b1196ba658f5054268e27196ed69a93c12c30d4a",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
   "tests/test_longitud.py": "b2062ab17549729323b6a055c2fec5daf7078dc9e036e9d3fbf4e2f96f6a069f",
@@ -86,5 +87,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.4.2"
+ "version": "1.5.0"
 }
