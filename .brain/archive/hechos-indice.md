@@ -7,3 +7,6 @@
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
 | 0 | Proyecto creado con el kit de arranque | 2026-10-31 | instalar.py |
+| 1 | Repo subido a GitHub privado | 2026-11-01 | e1b483b |
+| 9 | Índice central INDICE.md (descartado, ahorro no demostrado) | 2026-11-01 | archive/hechos.md |
+| 10 | Skills /resumen, /pendiente y /prompt-inicial (1.4.2) | 2026-11-01 | specs/006 |

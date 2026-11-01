@@ -209,7 +209,8 @@ class TestConElRepoReal(unittest.TestCase):
         espec.loader.exec_module(copia)  # la copia instalada (con el nombre del dueño cambiado) debe seguir reconociendo todo
         res = copia.sincronizar(RAIZ, proy, simular=True)
         self.assertEqual((res["nuevos"], res["actualizados"], res["a_mano"]), ([], [], []))
-        self.assertTrue(os.path.isdir(os.path.join(proy, ".claude", "skills", "prompt-inicial")))
+        for skill in ("prompt-inicial", "resumen", "pendiente"):
+            self.assertTrue(os.path.isdir(os.path.join(proy, ".claude", "skills", skill)))
         self.assertTrue(os.path.isfile(os.path.join(proy, ".brain", "biblioteca", "kit-traduccion", "i18n_motor.js")))
 
 
