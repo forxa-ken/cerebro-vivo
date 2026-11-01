@@ -10,3 +10,4 @@
 | 1 | Repo subido a GitHub privado | 2026-11-01 | e1b483b |
 | 9 | Índice central INDICE.md (descartado, ahorro no demostrado) | 2026-11-01 | archive/hechos.md |
 | 10 | Skills /resumen, /pendiente y /prompt-inicial (1.4.2) | 2026-11-01 | specs/006 |
+| 2 | Retirar repo viejo cerebro-vivo-plugins (punto retirado; el repo no se tocó) | 2026-11-01 | archive/hechos.md |

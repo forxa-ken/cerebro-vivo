@@ -42,10 +42,27 @@ class TestKitArranque(unittest.TestCase):
         fallos = [(n, f) for n, ok, f in kit.comprobar(destino) if not ok]
         self.assertEqual(fallos, [])
 
+    def test_objetivo_se_crea_y_los_indices_lo_enlazan_primero(self):
+        destino, _ = instalar()
+        self.assertIn(".brain/architecture/objetivo.md", archivos(destino))
+        for indice in ("CLAUDE.md", "AGENTS.md"):
+            with open(os.path.join(destino, indice), encoding="utf-8") as f:
+                texto = f.read()
+            self.assertIn("architecture/objetivo.md", texto)
+            self.assertLess(texto.index("objetivo.md"), texto.index("**Pendientes:**"))
+        with open(os.path.join(destino, ".brain", "constitution.md"), encoding="utf-8") as f:
+            self.assertIn("objetivo.md", f.read())
+
+    def test_skills_de_codex_solo_si_se_instala_codex(self):
+        con, _ = instalar(ias=("claude", "codex"))
+        sin, _ = instalar(ias=("claude",))
+        self.assertTrue(any(a.startswith(".agents/skills/") for a in archivos(con)))
+        self.assertFalse(any(a.startswith(".agents/") for a in archivos(sin)))
+
     def test_sin_rastros_de_lobohook(self):
         destino, _ = instalar()
         for rel in archivos(destino):
-            if rel.startswith(".brain/biblioteca/") or rel == ".brain/arnes_instalado.json" or rel.startswith("tests/") or rel.startswith(".claude/skills/explicar-a-darwin-en-llano/"):  # el nombre de esa skill lleva el del dueño original
+            if rel.startswith(".brain/biblioteca/") or rel == ".brain/arnes_instalado.json" or rel.startswith("tests/") or rel.startswith(".claude/skills/explicar-a-darwin-en-llano/") or rel.startswith(".agents/skills/explicar-a-darwin-en-llano/"):  # el nombre de esa skill lleva el del dueño original
                 continue
             with open(os.path.join(destino, rel), encoding="utf-8") as f:
                 m = RASTROS.search(f.read())

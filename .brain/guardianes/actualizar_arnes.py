@@ -101,6 +101,14 @@ def claves_nuevas(repo, proyecto):
     return {k: v for k, v in del_arnes.items() if k not in del_proyecto and k not in ("_ayuda", "arnes_repo")}
 
 
+def destinos(manifiesto, proyecto):
+    """Pares (ruta en el repo, ruta en el proyecto). Con `AGENTS.md` (Codex) las skills de `.claude/skills/` también van a `.agents/skills/`."""
+    pares = [(rel, rel) for rel in sorted(manifiesto["archivos"])]
+    if os.path.isfile(os.path.join(proyecto, "AGENTS.md")):
+        pares += [(rel, ".agents/skills/" + rel[len(".claude/skills/"):]) for rel in sorted(manifiesto["archivos"]) if rel.startswith(".claude/skills/")]
+    return pares
+
+
 def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=(), ahora=None, forzar_todo=False):
     """Compara el proyecto con el repo y (si no es simulación) copia lo que toca.
     Devuelve {'version_antes', 'version', 'nuevos', 'actualizados', 'sin_cambios', 'a_mano', 'forzados', 'copia', 'claves_nuevas'}.
@@ -118,11 +126,11 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     res = {"version_antes": registro.get("version"), "version": manifiesto.get("version"), "nuevos": [], "actualizados": [],
            "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto)}
     por_escribir = []  # (rel, destino, contenido, existia)
-    for rel in sorted(manifiesto["archivos"]):
+    for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
-        if destino is None or ruta_segura(repo, rel) is None:
+        if destino is None or ruta_segura(repo, fuente) is None:
             raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
-        nuevo = esperado(repo, rel, dueno)
+        nuevo = esperado(repo, fuente, dueno)
         h_nuevo = huella(nuevo)
         if not os.path.exists(destino):
             res["nuevos"].append(rel)

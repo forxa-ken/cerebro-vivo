@@ -64,6 +64,17 @@ class Base(unittest.TestCase):
 
 
 class TestSincronizar(Base):
+    def test_con_codex_las_skills_tambien_van_a_agents_skills(self):
+        escribir(self.proy, "AGENTS.md", "# indice" + chr(10))
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertIn(".agents/skills/s/SKILL.md", res["nuevos"])
+        self.assertTrue(os.path.isfile(os.path.join(self.proy, ".agents", "skills", "s", "SKILL.md")))
+        self.assertEqual(act.sincronizar(self.repo, self.proy, simular=True)["nuevos"], [])
+
+    def test_sin_codex_no_se_crea_agents_skills(self):
+        act.sincronizar(self.repo, self.proy)
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".agents")))
+
     def test_simular_no_escribe_nada(self):
         escribir(self.proy, ".brain/pendientes.md", "mío")
         antes = arbol(self.proy)
