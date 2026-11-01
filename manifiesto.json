@@ -1,7 +1,7 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "1a4330e7a678d27d8d38cb5b715f75e65b9031e06d6145c76ffa6b3f1c09622f",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "cf4728dd2e7c222637ffb0132e75bcdbdf88c3f851751f99ab11b0729bb5badc",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "edaa208bf5db2a5ead97d95b0b97862d2805f855c7451b14fa66220d37bb3ba1",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
@@ -84,5 +84,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.4.0"
+ "version": "1.4.1"
 }

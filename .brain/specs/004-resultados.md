@@ -35,3 +35,18 @@ Con índice (a) salió un **19 % más caro** que sin índice (b); con el índice
 
 ## Siguiente paso posible (sin hacer)
 Repetir sin nombres descriptivos en las fichas (solo `D-062.md`) o con cientos de fichas, que es donde un índice debería ganar. Y revisar si el arranque debe pedir leer los índices o dejarlos a demanda.
+
+## Variante «nombres planos» (2026-11-02)
+
+Misma prueba, pero con las fichas renombradas a `D-062.md` (sin palabras en el nombre), para que la lista de nombres ya no haga de índice gratuito. 30 chats, mismo modelo y preguntas. Los 4 chats cortados de la pregunta 2 se recuperaron por mensaje y los 3 que no arrancaron (pregunta 3, repetición 2) se repitieron como chats nuevos.
+
+| Lado | Aciertos | Coste medio (planos) | Coste medio (descriptivos) |
+| :--- | :--- | :--- | :--- |
+| a (con índice) | 10/10 | 57k | 57k |
+| b (sin índice) | 10/10 | 51k | 48k |
+| c (índice con filas falsas) | 10/10 | 61k | 65k |
+
+- **Acierto:** 30/30 otra vez; nadie inventó lo de Bizum («no consta»).
+- **Coste:** con nombres planos el índice (a) sale un 12 % más caro que sin índice (b), en vez del 19 %. Sin nombres descriptivos, b tampoco se hunde: la IA busca por texto y acierta igual.
+- **Lectura:** quitar los nombres descriptivos no hizo que el índice compensara; no hay prueba de que ahorre ni de que mejore el acierto a este tamaño (~80 fichas, un proyecto, 2 repeticiones por caso: tendencia, no estadística). El coste de los chats de recuperación puede estar alterado.
+- **Decisión pendiente (Darwin):** eliminar o mantener los índices (`indices.py`, `cerrar.py --indices`, índices de decisiones y hechos).
