@@ -4,7 +4,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 **Regla de cierre:** cuando Darwin prueba una tarea y confirma, en esa misma respuesta se pasa su detalle a `archive/hechos.md`, se añade su fila a `archive/hechos-indice.md` y se quita de aquí. Si la prueba falla, vuelve a «Falta programar» con una nota de qué falló.
 
-Estado al 2026-11-01 (cerebro-vivo #6): arnés 1.4.1 subido a GitHub; spec 006 probada (1.4.2); spec 007 hecha (1.5.0) y esperando tu prueba.
+Estado al 2026-11-01 (cerebro-vivo #7): arnés 1.7.0 subido a GitHub; spec 007 (parte Codex) y spec 009 esperando tu prueba.
 
 ## Falta programar (IA)
 - **3:** primera adopción real: actualizar LoboHook con `--simular` y luego `--forzar-todo` (con orden de Darwin).
@@ -14,8 +14,8 @@ Estado al 2026-11-01 (cerebro-vivo #6): arnés 1.4.1 subido a GitHub; spec 006 p
 
 
 ## Esperando tu prueba (Darwin)
-- **6 y 7:** (spec 007, arnés 1.5.0, sin commitear) instala el arnés en un proyecto de prueba con Codex y comprueba: existe `.brain/architecture/objetivo.md` y los índices lo citan primero; existe `.agents/skills/`; abre un chat nuevo de Codex, pregúntale el objetivo y escribe `$resumen`. Si va bien, retirar.
+- **7:** (spec 007, arnés 1.5.0) `F:\prueba` se instaló sin `AGENTS.md`, por eso no tiene `.agents/skills/`. Crea un `AGENTS.md` vacío en esa carpeta, lanza `python .brain/guardianes/actualizar_arnes.py` (o instala de nuevo marcando Codex) y comprueba que aparece `.agents/skills/` con las skills; en un chat nuevo de Codex escribe `$resumen`. Si va bien, retirar.
 
-- **11:** (spec 009, arnés 1.7.0, sin commitear) instala/actualiza el plugin `plantilla-prompt` desde este repo (pasos en `plantilla-prompt/README.md`), escribe `/plantilla` y comprueba: el panel abre, «Ver los pendientes» y «Resumen del estado» ponen `/pendiente` y `/resumen` en el chat, insertar en el chat y guardar la plantilla en blanco funcionan. Si va bien, retirar.
+- **11:** (spec 009, arnés 1.7.0) instala/actualiza el plugin `plantilla-prompt` desde este repo (pasos en `plantilla-prompt/README.md`), escribe `/plantilla` y comprueba: el panel abre, «Ver los pendientes» y «Resumen del estado» ponen `/pendiente` y `/resumen` en el chat, insertar en el chat y guardar la plantilla en blanco funcionan. Si va bien, retirar.
 
 ## Acciones tuyas
