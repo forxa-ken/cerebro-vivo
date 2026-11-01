@@ -22,7 +22,7 @@
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
   ".brain/biblioteca/kit-traduccion/idiomas.js": "eb75510aff146b5c17fa4abf15bc20590525ff73b3844b37325012407af170e6",
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
-  ".brain/guardianes/actualizar_arnes.py": "228f568ba762924902a2c81070afd41629e14bf2bcc2df31cdeae1da67e51704",
+  ".brain/guardianes/actualizar_arnes.py": "9e2f76e81d7c76d667e9dc620784c0a5be435ce8856c6234cee26dccd67da614",
   ".brain/guardianes/analisis.py": "9646dccc07930ec06f449edd06c0bca5635266ccd69b32276dbe8c2d6608150d",
   ".brain/guardianes/arranque.py": "cf8547d46151e6bd61bc3cd1cd0862f0bd51236895abf69bdd21d820e35e902a",
   ".brain/guardianes/base_datos.py": "698453c784d76cfe5c27eccaf4727001da02ee07af6f72205090a1fd821b7924",
@@ -45,7 +45,7 @@
   ".claude/skills/implementada-no-es-hecha/SKILL.md": "0eb40e628e7e01235086b1fc6c8a4706815a5814f7b3f8a526d3f926099577cd",
   ".claude/skills/licencia-antes-de-usar/SKILL.md": "2c9a974ff67fc97aaf0819ee519d726990eaf8b02bae9126e24972449c54ed7f",
   ".claude/skills/mover-no-borrar/SKILL.md": "be3933dfade79aaa4aa1a7c1f7eae56e5db3b63fc419ff6b8eeac2864521fad4",
-  ".claude/skills/pendiente/SKILL.md": "645cb6785dc8e147877f9dce525cd52a07399c2af360b9e92ea31d115a8332d6",
+  ".claude/skills/pendiente/SKILL.md": "ea6acff3d5bf4af185d2ab23874d1f6e12e52dd2efa5b89afa364ffbfebc9f71",
   ".claude/skills/pendientes-solo-lo-que-falta/SKILL.md": "d5017213d08b015a30a47b09aaa73469e8967a52de30625345b7dbcc9066cedf",
   ".claude/skills/probar-guardian-en-windows/SKILL.md": "7ccdfb29fce8cabe5041c62a0966e82888ce439520b3438d97a509eeb46a2f65",
   ".claude/skills/prompt-inicial/SKILL.md": "7bb81d5f8affcbbce997941b0ddd9258f3774098a9ef0d76793c58ffe809c384",
@@ -67,6 +67,7 @@
   "tests/test_longitud.py": "b2062ab17549729323b6a055c2fec5daf7078dc9e036e9d3fbf4e2f96f6a069f",
   "tests/test_medir.py": "f6bb5990b4bec7e87dcf682899acc9ac3e45381cb44c55b4c7850c2f7879a530",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
+  "tests/test_plugin_plantilla.py": "acb9a19578b24f1fd266913c0f91d65f5ed7c3a8ba1c958f4917897f8c70e5a2",
   "tests/test_poda.py": "7a1afbd3632f38989e833f2f8dcf2ed2970a24ba73b4333ddabc796754f43ec8",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980"
@@ -87,5 +88,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.5.0"
+ "version": "1.7.0"
 }
