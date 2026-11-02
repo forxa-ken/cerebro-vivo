@@ -31,3 +31,11 @@ Probado por Darwin en `F:\prueba` con Codex: existe `.brain/architecture/objetiv
 ## 12 · Migrar el objetivo a proyectos ya instalados (spec 008, arnés 1.6.0)
 **Fecha:** 2026-11-01
 Probado por Darwin: `--migrar-objetivo` creó el objetivo en un proyecto ya instalado (lo usó con Gemini). No se comprobó después la pregunta del objetivo en un chat nuevo de Codex.
+
+## 7 · Skills para Codex en .agents/skills (spec 007, arnés 1.5.0)
+**Fecha:** 2026-11-02
+Probado por Darwin: con `AGENTS.md` en el proyecto, el actualizador copia las skills a `.agents/skills/` y Codex las usa.
+
+## 11 · Panel /plantilla recuperado (spec 009, arnés 1.7.0)
+**Fecha:** 2026-11-02
+Probado por Darwin: el plugin `plantilla-prompt` se instala desde este repo y el panel `/plantilla` funciona.

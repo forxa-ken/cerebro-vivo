@@ -13,3 +13,5 @@
 | 2 | Retirar repo viejo cerebro-vivo-plugins (punto retirado; el repo no se tocó) | 2026-11-01 | archive/hechos.md |
 | 6 | objetivo.md en el instalador (1.5.0) | 2026-11-01 | specs/007 |
 | 12 | Migrar objetivo a proyectos instalados (1.6.0) | 2026-11-01 | specs/008 |
+| 7 | Skills para Codex en .agents/skills (1.5.0) | 2026-11-02 | specs/007 |
+| 11 | Panel /plantilla recuperado (1.7.0) | 2026-11-02 | specs/009 |
