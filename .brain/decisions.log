@@ -47,3 +47,4 @@
 2026-11-01 | Claude (cerebro-vivo #6) | Spec 009 aprobada por Darwin; se programa en el chat #7 | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #7) | Spec 009 hecha: plugin /plantilla recuperado (plantilla-prompt 0.3.0, botones a /pendiente y /resumen), arnes 1.7.0, prueba test_plugin_plantilla; logica TS 9/9 con shim, panel sin probar; pendiente 11 | Fast-Track
 2026-11-01 | Claude (cerebro-vivo #8) | Pruebas de Darwin: puntos 6 y 12 archivados; 7 sigue (F:/prueba sin AGENTS.md); parche ajeno en instalar.py (arnes_repo) sin commitear | Fast-Track
+2026-11-02 | Claude (cerebro-vivo #8) | Darwin confirma probado: puntos 7 y 11 archivados; specs 007-009 hechas y probadas | Fast-Track

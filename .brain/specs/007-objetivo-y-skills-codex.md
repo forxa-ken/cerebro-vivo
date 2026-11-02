@@ -1,6 +1,6 @@
 # Spec 007: objetivo.md y skills para Codex en el instalador (pendientes 6 y 7)
 
-- **Estado:** hecha (1.5.0); falta prueba de Darwin
+- **Estado:** hecha y probada (1.5.0)
 - **Fecha:** 2026-11-01
 
 ## 1. Objetivo
