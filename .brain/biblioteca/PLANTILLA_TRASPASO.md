@@ -1,9 +1,13 @@
 # Plantilla de `.brain/traspaso.md` (spec 078)
 
-La IA escribe este archivo (sobrescribiéndolo) **antes** de proponer o crear un chat nuevo. El chat nuevo lo lee solo al arrancar y lo archiva en `.brain/archive/traspasos/`. No va a GitHub. Máximo ~6000 caracteres.
+La IA escribe este archivo (sobrescribiéndolo) **antes** de proponer o crear un chat nuevo, o al cambiar de IA (skill `cambio-de-ia`). El chat nuevo lo lee solo al arrancar y lo archiva en `.brain/archive/traspasos/`. No va a GitHub. Máximo ~6000 caracteres.
 
 ```markdown
 # Traspaso del chat #N al #N+1 (AAAA-MM-DD)
+
+- **IA que lo escribe:** Claude | Gemini | Codex
+- **IA que sigue:** (si se sabe)
+- **Hora:** AAAA-MM-DD HH:MM
 
 ## 1. Lo último que pidió Darwin (palabras literales)
 - «…»
