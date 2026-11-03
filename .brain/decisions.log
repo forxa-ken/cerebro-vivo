@@ -54,3 +54,6 @@
 2026-11-03 | Claude (cerebro-vivo #9) | Actualizado LoboHook a 1.7.0; manual con comandos de actualizar/migrar; spec 010 /cambio-de-ia en borrador; pendientes 13 y 14 | Fast-Track
 2026-11-03 | Claude (cerebro-vivo #9) | Spec 010 hecha: skill cambio-de-ia, plantilla de traspaso con campos nuevos, regla en archivos de entrada, manual; arnés 1.8.0 | Fast-Track
 2026-11-03 | Claude (x) | x | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | 1.8.1 (prueba de cambio-de-ia sin manifiesto en proyectos); Pegatinas actualizado a 1.8.1; spec 011 traspaso-in/out en borrador; pendiente 15 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Spec 011 hecha: traspaso-in (misma IA) y traspaso-out (entre IAs) sustituyen a traspaso-entre-chats y cambio-de-ia; arnés 1.9.0 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Arnés 1.9.1 y 1.9.2: dos pruebas arregladas (una archivaba el traspaso real, otra se colgaba con traspaso largo) | Fast-Track

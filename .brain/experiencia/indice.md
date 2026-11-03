@@ -4,7 +4,6 @@
 
 | Skill | Cuándo usarla | Área | Fuente |
 | :--- | :--- | :--- | :--- |
-| [cambio-de-ia](../../.claude/skills/cambio-de-ia/SKILL.md) | Darwin says he is switching AI (Claude, Gemini, Codex) or types /cambio-de-ia, either leaving or arriving | Método | cerebro-vivo 1.8.0 |
 | [cero-dependencias](../../.claude/skills/cero-dependencias/SKILL.md) | you must generate Excel, PDF, GIF or similar files and want to avoid installing libraries | Método | cerebro-vivo 1.0.0 |
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
 | [explicar-a-darwin-en-llano](../../.claude/skills/explicar-a-darwin-en-llano/SKILL.md) | explaining something technical to Darwin, the project owner | Método | cerebro-vivo 1.0.0 |
@@ -20,5 +19,6 @@
 | [resumen](../../.claude/skills/resumen/SKILL.md) | Darwin types /resumen or asks where the project stands | Método | cerebro-vivo 1.4.2 |
 | [secretos-fuera-del-repo](../../.claude/skills/secretos-fuera-del-repo/SKILL.md) | adding a key, token, webhook URL or personal data file, or before any git push | Método | cerebro-vivo 1.0.0 |
 | [spec-antes-de-programar](../../.claude/skills/spec-antes-de-programar/SKILL.md) | a change touches more than 2 files or quotas, payments, licenses, deployment or the database | Método | cerebro-vivo 1.0.0 |
-| [traspaso-entre-chats](../../.claude/skills/traspaso-entre-chats/SKILL.md) | a chat gets long or the user asks to create a new chat | Método | cerebro-vivo 1.0.0 |
+| [traspaso-in](../../.claude/skills/traspaso-in/SKILL.md) | Darwin types traspaso-in (salgo or entro), a chat gets long, or he asks to open a new chat with the same AI | Método | cerebro-vivo 1.9.0 |
+| [traspaso-out](../../.claude/skills/traspaso-out/SKILL.md) | Darwin types traspaso-out (salgo or entro) or says he is switching AI (Claude, Gemini, Codex) | Método | cerebro-vivo 1.9.0 |
 | [vigilar-librerias](../../.claude/skills/vigilar-librerias/SKILL.md) | adding, updating or auditing a Python library | Método | cerebro-vivo 1.0.0 |

@@ -84,7 +84,7 @@ Dado que **GPT Codex** (y el estándar `.agents/skills/` del proyecto) descubre 
    - `quitar-codigo-antiguo-con-test`
    - `secretos-fuera-del-repo`
    - `spec-antes-de-programar`
-   - `traspaso-entre-chats`
+   - `traspaso-in`
    - `vigilar-librerias`
 3. **Adaptar el contenido de cada `SKILL.md` en `.agents/skills/`:**
    - Encabezado YAML obligatorio (`---`) con `name:` (en minúsculas con guiones, coincidiendo con el nombre de su carpeta) y `description:` clara en una sola línea.

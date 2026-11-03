@@ -53,13 +53,21 @@ python .brain/guardianes/cerrar.py --chat "Proyecto #N" "qué se hizo"
 - La IA escribe `.brain/traspaso.md` (qué pediste, qué se decidió, qué falta, qué NO hacer). El chat nuevo lo muestra solo al arrancar.
 - Si un chat auxiliar recibe un encargo de otro, deja su nota en `.brain/notas-chats/`.
 
-### Cambiar de IA (Claude, Gemini, Codex)
+### Misma IA, chat nuevo: `traspaso-in`
+| Momento | Qué escribes | Qué hace la IA |
+|---|---|---|
+| Antes de cerrar un chat largo | `/traspaso-in salgo` (en Codex, `$traspaso-in salgo`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con lo último que pediste |
+| En el chat nuevo | `/traspaso-in entro` (en Codex, `$traspaso-in entro`) | Lo lee, te lo cuenta en 4-5 viñetas, lo archiva y pregunta por dónde seguir |
+
+Claude Code muestra el traspaso solo al abrir; en Codex y Gemini hay que escribir `entro`. Si no escribes `salgo` antes, el chat nuevo no tiene nada que leer.
+
+### Cambiar de IA (Claude, Gemini, Codex): `traspaso-out`
 Gemini y Codex no corren ganchos (ni resumen al abrir ni aviso al cerrar), así que el cambio se hace con una frase en cada lado. Solo una IA a la vez trabaja en el proyecto.
 
 | Momento | Qué escribes | Qué hace la IA |
 |---|---|---|
-| Al irte de una IA | `cambio de IA, salgo` (en Codex, `$cambio-de-ia`; en Claude, `/cambio-de-ia`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con quién lo escribe, quién sigue y la hora |
-| Al llegar a la otra (chat nuevo) | `cambio de IA, entro` (o `$cambio-de-ia` / `/cambio-de-ia`) | Lee el traspaso, te lo cuenta en 4-5 viñetas, lo archiva y te pregunta por dónde seguir |
+| Al irte de una IA | `/traspaso-out salgo` (en Codex, `$traspaso-out salgo`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con quién lo escribe, quién sigue y la hora |
+| Al llegar a la otra (chat nuevo) | `/traspaso-out entro` (en Codex, `$traspaso-out entro`) | Lee el traspaso, te lo cuenta en 4-5 viñetas, lo archiva y te pregunta por dónde seguir |
 | Solo ver el estado, sin cambiar | `/resumen` (en Codex, `$resumen`) | Cuenta el estado sin escribir nada |
 | Ver listas de lo que falta | `/pendiente` (en Codex, `$pendiente`) | Menú: programar, prueba, acciones tuyas, specs |
 
@@ -152,5 +160,5 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Medir chats (tokens, coste) | `python .brain/guardianes/medir.py` (`--ultimos N`, `--desglose ID`, `--tarea TEXTO`, `--comparar RUTA_CON RUTA_SIN`) |
 | Pruebas | `python -m unittest discover tests` |
 | Regenerar el manifiesto del arnés (en cerebro-vivo, tras cambiar algo) | `python generar_manifiesto.py` |
-| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/cambio-de-ia` |
-| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$cambio-de-ia` (necesitan `.agents/skills/`) |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out` |
+| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out` (necesitan `.agents/skills/`) |
