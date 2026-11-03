@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Spec 010: skill `cambio-de-ia` y su regla en los archivos de entrada."""
+"""Specs 010 y 011: skills `traspaso-in` y `traspaso-out` y su regla en los archivos de entrada."""
 import json
 import os
 import tempfile
@@ -17,13 +17,17 @@ def leer(*partes):
         return f.read()
 
 
-class TestCambioDeIA(unittest.TestCase):
-    def test_skill_existe_y_esta_en_el_manifiesto(self):
-        ruta = os.path.join(RAIZ, ".claude", "skills", "cambio-de-ia", "SKILL.md")
-        self.assertTrue(os.path.isfile(ruta))
-        self.assertIn("name: cambio-de-ia", leer(ruta))
-        with open(os.path.join(RAIZ, "manifiesto.json"), encoding="utf-8") as f:
-            self.assertIn(".claude/skills/cambio-de-ia/SKILL.md", json.load(f)["archivos"])
+class TestTraspasoInOut(unittest.TestCase):
+    def test_skills_nuevas_existen_y_las_viejas_no(self):
+        for nombre in ("traspaso-in", "traspaso-out"):
+            ruta = os.path.join(RAIZ, ".claude", "skills", nombre, "SKILL.md")
+            self.assertTrue(os.path.isfile(ruta), nombre)
+            self.assertIn("name: " + nombre, leer(ruta))
+            if os.path.isfile(os.path.join(RAIZ, "manifiesto.json")):  # solo existe en el repo del arnés, no en los proyectos
+                with open(os.path.join(RAIZ, "manifiesto.json"), encoding="utf-8") as f:
+                    self.assertIn(".claude/skills/%s/SKILL.md" % nombre, json.load(f)["archivos"])
+        for viejo in ("cambio-de-ia", "traspaso-entre-chats"):
+            self.assertFalse(os.path.isdir(os.path.join(RAIZ, ".claude", "skills", viejo)), viejo)
 
     def test_plantilla_de_traspaso_lleva_los_campos_nuevos(self):
         t = leer(RAIZ, ".brain", "biblioteca", "PLANTILLA_TRASPASO.md")
@@ -35,12 +39,14 @@ class TestCambioDeIA(unittest.TestCase):
             with tempfile.TemporaryDirectory() as d:
                 instalar.instalar(d, "Prueba", "Darwin", "español", "python -m unittest discover tests", ["claude", "gemini", "codex"], nivel)
                 for archivo in ("CLAUDE.md", "GEMINI.md", "AGENTS.md"):
-                    self.assertIn("cambio-de-ia", leer(d, archivo), "%s en nivel %s" % (archivo, nivel))
+                    texto = leer(d, archivo)
+                    self.assertIn("traspaso-in", texto, "%s en nivel %s" % (archivo, nivel))
+                    self.assertIn("traspaso-out", texto, "%s en nivel %s" % (archivo, nivel))
 
     def test_nivel_ligero_no_lleva_la_regla(self):
         with tempfile.TemporaryDirectory() as d:
             instalar.instalar(d, "Prueba", "Darwin", "español", "python -m unittest discover tests", ["claude"], "ligero")
-            self.assertNotIn("cambio-de-ia", leer(d, "CLAUDE.md"))
+            self.assertNotIn("traspaso-out", leer(d, "CLAUDE.md"))
 
 
 if __name__ == "__main__":

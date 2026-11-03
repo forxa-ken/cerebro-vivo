@@ -214,7 +214,7 @@ class TestGuardianArranqueYCierreRapido(unittest.TestCase):
         import subprocess, sys
         r = subprocess.run([sys.executable, os.path.join(GUARDIANES, "arranque.py")], input="{}",
                            capture_output=True, text=True, encoding="utf-8",
-                           env=dict(os.environ, CEREBRO_SIN_PODA="1"))  # el test nunca mueve archivos reales
+                           env=dict(os.environ, CEREBRO_SIN_PODA="1", CEREBRO_NO_ARCHIVAR_TRASPASO="1"))  # el test nunca mueve archivos reales (ni archiva el traspaso)
         datos = json.loads(r.stdout)
         self.assertIn("Pendientes:", datos["systemMessage"])
         self.assertEqual(datos["hookSpecificOutput"]["hookEventName"], "SessionStart")

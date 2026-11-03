@@ -15,5 +15,5 @@ Estado al 2026-11-01 (cerebro-vivo #7): arnés 1.7.0 subido a GitHub; specs 006 
 - **14:** el actualizador copia guardianes y pruebas del arnés a proyectos instalados en nivel medio (que no tienen `guardianes.json`) y los deja rotos (caso `F:\Pegatinas`); decidir si se salta o avisa. Spec aparte.
 
 ## Esperando tu prueba (Darwin)
-- **13:** `/cambio-de-ia` (spec 010, arnés 1.8.0, sin subir). Qué es: pasar el trabajo entre Claude, Gemini y Codex. Pasos: actualiza un proyecto con Gemini y Codex (`python actualizar.py RUTA`), abre un chat nuevo en Codex y escribe `$cambio-de-ia`, di «salgo»; abre Gemini, pídele que lea `GEMINI.md` y la skill y di «entro». Si va bien: te cuenta lo que dejó la primera. Lo de Gemini sin probar.
+- **13:** `traspaso-in` y `traspaso-out` (specs 010 y 011, arnés 1.9.0, sin subir). Qué es: pasar de un chat a otro con la misma IA (`traspaso-in`) y de una IA a otra (`traspaso-out`). Pasos: actualiza un proyecto (`python actualizar.py RUTA`); en Codex escribe `$traspaso-in salgo`, abre un chat nuevo y escribe `$traspaso-in entro`; luego `$traspaso-out salgo` en Codex y, en Gemini (pídele que lea `GEMINI.md` y la skill), `traspaso-out entro`. Si va bien: te cuenta lo último que hablaron. Gemini sin probar.
 ## Acciones tuyas

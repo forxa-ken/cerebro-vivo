@@ -46,3 +46,16 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.8.0 (2026-11-03)
 - Spec 010: nueva skill `cambio-de-ia` (en Codex, `$cambio-de-ia`) para pasar el trabajo entre Claude, Gemini y Codex: al salir escribe `.brain/traspaso.md` mirando git y las pruebas; al entrar lo lee, lo cuenta y lo archiva. La plantilla de traspaso lleva ahora IA que lo escribe, IA que sigue y hora. Los archivos de entrada (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) de nivel medio y completo llevan la regla de leer el traspaso y usar la skill.
+
+## 1.8.1 (2026-11-03)
+- La prueba `test_cambio_de_ia.py` ya no falla en los proyectos: comprueba el manifiesto solo si existe (solo está en el repo del arnés).
+
+## 1.9.0 (2026-11-03)
+- Spec 011: comandos fijos y descriptivos. **`traspaso-in`** (de un chat al chat nuevo con la misma IA) sustituye a `traspaso-entre-chats`; **`traspaso-out`** (de una IA a otra) sustituye a `cambio-de-ia`. Los dos llevan los modos `salgo` y `entro` (`/traspaso-in salgo`; en Codex, `$traspaso-in salgo`). La regla de los archivos de entrada, la plantilla de traspaso y el manual usan los nombres nuevos.
+- Los proyectos que ya tenían `cambio-de-ia` o `traspaso-entre-chats` las conservan al actualizar (el actualizador no borra): se pueden borrar a mano de `.claude/skills/` y `.agents/skills/`.
+
+## 1.9.1 (2026-11-03)
+- Arreglo: `test_arranque_imprime_json_visible_y_de_contexto` (en `test_cerebro_indices.py`) ejecutaba el `arranque.py` real y archivaba el `.brain/traspaso.md` del proyecto cada vez que se corrían las pruebas. Ahora lleva `CEREBRO_NO_ARCHIVAR_TRASPASO=1`.
+
+## 1.9.2 (2026-11-03)
+- Arreglo: `test_manual_no_espera_stdin` se colgaba (60 s y error) cuando había un `.brain/traspaso.md` largo, porque no leía la salida y la tubería se llenaba. Ahora la salida va a un archivo.

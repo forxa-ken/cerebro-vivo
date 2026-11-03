@@ -96,7 +96,7 @@ def mapa(nivel):
     lineas += ["* **Pendientes:** [`.brain/pendientes.md`](.brain/pendientes.md) es la lista viva de **solo lo que falta**; leerla al iniciar.",
               "* **Registro:** [`.brain/decisions.log`](.brain/decisions.log): una línea por tarea terminada."]
     if nivel != "ligero":
-        lineas += ["* **Cambio de IA (Claude, Gemini, Codex):** si existe `.brain/traspaso.md`, léelo primero; al irte o llegar desde otra IA usa la skill `cambio-de-ia` (en Codex, `$cambio-de-ia`).",
+        lineas += ["* **Cambio de IA (Claude, Gemini, Codex):** si existe `.brain/traspaso.md`, léelo primero; al abrir un chat nuevo con la misma IA usa `traspaso-in entro`, y al cambiar de IA `traspaso-out salgo` / `traspaso-out entro` (en Codex, con `$`).",
                    "* **Reglas innegociables:** [`.brain/constitution.md`](.brain/constitution.md).",
                    "* **Decisiones y su porqué:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md); consultarlo antes de cambiar algo ya decidido.",
                    "* **Historial:** `.brain/archive/` (**no abrirlo completo**; consultar `hechos-indice.md`).",

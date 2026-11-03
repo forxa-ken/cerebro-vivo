@@ -20,16 +20,18 @@ def _indices():
 class ArranqueManualTest(unittest.TestCase):
     def test_manual_no_espera_stdin(self):
         # stdin abierto y sin cerrar, como en una consola de Gemini/Codex
-        p = subprocess.Popen([sys.executable, SCRIPT, "--manual"], stdin=subprocess.PIPE, env=dict(os.environ, CEREBRO_NO_ARCHIVAR_TRASPASO="1"),
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        try:
-            p.wait(timeout=60)  # sin communicate(): este cerraría stdin y taparía el bloqueo
-            salida = p.stdout.read()
-        finally:
-            p.stdout.close()
-            p.stdin.close()
-            if p.poll() is None:
-                p.kill()
+        # la salida va a un archivo, no a una tubería: con un traspaso largo la tubería se llena y el proceso se cuelga
+        with tempfile.TemporaryFile() as destino:
+            p = subprocess.Popen([sys.executable, SCRIPT, "--manual"], stdin=subprocess.PIPE, env=dict(os.environ, CEREBRO_NO_ARCHIVAR_TRASPASO="1"),
+                                 stdout=destino, stderr=subprocess.DEVNULL)
+            try:
+                p.wait(timeout=60)  # sin communicate(): este cerraría stdin y taparía el bloqueo
+            finally:
+                p.stdin.close()
+                if p.poll() is None:
+                    p.kill()
+            destino.seek(0)
+            salida = destino.read()
         datos = json.loads(salida.decode("utf-8"))
         self.assertIn("additionalContext", datos["hookSpecificOutput"])
 
