@@ -3,10 +3,10 @@
   ".brain/biblioteca/CARTA_META_ARNES.md": "1a4330e7a678d27d8d38cb5b715f75e65b9031e06d6145c76ffa6b3f1c09622f",
   ".brain/biblioteca/CEREBRO_VIVO.md": "b1706bb0319be89c76362467fa9778bd6c4831dd845e3208ca9a2eb2341e6ce6",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
-  ".brain/biblioteca/PLANTILLA_TRASPASO.md": "cf146332886d3cf37655421612c9b4490e434efcf6a59e791d56f7d8b3ae9b60",
+  ".brain/biblioteca/PLANTILLA_TRASPASO.md": "3099277e72334def31b06f222599bd774d532e52e0239a6d29cda2f76b3c9edf",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "9b57ca75e02dc06c059e03846c390d9c1f38a1ae6622549d0f03fb2c3b4a8441",
-  ".brain/biblioteca/kit-arranque/instalar.py": "07616da333d95886847a7f19760849051ea484078bb559154d11eaee1ffb9270",
+  ".brain/biblioteca/kit-arranque/instalar.py": "830bf6dc6d6dc3a9a1f332d882880edf5e54d26659112301d08b819f2b329df6",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "acb2fec0c6724d25e33ec246573a72ae97c36e01b539e212fed16d054c27ecd5",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "39b83c17a0ac470dfba6cdf8efd57494278a96a5f8173db0dd1ba268d45605a6",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
@@ -38,6 +38,7 @@
   ".brain/guardianes/secretos.py": "6cb59faff657630a01bad5e6be6f0a6af08e25551bafa7999101f20d2e9f9bdc",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.md": "92de4261088063fd15591e503c934a03c55fa1d4d036b0e93ee26b4a2f33a0a4",
+  ".claude/skills/cambio-de-ia/SKILL.md": "b6b5065618f2d7b9fd659b0fcedb8148ccbcd7e5a728e046bd542f108222a509",
   ".claude/skills/cero-dependencias/SKILL.md": "5a20e486a73efe70ef2f4a49f311696723f016dab7023c954c4859dfdae780ad",
   ".claude/skills/cerrar-una-tarea/SKILL.md": "0dcc4b0f2fd12d233c2cc4a74a1b8b5e62df749610dbaff40febb08d165ac4fc",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "5e758983ba04501e189e941219242fab4f5618066781ca3392cdc1d00d2bad78",
@@ -58,6 +59,7 @@
   "instalar_kit.bat": "535a926cca72500ade7c276664ec68ced3b3d086783354b1a7bf223f8e90ad13",
   "tests/test_analisis.py": "25c22d1298a713beb90a3c01f94b19e2c28622ae39bf2d7463caf4ce72c73a7e",
   "tests/test_arranque.py": "eb3760b49ab2d20a98aa3d9a04c5dc99b038f163fbb5b5273eb236885bf5cca6",
+  "tests/test_cambio_de_ia.py": "1cd3dbaa1f59557c8c3ce588b3d621b38dce99aa8a310e66ce9b124327cea22f",
   "tests/test_cerebro_indices.py": "771fabb209a61f9265547a6a46da6361242fcf3216eb227338da5663a55770b2",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_instalar_gui.py": "986dee5aa6c09cce30fad78c6a2431e46b9102a07a227a03ab0997bcf0a7c0f7",
@@ -87,5 +89,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.7.0"
+ "version": "1.8.0"
 }

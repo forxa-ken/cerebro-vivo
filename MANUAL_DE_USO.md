@@ -53,6 +53,18 @@ python .brain/guardianes/cerrar.py --chat "Proyecto #N" "qué se hizo"
 - La IA escribe `.brain/traspaso.md` (qué pediste, qué se decidió, qué falta, qué NO hacer). El chat nuevo lo muestra solo al arrancar.
 - Si un chat auxiliar recibe un encargo de otro, deja su nota en `.brain/notas-chats/`.
 
+### Cambiar de IA (Claude, Gemini, Codex)
+Gemini y Codex no corren ganchos (ni resumen al abrir ni aviso al cerrar), así que el cambio se hace con una frase en cada lado. Solo una IA a la vez trabaja en el proyecto.
+
+| Momento | Qué escribes | Qué hace la IA |
+|---|---|---|
+| Al irte de una IA | `cambio de IA, salgo` (en Codex, `$cambio-de-ia`; en Claude, `/cambio-de-ia`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con quién lo escribe, quién sigue y la hora |
+| Al llegar a la otra (chat nuevo) | `cambio de IA, entro` (o `$cambio-de-ia` / `/cambio-de-ia`) | Lee el traspaso, te lo cuenta en 4-5 viñetas, lo archiva y te pregunta por dónde seguir |
+| Solo ver el estado, sin cambiar | `/resumen` (en Codex, `$resumen`) | Cuenta el estado sin escribir nada |
+| Ver listas de lo que falta | `/pendiente` (en Codex, `$pendiente`) | Menú: programar, prueba, acciones tuyas, specs |
+
+Si Gemini no reconoce la skill, pídele: «lee `GEMINI.md`, `.brain/traspaso.md` y `.brain/pendientes.md` y cuéntame el estado». Sin ganchos no hay forma de hacerlo automático: la frase es obligatoria.
+
 ## 6. Dónde está cada cosa
 | Qué buscas | Dónde |
 |---|---|
@@ -75,6 +87,25 @@ python .brain/guardianes/actualizar_arnes.py --simular
 python .brain/guardianes/actualizar_arnes.py
 ```
 Guarda una copia antes, no pisa lo que cambiaste a mano y nunca toca tus pendientes, specs, decisiones ni registro. Un proyecto antiguo sin registro previo usa `--forzar-todo`, **solo** después de ver la lista con `--simular`.
+
+**Desde cerebro-vivo, sobre otro proyecto** (hace lo mismo; útil si el proyecto aún no tiene `actualizar_arnes.py`):
+```bash
+python actualizar.py "RUTA_DEL_PROYECTO" --simular
+python actualizar.py "RUTA_DEL_PROYECTO"
+```
+
+**Opciones del actualizador** (las dos formas las aceptan, salvo que se indique):
+| Opción | Qué hace |
+|---|---|
+| `--simular` | Muestra qué cambiaría; no escribe nada. Úsala siempre primero |
+| `--forzar RUTA` | Pisa ese archivo aunque lo hayas modificado a mano (con copia) |
+| `--forzar-todo` | Pisa **todos** los modificados a mano (con copia). Haz commit antes y mira la lista con `--simular` |
+| `--migrar-objetivo` | Solo dentro del proyecto. Para proyectos instalados antes de la 1.6.0: crea `.brain/architecture/objetivo.md`, lo enlaza en `CLAUDE.md`/`GEMINI.md`/`AGENTS.md` y añade la regla a la constitución. Solo añade; se puede repetir. Probar antes con `--simular` |
+| `--dueno NOMBRE` | Registra el dueño si el proyecto no lo tiene |
+| `--repo RUTA` | Repo del arnés a usar (si no, el de `arnes_repo` en `guardianes.json`) |
+| `--sin-pruebas` | No corre las pruebas del método al terminar |
+
+Las copias de seguridad quedan en `.brain/copias_arnes/`. Si el proyecto usa Codex (`AGENTS.md`), el actualizador también copia las skills a `.agents/skills/`.
 
 ## 8. Medir si te está ayudando
 ```bash
@@ -100,3 +131,26 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Te pide leer demasiado | Chat nuevo con traspaso; los chats largos son lo que más cuesta |
 | Un aviso se repite o molesta | Díselo; los topes están en `.brain/guardianes/guardianes.json` |
 | Dudas de si algo se rompió al actualizar | `python -m unittest discover tests` y las copias están en `.brain/copias_arnes/` |
+
+## 12. Todos los comandos en una tabla
+`RUTA` es la carpeta del proyecto. Los de `.brain/guardianes/` se lanzan dentro del proyecto; `actualizar.py` e `instalar.py`, desde cerebro-vivo.
+
+| Para qué | Comando |
+|---|---|
+| Instalar en un proyecto nuevo (ventana) | doble clic en `instalar_kit.bat` |
+| Instalar en un proyecto nuevo (terminal) | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --nombre Nombre --dueno Darwin --nivel completo` (niveles: `ligero`, `medio`, `completo`; `--traduccion` añade es/en/pt) |
+| Comprobar un proyecto ya instalado | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar` |
+| Ver qué traería una actualización | `python actualizar.py RUTA --simular` (o, dentro del proyecto, `python .brain/guardianes/actualizar_arnes.py --simular`) |
+| Actualizar un proyecto | `python actualizar.py RUTA` (o `python .brain/guardianes/actualizar_arnes.py`) |
+| Pisar archivos modificados a mano | `--forzar RUTA_ARCHIVO` (uno) o `--forzar-todo` (todos; commit antes) |
+| Migrar el objetivo a un proyecto antiguo | `python .brain/guardianes/actualizar_arnes.py --migrar-objetivo --simular` y luego sin `--simular` |
+| Otras opciones del actualizador | `--dueno NOMBRE`, `--repo RUTA`, `--sin-pruebas` |
+| Resumen de arranque a mano (Gemini, Codex) | `python .brain/guardianes/arranque.py --manual` |
+| Cerrar una tarea (línea en el registro) | `python .brain/guardianes/cerrar.py --chat "Proyecto #N" "qué se hizo"` (`--carril`, `--simular`) |
+| Añadir fichas de decisiones sin fila al índice | `python .brain/guardianes/cerrar.py --indices` |
+| Pasar un punto probado a hechos | `python .brain/guardianes/cerrar.py --hecho N` (`--conservar` si algo sigue pendiente) |
+| Medir chats (tokens, coste) | `python .brain/guardianes/medir.py` (`--ultimos N`, `--desglose ID`, `--tarea TEXTO`, `--comparar RUTA_CON RUTA_SIN`) |
+| Pruebas | `python -m unittest discover tests` |
+| Regenerar el manifiesto del arnés (en cerebro-vivo, tras cambiar algo) | `python generar_manifiesto.py` |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/cambio-de-ia` |
+| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$cambio-de-ia` (necesitan `.agents/skills/`) |
