@@ -264,6 +264,14 @@ def resumen(raiz, cfg):
         lineas += pruebas.resumen(raiz, cfg)
     except Exception:
         pass
+    try:  # spec 016: salud de los índices de IA (línea solo si hace falta revisarlos; se apaga con revision_indices_activa)
+        import importlib.util
+        espec = importlib.util.spec_from_file_location("revisar_indices", os.path.join(AQUI, "revisar_indices.py"))
+        revisar = importlib.util.module_from_spec(espec)
+        espec.loader.exec_module(revisar)
+        lineas += revisar.resumen(raiz, cfg)
+    except Exception:
+        pass
     try:  # spec 085: plugins del meta-arnés que no están instalados
         falta = plugins_que_faltan(cfg)
         if falta:
