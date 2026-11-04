@@ -17,7 +17,7 @@ El instalador del kit no pisa nada: añadió un bloque de memoria al final del �
    - tareas abiertas → `.brain/pendientes.md` (solo lo que falta)
 3. **Enseñar a Darwin el reparto** (tabla corta: «esto → aquí») en lenguaje llano y esperar su visto bueno. No escribir nada antes.
 4. Con el visto bueno: copiar cada bloque a su archivo **tal cual**, sin resumir ni reescribir lo que no encaje; lo dudoso va a `referencias.md`. Nunca descartar.
-5. Solo si Darwin lo aprueba aparte: acortar el índice original a un índice (lo que ya está repartido se sustituye por el enlace al archivo donde quedó). La copia de `.brain/archive/adoptado/` se queda siempre (mover, no borrar).
+5. Solo si Darwin lo aprueba aparte (atajo `/acorta`): acortar el índice original a un índice (lo que ya está repartido se sustituye por el enlace al archivo donde quedó). La copia de `.brain/archive/adoptado/` se queda siempre (mover, no borrar).
 6. Quitar la tarea de `.brain/pendientes.md` y cerrar con la línea en `decisions.log`.
 
 ## Reglas

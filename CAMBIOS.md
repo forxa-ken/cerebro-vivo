@@ -77,3 +77,9 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.14.0 (2026-11-04)
 - Revisión de los índices de IA (spec 016): guardián `revisar_indices.py` (solo lectura) que informa de referencias rotas, deriva entre CLAUDE/GEMINI/AGENTS, secciones pesadas, fechas viejas y párrafos ya presentes en `.brain/`; ignora el bloque que añade el instalador y lo que el método crea al usarse. Lo descartado se anota en `revision_indices.json` y no se repite. El arranque avisa en una línea si un índice pasa el 80 % del tope, tiene referencias rotas o lleva más de 60 días sin revisarse (`revision_indices_activa` lo apaga).
 - Skill nueva `revisar-indices-de-ia`: **doble pasada** contra falsos positivos (buscar y refutar, la segunda sin el razonamiento de la primera), tabla a Darwin antes de escribir y, con su visto bueno, lo retirado se mueve a `.brain/archive/indices/`, no se borra. Probado solo en Windows.
+
+## 1.14.1 (2026-11-04)
+- Skill nueva `adopta`: atajo `/adopta` de `adoptar-indice-existente`, para no tener que escribir la frase entera.
+
+## 1.15.0 (2026-11-04)
+- Skill nueva `acorta` (spec 017): atajo `/acorta` que baja CLAUDE/GEMINI/AGENTS al tope sustituyendo secciones pesadas por enlaces, con tabla y visto bueno de Darwin antes de escribir. Sin código nuevo; usa `revisar_indices.py`. Sin probar en un proyecto real.

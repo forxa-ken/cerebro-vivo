@@ -10,6 +10,8 @@
 | [guardian-avisa-o-bloquea](../../.claude/skills/guardian-avisa-o-bloquea/SKILL.md) | creating an automatic check (guardian) for the Cerebro Vivo method | Método | cerebro-vivo 1.0.0 |
 | [implementada-no-es-hecha](../../.claude/skills/implementada-no-es-hecha/SKILL.md) | about to call a task finished or done | Método | cerebro-vivo 1.0.0 |
 | [licencia-antes-de-usar](../../.claude/skills/licencia-antes-de-usar/SKILL.md) | adopting a free service, voice, font, model or library in something commercial | Método | cerebro-vivo 1.0.0 |
+| [acorta](../../.claude/skills/acorta/SKILL.md) | typing /acorta or an AI index is over its size cap after adopting | Método | cerebro-vivo 1.15.0 |
+| [adopta](../../.claude/skills/adopta/SKILL.md) | typing /adopta (shortcut of adoptar-indice-existente) | Método | cerebro-vivo 1.14.1 |
 | [adoptar-indice-existente](../../.claude/skills/adoptar-indice-existente/SKILL.md) | adapting what the project already had (CLAUDE.md, GEMINI.md or AGENTS.md) to the .brain memory | Método | cerebro-vivo 1.13.0 |
 | [mover-no-borrar](../../.claude/skills/mover-no-borrar/SKILL.md) | pruning, archiving or replacing information in the brain | Método | cerebro-vivo 1.0.0 |
 | [pendiente](../../.claude/skills/pendiente/SKILL.md) | Darwin types /pendiente or asks to see a list of what is missing | Método | cerebro-vivo 1.4.2 |
