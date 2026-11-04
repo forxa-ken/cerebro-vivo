@@ -13,8 +13,15 @@ SCRIPT = os.path.join(RAIZ, ".brain", "guardianes", "arranque.py")
 
 
 def _indices():
-    """Índices de entrada que el proyecto tiene (CLAUDE.md, GEMINI.md, AGENTS.md)."""
-    return [n for n in ("CLAUDE.md", "GEMINI.md", "AGENTS.md") if os.path.exists(os.path.join(RAIZ, n))]
+    """Índices de entrada del proyecto: los de `indices_entrada` de guardianes.json (así un AGENTS.md ajeno, p. ej. de
+    solo traducciones, no cuenta); si no hay lista, los que existan de CLAUDE.md, GEMINI.md y AGENTS.md."""
+    try:
+        with open(os.path.join(RAIZ, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+            declarados = json.load(f).get("indices_entrada")
+    except (OSError, ValueError):
+        declarados = None
+    candidatos = declarados or ("CLAUDE.md", "GEMINI.md", "AGENTS.md")
+    return [n for n in candidatos if os.path.exists(os.path.join(RAIZ, n))]
 
 
 class ArranqueManualTest(unittest.TestCase):

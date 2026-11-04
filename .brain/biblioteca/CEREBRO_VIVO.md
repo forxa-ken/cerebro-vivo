@@ -153,6 +153,12 @@ El punto débil del método es que depende de la disciplina de la IA. Los guardi
 - `python .brain/guardianes/revisar_indices.py` saca un informe (solo lectura) de `CLAUDE.md`/`GEMINI.md`/`AGENTS.md`: referencias rotas, deriva entre ellos, secciones pesadas, fechas viejas y párrafos ya presentes en `.brain/`. El arranque avisa en una línea cuando conviene.
 - Di «revisa los índices» (skill `revisar-indices-de-ia`): la IA verifica cada hallazgo con una **doble pasada** (buscar y refutar), te enseña lo que sobrevive y, con tu visto bueno, mueve lo retirado a `.brain/archive/indices/`. Nada se borra.
 
+## 9 quinquies. Acortar y trocear (specs 017 y 018, arnés 1.15.0 y 1.16.0)
+- Atajos de la adopción: `/adopta` (= «adopta el índice existente», 1.14.1), `/acorta` (baja CLAUDE/GEMINI/AGENTS al tope `tope_claude_md_bytes` de 5 KB cambiando secciones pesadas por enlaces; antes comprueba que su texto ya está en `.brain/`) y `/trocea`. Todos enseñan una tabla y esperan el sí de Darwin antes de escribir.
+- Guardián `archivos_gordos.py` (solo lectura): tope `tope_archivo_memoria_bytes` (8 KB) para los archivos de lectura de `.brain/` (referencias, constitución, architecture/, decisions/…). No mira archive, biblioteca, specs, pruebas, experiencia, pendientes ni el traspaso. El arranque avisa al 80 %. Ajustes: `archivos_gordos_activo`, `archivos_gordos_aviso_porcentaje`, `archivos_gordos_ignorar`.
+- `/trocea` divide por temas con nombre (nunca `parte-2`), guarda la copia íntegra en `.brain/archive/troceado/`, crea `architecture/indice.md` y comprueba que los trozos suman lo mismo que el original. Motivo: tras adoptar un proyecto antiguo, `referencias.md` llegó a 47 KB y la IA lo abría entero para tocar un módulo.
+- Orden recomendado en un proyecto antiguo: instalar, `/adopta`, `/acorta`, `/trocea`, «revisa los índices».
+
 ## 9 bis. Usar el arnés en Mac (spec 013, sin probar en un Mac real)
 - Los guardianes son Python con la librería estándar y valen igual. Hace falta Python 3 (`python3`).
 - **Instalar el kit:** doble clic en `instalar_kit.command` (si no abre, en Terminal una vez: `chmod +x instalar_kit.command`). Si falta tkinter (`brew install python-tk`) o Python, lo dice; la alternativa es `python3 .brain/biblioteca/kit-arranque/instalar.py DESTINO --nombre N --dueno D --idioma I`.

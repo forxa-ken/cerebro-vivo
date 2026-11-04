@@ -83,3 +83,12 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.15.0 (2026-11-04)
 - Skill nueva `acorta` (spec 017): atajo `/acorta` que baja CLAUDE/GEMINI/AGENTS al tope sustituyendo secciones pesadas por enlaces, con tabla y visto bueno de Darwin antes de escribir. Sin código nuevo; usa `revisar_indices.py`. Sin probar en un proyecto real.
+
+## 1.16.0 (2026-11-04)
+- Guardián nuevo `archivos_gordos.py` (spec 018): tope de 8 KB (`tope_archivo_memoria_bytes`) para los archivos de lectura de `.brain/`; el arranque avisa al 80 %. Skill nueva `trocea` (`/trocea`): divide por temas con nombre, copia íntegra en `archive/troceado/`, índice en `architecture/`. Las claves nuevas de `guardianes.json` se proponen a los proyectos existentes; sin ellas el guardián usa 8 KB. Sin probar en un proyecto real.
+
+- (1.16.0) Manual: sección 3 ter de `MANUAL_DE_USO.md` y 9 quinquies de `CEREBRO_VIVO.md` con `/adopta`, `/acorta`, `/trocea`, `archivos_gordos.py` y el orden de uso.
+
+## 1.16.1 (2026-11-04)
+- Prueba `test_arranque.py`: los índices que comprueba son los de `indices_entrada` de `guardianes.json` (antes siempre CLAUDE/GEMINI/AGENTS). Así un `AGENTS.md` ajeno al método (p. ej. el de Antigravity en Guild Control Forever, solo para traducciones y que no se edita) ya no da 2 pruebas rojas.
+- Manual: `/adopta`, `/acorta` y `/trocea` probados con éxito en un proyecto real (Guild Control Forever: CLAUDE.md 52 KB a 3,3 KB, referencias.md 47 KB a 13 archivos por tema, 0 líneas perdidas).

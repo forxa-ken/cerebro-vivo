@@ -72,3 +72,7 @@
 2026-11-04 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.14.1: skill /adopta (atajo de adoptar-indice-existente); manifiesto, ZIP Mac y pruebas en verde; kit instalado en Guild Control Forever | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.15.0: skill /acorta (spec 017) para bajar los índices al tope; manifiesto, ZIP Mac y pruebas en verde; llevada a Guild Control Forever | Fast-Track
+2026-11-04 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.0: guardián archivos_gordos.py (tope 8 KB en .brain/) y skill /trocea (spec 018); manifiesto, ZIP Mac y pruebas en verde; llevado a Guild Control Forever | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Manual al día: sección 3 ter en MANUAL_DE_USO.md y 9 quinquies en CEREBRO_VIVO.md (/adopta, /acorta, /trocea, archivos_gordos); manifiesto, ZIP Mac y pruebas en verde | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.1: test_arranque usa indices_entrada (un AGENTS.md ajeno ya no da rojo); manual: comandos probados en GCF real | Fast-Track
