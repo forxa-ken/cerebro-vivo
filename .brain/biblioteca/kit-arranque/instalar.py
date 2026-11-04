@@ -51,6 +51,94 @@ def escribir_sin_pisar(ruta, texto, hechos):
     hechos["creados"].append(ruta)
 
 
+MARCA_INI = "<!-- cerebro-vivo:inicio -->"
+MARCA_FIN = "<!-- cerebro-vivo:fin -->"
+COPIA = ".antes-de-cerebro-vivo"
+
+
+def copia_de_seguridad(ruta, hechos):
+    """Guarda `ruta` + COPIA al lado, una sola vez (si la copia ya existe no se sobrescribe)."""
+    copia = ruta + COPIA
+    if not os.path.exists(copia) and not hechos.get("simulacion"):
+        shutil.copy2(ruta, copia)
+
+
+def fusionar_indice(ruta, bloque, destino, hechos):
+    """Índice de IA que ya existe: añade al final el bloque marcado (spec 015) y guarda una copia íntegra del original
+    en `.brain/archive/adoptado/`. Devuelve True si lo fusionó; si el bloque ya estaba, lo cuenta como respetado."""
+    with open(ruta, "rb") as f:
+        crudo = f.read()
+    contenido = crudo.decode("utf-8", errors="replace")
+    if MARCA_INI in contenido:
+        hechos["respetados"].append(ruta)
+        return False
+    hechos["fusionados"].append(ruta)
+    if hechos.get("simulacion"):
+        return True
+    copia_de_seguridad(ruta, hechos)
+    nombre = os.path.splitext(os.path.basename(ruta))[0] + ".original.md"
+    adoptado = os.path.join(destino, ".brain", "archive", "adoptado", nombre)
+    if not os.path.exists(adoptado):
+        os.makedirs(os.path.dirname(adoptado), exist_ok=True)
+        with open(adoptado, "wb") as f:  # byte a byte: ni los saltos de línea cambian
+            f.write(crudo)
+    nl = "\r\n" if b"\r\n" in crudo else "\n"  # el bloque usa los saltos de línea del archivo
+    sep = "" if contenido.endswith("\n") else nl
+    lineas = [sep, MARCA_INI] + bloque.strip("\n").split("\n") + [MARCA_FIN]
+    with open(ruta, "ab") as f:
+        f.write((nl.join(lineas) + nl).encode("utf-8"))
+    return True
+
+
+def _llama_a(entradas, guardian):
+    return any(guardian in h.get("command", "") for e in entradas if isinstance(e, dict) for h in e.get("hooks", []) if isinstance(h, dict))
+
+
+def fusionar_ajustes(ruta, nuevos, hechos):
+    """`.claude/settings.json` que ya existe: añade los hooks del kit que falten y une `permissions.deny`, sin quitar nada.
+    Si el JSON no se puede leer, no lo toca y avisa con lo que hay que pegar a mano."""
+    try:
+        actual = json.loads(leer(ruta))
+        if not isinstance(actual, dict):
+            raise ValueError("no es un objeto")
+        hooks = actual.get("hooks", {})
+        deny = actual.get("permissions", {}).get("deny", [])
+        if not isinstance(hooks, dict) or not isinstance(deny, list) or not isinstance(actual.get("permissions", {}), dict):
+            raise ValueError("estructura inesperada")
+        if any(not isinstance(v, list) for v in hooks.values()):
+            raise ValueError("hooks inesperados")
+    except (ValueError, OSError) as e:
+        hechos["avisos"].append("No pude leer %s (%s) y no se tocó. Pega a mano esto dentro:\n%s" % (ruta, e, json.dumps(nuevos, ensure_ascii=False, indent=2)))
+        hechos["respetados"].append(ruta)
+        return False
+    cambios = False
+    for evento, entradas in nuevos["hooks"].items():
+        guardian = re.search(r"([a-z_]+)\.py", entradas[0]["hooks"][0]["command"]).group(1) + ".py"
+        previas = hooks.get(evento, [])
+        if _llama_a(previas, guardian):
+            continue
+        if previas:
+            hechos["avisos"].append("%s ya tenía un hook en %s: ahora corren los dos (el orden no está garantizado)." % (os.path.basename(ruta), evento))
+        hooks[evento] = previas + entradas
+        cambios = True
+    faltan = [d for d in nuevos["permissions"]["deny"] if d not in deny]
+    if faltan:
+        deny = deny + faltan
+        cambios = True
+    if not cambios:
+        hechos["respetados"].append(ruta)
+        return False
+    hechos["fusionados"].append(ruta)
+    if hechos.get("simulacion"):
+        return True
+    copia_de_seguridad(ruta, hechos)
+    actual["hooks"] = hooks
+    actual.setdefault("permissions", {})["deny"] = deny
+    with open(ruta, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(actual, ensure_ascii=False, indent=2) + "\n")
+    return True
+
+
 def rellenar(texto, valores):
     for k, v in valores.items():
         texto = texto.replace("{{%s}}" % k, v)
@@ -124,9 +212,9 @@ def configuracion(ias):
 
 
 def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simular=False, git_init=False, traduccion=False):
-    """Monta el kit en `destino` (con `simular` solo cuenta). Devuelve {'creados': [...], 'respetados': [...], 'avisos': [...]}.
+    """Monta el kit en `destino` (con `simular` solo cuenta). Devuelve {'creados': [...], 'fusionados': [...], 'respetados': [...], 'avisos': [...]}.
     Con `traduccion` añade además el kit de traducción es/en/pt (spec 057) en `static/i18n/`."""
-    hechos = {"creados": [], "respetados": [], "avisos": [], "simulacion": simular}
+    hechos = {"creados": [], "fusionados": [], "respetados": [], "avisos": [], "simulacion": simular}
     destino = os.path.abspath(destino)
     if not simular:
         os.makedirs(destino, exist_ok=True)
@@ -143,17 +231,29 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         escribir_sin_pisar(os.path.normpath(os.path.join(destino, rel)), texto, hechos)
 
     todos = [IAS[i][0] for i in ias]
+    adoptados = []
     for i in ias:
         archivo, ia = IAS[i]
         texto = leer(os.path.join(PLANTILLAS, "indice_ia.md"))
         texto = texto.replace("{{BLOQUE_IA}}", bloque_ia(ia, nivel, py)).replace("{{MAPA}}", mapa(nivel))
         texto = texto.replace("{{IA}}", ia).replace("{{ARCHIVO}}", archivo)
         texto = texto.replace("{{OTROS}}", ", ".join("`%s`" % t for t in todos if t != archivo) or "ninguno más por ahora")
-        poner(archivo, rellenar(texto, valores))
-        if os.path.normpath(os.path.join(destino, archivo)) in hechos["respetados"]:
-            hechos["avisos"].append("Ya tenías %s y no se tocó: la IA no verá el índice del kit hasta que le añadas las líneas de "
-                                    "memoria (o lo renombres y vuelvas a instalar)." % archivo)
-    poner(".brain/pendientes.md", plantilla("pendientes.md"))
+        texto = rellenar(texto, valores)
+        ruta_indice = os.path.normpath(os.path.join(destino, archivo))
+        if os.path.exists(ruta_indice):
+            bloque = texto[texto.index("## Memoria persistente"):texto.index("## Reglas esenciales")]
+            if fusionar_indice(ruta_indice, bloque, destino, hechos):
+                adoptados.append(archivo)
+        else:
+            poner(archivo, texto)
+    pendientes = plantilla("pendientes.md")
+    if adoptados:  # spec 015: la IA reparte lo que el proyecto ya tenía en los archivos de la memoria
+        tarea = ("- **2:** adaptar lo que ya tenía el proyecto (%s) a la memoria `.brain/`: skill `adoptar-indice-existente`; "
+                 "originales en `.brain/archive/adoptado/`.\n" % ", ".join(adoptados))
+        pendientes = pendientes.replace("\n## Esperando", tarea + "\n## Esperando", 1)
+        hechos["avisos"].append("Se añadió el bloque de memoria al final de %s (copia del original en .brain/archive/adoptado/). "
+                                "En el primer chat, pide a la IA: «adopta el índice existente»." % ", ".join(adoptados))
+    poner(".brain/pendientes.md", pendientes)
     poner(".brain/decisions.log", "")
     if traduccion:
         clave = re.sub(r"[^a-z0-9]+", "_", nombre.lower()).strip("_") or "proyecto"
@@ -195,7 +295,11 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         },
         "permissions": {"deny": ["Read(./%s)" % a for a in cfg["secretos"]["archivos_secretos"]]},
     }
-    poner(".claude/settings.json", json.dumps(ajustes_claude, ensure_ascii=False, indent=2) + "\n")
+    ruta_ajustes = os.path.normpath(os.path.join(destino, ".claude", "settings.json"))
+    if os.path.exists(ruta_ajustes):
+        fusionar_ajustes(ruta_ajustes, ajustes_claude, hechos)
+    else:
+        poner(".claude/settings.json", json.dumps(ajustes_claude, ensure_ascii=False, indent=2) + "\n")
     if simular:
         return hechos
     repo_arnes = RAIZ_FUENTE if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")) else cfg.get("arnes_repo")
@@ -311,7 +415,9 @@ def main():
                       pedir(a.dueno, "Nombre del dueño", "el dueño"), pedir(a.idioma, "Idioma de las respuestas", "español"),
                       pedir(a.pruebas, "Comando de pruebas", "python -m unittest discover tests"), ias, nivel,
                       traduccion=a.traduccion)
-    print("Kit instalado (nivel %s): %d archivo(s) creados, %d ya existían y no se tocaron." % (nivel, len(hechos["creados"]), len(hechos["respetados"])))
+    print("Kit instalado (nivel %s): %d archivo(s) creados, %d fusionados con lo que ya tenías, %d ya existían y no se tocaron." % (nivel, len(hechos["creados"]), len(hechos["fusionados"]), len(hechos["respetados"])))
+    if hechos["fusionados"]:
+        print("- Reinicia Claude Code en el proyecto para que cuenten los cambios en .claude/settings.json.")
     for t in hechos["avisos"]:
         print("- " + t)
     if nivel == "completo":

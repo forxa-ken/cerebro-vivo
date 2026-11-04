@@ -68,3 +68,8 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.12.0 (2026-11-04)
 - `/traspaso-in salgo` ahora abre el chat nuevo él mismo en Claude Code de escritorio: escribe el traspaso, lo abre con `start_session` (encargo: leer el traspaso y `traspaso-in entro`) y lo separa enseguida con `detach_session` para que quede al mismo nivel; dice a Darwin el nombre. Sin esa herramienta (Codex, Gemini) sigue a mano. Prueba nueva en `test_traspaso_in_out.py`.
+
+## 1.13.0 (2026-11-04)
+- El instalador (spec 015) ya no deja el kit a medias en un proyecto que tiene su propio `CLAUDE.md`/`GEMINI.md`/`AGENTS.md` o `.claude/settings.json`: **añade lo suyo sin quitar nada**. Al índice le agrega al final un bloque marcado (`cerebro-vivo:inicio/fin`) y guarda copia íntegra del original en `.brain/archive/adoptado/`; a los ajustes les fusiona los hooks que falten y une `permissions.deny`; si el JSON está roto no lo toca y avisa. Copia `.antes-de-cerebro-vivo` de lo modificado, idempotente, `--simular` no escribe. Avisa si ya había un hook propio en el mismo evento.
+- Skill nueva `adoptar-indice-existente`: la IA reparte lo que el proyecto ya tenía en `objetivo`, `constitution`, `decisions`, `referencias` y `pendientes` con el visto bueno del dueño y sin descartar nada. Probado solo en Windows.
+- Herramienta nueva `generar_zip_mac.py`: genera el ZIP de prueba para Mac con la versión actual (el anterior pasa a `anteriores/`). Se lanza tras cada cambio del arnés. ZIP 1.13.0 hecho; en Mac sigue sin probarse.

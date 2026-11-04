@@ -145,6 +145,10 @@ El punto débil del método es que depende de la disciplina de la IA. Los guardi
 
 **Qué no hacen:** no leen los mensajes, no envían datos a ningún sitio, no bloquean commits y no sustituyen el juicio de la IA; solo detectan olvidos.
 
+## 9 ter. Instalar en un proyecto que ya tiene Claude (spec 015)
+- El instalador **no pisa**: a un `CLAUDE.md`/`GEMINI.md`/`AGENTS.md` existente le añade al final un bloque entre `<!-- cerebro-vivo:inicio -->` y `<!-- cerebro-vivo:fin -->`, y guarda el original entero en `.brain/archive/adoptado/`. A `.claude/settings.json` le fusiona los hooks que falten y los permisos, y deja `NOMBRE.antes-de-cerebro-vivo` al lado.
+- Después, en el primer chat: «adopta el índice existente» (skill `adoptar-indice-existente`): la IA reparte lo viejo en la memoria y te lo enseña antes de acortar nada. Reinicia Claude Code para que cuenten los hooks.
+
 ## 9 bis. Usar el arnés en Mac (spec 013, sin probar en un Mac real)
 - Los guardianes son Python con la librería estándar y valen igual. Hace falta Python 3 (`python3`).
 - **Instalar el kit:** doble clic en `instalar_kit.command` (si no abre, en Terminal una vez: `chmod +x instalar_kit.command`). Si falta tkinter (`brew install python-tk`) o Python, lo dice; la alternativa es `python3 .brain/biblioteca/kit-arranque/instalar.py DESTINO --nombre N --dueno D --idioma I`.

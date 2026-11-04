@@ -66,6 +66,8 @@ def texto_resumen(datos):
     a = argumentos(datos)
     hechos = kit.instalar(simular=True, **a)
     t = "Se instalará el nivel %s en:\n%s\n\nSe crearán %d archivo(s)." % (a["nivel"], os.path.abspath(a["destino"]), len(hechos["creados"]))
+    if hechos["fusionados"]:
+        t += "\n%d ya existen y se les AÑADIRÁ lo del kit sin quitar nada (con copia de seguridad)." % len(hechos["fusionados"])
     if hechos["respetados"]:
         t += "\n%d ya existen y NO se tocarán." % len(hechos["respetados"])
     return t + "\n\n¿Continuar?"
@@ -80,7 +82,7 @@ def ejecutar(datos, git_init=True):
     a = argumentos(datos)
     hechos = kit.instalar(git_init=git_init, **a)
     guardar_preferencias(a)
-    lineas = ["Kit instalado (nivel %s): %d archivo(s) creados, %d ya existían y no se tocaron." % (a["nivel"], len(hechos["creados"]), len(hechos["respetados"]))]
+    lineas = ["Kit instalado (nivel %s): %d archivo(s) creados, %d fusionados con lo que ya tenías, %d ya existían y no se tocaron." % (a["nivel"], len(hechos["creados"]), len(hechos["fusionados"]), len(hechos["respetados"]))]
     lineas += ["- " + t for t in hechos["avisos"]]
     ok = True
     if a["nivel"] == "completo":

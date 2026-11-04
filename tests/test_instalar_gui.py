@@ -42,7 +42,14 @@ class TestLogica(unittest.TestCase):
         carpeta = tempfile.mkdtemp()
         with open(os.path.join(carpeta, "CLAUDE.md"), "w", encoding="utf-8") as f:
             f.write("mío")
-        self.assertIn("NO se tocarán", gui.texto_resumen(datos(carpeta)))
+        self.assertIn("AÑADIRÁ lo del kit", gui.texto_resumen(datos(carpeta)))  # spec 015: se fusiona, no se pisa
+        with open(os.path.join(carpeta, "CLAUDE.md"), encoding="utf-8") as f:
+            self.assertEqual(f.read(), "mío")  # el resumen no escribe nada
+        otra = tempfile.mkdtemp()
+        os.makedirs(os.path.join(otra, ".brain"))
+        with open(os.path.join(otra, ".brain", "pendientes.md"), "w", encoding="utf-8") as f:
+            f.write("mío")
+        self.assertIn("NO se tocarán", gui.texto_resumen(datos(otra)))
 
     def test_ejecutar_instala_comprueba_e_inicializa_git(self):
         carpeta = tempfile.mkdtemp()
