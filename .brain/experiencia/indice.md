@@ -18,6 +18,7 @@
 | [prompt-inicial](../../.claude/skills/prompt-inicial/SKILL.md) | Darwin wants to start a project or task with a complete prompt, or types /prompt-inicial | Método | cerebro-vivo 1.0.0 |
 | [quitar-codigo-antiguo-con-test](../../.claude/skills/quitar-codigo-antiguo-con-test/SKILL.md) | removing an old function, window or feature | Método | cerebro-vivo 1.0.0 |
 | [resumen](../../.claude/skills/resumen/SKILL.md) | Darwin types /resumen or asks where the project stands | Método | cerebro-vivo 1.4.2 |
+| [revisar-indices-de-ia](../../.claude/skills/revisar-indices-de-ia/SKILL.md) | an AI index (CLAUDE.md, GEMINI.md, AGENTS.md) is near its cap, has broken references or is overdue for review | Método | cerebro-vivo 1.14.0 |
 | [secretos-fuera-del-repo](../../.claude/skills/secretos-fuera-del-repo/SKILL.md) | adding a key, token, webhook URL or personal data file, or before any git push | Método | cerebro-vivo 1.0.0 |
 | [spec-antes-de-programar](../../.claude/skills/spec-antes-de-programar/SKILL.md) | a change touches more than 2 files or quotas, payments, licenses, deployment or the database | Método | cerebro-vivo 1.0.0 |
 | [traspaso-in](../../.claude/skills/traspaso-in/SKILL.md) | Darwin types traspaso-in (salgo or entro), a chat gets long, or he asks to open a new chat with the same AI | Método | cerebro-vivo 1.9.0 |

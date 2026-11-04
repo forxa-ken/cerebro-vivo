@@ -149,6 +149,10 @@ El punto débil del método es que depende de la disciplina de la IA. Los guardi
 - El instalador **no pisa**: a un `CLAUDE.md`/`GEMINI.md`/`AGENTS.md` existente le añade al final un bloque entre `<!-- cerebro-vivo:inicio -->` y `<!-- cerebro-vivo:fin -->`, y guarda el original entero en `.brain/archive/adoptado/`. A `.claude/settings.json` le fusiona los hooks que falten y los permisos, y deja `NOMBRE.antes-de-cerebro-vivo` al lado.
 - Después, en el primer chat: «adopta el índice existente» (skill `adoptar-indice-existente`): la IA reparte lo viejo en la memoria y te lo enseña antes de acortar nada. Reinicia Claude Code para que cuenten los hooks.
 
+## 9 quater. Revisar los índices de IA (spec 016)
+- `python .brain/guardianes/revisar_indices.py` saca un informe (solo lectura) de `CLAUDE.md`/`GEMINI.md`/`AGENTS.md`: referencias rotas, deriva entre ellos, secciones pesadas, fechas viejas y párrafos ya presentes en `.brain/`. El arranque avisa en una línea cuando conviene.
+- Di «revisa los índices» (skill `revisar-indices-de-ia`): la IA verifica cada hallazgo con una **doble pasada** (buscar y refutar), te enseña lo que sobrevive y, con tu visto bueno, mueve lo retirado a `.brain/archive/indices/`. Nada se borra.
+
 ## 9 bis. Usar el arnés en Mac (spec 013, sin probar en un Mac real)
 - Los guardianes son Python con la librería estándar y valen igual. Hace falta Python 3 (`python3`).
 - **Instalar el kit:** doble clic en `instalar_kit.command` (si no abre, en Terminal una vez: `chmod +x instalar_kit.command`). Si falta tkinter (`brew install python-tk`) o Python, lo dice; la alternativa es `python3 .brain/biblioteca/kit-arranque/instalar.py DESTINO --nombre N --dueno D --idioma I`.
