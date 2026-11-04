@@ -39,7 +39,9 @@
   ".brain/guardianes/secretos.py": "6cb59faff657630a01bad5e6be6f0a6af08e25551bafa7999101f20d2e9f9bdc",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.md": "92de4261088063fd15591e503c934a03c55fa1d4d036b0e93ee26b4a2f33a0a4",
-  ".claude/skills/adoptar-indice-existente/SKILL.md": "07f09268a3b5fa29491249f8a3fbbfa9628ecd6171144de33b6f8833c75de778",
+  ".claude/skills/acorta/SKILL.md": "5f7ef2ed23823c019c6370d6731f537609da2a3a4c9be773d8bb50898ae8a5e6",
+  ".claude/skills/adopta/SKILL.md": "b26b3e97787d6083d71a6cd0bfc3799938b453a9d87d8bfe85af376fa5102514",
+  ".claude/skills/adoptar-indice-existente/SKILL.md": "daa01f489547d290fdccbff398ab63d5d30e0d9af2f1b7bdca45b3663a41153f",
   ".claude/skills/cero-dependencias/SKILL.md": "5a20e486a73efe70ef2f4a49f311696723f016dab7023c954c4859dfdae780ad",
   ".claude/skills/cerrar-una-tarea/SKILL.md": "0dcc4b0f2fd12d233c2cc4a74a1b8b5e62df749610dbaff40febb08d165ac4fc",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "5e758983ba04501e189e941219242fab4f5618066781ca3392cdc1d00d2bad78",
@@ -95,5 +97,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.14.0"
+ "version": "1.15.0"
 }
