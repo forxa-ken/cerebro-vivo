@@ -57,3 +57,11 @@
 2026-11-03 | Claude (cerebro-vivo #9) | 1.8.1 (prueba de cambio-de-ia sin manifiesto en proyectos); Pegatinas actualizado a 1.8.1; spec 011 traspaso-in/out en borrador; pendiente 15 | Fast-Track
 2026-11-03 | Claude (cerebro-vivo #9) | Spec 011 hecha: traspaso-in (misma IA) y traspaso-out (entre IAs) sustituyen a traspaso-entre-chats y cambio-de-ia; arnés 1.9.0 | Fast-Track
 2026-11-03 | Claude (cerebro-vivo #9) | Arnés 1.9.1 y 1.9.2: dos pruebas arregladas (una archivaba el traspaso real, otra se colgaba con traspaso largo) | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Spec 012 en borrador: aviso de chat largo y chat nuevo al mismo nivel; pendiente 15 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Arnés 1.10.0: aviso de chat largo abre el chat nuevo al mismo nivel (spec 012); pruebas 200 OK; pendiente 16 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Spec 013 en borrador: soporte para Mac; pendiente 17 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Arnés 1.11.0: soporte para Mac (spec 013): instalar_kit.command, python3 en ganchos, aviso tkinter; 203 pruebas OK; Mac sin probar; pendiente 17 | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #10) | ZIP limpio para probar en Mac (con LEEME_PRIMERO), instalado y probado desde el ZIP; traspaso #10 a #11 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #10) | Traspaso #10 a #11 actualizado con el estado real (203 pruebas OK); pendientes revisados sin cambios | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #11) | Arnes 1.12.0: /traspaso-in salgo abre el chat nuevo con start_session + detach_session (204 pruebas OK, sin probar en real) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #11) | Probado /traspaso-in salgo: abrio cerebro-vivo #12 y lo separo; pendiente 18 anotado para la prueba de Darwin; traspaso #11 a #12 escrito | Fast-Track

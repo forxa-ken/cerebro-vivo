@@ -29,6 +29,11 @@ class TestTraspasoInOut(unittest.TestCase):
         for viejo in ("cambio-de-ia", "traspaso-entre-chats"):
             self.assertFalse(os.path.isdir(os.path.join(RAIZ, ".claude", "skills", viejo)), viejo)
 
+    def test_traspaso_in_salgo_abre_el_chat_nuevo_y_lo_separa(self):
+        t = leer(RAIZ, ".claude", "skills", "traspaso-in", "SKILL.md")
+        for palabra in ("start_session", "detach_session", "traspaso-in entro"):
+            self.assertIn(palabra, t)
+
     def test_plantilla_de_traspaso_lleva_los_campos_nuevos(self):
         t = leer(RAIZ, ".brain", "biblioteca", "PLANTILLA_TRASPASO.md")
         for campo in ("IA que lo escribe", "IA que sigue", "Hora"):

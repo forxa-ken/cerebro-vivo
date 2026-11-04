@@ -18,6 +18,8 @@ Skills actuales (18): `cero-dependencias`, `cerrar-una-tarea`, `explicar-a-darwi
 
 **Opción A, con ventana:** doble clic en `instalar_kit.bat` (abre `instalar_gui.py`) y rellenar carpeta, nombre, dueño, idioma, comando de pruebas, IA que se usarán y nivel (`Completo` para memoria + guardianes + skills + pruebas).
 
+**En Mac (spec 013, sin probar en un Mac real):** doble clic en `instalar_kit.command` (si no abre: `chmod +x instalar_kit.command` en Terminal una vez); necesita `python3` y tkinter.
+
 **Opción B, por terminal:**
 ```powershell
 python "RUTA_REPO_ARNES\.brain\biblioteca\kit-arranque\instalar.py" "RUTA_PROYECTO" --nombre NOMBRE --dueno DUENO --idioma español --pruebas "python -m unittest discover tests" --ias claude,gemini,codex --nivel completo
