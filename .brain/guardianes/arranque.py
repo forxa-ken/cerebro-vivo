@@ -272,6 +272,14 @@ def resumen(raiz, cfg):
         lineas += revisar.resumen(raiz, cfg)
     except Exception:
         pass
+    try:  # spec 018: archivos de .brain/ que pasan de su tope (línea solo si hace falta trocearlos)
+        import importlib.util
+        espec = importlib.util.spec_from_file_location("archivos_gordos", os.path.join(AQUI, "archivos_gordos.py"))
+        gordos = importlib.util.module_from_spec(espec)
+        espec.loader.exec_module(gordos)
+        lineas += gordos.resumen(raiz, cfg)
+    except Exception:
+        pass
     try:  # spec 085: plugins del meta-arnés que no están instalados
         falta = plugins_que_faltan(cfg)
         if falta:

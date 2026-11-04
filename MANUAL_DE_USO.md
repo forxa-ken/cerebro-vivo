@@ -38,6 +38,18 @@ Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo
 | Ficha de decisión | Por qué se decidió algo (`D-NNN`) | `.brain/decisions/_template.md` (la crea el kit en cada proyecto) |
 | Registro de pruebas | Qué te toca probar y cómo | `.brain/pruebas/_plantilla.md` |
 
+## 3 ter. Proyecto que ya tenía su CLAUDE.md: `/adopta`, `/acorta`, `/trocea`
+Para un proyecto empezado antes del método (con un CLAUDE.md gordo). Se instala el kit (no pisa nada: el original se guarda entero en `.brain/archive/adoptado/`), se reinicia Claude Code en esa carpeta y, en un chat nuevo, **en este orden**:
+
+| Paso | Escribe | Qué hace | Tú |
+|---|---|---|---|
+| 1 | `/adopta` | Copia lo que había en el CLAUDE.md viejo a su sitio en `.brain/` (reglas, decisiones, objetivo; lo que no encaja va a `referencias.md`). No resume nada. | Apruebas la tabla del reparto |
+| 2 | `/acorta` | Cambia las secciones gordas del CLAUDE.md, GEMINI.md y AGENTS.md por un enlace, hasta el tope de 5 KB. | Apruebas la tabla antes de escribir |
+| 3 | `/trocea` | Divide los archivos de `.brain/` que pasen de 8 KB (típicamente `referencias.md`) en archivos **por tema con nombre** (`loot.md`, `roster.md`) en `.brain/architecture/`, con un índice. La copia íntegra queda en `.brain/archive/troceado/`. | Apruebas la tabla de cortes |
+| 4 | `revisa los índices` | Comprueba referencias rotas, deriva y repetidos con doble pasada (skill `revisar-indices-de-ia`). | Apruebas lo que sobrevive |
+
+Nada se borra: todo se copia o se mueve a archivo. El arranque avisa solo cuando un índice pasa del 80 % de su tope (4 KB) o un archivo de `.brain/` pasa del 80 % de su tope (6,5 KB). Lo nuevo (1.14.1 a 1.16.1) está probado con pruebas y en un proyecto real (Guild Control Forever: CLAUDE.md de 52 KB a 3,3 KB). Si un proyecto tiene un AGENTS.md ajeno al método, no lo añadas a `indices_entrada` y las pruebas no lo exigirán.
+
 ## 4. Un día normal de trabajo
 - **Al abrir un chat:** la IA te resume en 4-5 viñetas dónde se quedó. Si no lo hace, pídeselo.
 - **Mientras trabajas:** tareas pequeñas (hasta 2 archivos) van por el carril rápido. Cambios grandes o delicados (pagos, base de datos, licencias) piden una **spec** primero: un papel corto con objetivo, qué entra, qué no y cómo se prueba. Tú la apruebas antes de que se programe.
@@ -160,5 +172,9 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Medir chats (tokens, coste) | `python .brain/guardianes/medir.py` (`--ultimos N`, `--desglose ID`, `--tarea TEXTO`, `--comparar RUTA_CON RUTA_SIN`) |
 | Pruebas | `python -m unittest discover tests` |
 | Regenerar el manifiesto del arnés (en cerebro-vivo, tras cambiar algo) | `python generar_manifiesto.py` |
-| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out` |
-| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out` (necesitan `.agents/skills/`) |
+| Repartir el CLAUDE.md viejo en la memoria | `/adopta` (skill `adoptar-indice-existente`) |
+| Bajar los índices de IA al tope de 5 KB | `/acorta` |
+| Dividir un archivo de `.brain/` gordo por temas | `/trocea` (ver cuáles: `python .brain/guardianes/archivos_gordos.py`) |
+| Revisar los índices de IA (doble pasada) | «revisa los índices» (`python .brain/guardianes/revisar_indices.py` para el informe) |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea` |
+| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea` (necesitan `.agents/skills/`) |
