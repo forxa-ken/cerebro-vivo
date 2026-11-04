@@ -25,7 +25,7 @@ INCLUIR = [
     ".brain/biblioteca/kit-arranque/", ".brain/biblioteca/kit-traduccion/",
     ".brain/specs/_template.md", ".brain/pruebas/_plantilla.md",
     ".claude/skills/",
-    "instalar_kit.bat",
+    "instalar_kit.bat", "instalar_kit.command",
     "tests/test_*.py",
 ]
 EXCLUIR = ["*/__pycache__/*", "*.pyc", ".brain/biblioteca/kit-arranque/preferencias.json",

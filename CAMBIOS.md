@@ -59,3 +59,12 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.9.2 (2026-11-03)
 - Arreglo: `test_manual_no_espera_stdin` se colgaba (60 s y error) cuando había un `.brain/traspaso.md` largo, porque no leía la salida y la tubería se llenaba. Ahora la salida va a un archivo.
+
+## 1.10.0 (2026-11-03)
+- Spec 012: el aviso de chat largo (`longitud.py`, que ya existía) ahora también le pide a la IA abrir ella el chat nuevo con `start_session` y separarlo enseguida con `detach_session`, para que quede al mismo nivel y no colgado del anterior; le dice a Darwin el nombre del chat nuevo. Sin la herramienta (Codex, Gemini) queda la frase de traspaso a mano. Sin guardián nuevo ni ajustes nuevos.
+
+## 1.11.0 (2026-11-03)
+- Soporte para Mac (spec 013), **sin probar en un Mac real**: nuevo `instalar_kit.command` (doble clic; avisa si falta Python o tkinter); el instalador escribe `python3` en los ganchos cuando la máquina no tiene `python` (en Windows no cambia nada); `instalar_gui.py` avisa con claridad si falta tkinter; la pista de `librerias.py` y la conversión de fin de línea del actualizador tienen en cuenta Mac. Manual y guía de instalación con la sección de Mac. Prueba nueva `test_soporte_mac.py` (simula Mac; no sustituye a probarlo allí).
+
+## 1.12.0 (2026-11-04)
+- `/traspaso-in salgo` ahora abre el chat nuevo él mismo en Claude Code de escritorio: escribe el traspaso, lo abre con `start_session` (encargo: leer el traspaso y `traspaso-in entro`) y lo separa enseguida con `detach_session` para que quede al mismo nivel; dice a Darwin el nombre. Sin esa herramienta (Codex, Gemini) sigue a mano. Prueba nueva en `test_traspaso_in_out.py`.

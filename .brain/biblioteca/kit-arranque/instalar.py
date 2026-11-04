@@ -16,6 +16,7 @@ import importlib.util
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -72,6 +73,8 @@ def python_del_proyecto(destino):
         return '"$CLAUDE_PROJECT_DIR/venv/Scripts/python.exe"', "venv\\Scripts\\python.exe"
     if os.path.exists(os.path.join(destino, "venv", "bin", "python")):
         return '"$CLAUDE_PROJECT_DIR/venv/bin/python"', "venv/bin/python"
+    if os.name != "nt" and not shutil.which("python") and shutil.which("python3"):  # Mac/Linux sin `python` (spec 013)
+        return "python3", "python3"
     return "python", "python"
 
 

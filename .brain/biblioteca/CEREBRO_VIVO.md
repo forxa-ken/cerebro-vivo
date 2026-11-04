@@ -99,7 +99,7 @@ Idea ──► [spec aprobada] ──► Falta programar ──► Implementada
 - **Consultar antes de cambiar lo ya decidido** (`decisions/indice.md`).
 - **Lo irreversible se pregunta:** subir a internet, borrar, gastar dinero, tocar datos reales.
 - **Hablar al nivel del dueño** (aquí: lenguaje llano, sin jerga, porque no es programador).
-- **Avisar cuando el chat se alarga** y recomendar abrir uno nuevo (`Proyecto #N`). Un chat largo cuesta más que cualquier archivo, porque cada mensaje arrastra todo el historial.
+- **Avisar cuando el chat se alarga** y recomendar abrir uno nuevo (`Proyecto #N`). Un chat largo cuesta más que cualquier archivo, porque cada mensaje arrastra todo el historial. En Claude Code de escritorio, el aviso (`longitud.py`) también pide a la IA abrir el chat nuevo y separarlo del anterior (`detach_session`) para que quede al mismo nivel; en Codex y Gemini no hay esa herramienta y se usa `traspaso-in salgo` a mano.
 - **No inventar:** si algo no se pudo probar, decirlo; no marcarlo como hecho.
 
 ## 8. Cómo arrancar en un proyecto nuevo
@@ -144,6 +144,12 @@ El punto débil del método es que depende de la disciplina de la IA. Los guardi
 **Cómo se llevan a otro proyecto:** copiar `.brain/guardianes/` y `tests/test_cerebro_indices.py`, editar `guardianes.json` (topes y patrones a ignorar), añadir los hooks `Stop` (cierre) y `SessionStart` (arranque) en `.claude/settings.json`. Los scripts no contienen nada del proyecto de origen. Las IA que no usan hooks de Claude Code (p. ej. Gemini) quedan cubiertas por el guardián 2.
 
 **Qué no hacen:** no leen los mensajes, no envían datos a ningún sitio, no bloquean commits y no sustituyen el juicio de la IA; solo detectan olvidos.
+
+## 9 bis. Usar el arnés en Mac (spec 013, sin probar en un Mac real)
+- Los guardianes son Python con la librería estándar y valen igual. Hace falta Python 3 (`python3`).
+- **Instalar el kit:** doble clic en `instalar_kit.command` (si no abre, en Terminal una vez: `chmod +x instalar_kit.command`). Si falta tkinter (`brew install python-tk`) o Python, lo dice; la alternativa es `python3 .brain/biblioteca/kit-arranque/instalar.py DESTINO --nombre N --dueno D --idioma I`.
+- **Ganchos de Claude Code:** el instalador escribe `python3` si en esa máquina no existe `python`; en Windows sigue `python`. Un proyecto ya instalado en Windows y abierto en Mac: cambia `python` por `python3` en `.claude/settings.json`.
+- **Pruebas:** `python3 -m unittest discover tests`.
 
 ## 10. Opinión objetiva (con lo vivido en LoboHook)
 

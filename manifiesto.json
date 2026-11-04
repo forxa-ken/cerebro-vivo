@@ -1,13 +1,13 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "1a4330e7a678d27d8d38cb5b715f75e65b9031e06d6145c76ffa6b3f1c09622f",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "b1706bb0319be89c76362467fa9778bd6c4831dd845e3208ca9a2eb2341e6ce6",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "1511c35868b7c1cb0afd6f078b7ca2e7f58d4fee027a68f2e6df8008bce43cf7",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "c5ceda5aa5f395ed27b96c23281f5f8f6e536b641ccae29215d422a7deecab7e",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "9b57ca75e02dc06c059e03846c390d9c1f38a1ae6622549d0f03fb2c3b4a8441",
-  ".brain/biblioteca/kit-arranque/instalar.py": "b4ce0cac0aafd6225938fe8609f1388cb6d462a2bfa546f900fcada772858233",
-  ".brain/biblioteca/kit-arranque/instalar_gui.py": "acb2fec0c6724d25e33ec246573a72ae97c36e01b539e212fed16d054c27ecd5",
+  ".brain/biblioteca/kit-arranque/instalar.py": "60c5c1174df519e5a2539372d1dd2a6c379c390f194b227002170761c610af9d",
+  ".brain/biblioteca/kit-arranque/instalar_gui.py": "2f6effd7a7b5fd93310d50d2bdb01aa73f1e23112d19985d658520cf4e2891a1",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "39b83c17a0ac470dfba6cdf8efd57494278a96a5f8173db0dd1ba268d45605a6",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.md": "7c43a6c1527772f7aed6f68c7418508b84e4e1d690533618fb7e57f9e3c73591",
@@ -22,15 +22,15 @@
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
   ".brain/biblioteca/kit-traduccion/idiomas.js": "eb75510aff146b5c17fa4abf15bc20590525ff73b3844b37325012407af170e6",
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
-  ".brain/guardianes/actualizar_arnes.py": "9e2f76e81d7c76d667e9dc620784c0a5be435ce8856c6234cee26dccd67da614",
+  ".brain/guardianes/actualizar_arnes.py": "386c0ccca07bbff89fc50e247af2b2545ac29ead2d4a4d6ac28907d2f486ce32",
   ".brain/guardianes/analisis.py": "9646dccc07930ec06f449edd06c0bca5635266ccd69b32276dbe8c2d6608150d",
   ".brain/guardianes/arranque.py": "cf8547d46151e6bd61bc3cd1cd0862f0bd51236895abf69bdd21d820e35e902a",
   ".brain/guardianes/base_datos.py": "698453c784d76cfe5c27eccaf4727001da02ee07af6f72205090a1fd821b7924",
   ".brain/guardianes/cerrar.py": "1c47348c9c4c3da2a17762ed226bb5465bc9cf476198eb18784cdca778a402cf",
   ".brain/guardianes/cierre.py": "f1b6f2611a22d1b975c02ce954f4f5d861e6e395f8b25be41c6ea33302d58777",
   ".brain/guardianes/indices.py": "5b7186efcde640789a9694df2da39afa57bf10b2f6df91e2f753a4a4097e3368",
-  ".brain/guardianes/librerias.py": "dccf7b68bc5fed342b2c5def99f1e03b007334dacfa04a2bed2b5c9907df3178",
-  ".brain/guardianes/longitud.py": "93f5118487c8d08239cd6747c06178a388830a7c17ff7d60572fec22930eac0f",
+  ".brain/guardianes/librerias.py": "f759497f6a37e8438d2f3ec9f42c1f60fde212c7e42438d6d128fdc9baba2e55",
+  ".brain/guardianes/longitud.py": "ea74398d2bf527d733a1e3c5e5f84ff8fe41a0b7a71039bb2dcd6d20900ba239",
   ".brain/guardianes/medir.py": "67d236b613558a248ab8e3aa85bab1c9d6f9ba877b89712c4552b6f768906983",
   ".brain/guardianes/notas_abiertas.py": "ad763b49ecd3cebae3b4f35e74939015d8ca4f784287e5d361ca37f300eb91e3",
   ".brain/guardianes/poda.py": "f9702c0f5c423da5eecba19d12acdcd9ff1bd5d70c64e11f80a9495fd4ee25bb",
@@ -53,10 +53,11 @@
   ".claude/skills/resumen/SKILL.md": "df5ba100b58e7f5d1596a6b58293466f3642d32248e42d22a8e245a09a9c37a0",
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "f77829644713ff6b2cefebc760d6f566830c1c0b0fe2819fad6c4ed042f543ef",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
-  ".claude/skills/traspaso-in/SKILL.md": "d782683f4ff6ff2155e140a679c5d095a5a579475c0828a3d0ced8f737ea7387",
+  ".claude/skills/traspaso-in/SKILL.md": "1b864c3e3da5c06960c8f30a0d5e0443a7053e208eb176136fc92d7be1aca828",
   ".claude/skills/traspaso-out/SKILL.md": "46b9ba533b6c77bb5b1f23fce366efe94229bbeb20de2a619007a76b2d675abc",
   ".claude/skills/vigilar-librerias/SKILL.md": "e005efc94916c8714ea2153c1428a26439b783efb786e4fc24be9e0b3ead9eb6",
   "instalar_kit.bat": "535a926cca72500ade7c276664ec68ced3b3d086783354b1a7bf223f8e90ad13",
+  "instalar_kit.command": "5b32aa40e776d9bb9719c1fe5b32ee69ec7c2439603743cc2325bc4bbf3911c3",
   "tests/test_analisis.py": "25c22d1298a713beb90a3c01f94b19e2c28622ae39bf2d7463caf4ce72c73a7e",
   "tests/test_arranque.py": "a1eea61bce15d25e608c36e1df1a3a097f61e0b7758e62ddf63ebd1fa69644b4",
   "tests/test_cerebro_indices.py": "f0edc1f313aa8312e1ccc2b883bb7e8590b63ff7846164b168e0fb6ac74e4f9d",
@@ -65,13 +66,14 @@
   "tests/test_kit_arranque.py": "b19fd36f428795b745b4e146b1196ba658f5054268e27196ed69a93c12c30d4a",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
-  "tests/test_longitud.py": "b2062ab17549729323b6a055c2fec5daf7078dc9e036e9d3fbf4e2f96f6a069f",
+  "tests/test_longitud.py": "82356937175493d3da001b2cbcfd0299a5a2bb35f3f3123f210512772e9318c6",
   "tests/test_medir.py": "f6bb5990b4bec7e87dcf682899acc9ac3e45381cb44c55b4c7850c2f7879a530",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
   "tests/test_poda.py": "7a1afbd3632f38989e833f2f8dcf2ed2970a24ba73b4333ddabc796754f43ec8",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980",
-  "tests/test_traspaso_in_out.py": "a17f3719028a61b4d7518e2186bd10916dcb8700f6a8db50e7476d7777849466"
+  "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
+  "tests/test_traspaso_in_out.py": "39f90f940f3740e8d4828698e5b36cf75e0f4346f1ca3a7a1f5bb6cc629369c7"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -89,5 +91,5 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.9.2"
+ "version": "1.12.0"
 }

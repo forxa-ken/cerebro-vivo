@@ -36,7 +36,7 @@ DUENO_ORIGINAL = "Dar" + "win"  # partido a propósito: el kit cambia el nombre 
 
 def _normalizar(datos, rel):
     """Bytes con saltos de línea unificados (en texto), para que Windows y Linux den la misma huella."""
-    return datos.replace(b"\r\n", b"\n") if rel.lower().endswith(TEXTO + (".json", ".js", ".ts", ".tsx", ".html", ".bat")) else datos
+    return datos.replace(b"\r\n", b"\n") if rel.lower().endswith(TEXTO + (".json", ".js", ".ts", ".tsx", ".html", ".bat", ".command", ".sh")) else datos
 
 
 def huella(datos):

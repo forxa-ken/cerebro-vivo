@@ -97,8 +97,13 @@ def comprobar(datos):
 
 
 def abrir_ventana():
-    import tkinter as tk
-    from tkinter import filedialog, messagebox, ttk
+    try:
+        import tkinter as tk
+        from tkinter import filedialog, messagebox, ttk
+    except ImportError:  # Mac/Linux: algunos Python no traen tkinter (spec 013)
+        print("Falta tkinter, la parte gráfica de Python. Instálalo (Mac: `brew install python-tk`) o usa el instalador "
+              "por línea de comandos: python3 .brain/biblioteca/kit-arranque/instalar.py DESTINO --nombre N --dueno D --idioma I")
+        return
 
     pref = cargar_preferencias()
     raiz = tk.Tk()

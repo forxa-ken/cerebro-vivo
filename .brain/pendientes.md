@@ -13,7 +13,9 @@ Estado al 2026-11-01 (cerebro-vivo #7): arnés 1.7.0 subido a GitHub; specs 006 
 
 
 - **14:** el actualizador copia guardianes y pruebas del arnés a proyectos instalados en nivel medio (que no tienen `guardianes.json`) y los deja rotos (caso `F:\Pegatinas`); decidir si se salta o avisa. Spec aparte.
-
 ## Esperando tu prueba (Darwin)
 - **13:** `traspaso-in` y `traspaso-out` (specs 010 y 011, arnés 1.9.0, sin subir). Qué es: pasar de un chat a otro con la misma IA (`traspaso-in`) y de una IA a otra (`traspaso-out`). Pasos: actualiza un proyecto (`python actualizar.py RUTA`); en Codex escribe `$traspaso-in salgo`, abre un chat nuevo y escribe `$traspaso-in entro`; luego `$traspaso-out salgo` en Codex y, en Gemini (pídele que lea `GEMINI.md` y la skill), `traspaso-out entro`. Si va bien: te cuenta lo último que hablaron. Gemini sin probar.
+- **16:** aviso de chat largo que abre el chat nuevo al mismo nivel (spec 012, arnés 1.10.0, sin subir). Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` bajo (p. ej. 20000) en `guardianes.json`, habla hasta que salte el aviso y comprueba que Claude abre el chat nuevo, lo deja al mismo nivel que el anterior y te dice su nombre.
+- **17:** soporte para Mac (spec 013, arnés 1.11.0, sin subir). Solo probado en Windows. Pasos en un Mac: `python3 -m unittest discover tests`; doble clic en `instalar_kit.command` (si no abre, `chmod +x instalar_kit.command`) y crea un proyecto de prueba; abre Claude Code ahí y mira que el arranque muestra el resumen.
+- **18:** `/traspaso-in salgo` abre el chat nuevo solo (arnés 1.12.0, sin subir). Probado una vez en Windows: abrió «cerebro-vivo #12» y las herramientas lo dan como sesión de primer nivel. Falta que mires en el sidebar que está al mismo nivel y que su resumen coincide con lo hablado.
 ## Acciones tuyas

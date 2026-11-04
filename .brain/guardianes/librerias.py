@@ -143,7 +143,7 @@ def resumen(raiz, cfg, hoy=None):
     try:
         estado = leer_estado()
         if not estado:
-            return ["- Librerías: sin chequear aún (`venv\\Scripts\\python.exe .brain\\guardianes\\librerias.py`)."]
+            return ["- Librerías: sin chequear aún (`%s`)." % ("venv\\Scripts\\python.exe .brain\\guardianes\\librerias.py" if os.name == "nt" else "python3 .brain/guardianes/librerias.py")]
         dias = ((hoy or datetime.date.today()) - datetime.date.fromisoformat(estado["fecha"])).days
         av = avisos(estado, a)
         txt = "- Librerías: %s (chequeo de hace %d días)" % ("%d aviso(s): %s · detalle con `librerias.py --ver`" % (len(av), av[0]) if av else "sin avisos", dias)
