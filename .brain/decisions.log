@@ -65,3 +65,6 @@
 2026-11-04 | Claude (cerebro-vivo #10) | Traspaso #10 a #11 actualizado con el estado real (203 pruebas OK); pendientes revisados sin cambios | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #11) | Arnes 1.12.0: /traspaso-in salgo abre el chat nuevo con start_session + detach_session (204 pruebas OK, sin probar en real) | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #11) | Probado /traspaso-in salgo: abrio cerebro-vivo #12 y lo separo; pendiente 18 anotado para la prueba de Darwin; traspaso #11 a #12 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #12) | Subido 1.10-1.12 a GitHub (cbc3d85); revisados secretos antes de abrir el repo (0 hallazgos; falta licencia); explicado aviso de version nueva (spec 014 sin escribir); traspaso #12 a #13 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #13) | Spec 015 hecha (arnés 1.13.0): el instalador fusiona CLAUDE.md y settings.json existentes sin quitar nada, con copia de seguridad; skill adoptar-indice-existente; 210 pruebas en verde | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #13) | Probada la spec 015 en una copia de Guild Control Forever: fusionó CLAUDE.md y AGENTS.md sin perder nada; arreglados saltos de línea CRLF y el tope de tamaño del índice adoptado; 212 pruebas en verde | Fast-Track

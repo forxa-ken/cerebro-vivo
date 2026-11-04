@@ -84,6 +84,9 @@ class TestIndicesCerebro(unittest.TestCase):
         self.assertLessEqual(os.path.getsize(os.path.join(RAIZ, c["pendientes"])), c["tope_pendientes_bytes"],
                              "pendientes.md pasó su tope: transferir lo probado a archive/hechos.md")
         for indice in c.get("indices_entrada", [c["claude_md"]]):
+            copia = os.path.join(BRAIN, "archive", "adoptado", os.path.splitext(indice)[0] + ".original.md")
+            if os.path.exists(copia):  # spec 015: índice adoptado, su reparto en .brain/ está pendiente; el tope vuelve al acortarlo
+                continue
             self.assertLessEqual(os.path.getsize(os.path.join(RAIZ, indice)), c["tope_claude_md_bytes"],
                                  "%s pasó su tope: es un índice, no un manual" % indice)
 
