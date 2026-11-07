@@ -15,11 +15,11 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 * **Chats cortos:** avisar a Darwin cuando la sesión se alargue y recomendar abrir una nueva. Hablarle en lenguaje llano.
 
 ## Cómo se reparte el arnés
-* Lo que llega a los proyectos está listado en **`manifiesto.json`** (huella de cada archivo) con la versión de **`VERSION`**. Tras cambiar cualquier archivo del arnés: subir `VERSION`, anotar en `CAMBIOS.md` y lanzar `python generar_manifiesto.py` (una prueba falla si se olvida). **Después, regenerar el ZIP de Mac:** `python generar_zip_mac.py` (deja `../cerebro-vivo-para-mac/cerebro-vivo-mac-VERSION.zip` y mueve el anterior a `anteriores/`).
+* Lo que llega a los proyectos está listado en **`manifiesto.json`** (huella de cada archivo) con la versión de **`VERSION`**. Tras cambiar cualquier archivo del arnés: subir `VERSION`, anotar en `CAMBIOS.md` y lanzar `python generar_manifiesto.py` (una prueba falla si se olvida). **El ZIP de Mac está en pausa:** solo se regenera si Darwin lo pide, con `python generar_zip_mac.py`.
 * Un proyecto se actualiza con `python .brain/guardianes/actualizar_arnes.py --simular` (y luego sin `--simular`), o desde aquí con `python actualizar.py RUTA --simular`. No pisa lo modificado a mano ni toca datos ni configuración.
 * Esto es el origen único: nada de LoboHook ni de otro proyecto entra aquí (lo vigila `tests/test_arnes_repo.py`).
 
 ## Reglas esenciales
 * Idioma de respuesta: **español**, tono técnico y conciso. **Alcance estricto:** solo lo que atañe al cambio pedido.
 * **Pruebas tras cada cambio:** `python -m unittest discover tests`
-* Lo irreversible (subir a GitHub, borrar, gastar) se pregunta antes. **No subir a GitHub sin orden de Darwin.** Lo no probado se dice como no probado.
+* Lo irreversible (subir a GitHub, borrar, gastar) se pregunta antes. **No subir a GitHub sin orden de Darwin**, salvo el commit de memoria de `traspaso-out salgo`. Lo no probado se dice como no probado.

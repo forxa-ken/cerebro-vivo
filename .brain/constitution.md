@@ -10,4 +10,4 @@
 6. **Memoria de pruebas:** una campaña de pruebas con hallazgos abre su `P-NNN` en `.brain/pruebas/`; al arreglar un hallazgo se marca `- [x]`.
 7. **Secretos:** claves y tokens viven en variables de entorno o en archivos ignorados por Git, nunca en el repositorio.
 8. **Toda llamada externa** lleva tiempo máximo y un plan B local.
-9. **Subir a GitHub** solo con orden expresa de Darwin.
+9. **Subir a GitHub** solo con orden expresa de Darwin. Única excepción: `traspaso-out salgo` sube sin más orden su commit de memoria, y pregunta antes si hay otros commits pendientes (spec 022).

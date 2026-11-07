@@ -41,6 +41,24 @@ class TestTraspasoInOut(unittest.TestCase):
             self.assertIn(palabra, entro)
         self.assertLess(entro.index("detach_session"), entro.index("arranque.py"))  # lo primero al entrar
 
+    def test_traspaso_out_salgo_guarda_y_sube_la_memoria(self):
+        t = leer(RAIZ, ".claude", "skills", "traspaso-out", "SKILL.md")
+        salgo = t.split("**salgo**")[1].split("**entro**")[0]
+        for palabra in ("guardar_traspaso.py", "--subir-todo"):
+            self.assertIn(palabra, salgo)
+        self.assertIn("traspaso-out salgo", leer(RAIZ, ".brain", "constitution.md"))
+        self.assertIn("guardar_traspaso.py", leer(RAIZ, "MANUAL_DE_USO.md") if os.path.isfile(os.path.join(RAIZ, "MANUAL_DE_USO.md")) else "guardar_traspaso.py")
+        self.assertIn("guardar_traspaso.py", leer(RAIZ, ".brain", "biblioteca", "CEREBRO_VIVO.md"))
+
+    def test_kit_ignora_secretos_estado_y_conserva_los_traspasos(self):
+        with tempfile.TemporaryDirectory() as d:
+            instalar.instalar(d, "Prueba", "Darwin", "español", "python -m unittest discover tests", ["claude"], "completo")
+            ignorar = leer(d, ".gitignore").splitlines()
+            self.assertIn("/.brain/guardianes/secretos_estado.json", ignorar)
+            self.assertFalse([l for l in ignorar if "traspaso" in l])
+            self.assertNotIn("Estado al", leer(d, ".brain", "pendientes.md"))
+            self.assertIn("traspaso-out salgo", leer(d, ".brain", "constitution.md"))
+
     def test_plantilla_de_traspaso_lleva_los_campos_nuevos(self):
         t = leer(RAIZ, ".brain", "biblioteca", "PLANTILLA_TRASPASO.md")
         for campo in ("IA que lo escribe", "IA que sigue", "Hora"):

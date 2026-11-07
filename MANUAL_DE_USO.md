@@ -78,12 +78,20 @@ Gemini y Codex no corren ganchos (ni resumen al abrir ni aviso al cerrar), así 
 
 | Momento | Qué escribes | Qué hace la IA |
 |---|---|---|
-| Al irte de una IA | `/traspaso-out salgo` (en Codex, `$traspaso-out salgo`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con quién lo escribe, quién sigue y la hora |
+| Al irte de una IA | `/traspaso-out salgo` (en Codex, `$traspaso-out salgo`) | Mira git y las pruebas y escribe `.brain/traspaso.md` con quién lo escribe, quién sigue y la hora. Luego hace commit de la memoria y lo sube a GitHub |
 | Al llegar a la otra (chat nuevo) | `/traspaso-out entro` (en Codex, `$traspaso-out entro`) | Lee el traspaso, te lo cuenta en 4-5 viñetas, lo archiva y te pregunta por dónde seguir |
 | Solo ver el estado, sin cambiar | `/resumen` (en Codex, `$resumen`) | Cuenta el estado sin escribir nada |
 | Ver listas de lo que falta | `/pendiente` (en Codex, `$pendiente`) | Menú: programar, prueba, acciones tuyas, specs |
 
 Si Gemini no reconoce la skill, pídele: «lee `GEMINI.md`, `.brain/traspaso.md` y `.brain/pendientes.md` y cuéntame el estado». Sin ganchos no hay forma de hacerlo automático: la frase es obligatoria.
+
+**Git automático al salir:** `traspaso-out salgo` lanza `guardar_traspaso.py`, que guarda y sube la memoria para que el contexto llegue a la otra IA o a otro ordenador.
+- **Entra en el commit:** el traspaso, los traspasos archivados, el registro, pendientes y las specs.
+- **No entra:** el código suelto. Te lo lista y decides tú.
+- **Se para si:** encuentra un secreto (no hace commit) o hay otros commits sin subir que no son de memoria (hace el commit en local y te pregunta antes de subir).
+- **Nunca** fuerza la subida ni mezcla nada. Si Git falla, te avisa y el traspaso sigue adelante.
+
+`traspaso-in` no hace Git. Para cambiar de ordenador con la misma IA, di «sube» (skill `subir-a-github`) o usa `traspaso-out`. Lo que no se ha subido no llega al otro ordenador. La memoria automática de Claude tampoco viaja, porque vive fuera del repositorio.
 
 ## 6. Dónde está cada cosa
 | Qué buscas | Dónde |
@@ -136,13 +144,13 @@ python .brain/guardianes/medir.py
 Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corregir a la IA. Ideas para un proyecto real: apuntar la media **antes** de poner el arnés, ponerlo, y comparar 3-4 semanas después. Otras opciones: `--comparar CARPETA_CON CARPETA_SIN`, `--tarea TEXTO` (solo un tipo de tarea), `--desglose ID` (un chat mensaje a mensaje). Solo lee; no cambia nada.
 
 ## 9. Avisos y guardianes que verás
-- **Arranque** (al abrir un chat): estado real de pendientes, commits sin subir, última línea del registro.
+- **Arranque** (al abrir un chat): estado real de pendientes, commits sin subir, lo que sigue sin commitear (también en `.brain/` y `.claude/`, salvo lo que se genera solo), última línea del registro.
 - **Cierre** (al acabar una respuesta): avisa si falta la línea del registro. Una sola vez.
 - **Modo ligero:** en tareas pequeñas con pruebas en verde, la línea del registro se escribe sola.
 - **Secretos:** `python .brain/guardianes/secretos.py` busca claves o datos personales; `--historial` revisa también lo ya guardado en git. Pásalo antes de subir nada a internet.
 
 ## 10. Reglas para ti
-- No subas nada a GitHub sin pasar por `secretos.py` y sin decidirlo tú.
+- No subas nada a GitHub sin pasar por `secretos.py` y sin decidirlo tú. Di «sube» y la skill `subir-a-github` lo repasa. La única subida sin tu orden es la memoria de `traspaso-out salgo`.
 - Si un resultado «parece demasiado bueno», pide que lo pruebe y lo diga como no probado si no pudo.
 - Tras cambiar cualquier archivo **de este repo**: subir `VERSION`, anotar `CAMBIOS.md`, `python generar_manifiesto.py` y `python -m unittest discover tests`.
 
@@ -179,5 +187,5 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Bajar los índices de IA al tope de 5 KB | `/acorta` |
 | Dividir un archivo de `.brain/` gordo por temas | `/trocea` (ver cuáles: `python .brain/guardianes/archivos_gordos.py`) |
 | Revisar los índices de IA (doble pasada) | «revisa los índices» (`python .brain/guardianes/revisar_indices.py` para el informe) |
-| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea` |
-| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea` (necesitan `.agents/skills/`) |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea`, `/subir-a-github` |
+| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea`, `$subir-a-github` (necesitan `.agents/skills/`) |

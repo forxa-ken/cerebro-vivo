@@ -42,9 +42,9 @@ def estado_de(texto):
 
 
 def es_terminada(estado):
-    """Terminada = implementada / reemplazada / descartada y sin nada pendiente de prueba."""
+    """Terminada = implementada / hecha / reemplazada / descartada y sin nada pendiente de prueba."""
     e = estado.lower()
-    if not re.match(r"(implementada|reemplazada|descartada)", e):
+    if not re.match(r"(implementada|hecha|reemplazada|descartada)", e):
         return False
     return not any(p in e for p in ("pendiente", "falta", "sin probar", "fase b", "fase c"))
 

@@ -176,6 +176,26 @@ def plugins_que_faltan(cfg, ruta=None):
     return [p for p in requeridos if not instalados.get(p)]
 
 
+NO_AVISAR_COMMIT = ["*.migrado", "__pycache__/*", "*.pyc", "*.bak*", ".brain/decisions.log", ".brain/traspaso.md",
+                    ".brain/archive/traspasos/*", ".brain/guardianes/*_estado.json"]  # spec 022: lo que se genera solo
+
+
+def sin_commitear(raiz, cfg):
+    """Spec 022: archivos sin commitear de todo el proyecto, salvo `no_avisar_commit`. En un movido cuenta el destino."""
+    patrones = cfg.get("no_avisar_commit", NO_AVISAR_COMMIT)
+    sucios = []
+    for l in git(raiz, "status", "--porcelain", "--untracked-files=all").splitlines():
+        ruta = l[3:].split(" -> ")[-1].strip().strip('"').replace("\\", "/")
+        if not any(fnmatch.fnmatch(ruta, p) for p in patrones):
+            sucios.append(ruta)
+    return sucios
+
+
+def texto_sin_commitear(sucios):
+    return "- Sin commitear: %d archivo%s (%s%s)." % (len(sucios), "" if len(sucios) == 1 else "s", ", ".join(sucios[:5]),
+                                                      "…" if len(sucios) > 5 else "")
+
+
 def resumen(raiz, cfg):
     lineas = ["🐺 Cerebro Vivo · estado real al abrir el chat:"]
     try:
@@ -194,13 +214,9 @@ def resumen(raiz, cfg):
     except Exception:
         pass
     try:
-        sucios = []
-        for l in git(raiz, "status", "--porcelain").splitlines():
-            ruta = l[3:].strip().strip('"').replace("\\", "/")
-            if not any(fnmatch.fnmatch(ruta, p) for p in cfg["ignorar_cambios"]):
-                sucios.append(ruta)
+        sucios = sin_commitear(raiz, cfg)
         if sucios:
-            lineas.append("- Sin commitear (del proyecto): %s." % ", ".join(sucios[:5]) + (" …" if len(sucios) > 5 else ""))
+            lineas.append(texto_sin_commitear(sucios))
     except Exception:
         pass
     try:

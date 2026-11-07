@@ -284,7 +284,6 @@ No usarlo: prototipo de un día, un solo chat que termina hoy, experimentos sin 
 # Pendientes
 Lista viva de lo que falta. Una línea por punto. Numeración fija (los huecos son puntos ya hechos).
 Regla de cierre: al confirmar el dueño que probó una tarea, en esa misma respuesta pasa a archive/hechos.md + fila en hechos-indice.md y se quita de aquí. Si falla, vuelve a «Falta programar» con nota.
-Estado al AAAA-MM-DD (Proyecto #N): tests en verde · qué está sin subir · qué está sin commitear a propósito.
 ## Falta programar (IA)
 ## Esperando tu prueba (dueño)
 ## Acciones tuyas

@@ -7,8 +7,8 @@
 **cerebro-vivo** es el repositorio del **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA (Claude, Gemini, Codex) **sin perder el contexto entre chats y gastando pocos tokens**, más las herramientas que lo hacen cumplir. Es el origen único: cada proyecto de Darwin (el dueño, no técnico) trae las mejoras desde aquí.
 
 - Ubicación local: `F:\Proyectos Antigravity\cerebro-vivo` (Windows 11, Python, sin dependencias externas).
-- GitHub: `forxa-ken/cerebro-vivo`. **Subido hasta la 1.18.2 (2026-11-07).** No se sube nada sin orden expresa de Darwin.
-- Versión actual del arnés: **1.18.2**.
+- GitHub: `forxa-ken/cerebro-vivo`. Lo subido se ve con `git log origin/main`. No se sube nada sin orden expresa de Darwin, salvo el commit de memoria de `traspaso-out salgo`.
+- Versión actual del arnés: la del archivo `VERSION`.
 
 ## 2. La idea del método
 La IA no recuerda entre chats, así que la memoria del proyecto vive en **archivos** ordenados: se lee un índice corto al empezar y solo se abre el detalle cuando hace falta. Principios: índice primero y detalle después; cada cosa en su sitio; cerrar una tarea incluye actualizar la memoria; «implementada» no es «terminada» (terminada = Darwin la probó); lo hecho sale de la vista; el porqué de cada decisión se guarda; lo que una máquina puede vigilar no se deja a la disciplina; alcance estricto; lo irreversible se pregunta; lo no probado se dice como no probado.
