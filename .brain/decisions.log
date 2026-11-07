@@ -92,3 +92,4 @@
 2026-11-07 | Claude (cerebro-vivo #17) | Arnes 1.19.0 (spec 021): actualizador fiable. Retirados, escritura atomica, sin_aplicar, huella comprobada, nivel guardado (punto 14), --simular completo. Ensayado solo en copias de Pegatinas y LoboHook; sin ZIP de Mac por orden de Darwin; sin commitear. | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #18) | Chat #18 separado al nivel superior con detach_session self (comprobado detached true). Causa: se abrio por tarjeta y el #17 no lo separo; la skill no cubre ese camino. Sin cambios en el arnes | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.19.1: traspaso-in entro se separa solo del chat anterior, tambien si se abrio desde una tarjeta (272 pruebas OK, 6 saltadas; sin probar en real ni commit) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | pendientes.md: quitada la linea de estado desfasada y el 'sin subir' de los puntos 13, 16 y 17, ya en GitHub (272 pruebas OK, 6 saltadas) | Fast-Track
