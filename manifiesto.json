@@ -12,7 +12,7 @@
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.md": "7c43a6c1527772f7aed6f68c7418508b84e4e1d690533618fb7e57f9e3c73591",
   ".brain/biblioteca/kit-arranque/plantillas/hechos_indice.md": "8f704bd4326b6382a4f389450821973f6f4bca56c809d71d0803435c8b29351c",
-  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "da60f2fd833dac95bce64ea7f5811c83dfa0eb2e6de776bfb2f5ccec660032f7",
+  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "8e746fffd36b5d770cccb652214d97d4e08a659b78d69ce369f49deca88b82b1",
   ".brain/biblioteca/kit-arranque/plantillas/objetivo.md": "7760b4baa031704b311804a4cdeb5830f52c8234559550e15323616bc111e092",
   ".brain/biblioteca/kit-arranque/plantillas/pendientes.md": "6cada8c986bfbf7321b17d4a0ead2c035a0ca1c3c0e3b5cc1c14f633fda00c8a",
   ".brain/biblioteca/kit-arranque/plantillas/pruebas_indice.md": "7d90fb2d89dc884b9dd9cfe0d28f5b488cb4dabbc5b2daf7293eac974e8fd80a",
@@ -118,5 +118,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.23.0"
+ "version": "1.23.1"
 }

@@ -7,7 +7,7 @@ Este archivo (`{{ARCHIVO}}`) es el índice que lee **{{IA}}**. Mismo contenido o
 ## Memoria persistente (Cerebro `.brain/`)
 {{BLOQUE_IA}}
 {{MAPA}}
-* **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir tú el chat nuevo (`{{NOMBRE}} #N`), salvo que `/chat-nuevo no` lo haya apagado. Hablarle en lenguaje llano.
+* **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir tú el chat nuevo (`{{NOMBRE}} #N`), salvo que `/chat-nuevo no` lo haya apagado. **{{DUENO}} autoriza de forma permanente abrir ese chat nuevo de forma automática** (herramientas `start_session` y `detach_session`), sin pedirle permiso cada vez. Hablarle en lenguaje llano.
 
 ## Reglas esenciales
 * Idioma de respuesta: **{{IDIOMA}}**, tono técnico y conciso.

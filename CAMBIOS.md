@@ -137,3 +137,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.23.0 (2026-11-07)
 - Chat nuevo solo, como regla común (spec 025): al pasar el aviso de chat largo, la IA escribe el traspaso y abre ella misma el chat nuevo (`start_session` + `detach_session`); el aviso le prohíbe decir que la app lo rechaza sin haberlo intentado y solo deja la frase para pegar si la llamada falla. Ajuste nuevo `chat_nuevo_auto` en `guardianes.json` (por defecto sí; el actualizador lo añade). Comando nuevo `/chat-nuevo si|no|estado` (`longitud.py --chat-nuevo`). La skill `traspaso-in` y la plantilla del índice dicen lo mismo.
+
+## 1.23.1 (2026-11-07)
+- El índice de cada IA (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, que salen de la misma plantilla) lleva ahora la frase de permiso fijo: el dueño autoriza abrir el chat nuevo de forma automática, para que el filtro del modo auto no deniegue `start_session` (spec 025). Solo llega a proyectos que se instalen desde ahora; en uno ya instalado hay que añadir la frase a mano, porque el actualizador no toca los índices.

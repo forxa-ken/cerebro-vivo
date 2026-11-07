@@ -131,3 +131,4 @@
 2026-11-07 | Claude (cerebro-vivo #22) | Spec 024 fase 2 completa (arnes 1.22.0 sin subir): los 17 guardianes toman sus avisos de textos.py es/en (unos 250); test_textos con paridad, claves repetidas y uso; 303 pruebas OK y comprobado en proyecto de prueba en ingles | SDD
 2026-11-07 | Claude (cerebro-vivo #23) | Commit de arnes 1.22.0 (spec 024 fase 2, avisos de los guardianes en es/en); sin subir a GitHub | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #23) | Spec 025 (arnes 1.23.0 sin commit): chat nuevo solo como regla comun (aviso firme de longitud.py, ajuste chat_nuevo_auto) y comando /chat-nuevo si|no|estado | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #23) | Arnes 1.23.1 sin commit: permiso fijo de abrir el chat nuevo en CLAUDE.md y plantilla de indices (Claude, Gemini, Codex) | Fast-Track

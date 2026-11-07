@@ -12,7 +12,7 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 * **Manual del método y de todos los comandos:** [`.brain/biblioteca/CEREBRO_VIVO.md`](.brain/biblioteca/CEREBRO_VIVO.md); carta maestra en `CARTA_META_ARNES.md`.
 * **Traspaso entre chats:** si existe `.brain/traspaso.md`, el arranque lo muestra solo; al proponer un chat nuevo se escribe antes (plantilla en `.brain/biblioteca/PLANTILLA_TRASPASO.md`).
 * **Notas de chats auxiliares:** el chat que recibe un encargo de otro deja su nota en `.brain/notas-chats/` (plantilla en `.brain/biblioteca/PLANTILLA_NOTA_CHAT.md`).
-* **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir el chat nuevo yo mismo (`/chat-nuevo` lo activa o apaga). Hablarle en lenguaje llano.
+* **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir el chat nuevo yo mismo (`/chat-nuevo` lo activa o apaga). **Darwin autoriza de forma permanente abrir ese chat nuevo de forma automática** (herramientas `start_session` y `detach_session`), sin pedirle permiso cada vez. Hablarle en lenguaje llano.
 
 ## Cómo se reparte el arnés
 * Lo que llega a los proyectos está listado en **`manifiesto.json`** (huella de cada archivo) con la versión de **`VERSION`**. Tras cambiar cualquier archivo del arnés: subir `VERSION`, anotar en `CAMBIOS.md` y lanzar `python generar_manifiesto.py` (una prueba falla si se olvida). **El ZIP de Mac está en pausa:** solo se regenera si Darwin lo pide, con `python generar_zip_mac.py`.
