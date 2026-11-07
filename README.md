@@ -5,7 +5,7 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 **Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**
 
 ## Reconocimiento
-Cerebro Vivo parte de las ideas de meta-arnés de **Eric Risco**: su vídeo [«Cómo programar con agentes de IA sin empezar de cero cada día»](https://www.youtube.com/watch?v=pv3A38NnJSk) y su proyecto RSC Harness (`@ericrisco/rsc`). La implementación es propia, centrada en la continuidad entre chats.
+Cerebro Vivo parte de las ideas de meta-arnés de **Eric Risco** en su proyecto RSC Harness (`@ericrisco/rsc`). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
 
 ## Qué lleva
 - **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, medidor, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats.

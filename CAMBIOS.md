@@ -127,3 +127,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.20.1 (2026-11-07)
 - Reconocimiento a Eric Risco, de cuyas ideas de meta-arnés parte el método, en `CEREBRO_VIVO.md` y en el README.
+
+## 1.20.2 (2026-11-07)
+- Reconocimiento a Eric Risco con el texto de la página pública (sin el vídeo; trabajo colaborativo entre agentes de IA y persistencia del contexto entre chats) en `CEREBRO_VIVO.md` y en el README.
