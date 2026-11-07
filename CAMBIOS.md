@@ -126,3 +126,5 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - Fuera los datos a mano que envejecen: «Estado al…» en la plantilla y la carta. La skill de pendientes pide no escribir si un punto está subido.
 
 ## 1.20.1 (2026-11-07)
+
+## 1.20.2 (2026-11-07)
