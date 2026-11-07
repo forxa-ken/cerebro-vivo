@@ -326,6 +326,13 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
             </svg></div>
             <p class="cap">Se reparten guardianes, skills, manual y plantillas; nunca pendientes, specs, decisiones ni registro. Cada proyecto se actualiza cuando tú decides, y su versión puede ir por detrás.</p>
           </div>
+          <div class="fig">
+            <h3>Proyectos antiguos: si <code>/actualizar</code> no existe</h3>
+            <p class="txt" style="margin-top:8px"><code>/actualizar</code> llegó en la 1.17.0 y <code>/version</code> en la 1.21.0. Un proyecto anterior no los tiene hasta actualizarlo una vez a mano, en la terminal. Primero se simula (no escribe nada) y luego se repite sin <code>--simular</code>:</p>
+            <p class="txt" style="margin-top:8px">Dentro del proyecto: <code>python .brain/guardianes/actualizar_arnes.py --simular</code></p>
+            <p class="txt" style="margin-top:6px">O desde cerebro-vivo: <code>python actualizar.py "RUTA_DEL_PROYECTO" --simular</code></p>
+            <p class="cap">Después ya funcionan <code>/actualizar</code> y <code>/version</code>. Para saber qué versión tiene un proyecto: <code>/version</code>, o mira <code>.brain/arnes_instalado.json</code>.</p>
+          </div>
           <div class="three">
             <div class="fig"><span class="pill act">ligero</span><p style="margin-top:7px">Un índice, pendientes y registro. Para proyectos pequeños.</p></div>
             <div class="fig"><span class="pill act">medio</span><p style="margin-top:7px">Algo más de memoria, sin guardianes.</p></div>
