@@ -1,6 +1,7 @@
 # Método «Cerebro Vivo»
 
 > Método de trabajo para construir un proyecto de software con una IA (Claude, Gemini u otra) **sin que se pierda el contexto entre chats y gastando pocos tokens**. Nació en LoboHook (2026) y está escrito para copiarlo a otros proyectos.
+> Parte de las ideas de meta-arnés de **Eric Risco** (vídeo [«Cómo programar con agentes de IA sin empezar de cero cada día»](https://www.youtube.com/watch?v=pv3A38NnJSk) y proyecto RSC Harness, `@ericrisco/rsc`); la implementación es propia, centrada en la continuidad entre chats.
 > Para usarlo: copia este archivo al proyecto nuevo y dile a la IA: *«Aplica el método Cerebro Vivo de `CEREBRO_VIVO.md`: crea la estructura y trabaja con sus reglas.»*
 
 ---

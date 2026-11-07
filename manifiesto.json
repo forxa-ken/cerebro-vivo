@@ -1,7 +1,7 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "0c04716792cec292bed3d571e6aa5e4c467f07687c20d9b30b9b0317c52aa7be",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "eaf59d32536314e125e09edef4c135f63e85521af13f28c4fe985461a2f76450",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "0f17406df97e6b9ae9791832c6393336d46935e54127c5ee9cda97c7c8d1a7d4",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "c5ceda5aa5f395ed27b96c23281f5f8f6e536b641ccae29215d422a7deecab7e",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
@@ -113,5 +113,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.20.0"
+ "version": "1.20.1"
 }

@@ -100,3 +100,17 @@
 2026-11-07 | Claude (cerebro-vivo #18) | Spec 022: traspaso-out salgo hara commit y subida por decision de Darwin; con otros commits pendientes pregunta antes de subir. Sin programar | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.20.0 (spec 022): aviso de lo suelto, git automatico en traspaso-out con guardar_traspaso.py, skill subir-a-github, poda de specs hecha, secretos_estado fuera de Git, manuales al dia (289 pruebas OK, 6 saltadas; subida probada solo con remoto local) | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #19) | Commit local del arnes 1.20.0 (spec 022) por orden de Darwin; sin subir a GitHub | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 22 anotado: automatizaciones con Jenkins o GitHub, explicando antes las opciones a Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 23 anotado: agente de IA que verifique las pruebas y los errores de la IA principal | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 23 ajustado: idea somera y objetivo de aprender, con las fuentes de la investigacion | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 24 anotado: investigar cuatro fuentes sobre harness y meta-arneses | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Punto 24: enlaces con su nombre real tras abrirlos | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pagina privada Cerebro Vivo de la A a la Z (comprender, usar, presentar); sin subir a GitHub | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pagina publica en GitHub Pages (rama gh-pages, commit 97c1a5b): https://forxa-ken.github.io/cerebro-vivo/ ; main sin subir | Fast-Track
+2026-11-07 | Guardián (poda automática) | Poda de memoria: archivadas 3 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Comprobado el origen del metodo: la base viene de metaarnes.md (basado en Eric Risco); el repo no lo acredita. Sin cambios | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Comparado con rsc-harness (commit 726aaf3): 0 archivos identicos, 0 lineas largas compartidas; las ideas de base si derivan. Copia temporal borrada | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Traspaso archivado del chat #20 ampliado con la comparacion con Risco y la decision de no acreditar todavia | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Apuntado el punto 25 en pendientes: cambiar la jerga para distanciarse de RSC y bibliografia con Eric Risco y demas autores. Sin empezar. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Reconocimiento a Eric Risco en README y CEREBRO_VIVO.md (arnes 1.20.1). Pruebas en verde. Sin commit; falta en la pagina publica. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Reconocimiento a Eric Risco publicado en la pagina publica (gh-pages 9d50e56). main sigue sin subir. | Fast-Track
