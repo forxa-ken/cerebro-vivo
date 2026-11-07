@@ -128,3 +128,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.20.1 (2026-11-07)
 
 ## 1.20.2 (2026-11-07)
+
+## 1.21.0 (2026-11-07)
+- Skill nueva `/version` (spec 023): dice qué versión del arnés tiene el proyecto, si hay una más nueva y cómo actualizar. Si el proyecto es anterior a la 1.17.0 y `/actualizar` no existe, da los comandos para actualizar a mano la primera vez. Solo lee.

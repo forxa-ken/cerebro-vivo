@@ -28,4 +28,5 @@
 | [subir-a-github](../../.claude/skills/subir-a-github/SKILL.md) | Darwin orders to push or upload the project to GitHub, or says "sube" | Método | cerebro-vivo 1.20.0 |
 | [traspaso-in](../../.claude/skills/traspaso-in/SKILL.md) | Darwin types traspaso-in (salgo or entro), a chat gets long, or he asks to open a new chat with the same AI | Método | cerebro-vivo 1.9.0 |
 | [traspaso-out](../../.claude/skills/traspaso-out/SKILL.md) | Darwin types traspaso-out (salgo or entro) or says he is switching AI (Claude, Gemini, Codex) | Método | cerebro-vivo 1.9.0 |
+| [version](../../.claude/skills/version/SKILL.md) | Darwin types /version or asks which version of the arnés (Cerebro Vivo) this project has | Método | cerebro-vivo 1.21.0 |
 | [vigilar-librerias](../../.claude/skills/vigilar-librerias/SKILL.md) | adding, updating or auditing a Python library | Método | cerebro-vivo 1.0.0 |

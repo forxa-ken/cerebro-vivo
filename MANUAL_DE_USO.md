@@ -171,7 +171,9 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Instalar en un proyecto nuevo (terminal) | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --nombre Nombre --dueno Darwin --nivel completo` (niveles: `ligero`, `medio`, `completo`; `--traduccion` añade es/en/pt) |
 | Comprobar un proyecto ya instalado | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar` |
 | Ver qué traería una actualización | `python actualizar.py RUTA --simular` (o, dentro del proyecto, `python .brain/guardianes/actualizar_arnes.py --simular`) |
+| Ver la versión del arnés del proyecto | `/version` (dice también si hay una más nueva) |
 | Actualizar un proyecto (lo fácil) | escribe `/actualizar` cuando salga el aviso en el arranque |
+| `/actualizar` o `/version` no existen (proyecto anterior a la 1.17.0 o a la 1.21.0) | la primera vez, a mano: `python .brain/guardianes/actualizar_arnes.py --simular` dentro del proyecto, o `python actualizar.py RUTA --simular` desde cerebro-vivo; luego, lo mismo sin `--simular` |
 | Actualizar un proyecto (a mano) | `python actualizar.py RUTA` (o `python .brain/guardianes/actualizar_arnes.py`) |
 | Pisar archivos modificados a mano | `--forzar RUTA_ARCHIVO` (uno) o `--forzar-todo` (todos; commit antes) |
 | Migrar el objetivo a un proyecto antiguo | `python .brain/guardianes/actualizar_arnes.py --migrar-objetivo --simular` y luego sin `--simular` |
@@ -187,5 +189,5 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Bajar los índices de IA al tope de 5 KB | `/acorta` |
 | Dividir un archivo de `.brain/` gordo por temas | `/trocea` (ver cuáles: `python .brain/guardianes/archivos_gordos.py`) |
 | Revisar los índices de IA (doble pasada) | «revisa los índices» (`python .brain/guardianes/revisar_indices.py` para el informe) |
-| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea`, `/subir-a-github` |
-| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea`, `$subir-a-github` (necesitan `.agents/skills/`) |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea`, `/subir-a-github`, `/version` |
+| Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea`, `$subir-a-github`, `$version` (necesitan `.agents/skills/`) |

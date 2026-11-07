@@ -117,3 +117,6 @@
 2026-11-07 | Claude (cerebro-vivo #20) | Subidos a GitHub los 6 commits de main (83bafa4 a 6b9ff26, arnes 1.20.1) por orden de Darwin. Secretos 0, pruebas en verde. | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #20) | Pie de la pagina publica con el texto nuevo de Darwin (sin el video; trabajo colaborativo entre agentes de IA), gh-pages 1062073. | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #20) | README y CEREBRO_VIVO.md con el mismo reconocimiento que la pagina (arnes 1.20.2). Pruebas en verde. Sin commit. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Commit y subida de la 1.20.2 (reconocimiento con el texto de la pagina) por orden de Darwin. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Arnes 1.21.0: skill /version (spec 023), manual y pagina con el caso de /actualizar inexistente (gh-pages f4aa574). Modelo 2 actualizado de 1.12.0 a 1.21.0. Pruebas en verde. Sin commit. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina publica: pestana Cambios que lee CAMBIOS.md de GitHub al momento (version de la cabecera tambien). Commit y subida de la 1.21.0 y de la pagina por orden de Darwin. | Fast-Track
