@@ -93,3 +93,10 @@
 2026-11-07 | Claude (cerebro-vivo #18) | Chat #18 separado al nivel superior con detach_session self (comprobado detached true). Causa: se abrio por tarjeta y el #17 no lo separo; la skill no cubre ese camino. Sin cambios en el arnes | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.19.1: traspaso-in entro se separa solo del chat anterior, tambien si se abrio desde una tarjeta (272 pruebas OK, 6 saltadas; sin probar en real ni commit) | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #18) | pendientes.md: quitada la linea de estado desfasada y el 'sin subir' de los puntos 13, 16 y 17, ya en GitHub (272 pruebas OK, 6 saltadas) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Commit 5e98659 de pendientes. Revisadas las causas de lo que queda suelto o viejo: arranque ignora .brain/ y .claude/, secretos_estado.json seguido por Git, datos a mano sin dueno. Sin arreglar todavia | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022 en borrador: que no se quede nada suelto ni viejo (punto 21). Sin programar; espera aprobacion de Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022: los traspasos se quedan dentro de Git por decision de Darwin (contexto en otro ordenador); los recoge subir-a-github. Sigue en borrador | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022 ampliada: git automatico en traspaso-out salgo con guardar_traspaso.py, documentado en los manuales. Falta decidir commit o tambien subida; sin programar | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022: traspaso-out salgo hara commit y subida por decision de Darwin; con otros commits pendientes pregunta antes de subir. Sin programar | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.20.0 (spec 022): aviso de lo suelto, git automatico en traspaso-out con guardar_traspaso.py, skill subir-a-github, poda de specs hecha, secretos_estado fuera de Git, manuales al dia (289 pruebas OK, 6 saltadas; subida probada solo con remoto local) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Commit local del arnes 1.20.0 (spec 022) por orden de Darwin; sin subir a GitHub | Fast-Track

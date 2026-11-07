@@ -25,7 +25,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["arranque", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
+GUARDIANES = ["arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -334,7 +334,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     ignorar = os.path.join(destino, ".gitignore")
     previo = leer(ignorar) if os.path.exists(ignorar) else ""
     secretos = [a for a in cfg["secretos"]["archivos_secretos"] if a not in previo.splitlines()]
-    nuevas = [l for l in ["__pycache__/", "/.brain/guardianes/librerias_estado.json", "/.brain/guardianes/longitud_estado.json", "/.brain/copias_arnes/"] + secretos if l not in previo.splitlines()]
+    nuevas = [l for l in ["__pycache__/", "/.brain/guardianes/librerias_estado.json", "/.brain/guardianes/longitud_estado.json", "/.brain/guardianes/secretos_estado.json", "/.brain/copias_arnes/"] + secretos if l not in previo.splitlines()]
     if nuevas:
         with open(ignorar, "a", encoding="utf-8", newline="\n") as f:
             f.write(("" if not previo or previo.endswith("\n") else "\n") + "\n".join(nuevas) + "\n")

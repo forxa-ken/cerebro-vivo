@@ -25,6 +25,7 @@
 | [revisar-indices-de-ia](../../.claude/skills/revisar-indices-de-ia/SKILL.md) | an AI index (CLAUDE.md, GEMINI.md, AGENTS.md) is near its cap, has broken references or is overdue for review | Método | cerebro-vivo 1.14.0 |
 | [secretos-fuera-del-repo](../../.claude/skills/secretos-fuera-del-repo/SKILL.md) | adding a key, token, webhook URL or personal data file, or before any git push | Método | cerebro-vivo 1.0.0 |
 | [spec-antes-de-programar](../../.claude/skills/spec-antes-de-programar/SKILL.md) | a change touches more than 2 files or quotas, payments, licenses, deployment or the database | Método | cerebro-vivo 1.0.0 |
+| [subir-a-github](../../.claude/skills/subir-a-github/SKILL.md) | Darwin orders to push or upload the project to GitHub, or says "sube" | Método | cerebro-vivo 1.20.0 |
 | [traspaso-in](../../.claude/skills/traspaso-in/SKILL.md) | Darwin types traspaso-in (salgo or entro), a chat gets long, or he asks to open a new chat with the same AI | Método | cerebro-vivo 1.9.0 |
 | [traspaso-out](../../.claude/skills/traspaso-out/SKILL.md) | Darwin types traspaso-out (salgo or entro) or says he is switching AI (Claude, Gemini, Codex) | Método | cerebro-vivo 1.9.0 |
 | [vigilar-librerias](../../.claude/skills/vigilar-librerias/SKILL.md) | adding, updating or auditing a Python library | Método | cerebro-vivo 1.0.0 |

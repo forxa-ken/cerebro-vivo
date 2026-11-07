@@ -7,7 +7,7 @@ description: Use when finishing any task in the project.
 
 ## Cómo (pasos)
 1. Tests en verde: `venv\Scripts\python.exe -m unittest discover tests`.
-2. Línea en `.brain/decisions.log` (o `cerrar.py`).
+2. Línea en `.brain/decisions.log` (o `cerrar.py`). Primero la línea y luego el commit; si la línea llega después, entra en el siguiente commit.
 3. Ficha D-NNN si hubo decisión importante; `FUNCIONALIDADES.md` si cambia una funcionalidad.
    - Tras crear la ficha: `venv\Scripts\python.exe .brain\guardianes\cerrar.py --indices` añade su fila al índice (no la escribas a mano).
    - Si Darwin probó un punto: `cerrar.py --hecho Nº --titulo "..." --detalle "..." --ref "..." [--conservar] [--simular]` lo pasa de pendientes a hechos con su fila (spec 083).

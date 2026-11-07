@@ -10,5 +10,5 @@
 6. **Memoria de pruebas:** una campaña de pruebas con hallazgos abre su `P-NNN` en `.brain/pruebas/`; al arreglar un hallazgo se marca `- [x]`.
 7. **Secretos:** claves y tokens viven en variables de entorno o en archivos ignorados por Git, nunca en el repositorio.
 8. **Toda llamada externa** lleva tiempo máximo y un plan B local.
-9. **Subir a GitHub** solo con orden expresa de {{DUENO}}.
+9. **Subir a GitHub** solo con orden expresa de {{DUENO}}. Única excepción: `traspaso-out salgo` sube sin más orden su commit de memoria, y pregunta antes si hay otros commits pendientes.
 10. **El objetivo se escribe:** todo objetivo o cambio de objetivo que {{DUENO}} dé en un chat se anota en `.brain/architecture/objetivo.md` en esa misma respuesta; lo que solo está en el chat se pierde.

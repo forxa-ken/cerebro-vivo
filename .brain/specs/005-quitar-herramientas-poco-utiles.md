@@ -1,6 +1,6 @@
 ﻿# Spec 005: Quitar herramientas poco útiles (uso_tokens, modo auto, plugin /plantilla)
 
-- **Estado:** hecha (1.4.0), sin commitear
+- **Estado:** hecha (1.4.0)
 - **Fecha:** 2026-11-01
 
 ## 1. Objetivo

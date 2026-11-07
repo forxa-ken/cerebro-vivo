@@ -6,7 +6,7 @@ description: Use when Darwin confirms he tested a task or when pendientes.md cha
 # Pendientes solo lo que falta
 
 ## Cómo (pasos)
-1. `pendientes.md` guarda solo lo que falta, una línea por punto, numeración fija.
+1. `pendientes.md` guarda solo lo que falta, una línea por punto, numeración fija. En un punto no se escribe si está subido o no: eso lo cuenta el arranque y se queda viejo.
 2. Cuando Darwin confirma la prueba, EN ESA RESPUESTA: detalle a `archive/hechos.md`, fila en `archive/hechos-indice.md`, quitar de pendientes.
 3. Tope de 8 KB vigilado por el guardián.
 4. Si la prueba falla, vuelve a «Falta programar» con una nota.

@@ -116,3 +116,11 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.19.1 (2026-11-07)
 - `traspaso-in entro` empieza separándose del chat anterior si sigue colgado de él (`get_session` y `detach_session` con `self`). Cubre el chat abierto desde una tarjeta, que el chat viejo no separaba (punto 20). El aviso de `longitud.py` manda ya ejecutar `traspaso-in entro` en el encargo del chat nuevo.
+
+## 1.20.0 (2026-11-07)
+- **Nada suelto ni viejo (spec 022).** La línea «Sin commitear» del arranque mira también `.brain/` y `.claude/`, salvo lo que se genera solo (clave nueva `no_avisar_commit`), y da el total de archivos.
+- **`traspaso-out salgo` guarda y sube la memoria** con el guardián nuevo `guardar_traspaso.py`: commit de traspaso, traspasos archivados, registro, pendientes y specs, y subida a GitHub. El código suelto no entra. Se para con un secreto o con otros commits sin subir que no son de memoria (`--subir-todo` con el sí del dueño). Nunca fuerza ni mezcla. La regla 9 de la constitución y su plantilla recogen esta excepción.
+- Skill nueva `subir-a-github`: lo que se repasa cuando el dueño ordena subir.
+- `poda.py` archiva también las specs «hecha», salvo si falta algo o siguen citadas en pendientes.
+- `secretos_estado.json` sale de Git. Los traspasos archivados siguen dentro.
+- Fuera los datos a mano que envejecen: «Estado al…» en la plantilla y la carta. La skill de pendientes pide no escribir si un punto está subido.

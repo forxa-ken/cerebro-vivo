@@ -32,7 +32,7 @@ INCLUIR = [
 EXCLUIR = ["*/__pycache__/*", "*.pyc", ".brain/biblioteca/kit-arranque/preferencias.json",
            "tests/test_arnes_*.py", "tests/test_plugin_*.py"]  # las pruebas del propio repo del arnés no se reparten
 PRUEBAS = ["tests.test_arranque", "tests.test_cerebro_indices", "tests.test_kit_arranque", "tests.test_kit_traduccion",
-           "tests.test_longitud", "tests.test_librerias", "tests.test_secretos", "tests.test_poda",
+           "tests.test_longitud", "tests.test_guardar_traspaso", "tests.test_librerias", "tests.test_secretos", "tests.test_poda",
            "tests.test_pruebas", "tests.test_experiencia", "tests.test_instalar_gui", "tests.test_analisis", "tests.test_medir", "tests.test_modo_ligero"]
 # Retirado o renombrado antes de que el manifiesto llevara la lista (sacado del historial de Git).
 RETIRADOS_HISTORICOS = [".brain/guardianes/modo_auto.py", ".brain/guardianes/uso_tokens.py", ".claude/skills/cambio-de-ia/SKILL.md",

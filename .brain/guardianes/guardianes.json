@@ -21,6 +21,7 @@
     "*.pyc",
     "*.bak*"
   ],
+  "no_avisar_commit": ["*.migrado", "__pycache__/*", "*.pyc", "*.bak*", ".brain/decisions.log", ".brain/traspaso.md", ".brain/archive/traspasos/*", ".brain/guardianes/*_estado.json"],
   "plugins_requeridos": [],
   "alerta_contexto_tokens": 300000,
   "longitud_activa": true,

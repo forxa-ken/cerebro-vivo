@@ -60,6 +60,12 @@ class TestPoda(unittest.TestCase):
         origenes = [o for o, _ in poda.candidatas(raiz)]
         self.assertEqual(origenes, [".brain/specs/001-vieja.md", ".brain/decisions/D-002-total.md"])
 
+    def test_hecha_cuenta_como_terminada_salvo_si_falta_algo(self):
+        poda = cargar_poda()
+        self.assertTrue(poda.es_terminada("hecha y probada (1.7.0)"))
+        self.assertFalse(poda.es_terminada("hecha y probada por las pruebas del repo (1.8.0); falta probar en real"))
+        self.assertFalse(poda.es_terminada("borrador"))
+
     def test_aplicar_mueve_sin_borrar_y_sin_enlaces_rotos(self):
         poda = cargar_poda()
         raiz = self.montar()
