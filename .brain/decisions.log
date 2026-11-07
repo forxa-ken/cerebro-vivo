@@ -76,3 +76,14 @@
 2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.0: guardián archivos_gordos.py (tope 8 KB en .brain/) y skill /trocea (spec 018); manifiesto, ZIP Mac y pruebas en verde; llevado a Guild Control Forever | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #14) | Manual al día: sección 3 ter en MANUAL_DE_USO.md y 9 quinquies en CEREBRO_VIVO.md (/adopta, /acorta, /trocea, archivos_gordos); manifiesto, ZIP Mac y pruebas en verde | Fast-Track
 2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.1: test_arranque usa indices_entrada (un AGENTS.md ajeno ya no da rojo); manual: comandos probados en GCF real | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Anotado pendiente 19: diseñar la colaboración entre IA con responsabilidades distintas (caso Guild Control Forever) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.17.0 (spec 019): aviso de versión nueva en el arranque y skill /actualizar; el actualizador añade claves de config y fichas de skills solo; 2 pruebas del kit corregidas; LoboHook actualizado a 1.17.0 | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.18.0 (spec 020): /adopta encadena adoptar, acortar y trocear; el instalador anota escribe /adopta | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Anotado pendiente 20: arreglar el traspaso cuando el chat nace de otra sesion y el aviso de chat largo que se repite | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Guardada preferencia: abrir yo el chat nuevo al alargarse el chat (start_session + detach_session); sesión #15 abierta con el traspaso | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #15) | Arnés 1.18.1: el aviso de índices pasados de tope dice escribe /adopta | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #15) | Arnés 1.18.2: /traspaso-in sin palabra equivale a salgo y abre el chat nuevo | Fast-Track
+2026-11-06 | Claude (cerebro-vivo #15) | Creado CONTEXTO_PARA_OTRA_CUENTA.md con el resumen del proyecto para otra cuenta de IA (sin commitear) | Fast-Track
+2026-11-06 | Claude (cerebro-vivo #15) | Escrito .brain/traspaso.md del chat #15 al #16 (lee antes CONTEXTO_PARA_OTRA_CUENTA.md) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Darwin confirma /traspaso-in y /actualizar en LoboHook: puntos 3 y 18 pasados a hechos | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Subido a GitHub el arnés 1.17.0 a 1.18.2 con orden de Darwin; CONTEXTO_PARA_OTRA_CUENTA.md al día; skill vieja eliminada de LoboHook | Fast-Track

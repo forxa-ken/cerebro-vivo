@@ -280,6 +280,17 @@ def resumen(raiz, cfg):
         lineas += gordos.resumen(raiz, cfg)
     except Exception:
         pass
+    try:  # spec 019: hay una versión nueva del arnés (línea solo si la hay; se apaga con aviso_arnes_activo)
+        if cfg.get("aviso_arnes_activo", True):
+            import importlib.util
+            espec = importlib.util.spec_from_file_location("actualizar_arnes", os.path.join(AQUI, "actualizar_arnes.py"))
+            act = importlib.util.module_from_spec(espec)
+            espec.loader.exec_module(act)
+            v = act.version_disponible(raiz, cfg)
+            if v:
+                lineas.append("- Arnés: hay una versión nueva (tienes la %s, está la %s). Escribe /actualizar y te lo hago todo." % v)
+    except Exception:
+        pass
     try:  # spec 085: plugins del meta-arnés que no están instalados
         falta = plugins_que_faltan(cfg)
         if falta:

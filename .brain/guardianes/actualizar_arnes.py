@@ -12,7 +12,9 @@ Uso desde el repo del arnés (`actualizar.py` en su raíz):
 
 Reglas: solo toca los archivos del manifiesto (`manifiesto.json`); si el proyecto modificó a mano uno de ellos NO lo pisa
 (se lista; `--forzar RUTA` lo pisa tras guardar copia); nunca toca pendientes, specs, decisiones, registro ni `guardianes.json`
-(si el arnés trae claves nuevas de configuración, las propone). Solo librería estándar."""
+(si el arnés trae claves nuevas de configuración, las AÑADE sin tocar las que ya hay; anota `arnes_repo` si falta y es una
+carpeta local; y añade a la ficha de skills `.brain/experiencia/indice.md` las filas de las skills nuevas). Spec 019: el arranque
+avisa cuando el repo del arnés tiene una versión más nueva (`aviso_arnes`), y la skill `/actualizar` lo hace todo. Solo librería estándar."""
 
 import argparse
 import datetime
@@ -102,6 +104,76 @@ def claves_nuevas(repo, proyecto):
     return {k: v for k, v in del_arnes.items() if k not in del_proyecto and k not in ("_ayuda", "arnes_repo")}
 
 
+def completar_configuracion(repo, proyecto, simular=False):
+    """Spec 019: añade a `guardianes.json` las claves que le faltan (nunca cambia una que ya existe) y anota `arnes_repo` si falta
+    y el repo es una carpeta local. Devuelve las claves añadidas (o que se añadirían)."""
+    ruta = os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            cfg = json.load(f)
+    except Exception:
+        return {}
+    nuevas = dict(claves_nuevas(repo, proyecto))
+    if not cfg.get("arnes_repo") and os.path.isabs(repo):
+        nuevas["arnes_repo"] = os.path.abspath(repo)
+    if nuevas and not simular:
+        cfg.update(nuevas)
+        with open(ruta, "w", encoding="utf-8", newline="\n") as f:
+            json.dump(cfg, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+    return nuevas
+
+
+def completar_fichas_skills(repo, proyecto, simular=False):
+    """Spec 019: las skills que hay en `.claude/skills/` sin fila en `.brain/experiencia/indice.md` reciben la fila del arnés
+    (una prueba lo exige). Devuelve los nombres añadidos (o que se añadirían)."""
+    indice = os.path.join(proyecto, ".brain", "experiencia", "indice.md")
+    fuente = os.path.join(repo, ".brain", "experiencia", "indice.md")
+    carpeta = os.path.join(proyecto, ".claude", "skills")
+    if not (os.path.isfile(indice) and os.path.isfile(fuente) and os.path.isdir(carpeta)):
+        return []
+    texto = leer_bytes(indice).decode("utf-8")
+    hay = set(re.findall(r"skills/([^/]+)/SKILL\.md\)", texto))
+    filas_arnes = leer_bytes(fuente).decode("utf-8").splitlines()
+    anadir, nombres = [], []
+    for n in sorted(os.listdir(carpeta)):
+        if n in hay or not os.path.isfile(os.path.join(carpeta, n, "SKILL.md")):
+            continue
+        fila = next((l for l in filas_arnes if "skills/%s/SKILL.md)" % n in l), None)
+        if fila:
+            anadir.append(fila)
+            nombres.append(n)
+    if anadir and not simular:
+        fin = "\r\n" if "\r\n" in texto else "\n"
+        if not texto.endswith(fin):
+            texto += fin
+        with open(indice, "wb") as f:
+            f.write((texto + fin.join(anadir) + fin).encode("utf-8"))
+    return nombres
+
+
+def version_disponible(proyecto, cfg=None):
+    """Spec 019: (versión instalada, versión del repo del arnés) si el repo es una carpeta local con una versión MÁS NUEVA; si no, None.
+    Solo lee dos archivos pequeños: sin red."""
+    try:
+        if cfg is None:
+            with open(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+                cfg = json.load(f)
+        origen = cfg.get("arnes_repo") or ""
+        if not origen or origen.startswith(("http://", "https://", "git@", "ssh://")) or origen.endswith(".git"):
+            return None
+        carpeta = origen if os.path.isabs(origen) else os.path.join(proyecto, origen)
+        with open(os.path.join(carpeta, "VERSION"), encoding="utf-8") as f:
+            nueva = f.read().strip()
+        actual = (cargar_registro(proyecto).get("version") or "").strip()
+        if not actual or not nueva or os.path.abspath(carpeta) == os.path.abspath(proyecto):
+            return None
+        clave = lambda v: tuple(int(x) for x in v.split("."))
+        return (actual, nueva) if clave(nueva) > clave(actual) else None
+    except Exception:
+        return None
+
+
 def destinos(manifiesto, proyecto):
     """Pares (ruta en el repo, ruta en el proyecto). Con `AGENTS.md` (Codex) las skills de `.claude/skills/` también van a `.agents/skills/`."""
     pares = [(rel, rel) for rel in sorted(manifiesto["archivos"])]
@@ -125,7 +197,8 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     adoptar = {os.path.normcase(os.path.abspath(a)) for a in adoptar}
     forzar = {f.replace("\\", "/") for f in forzar}
     res = {"version_antes": registro.get("version"), "version": manifiesto.get("version"), "nuevos": [], "actualizados": [],
-           "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto)}
+           "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto),
+           "claves_escritas": {}, "fichas": []}
     por_escribir = []  # (rel, destino, contenido, existia)
     for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
@@ -153,6 +226,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
         else:
             res["a_mano"].append(rel)  # modificado a mano (o sin registro previo): no se pisa
     if simular:
+        res["claves_escritas"] = completar_configuracion(repo, proyecto, simular=True)
         return res
     sobrescritos = [p for p in por_escribir if p[3] and os.path.normcase(p[1]) not in adoptar]  # lo que acaba de crear el kit no necesita copia
     if sobrescritos:
@@ -167,6 +241,8 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
         with open(destino, "wb") as f:
             f.write(contenido)
     guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg})
+    res["claves_escritas"] = completar_configuracion(repo, proyecto)
+    res["fichas"] = completar_fichas_skills(repo, proyecto)
     return res
 
 
@@ -287,9 +363,11 @@ def informe(res, simular):
     if res["a_mano"]:
         L.append("⚠️ Modificados a mano (o sin registro previo) y NO pisados (%d). Decide tú; si quieres la versión nueva usa --forzar RUTA:" % len(res["a_mano"]))
         L += ["  ! " + r for r in res["a_mano"]]
-    if res["claves_nuevas"]:
-        L.append("Claves nuevas de configuración que el arnés propone (no se escribieron; cópialas a .brain/guardianes/guardianes.json si las quieres):")
-        L.append(json.dumps(res["claves_nuevas"], ensure_ascii=False, indent=2))
+    if res.get("claves_escritas"):
+        L.append("Configuración: %s %d clave(s) nueva(s) en .brain/guardianes/guardianes.json (las que ya tenías no se tocan): %s" % (
+            "se añadirían" if simular else "se añadieron", len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
+    if res.get("fichas"):
+        L.append("Fichas de skills añadidas a .brain/experiencia/indice.md: %s" % ", ".join(res["fichas"]))
     if res["copia"]:
         L.append("Copia de seguridad de lo sustituido en %s" % res["copia"])
     return "\n".join(L)

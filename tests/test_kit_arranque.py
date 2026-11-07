@@ -53,6 +53,7 @@ class TestKitArranque(unittest.TestCase):
         with open(os.path.join(destino, ".brain", "constitution.md"), encoding="utf-8") as f:
             self.assertIn("objetivo.md", f.read())
 
+    @unittest.skipUnless(os.path.exists(os.path.join(RAIZ, "manifiesto.json")), "las skills de Codex las copia el manifiesto del repo del arnés (spec 019)")
     def test_skills_de_codex_solo_si_se_instala_codex(self):
         con, _ = instalar(ias=("claude", "codex"))
         sin, _ = instalar(ias=("claude",))
@@ -110,6 +111,7 @@ class TestKitArranque(unittest.TestCase):
         self.assertIn(".brain/constitution.md", medio)
         self.assertFalse([f for f in medio if f.startswith(".brain/guardianes")])
 
+    @unittest.skipUnless(os.path.exists(os.path.join(RAIZ, "manifiesto.json")), "solo vale en el repo del arnés: un proyecto puede tener guardianes propios (spec 019)")
     def test_todo_guardian_nuevo_esta_en_el_kit(self):
         carpeta = os.path.join(RAIZ, ".brain", "guardianes")
         propios = {f[:-3] for f in os.listdir(carpeta) if f.endswith(".py")}

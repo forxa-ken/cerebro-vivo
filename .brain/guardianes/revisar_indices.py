@@ -352,7 +352,8 @@ def resumen(raiz, cfg, hoy=None):
             pass
     if not motivos:
         return []
-    return ["- Índices de IA: %s; pide «revisa los índices» (skill revisar-indices-de-ia)." % ", ".join(motivos)]
+    paso = "escribe /adopta (reparte, acorta y trocea) o pide «revisa los índices»" if llenos else "pide «revisa los índices»"
+    return ["- Índices de IA: %s; %s (skills adopta y revisar-indices-de-ia)." % (", ".join(motivos), paso)]
 
 
 def main():

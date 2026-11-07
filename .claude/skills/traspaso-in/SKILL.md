@@ -5,7 +5,7 @@ description: Use when Darwin types traspaso-in (salgo or entro), a chat gets lon
 
 # Traspaso-in: de un chat al chat nuevo, con la misma IA
 
-El chat nuevo no ve el anterior; solo sabe lo que hay en archivos. Dos modos, con la palabra detrás del comando (`/traspaso-in salgo`, en Codex `$traspaso-in salgo`).
+El chat nuevo no ve el anterior; solo sabe lo que hay en archivos. Dos modos, con la palabra detrás del comando (`/traspaso-in salgo`, en Codex `$traspaso-in salgo`). **Sin palabra, es `salgo`** (si el chat es el viejo y Darwin pide pasar a uno nuevo, escribir el traspaso Y abrir el chat nuevo; nunca quedarse solo en el resumen). `entro` solo si Darwin lo escribe o el chat acaba de nacer de un traspaso.
 
 ## Cómo (pasos)
 **salgo** (cierra este chat):

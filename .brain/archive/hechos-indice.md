@@ -15,3 +15,5 @@
 | 12 | Migrar objetivo a proyectos instalados (1.6.0) | 2026-11-01 | specs/008 |
 | 7 | Skills para Codex en .agents/skills (1.5.0) | 2026-11-02 | specs/007 |
 | 11 | Panel /plantilla recuperado (1.7.0) | 2026-11-02 | specs/009 |
+| 3 | Primera adopción real en LoboHook (`/actualizar`, 1.18.2) | 2026-11-07 | archive/hechos.md |
+| 18 | `/traspaso-in` abre el chat nuevo solo (1.12.0 y 1.18.2) | 2026-11-07 | archive/hechos.md |

@@ -39,3 +39,11 @@ Probado por Darwin: con `AGENTS.md` en el proyecto, el actualizador copia las sk
 ## 11 · Panel /plantilla recuperado (spec 009, arnés 1.7.0)
 **Fecha:** 2026-11-02
 Probado por Darwin: el plugin `plantilla-prompt` se instala desde este repo y el panel `/plantilla` funciona.
+
+## 3 · Primera adopción real en LoboHook
+**Fecha:** 2026-11-07
+Darwin confirma que `/actualizar` funciona en LoboHook. Su registro (chat #86) dice que ya estaba en 1.18.2, sin nada que traer, y que `CEREBRO_VIVO.md` figura modificado a mano y no se pisó. No hizo falta `--forzar-todo`. La skill vieja `traspaso-entre-chats` se eliminó de LoboHook el mismo día, con orden de Darwin.
+
+## 18 · `/traspaso-in` abre el chat nuevo solo (arnés 1.12.0 y 1.18.2)
+**Fecha:** 2026-11-07
+Probado por Darwin en LoboHook. Su confirmación no detalla si miró en el sidebar el mismo nivel del chat nuevo ni si su resumen coincidía con lo hablado.

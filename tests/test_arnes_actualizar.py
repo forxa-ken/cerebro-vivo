@@ -136,15 +136,45 @@ class TestSincronizar(Base):
             f.write(b"skill v1\r\n")
         self.assertIn(".claude/skills/s/SKILL.md", act.sincronizar(self.repo, self.proy)["sin_cambios"])
 
-    def test_nunca_toca_datos_ni_configuracion_y_solo_propone_claves(self):
-        datos = {".brain/pendientes.md": "p", ".brain/decisions.log": "d", ".brain/specs/001-x.md": "s", ".brain/decisions/D-001.md": "d1",
-                 ".brain/guardianes/guardianes.json": json.dumps({"mia": True})}
+    def test_nunca_toca_datos_y_la_configuracion_solo_gana_claves_nuevas(self):
+        datos = {".brain/pendientes.md": "p", ".brain/decisions.log": "d", ".brain/specs/001-x.md": "s", ".brain/decisions/D-001.md": "d1"}
         for rel, t in datos.items():
             escribir(self.proy, rel, t)
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"mia": True, "a": 5}))
         res = act.sincronizar(self.repo, self.proy)
         for rel, t in datos.items():
             self.assertEqual(leer(self.proy, rel), t, rel)
-        self.assertEqual(res["claves_nuevas"], {"a": 1})  # propuesta, sin `_ayuda` ni `arnes_repo`
+        cfg = json.loads(leer(self.proy, ".brain/guardianes/guardianes.json"))
+        self.assertEqual(cfg["mia"], True)
+        self.assertEqual(cfg["a"], 5)  # lo que el proyecto ya tenía no se cambia (spec 019)
+        self.assertEqual(cfg["arnes_repo"], os.path.abspath(self.repo))  # se anota dónde está el arnés
+        self.assertEqual(res["claves_escritas"], {"arnes_repo": os.path.abspath(self.repo)})
+
+    def test_claves_nuevas_se_anaden_y_con_simular_no_se_escribe(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"mia": True}))
+        res = act.sincronizar(self.repo, self.proy, simular=True)
+        self.assertIn("a", res["claves_escritas"])
+        self.assertEqual(json.loads(leer(self.proy, ".brain/guardianes/guardianes.json")), {"mia": True})
+        act.sincronizar(self.repo, self.proy)
+        self.assertEqual(json.loads(leer(self.proy, ".brain/guardianes/guardianes.json"))["a"], 1)
+
+    def test_aviso_de_version_nueva(self):
+        escribir(self.repo, "VERSION", "1.2.0\n")
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"arnes_repo": self.repo}))
+        act.guardar_registro(self.proy, {"version": "1.1.0", "archivos": {}})
+        self.assertEqual(act.version_disponible(self.proy), ("1.1.0", "1.2.0"))
+        act.guardar_registro(self.proy, {"version": "1.2.0", "archivos": {}})
+        self.assertIsNone(act.version_disponible(self.proy))
+        act.guardar_registro(self.proy, {"version": "1.10.0", "archivos": {}})  # 1.10 es mayor que 1.2
+        self.assertIsNone(act.version_disponible(self.proy))
+
+    def test_fichas_de_skills_nuevas_se_anaden_al_indice(self):
+        escribir(self.repo, ".brain/experiencia/indice.md", "| h |\n| [s](../../.claude/skills/s/SKILL.md) | cuando | Método | x |\n")
+        escribir(self.proy, ".brain/experiencia/indice.md", "| h |\n")
+        escribir(self.proy, ".claude/skills/s/SKILL.md", "skill v1\n")
+        self.assertEqual(act.completar_fichas_skills(self.repo, self.proy), ["s"])
+        self.assertIn("skills/s/SKILL.md", leer(self.proy, ".brain/experiencia/indice.md"))
+        self.assertEqual(act.completar_fichas_skills(self.repo, self.proy), [])
 
     def test_el_nombre_del_dueño_se_cambia_en_los_textos(self):
         act.sincronizar(self.repo, self.proy, dueno="Ana")
