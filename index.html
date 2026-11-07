@@ -460,7 +460,7 @@ function drawG(k){gB.textContent="";G.filter(g=>!k||g.k===k).forEach(g=>{const r
 GOPT.forEach(([t,k])=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.dataset.k=k;b.onclick=()=>drawG(k);gF.append(b)});drawG("");
 
 const SK=[
- ["Tus comandos",["resumen","pendiente","prompt-inicial","actualizar","subir-a-github"]],
+ ["Tus comandos",["resumen","pendiente","prompt-inicial","actualizar","version","subir-a-github"]],
  ["Cambiar de chat o de IA",["traspaso-in","traspaso-out"]],
  ["Adoptar y ordenar proyectos antiguos",["adopta","adoptar-indice-existente","acorta","trocea","revisar-indices-de-ia"]],
  ["Cerrar bien el trabajo",["cerrar-una-tarea","implementada-no-es-hecha","pendientes-solo-lo-que-falta","mover-no-borrar","spec-antes-de-programar"]],
@@ -522,6 +522,8 @@ const T=[
  {c:"Proyectos",t:"Comprobar un proyecto instalado",w:"En la terminal, desde cerebro-vivo",x:"python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar",d:"Dice qué piezas están y cuáles faltan."},
  {c:"Proyectos",t:"Adoptar un proyecto con un CLAUDE.md antiguo",w:"En el chat",x:"/adopta",d:"Encadena los pasos de reparto, acortar y trocear, y te pide el sí en cada tabla."},
  {c:"Proyectos",t:"Actualizar un proyecto (lo fácil)",w:"En el chat del proyecto",x:"/actualizar",d:"Te cuenta qué trae, te pide el sí y lo hace todo."},
+ {c:"Proyectos",t:"Ver la versión del arnés de un proyecto",w:"En el chat del proyecto",x:"/version",d:"Dice la versión instalada, si hay una más nueva y cómo actualizar. No cambia nada. Llega con la 1.21.0."},
+ {c:"Proyectos",t:"Si /actualizar no existe (proyecto antiguo)",w:"En la terminal, dentro del proyecto",x:"python .brain/guardianes/actualizar_arnes.py --simular",d:"Pasa en proyectos anteriores a la 1.17.0. Luego, lo mismo sin --simular. Desde cerebro-vivo también vale python actualizar.py RUTA. Después ya tendrás /actualizar y /version."},
  {c:"Proyectos",t:"Ver qué traería una actualización",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA --simular",d:"No escribe nada. Conviene hacerlo siempre primero."},
  {c:"Proyectos",t:"Actualizar un proyecto (a mano)",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA",d:"Guarda copia en .brain/copias_arnes/ y no pisa lo modificado."},
  {c:"Mantenimiento",t:"Revisar los índices de IA",w:"En el chat",x:"revisa los índices",d:"Hace doble pasada y mueve lo retirado con tu visto bueno."},
