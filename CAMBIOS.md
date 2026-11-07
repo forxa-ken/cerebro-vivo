@@ -140,3 +140,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.23.1 (2026-11-07)
 - El índice de cada IA (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, que salen de la misma plantilla) lleva ahora la frase de permiso fijo: el dueño autoriza abrir el chat nuevo de forma automática, para que el filtro del modo auto no deniegue `start_session` (spec 025). Solo llega a proyectos que se instalen desde ahora; en uno ya instalado hay que añadir la frase a mano, porque el actualizador no toca los índices.
+
+## 1.23.2 (2026-11-07)
+- `traspaso-in entro`: el chat nuevo debe llamar siempre a `detach_session` con `self` aunque crea que la app lo rechazará (en Guild Control Forever #18, nacido de una tarjeta, se saltó el paso y quedó colgado del #17).

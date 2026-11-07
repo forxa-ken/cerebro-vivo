@@ -64,7 +64,7 @@
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "f77829644713ff6b2cefebc760d6f566830c1c0b0fe2819fad6c4ed042f543ef",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
   ".claude/skills/subir-a-github/SKILL.md": "486faca7f877d08969fbd478d9f8edd1a1f13722b0d87293bee21b8db9947c48",
-  ".claude/skills/traspaso-in/SKILL.md": "279e2826f6b1dfca1fdc78fb49e5c1af468685d8f9e05863b6891cb07e85d3c4",
+  ".claude/skills/traspaso-in/SKILL.md": "80b616bfeb6c6c5f1acbba8eddb5e71d0c8d78c9ea8032e2017b165dc8f34d7f",
   ".claude/skills/traspaso-out/SKILL.md": "ebd4602a6d081761412a4f2750ecd9e7ed829f99a15cf08bb44ef19e1cc34ca9",
   ".claude/skills/trocea/SKILL.md": "5b51456ea8fcee6c279ad7a0b0f2437068631ba420b0b73d53afd7c20e514561",
   ".claude/skills/version/SKILL.md": "0519be83c902c7badf7a9b6e3347c1a5163c24fcf59566c6f5fc2a8e88925255",
@@ -118,5 +118,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.23.1"
+ "version": "1.23.2"
 }
