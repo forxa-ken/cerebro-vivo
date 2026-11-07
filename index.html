@@ -328,9 +328,13 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
           </div>
           <div class="fig">
             <h3>Proyectos antiguos: si <code>/actualizar</code> no existe</h3>
-            <p class="txt" style="margin-top:8px"><code>/actualizar</code> llegó en la 1.17.0 y <code>/version</code> en la 1.21.0. Un proyecto anterior no los tiene hasta actualizarlo una vez a mano, en la terminal. Primero se simula (no escribe nada) y luego se repite sin <code>--simular</code>:</p>
-            <p class="txt" style="margin-top:8px">Dentro del proyecto: <code>python .brain/guardianes/actualizar_arnes.py --simular</code></p>
-            <p class="txt" style="margin-top:6px">O desde cerebro-vivo: <code>python actualizar.py "RUTA_DEL_PROYECTO" --simular</code></p>
+            <p class="txt" style="margin-top:8px"><code>/actualizar</code> llegó en la 1.17.0 y <code>/version</code> en la 1.21.0. Un proyecto anterior no los tiene hasta actualizarlo una vez a mano, en la terminal. Primero se simula (no escribe nada) y luego se aplica:</p>
+            <p class="txt" style="margin-top:8px"><strong>Dentro del proyecto:</strong></p>
+            <p class="txt" style="margin-top:4px">1. Ver qué hará: <code>python .brain/guardianes/actualizar_arnes.py --simular</code></p>
+            <p class="txt" style="margin-top:4px">2. Aplicarlo: <code>python .brain/guardianes/actualizar_arnes.py</code></p>
+            <p class="txt" style="margin-top:10px"><strong>O desde cerebro-vivo:</strong></p>
+            <p class="txt" style="margin-top:4px">1. Ver qué hará: <code>python actualizar.py "RUTA_DEL_PROYECTO" --simular</code></p>
+            <p class="txt" style="margin-top:4px">2. Aplicarlo: <code>python actualizar.py "RUTA_DEL_PROYECTO"</code></p>
             <p class="cap">Después ya funcionan <code>/actualizar</code> y <code>/version</code>. Para saber qué versión tiene un proyecto: <code>/version</code>, o mira <code>.brain/arnes_instalado.json</code>.</p>
           </div>
           <div class="three">
@@ -545,7 +549,8 @@ const T=[
  {c:"Proyectos",t:"Adoptar un proyecto con un CLAUDE.md antiguo",w:"En el chat",x:"/adopta",d:"Encadena los pasos de reparto, acortar y trocear, y te pide el sí en cada tabla."},
  {c:"Proyectos",t:"Actualizar un proyecto (lo fácil)",w:"En el chat del proyecto",x:"/actualizar",d:"Te cuenta qué trae, te pide el sí y lo hace todo."},
  {c:"Proyectos",t:"Ver la versión del arnés de un proyecto",w:"En el chat del proyecto",x:"/version",d:"Dice la versión instalada, si hay una más nueva y cómo actualizar. No cambia nada. Llega con la 1.21.0."},
- {c:"Proyectos",t:"Si /actualizar no existe (proyecto antiguo)",w:"En la terminal, dentro del proyecto",x:"python .brain/guardianes/actualizar_arnes.py --simular",d:"Pasa en proyectos anteriores a la 1.17.0. Luego, lo mismo sin --simular. Desde cerebro-vivo también vale python actualizar.py RUTA. Después ya tendrás /actualizar y /version."},
+ {c:"Proyectos",t:"Si /actualizar no existe (1): ver qué hará",w:"En la terminal, dentro del proyecto",x:"python .brain/guardianes/actualizar_arnes.py --simular",d:"Pasa en proyectos anteriores a la 1.17.0. No escribe nada. Luego, el paso 2."},
+ {c:"Proyectos",t:"Si /actualizar no existe (2): aplicarlo",w:"En la terminal, dentro del proyecto",x:"python .brain/guardianes/actualizar_arnes.py",d:"Guarda copia en .brain/copias_arnes/, no pisa lo modificado y pasa las pruebas. Después ya tendrás /actualizar y /version."},
  {c:"Proyectos",t:"Ver qué traería una actualización",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA --simular",d:"No escribe nada. Conviene hacerlo siempre primero."},
  {c:"Proyectos",t:"Actualizar un proyecto (a mano)",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA",d:"Guarda copia en .brain/copias_arnes/ y no pisa lo modificado."},
  {c:"Mantenimiento",t:"Revisar los índices de IA",w:"En el chat",x:"revisa los índices",d:"Hace doble pasada y mueve lo retirado con tu visto bueno."},
