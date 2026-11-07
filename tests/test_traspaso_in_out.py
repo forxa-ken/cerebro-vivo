@@ -34,6 +34,13 @@ class TestTraspasoInOut(unittest.TestCase):
         for palabra in ("start_session", "detach_session", "traspaso-in entro"):
             self.assertIn(palabra, t)
 
+    def test_traspaso_in_entro_se_separa_del_chat_anterior(self):
+        t = leer(RAIZ, ".claude", "skills", "traspaso-in", "SKILL.md")
+        entro = t.split("**entro** (chat nuevo):")[1].split("Hacerlo pronto")[0]
+        for palabra in ("get_session", "parentSessionId", "detached", "detach_session", "`self`"):
+            self.assertIn(palabra, entro)
+        self.assertLess(entro.index("detach_session"), entro.index("arranque.py"))  # lo primero al entrar
+
     def test_plantilla_de_traspaso_lleva_los_campos_nuevos(self):
         t = leer(RAIZ, ".brain", "biblioteca", "PLANTILLA_TRASPASO.md")
         for campo in ("IA que lo escribe", "IA que sigue", "Hora"):
