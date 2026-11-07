@@ -124,3 +124,5 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - `poda.py` archiva también las specs «hecha», salvo si falta algo o siguen citadas en pendientes.
 - `secretos_estado.json` sale de Git. Los traspasos archivados siguen dentro.
 - Fuera los datos a mano que envejecen: «Estado al…» en la plantilla y la carta. La skill de pendientes pide no escribir si un punto está subido.
+
+## 1.20.1 (2026-11-07)
