@@ -211,9 +211,31 @@ def configuracion(ias):
     return cfg
 
 
+def cargar_actualizador():
+    espec = importlib.util.spec_from_file_location("actualizar_arnes", os.path.join(GUARDIANES_FUENTE, "actualizar_arnes.py"))
+    actualizador = importlib.util.module_from_spec(espec)
+    espec.loader.exec_module(actualizador)
+    return actualizador
+
+
+def repo_del_arnes(cfg):
+    """Carpeta del repo del arnés con su manifiesto, o None."""
+    repo = RAIZ_FUENTE if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")) else cfg.get("arnes_repo")
+    return repo if repo and os.path.exists(os.path.join(repo, "manifiesto.json")) else None
+
+
+def comprobar_arnes(ias):
+    """Spec 021: con el manifiesto desfasado, parar antes de escribir nada en vez de quedarse a medias."""
+    repo = repo_del_arnes(configuracion(ias))
+    if repo:
+        cargar_actualizador().comprobar_manifiesto(repo)
+
+
 def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simular=False, git_init=False, traduccion=False):
     """Monta el kit en `destino` (con `simular` solo cuenta). Devuelve {'creados': [...], 'fusionados': [...], 'respetados': [...], 'avisos': [...]}.
     Con `traduccion` añade además el kit de traducción es/en/pt (spec 057) en `static/i18n/`."""
+    if nivel == "completo":
+        comprobar_arnes(ias)
     hechos = {"creados": [], "fusionados": [], "respetados": [], "avisos": [], "simulacion": simular}
     destino = os.path.abspath(destino)
     if not simular:
@@ -262,6 +284,8 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
             poner("static/i18n/" + archivo, texto.replace("mi_proyecto_lang", clave + "_lang"))
         poner("static/i18n/LEEME.md", leer(os.path.join(KIT_TRADUCCION, "README.md")))
         poner("tests/test_paridad_idiomas.py", leer(os.path.join(KIT_TRADUCCION, "paridad_idiomas.py")))
+    if nivel != "completo":  # spec 021: el actualizador sabe que aquí no hay guardianes que actualizar
+        poner(".brain/arnes_instalado.json", json.dumps({"archivos": {}, "dueno": dueno, "nivel": nivel}, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
     if nivel == "ligero":
         return hechos
 
@@ -302,13 +326,9 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         poner(".claude/settings.json", json.dumps(ajustes_claude, ensure_ascii=False, indent=2) + "\n")
     if simular:
         return hechos
-    repo_arnes = RAIZ_FUENTE if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")) else cfg.get("arnes_repo")
-    manifiesto = os.path.join(repo_arnes, "manifiesto.json") if repo_arnes else ""
-    if os.path.exists(manifiesto) and destino != repo_arnes:  # spec 087: skills, kits, manual y pruebas del método, con su registro de versión
-        espec = importlib.util.spec_from_file_location("actualizar_arnes", os.path.join(GUARDIANES_FUENTE, "actualizar_arnes.py"))
-        actualizador = importlib.util.module_from_spec(espec)
-        espec.loader.exec_module(actualizador)
-        res = actualizador.sincronizar(repo_arnes, destino, dueno=dueno, adoptar=hechos["creados"])
+    repo_arnes = repo_del_arnes(cfg)
+    if repo_arnes and destino != repo_arnes:  # spec 087: skills, kits, manual y pruebas del método, con su registro de versión
+        res = cargar_actualizador().sincronizar(repo_arnes, destino, dueno=dueno, adoptar=hechos["creados"])
         hechos["creados"] += [os.path.join(destino, r) for r in res["nuevos"]]
         hechos["avisos"].append("Arnés %s instalado: se actualiza con `python .brain/guardianes/actualizar_arnes.py --simular`." % res["version"])
     ignorar = os.path.join(destino, ".gitignore")
@@ -411,10 +431,14 @@ def main():
     if nivel not in NIVELES or not ias or any(i not in IAS for i in ias):
         print("Nivel o IA no válidos. Niveles: %s. IA: %s." % (", ".join(NIVELES), ", ".join(IAS)))
         return 2
-    hechos = instalar(a.destino, pedir(a.nombre, "Nombre del proyecto", os.path.basename(os.path.abspath(a.destino))),
-                      pedir(a.dueno, "Nombre del dueño", "el dueño"), pedir(a.idioma, "Idioma de las respuestas", "español"),
-                      pedir(a.pruebas, "Comando de pruebas", "python -m unittest discover tests"), ias, nivel,
-                      traduccion=a.traduccion)
+    try:
+        hechos = instalar(a.destino, pedir(a.nombre, "Nombre del proyecto", os.path.basename(os.path.abspath(a.destino))),
+                          pedir(a.dueno, "Nombre del dueño", "el dueño"), pedir(a.idioma, "Idioma de las respuestas", "español"),
+                          pedir(a.pruebas, "Comando de pruebas", "python -m unittest discover tests"), ias, nivel,
+                          traduccion=a.traduccion)
+    except ValueError as e:
+        print("❌ %s" % e)
+        return 2
     print("Kit instalado (nivel %s): %d archivo(s) creados, %d fusionados con lo que ya tenías, %d ya existían y no se tocaron." % (nivel, len(hechos["creados"]), len(hechos["fusionados"]), len(hechos["respetados"])))
     if hechos["fusionados"]:
         print("- Reinicia Claude Code en el proyecto para que cuenten los cambios en .claude/settings.json.")

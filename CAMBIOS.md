@@ -104,3 +104,12 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.18.2 (2026-11-04)
 - `/traspaso-in` sin palabra equivale a `salgo` y abre el chat nuevo (en LoboHook #79 Darwin lo escribió solo, la IA dio el resumen y no abrió el chat).
+
+## 1.19.0 (2026-11-07)
+- **Actualizador fiable (spec 021).** Lo retirado del arnés (lista `retirados` del manifiesto, que `generar_manifiesto.py` mantiene solo) sale de los proyectos a la copia de seguridad, con su fila del índice de skills; lo modificado a mano se lista y no se toca.
+- Cada archivo se escribe de forma atómica: un corte deja el viejo o el nuevo entero, y al relanzar se completa.
+- El registro anota `sin_aplicar` con lo que se quedó viejo, y el informe dice «aplicada salvo N archivos».
+- Antes de escribir se comprueba la huella de cada archivo contra el manifiesto, también en el kit.
+- El kit anota `nivel` en `.brain/arnes_instalado.json`; un proyecto de nivel ligero o medio no recibe nada y se le dice cómo subir a completo (punto 14).
+- `--simular` anuncia todo lo que hará: retirados, filas y fichas del índice, y lo que queda sin aplicar.
+- `README.md` y el manual ya no dicen que las claves nuevas «solo se proponen».

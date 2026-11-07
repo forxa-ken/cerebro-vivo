@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Actualizador del arnés (spec 087): simulación, archivo modificado a mano, datos intocables y copia de seguridad."""
+"""Actualizador del arnés (specs 087 y 021): simulación, modificado a mano, datos intocables, copia de seguridad, retirados,
+corte a media escritura, versión honesta, huella del manifiesto y nivel del proyecto."""
 import contextlib
 import importlib.util
 import io
@@ -8,6 +9,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _espec = importlib.util.spec_from_file_location("actualizar_arnes", os.path.join(RAIZ, ".brain", "guardianes", "actualizar_arnes.py"))
@@ -200,6 +202,7 @@ class TestPrograma(Base):
         return codigo, salida.getvalue()
 
     def test_desde_el_repo_con_simular(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.json", "{}")  # spec 021: sin guardianes no se actualiza
         antes = arbol(self.proy)
         codigo, texto = self.correr(self.proy, "--simular", repo=self.repo)
         self.assertEqual(codigo, 0)
@@ -229,6 +232,281 @@ class TestPrograma(Base):
         self.assertIn("NO pisados", texto)
         self.assertIn("! .claude/skills/s/SKILL.md", texto)
         self.assertIn("1.0.0 → 1.1.0", texto)
+
+
+class TestRetirados(Base):
+    """Spec 021: lo que el arnés deja de repartir sale de los proyectos, sin borrarse."""
+
+    def retirar(self, *rutas, version="1.1.0"):
+        ruta = os.path.join(self.repo, "manifiesto.json")
+        with open(ruta, encoding="utf-8") as f:
+            m = json.load(f)
+        for rel in rutas:
+            m["archivos"].pop(rel, None)
+        m["retirados"], m["version"] = sorted(rutas), version
+        with open(ruta, "w", encoding="utf-8") as f:
+            json.dump(m, f)
+
+    def en_copia(self, res, rel):
+        return leer(self.proy, res["copia"].replace("\\", "/") + "/" + rel)
+
+    def test_retirado_sin_tocar_va_a_la_copia_y_sale_del_registro(self):
+        act.sincronizar(self.repo, self.proy)
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["retirados"], [".claude/skills/s/SKILL.md"])
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".claude", "skills", "s")), "la carpeta vacía tampoco se queda")
+        self.assertEqual(self.en_copia(res, ".claude/skills/s/SKILL.md"), "skill v1\n")
+        self.assertNotIn(".claude/skills/s/SKILL.md", act.cargar_registro(self.proy)["archivos"])
+
+    def test_retirado_modificado_a_mano_no_se_toca_y_se_lista(self):
+        act.sincronizar(self.repo, self.proy)
+        escribir(self.proy, ".claude/skills/s/SKILL.md", "mío\n")
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual((res["retirados"], res["retirados_a_mano"]), ([], [".claude/skills/s/SKILL.md"]))
+        self.assertEqual(leer(self.proy, ".claude/skills/s/SKILL.md"), "mío\n")
+        self.assertIn(".claude/skills/s/SKILL.md", act.cargar_registro(self.proy)["sin_aplicar"])
+
+    def test_retirado_sin_registro_no_se_toca(self):
+        escribir(self.proy, ".claude/skills/vieja/SKILL.md", "de otro\n")
+        self.retirar(".claude/skills/vieja/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["retirados_a_mano"], [".claude/skills/vieja/SKILL.md"])
+        self.assertEqual(leer(self.proy, ".claude/skills/vieja/SKILL.md"), "de otro\n")
+
+    def test_forzar_retira_lo_modificado_con_copia(self):
+        act.sincronizar(self.repo, self.proy)
+        escribir(self.proy, ".claude/skills/s/SKILL.md", "mío\n")
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy, forzar=[".claude/skills/s/SKILL.md"])
+        self.assertEqual(res["retirados"], [".claude/skills/s/SKILL.md"])
+        self.assertEqual(self.en_copia(res, ".claude/skills/s/SKILL.md"), "mío\n")
+
+    def test_retirado_ya_ausente_solo_sale_del_registro(self):
+        act.sincronizar(self.repo, self.proy)
+        os.remove(os.path.join(self.proy, ".claude", "skills", "s", "SKILL.md"))
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual((res["retirados"], res["retirados_a_mano"], res["copia"]), ([], [], None))
+        self.assertNotIn(".claude/skills/s/SKILL.md", act.cargar_registro(self.proy)["archivos"])
+
+    def test_la_copia_de_codex_tambien_se_retira(self):
+        escribir(self.proy, "AGENTS.md", "# indice\n")
+        act.sincronizar(self.repo, self.proy)
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(sorted(res["retirados"]), [".agents/skills/s/SKILL.md", ".claude/skills/s/SKILL.md"])
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".agents", "skills", "s")))
+
+    def test_la_fila_de_la_skill_retirada_sale_del_indice(self):
+        fila = "| [s](../../.claude/skills/s/SKILL.md) | cuando | Método | x |\n"
+        otra = "| [otra](../../.claude/skills/otra/SKILL.md) | y | z | x |\n"
+        escribir(self.proy, ".brain/experiencia/indice.md", "| h |\n" + fila + otra)
+        escribir(self.repo, ".brain/experiencia/indice.md", "| h |\n")
+        act.sincronizar(self.repo, self.proy)
+        self.retirar(".claude/skills/s/SKILL.md")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["filas_quitadas"], ["s"])
+        self.assertEqual(leer(self.proy, ".brain/experiencia/indice.md"), "| h |\n" + otra)
+        self.assertIn(fila, self.en_copia(res, ".brain/experiencia/indice.md"))
+
+    def test_la_fila_de_la_skill_que_se_queda_a_mano_no_se_quita(self):
+        fila = "| [s](../../.claude/skills/s/SKILL.md) | cuando | Método | x |\n"
+        escribir(self.proy, ".brain/experiencia/indice.md", "| h |\n" + fila)
+        escribir(self.repo, ".brain/experiencia/indice.md", "| h |\n")
+        act.sincronizar(self.repo, self.proy)
+        escribir(self.proy, ".claude/skills/s/SKILL.md", "mío\n")
+        self.retirar(".claude/skills/s/SKILL.md")
+        self.assertEqual(act.sincronizar(self.repo, self.proy)["filas_quitadas"], [])
+        self.assertIn(fila, leer(self.proy, ".brain/experiencia/indice.md"))
+
+    def test_ruta_retirada_fuera_de_la_carpeta_se_rechaza(self):
+        self.retirar("../fuera.txt")
+        with self.assertRaises(ValueError):
+            act.sincronizar(self.repo, self.proy)
+
+    def test_simular_anuncia_lo_mismo_que_hace_y_no_escribe(self):
+        # Una skill que se retira, otra que llega nueva con su fila, una clave nueva y un archivo modificado a mano.
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"arnes_repo": "x"}))
+        escribir(self.proy, ".brain/experiencia/indice.md", "| h |\n| [s](../../.claude/skills/s/SKILL.md) | c | M | x |\n")
+        escribir(self.repo, ".brain/experiencia/indice.md", "| h |\n| [nueva](../../.claude/skills/nueva/SKILL.md) | c | M | x |\n")
+        act.sincronizar(self.repo, self.proy)
+        escribir(self.proy, ".brain/guardianes/uno.py", "# a mano\n")
+        self.poner_repo({".brain/guardianes/uno.py": "# uno v2\n", ".claude/skills/nueva/SKILL.md": "nueva\n"}, "1.1.0")
+        self.retirar(".claude/skills/s/SKILL.md")
+        antes = arbol(self.proy)
+        sim = act.sincronizar(self.repo, self.proy, simular=True)
+        self.assertEqual(arbol(self.proy), antes)
+        self.assertEqual(sim["retirados"], [".claude/skills/s/SKILL.md"])
+        self.assertEqual(sim["filas_quitadas"], ["s"])
+        self.assertEqual(sim["fichas"], ["nueva"])
+        self.assertEqual(sim["sin_aplicar"], [".brain/guardianes/uno.py"])
+        texto = act.informe(sim, True)
+        self.assertIn(".claude/skills/s/SKILL.md", texto)
+        self.assertIn("nueva", texto)
+        real = act.sincronizar(self.repo, self.proy)
+        for clave in ("nuevos", "actualizados", "a_mano", "retirados", "retirados_a_mano", "filas_quitadas", "fichas", "sin_aplicar", "claves_escritas"):
+            self.assertEqual(sim[clave], real[clave], clave)
+
+
+class TestCorteAMediaEscritura(Base):
+    """Spec 021: un corte deja cada archivo viejo o nuevo entero, y al relanzar se completa."""
+
+    def test_si_falla_la_escritura_el_archivo_sigue_entero_y_sin_temporales(self):
+        ruta = os.path.join(self.proy, "a.txt")
+        act.escribir_atomico(ruta, b"viejo")
+        with mock.patch.object(act.os, "replace", side_effect=OSError("corte")):
+            with self.assertRaises(OSError):
+                act.escribir_atomico(ruta, b"nuevo")
+        self.assertEqual(act.leer_bytes(ruta), b"viejo")
+        self.assertEqual(os.listdir(self.proy), ["a.txt"])
+
+    @unittest.skipIf(os.name == "nt", "los permisos de ejecución no existen en Windows")
+    def test_conserva_los_permisos_del_archivo(self):
+        ruta = os.path.join(self.proy, "a.command")
+        act.escribir_atomico(ruta, b"v1")
+        os.chmod(ruta, 0o755)
+        act.escribir_atomico(ruta, b"v2")
+        self.assertEqual(os.stat(ruta).st_mode & 0o777, 0o755)
+
+    def test_corte_a_mitad_de_la_copia_y_relanzar_completa_sin_marcar_a_mano(self):
+        act.sincronizar(self.repo, self.proy)
+        self.poner_repo({".brain/guardianes/uno.py": "# uno v2\n", ".claude/skills/s/SKILL.md": "skill v2\n"}, "1.1.0")
+        real, llamadas = os.replace, []
+
+        def cortar(origen, destino):
+            llamadas.append(destino)
+            if len(llamadas) == 2:
+                raise OSError("corte")
+            real(origen, destino)
+
+        with mock.patch.object(act.os, "replace", side_effect=cortar):
+            with self.assertRaises(OSError):
+                act.sincronizar(self.repo, self.proy)
+        self.assertEqual(act.cargar_registro(self.proy)["version"], "1.0.0", "a medias no se anota la versión nueva")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["a_mano"], [])
+        self.assertEqual(leer(self.proy, ".brain/guardianes/uno.py"), "# uno v2\n")
+        self.assertEqual(leer(self.proy, ".claude/skills/s/SKILL.md"), "skill v2\n")
+        self.assertEqual(act.cargar_registro(self.proy)["version"], "1.1.0")
+
+
+class TestVersionHonesta(Base):
+    def test_lo_que_se_queda_viejo_queda_anotado_y_se_dice(self):
+        act.sincronizar(self.repo, self.proy)
+        self.assertEqual(act.cargar_registro(self.proy)["sin_aplicar"], [])
+        escribir(self.proy, ".claude/skills/s/SKILL.md", "mío\n")
+        self.poner_repo({".claude/skills/s/SKILL.md": "skill v2\n"}, "1.1.0")
+        res = act.sincronizar(self.repo, self.proy)
+        r = act.cargar_registro(self.proy)
+        self.assertEqual((r["version"], r["sin_aplicar"]), ("1.1.0", [".claude/skills/s/SKILL.md"]))
+        self.assertIn("1.1.0 aplicada salvo 1 archivo", act.informe(res, False))
+        act.sincronizar(self.repo, self.proy, forzar=[".claude/skills/s/SKILL.md"])
+        self.assertEqual(act.cargar_registro(self.proy)["sin_aplicar"], [])
+
+
+class TestHuellaDelManifiesto(Base):
+    def test_huella_falsa_para_sin_escribir_nada(self):
+        escribir(self.repo, ".claude/skills/s/SKILL.md", "cambiado sin regenerar\n")
+        antes = arbol(self.proy)
+        with self.assertRaises(ValueError) as e:
+            act.sincronizar(self.repo, self.proy)
+        self.assertIn(".claude/skills/s/SKILL.md", str(e.exception))
+        self.assertEqual(arbol(self.proy), antes)
+
+    def test_archivo_del_manifiesto_que_falta_en_el_repo(self):
+        os.remove(os.path.join(self.repo, ".claude", "skills", "s", "SKILL.md"))
+        with self.assertRaises(ValueError):
+            act.sincronizar(self.repo, self.proy)
+
+    def test_el_programa_lo_explica_con_error(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.json", "{}")
+        escribir(self.repo, ".claude/skills/s/SKILL.md", "cambiado\n")
+        salida = io.StringIO()
+        with contextlib.redirect_stdout(salida):
+            codigo = act.main([self.proy, "--simular"], repo=self.repo)
+        self.assertEqual(codigo, 2)
+        self.assertIn("generar_manifiesto", salida.getvalue())
+
+
+class TestNivel(Base):
+    """Spec 021 (punto 14): en un proyecto sin guardianes el actualizador no copia nada."""
+
+    def correr(self, *args):
+        salida = io.StringIO()
+        with contextlib.redirect_stdout(salida):
+            codigo = act.main([self.proy] + list(args), repo=self.repo)
+        return codigo, salida.getvalue()
+
+    def test_nivel_medio_no_copia_nada_y_explica_como_subir(self):
+        escribir(self.proy, ".brain/arnes_instalado.json", json.dumps({"nivel": "medio", "archivos": {}}))
+        antes = arbol(self.proy)
+        codigo, texto = self.correr()
+        self.assertEqual(codigo, 0)
+        self.assertIn("medio", texto)
+        self.assertIn("--nivel completo", texto)
+        self.assertEqual(arbol(self.proy), antes)
+
+    def test_nivel_medio_tampoco_con_forzar_todo(self):
+        escribir(self.proy, ".brain/arnes_instalado.json", json.dumps({"nivel": "medio", "archivos": {}}))
+        antes = arbol(self.proy)
+        self.assertIn("--nivel completo", self.correr("--forzar-todo")[1])
+        self.assertEqual(arbol(self.proy), antes)
+
+    def test_proyecto_antiguo_sin_nivel_ni_guardianes_no_copia(self):
+        escribir(self.proy, ".brain/pendientes.md", "p")
+        antes = arbol(self.proy)
+        self.assertIn("--nivel completo", self.correr()[1])
+        self.assertEqual(arbol(self.proy), antes)
+
+    def test_proyecto_antiguo_sin_guardianes_se_adopta_con_forzar_todo(self):
+        codigo, _ = self.correr("--forzar-todo", "--sin-pruebas")
+        self.assertEqual(codigo, 0)
+        self.assertTrue(os.path.isfile(os.path.join(self.proy, ".claude", "skills", "s", "SKILL.md")))
+        self.assertEqual(act.cargar_registro(self.proy)["nivel"], "completo")
+
+    def test_nivel_completo_y_proyecto_con_guardianes_si_actualizan(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.json", "{}")
+        self.assertEqual(self.correr("--sin-pruebas")[0], 0)
+        self.assertEqual(act.cargar_registro(self.proy)["nivel"], "completo")
+        self.assertTrue(os.path.isfile(os.path.join(self.proy, ".claude", "skills", "s", "SKILL.md")))
+
+    def test_el_kit_anota_el_nivel_y_al_subir_a_completo_cambia(self):
+        proy = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, proy, True)
+        kit.instalar(proy, "Demo", "Ana", "español", "x", ["claude"], "medio", hoy="2026-01-01")
+        r = act.cargar_registro(proy)
+        self.assertEqual((r["nivel"], r["dueno"]), ("medio", "Ana"))
+        salida = io.StringIO()
+        with contextlib.redirect_stdout(salida):
+            act.main([proy, "--simular"], repo=RAIZ)
+        self.assertIn("--nivel completo", salida.getvalue())
+        kit.instalar(proy, "Demo", "Ana", "español", "x", ["claude"], "completo", hoy="2026-01-01")
+        self.assertEqual(act.cargar_registro(proy)["nivel"], "completo")
+
+    def test_el_kit_con_manifiesto_desfasado_no_empieza(self):
+        proy = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, proy, True)
+        with mock.patch.object(kit, "comprobar_arnes", side_effect=ValueError("desfasado")):
+            with self.assertRaises(ValueError):
+                kit.instalar(proy, "Demo", "Ana", "español", "x", ["claude"], "completo", hoy="2026-01-01")
+        self.assertEqual(os.listdir(proy), [])
+
+
+class TestGenerarManifiesto(unittest.TestCase):
+    def test_lista_de_retirados(self):
+        espec = importlib.util.spec_from_file_location("generar_manifiesto", os.path.join(RAIZ, "generar_manifiesto.py"))
+        gen = importlib.util.module_from_spec(espec)
+        espec.loader.exec_module(gen)
+        previo = {"archivos": {"a.py": "1", "b.py": "2"}, "retirados": ["c.py", "d.py"]}
+        res = gen.calcular_retirados(["a.py", "d.py"], previo)  # b.py se va, d.py vuelve
+        self.assertEqual(set(res) - set(gen.RETIRADOS_HISTORICOS), {"b.py", "c.py"})
+        self.assertEqual(res, sorted(res))
+        with open(os.path.join(RAIZ, "manifiesto.json"), encoding="utf-8") as f:
+            m = json.load(f)
+        self.assertIn(".claude/skills/traspaso-entre-chats/SKILL.md", m["retirados"])
+        self.assertFalse(set(m["retirados"]) & set(m["archivos"]), "un archivo no puede repartirse y estar retirado a la vez")
 
 
 class TestConElRepoReal(unittest.TestCase):

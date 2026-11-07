@@ -87,3 +87,6 @@
 2026-11-06 | Claude (cerebro-vivo #15) | Escrito .brain/traspaso.md del chat #15 al #16 (lee antes CONTEXTO_PARA_OTRA_CUENTA.md) | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #16) | Darwin confirma /traspaso-in y /actualizar en LoboHook: puntos 3 y 18 pasados a hechos | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #16) | Subido a GitHub el arnés 1.17.0 a 1.18.2 con orden de Darwin; CONTEXTO_PARA_OTRA_CUENTA.md al día; skill vieja eliminada de LoboHook | Fast-Track
+2026-11-07 | Guardián (poda automática) | Poda de memoria: archivadas 3 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Analizada F:\Arquitectura de desarrollo (47 archivos) contra el arnés; hallazgos comprobados en carpeta temporal, sin cambios en código. Escrito traspaso al #17 y abierto el chat nuevo | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #17) | Arnes 1.19.0 (spec 021): actualizador fiable. Retirados, escritura atomica, sin_aplicar, huella comprobada, nivel guardado (punto 14), --simular completo. Ensayado solo en copias de Pegatinas y LoboHook; sin ZIP de Mac por orden de Darwin; sin commitear. | Fast-Track

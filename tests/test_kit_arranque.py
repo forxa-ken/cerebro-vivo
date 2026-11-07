@@ -106,7 +106,7 @@ class TestKitArranque(unittest.TestCase):
 
     def test_niveles(self):
         ligero = archivos(instalar("ligero", ("claude",))[0])
-        self.assertEqual(ligero, [".brain/decisions.log", ".brain/pendientes.md", "CLAUDE.md"])
+        self.assertEqual(ligero, [".brain/arnes_instalado.json", ".brain/decisions.log", ".brain/pendientes.md", "CLAUDE.md"])
         medio = archivos(instalar("medio", ("claude",))[0])
         self.assertIn(".brain/constitution.md", medio)
         self.assertFalse([f for f in medio if f.startswith(".brain/guardianes")])

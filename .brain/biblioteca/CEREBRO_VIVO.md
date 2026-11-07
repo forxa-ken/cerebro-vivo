@@ -119,7 +119,7 @@ Pega esto en el primer chat:
 | :--- | :--- |
 | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --nombre N --dueno D --nivel completo` | Instala el método en un proyecto nuevo (guardianes, skills, kits, manual, pruebas) y anota de dónde se actualiza (`arnes_repo` en `guardianes.json`) |
 | `python .brain/guardianes/actualizar_arnes.py --simular` | En un proyecto: enseña qué archivos del arnés cambiarían, sin escribir nada |
-| `python .brain/guardianes/actualizar_arnes.py` | Actualiza: guarda copia en `.brain/copias_arnes/`, copia lo nuevo, **no pisa lo que modificaste a mano** (lo lista), nunca toca pendientes, specs, decisiones, registro ni `guardianes.json` (las claves nuevas solo las propone) y corre las pruebas del método |
+| `python .brain/guardianes/actualizar_arnes.py` | Actualiza: guarda copia en `.brain/copias_arnes/`, copia lo nuevo, mueve a esa copia lo que el arnés retiró, **no pisa lo que modificaste a mano** (lo lista y la versión queda anotada con esos archivos en `sin_aplicar`), nunca toca pendientes, specs, decisiones ni registro, en `guardianes.json` solo añade las claves que falten, no copia nada en un proyecto de nivel ligero o medio y corre las pruebas del método |
 | `… actualizar_arnes.py --forzar RUTA` | Pisa un archivo que sí quieres reemplazar aunque lo hayas modificado (con copia de seguridad) |
 | `… actualizar_arnes.py --forzar-todo` | Primera vez en un proyecto antiguo (sin registro previo): pisa **todo** lo que difiere, siempre con copia en `.brain/copias_arnes/`. Úsalo solo tras ver la lista con `--simular` |
 | `… actualizar_arnes.py --repo CARPETA_O_URL_GIT` | Indica el repo del arnés si el proyecto no lo tiene anotado |
