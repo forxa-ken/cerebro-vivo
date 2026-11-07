@@ -153,6 +153,13 @@ input[type=search]{width:100%;padding:10px 13px;border:1px solid var(--line);bor
 .deckbar span{font:400 .84rem var(--mono);color:var(--muted)}
 .say-it{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:72ch}
 .pgroup{display:grid;gap:12px;margin-top:38px}
+.log{display:grid;gap:12px;margin-top:6px}
+.ver{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;min-width:0}
+.ver h3{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.ver h3 span{font:400 .82rem var(--mono);color:var(--muted)}
+.ver ul{margin:8px 0 0;padding-left:20px;display:grid;gap:5px;font-size:.94rem}.ver li{overflow-wrap:anywhere}
+.ver.new{border-color:var(--accent)}
+.logmore{justify-self:start;border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:6px 14px;font-weight:600}
+nav.tabs{flex-wrap:wrap}
 footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);font-size:.86rem}
 @media (max-width:880px){
   .layout{grid-template-columns:minmax(0,1fr)}
@@ -167,11 +174,12 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
 
 <header class="top"><div class="wrap">
-  <div class="brand">Cerebro Vivo <span>arnés 1.20.0</span></div>
+  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.21.0</span></div>
   <nav class="tabs" aria-label="Secciones">
     <a href="#comprender" data-v="comprender">Comprender</a>
     <a href="#usar" data-v="usar">Usar</a>
     <a href="#presentar" data-v="presentar">Presentar</a>
+    <a href="#cambios" data-v="cambios">Cambios</a>
   </nav>
 </div></header>
 
@@ -390,6 +398,13 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
   
   </div></div>
 
+<div id="v-cambios" class="view"><div class="wrap" style="padding-block:34px 70px">
+  <div class="hero" style="padding:0 0 16px"><div class="eyebrow">REGISTRO DE CAMBIOS</div><h2>Qué trae cada versión</h2>
+    <p class="note">Se lee al momento de <a href="https://github.com/forxa-ken/cerebro-vivo/blob/main/CAMBIOS.md">CAMBIOS.md</a> en GitHub, así que siempre está al día con lo subido. La más nueva va primero.</p></div>
+  <p class="cap" id="logState" aria-live="polite">Cargando los cambios…</p>
+  <div class="log" id="log"></div>
+</div></div>
+
 <footer><div class="wrap"><p><strong>Reconocimiento:</strong> Cerebro Vivo parte de las ideas de meta-arnés de Eric Risco en su proyecto RSC Harness (<code>@ericrisco/rsc</code>). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.</p>Basado en el repositorio cerebro-vivo, versión 1.20.0, a 7 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</div></footer>
 
 <script>
@@ -558,8 +573,14 @@ addEventListener("keydown",e=>{if(view!=="presentar"||/INPUT|TEXTAREA/.test(e.ta
 
 const side=$("#side");document.querySelectorAll("section.ch").forEach((s,i)=>{const a=document.createElement("a");a.href="#"+s.id;const b=document.createElement("b");b.textContent=i+1;const t=document.createElement("span");t.textContent=s.dataset.t;a.append(b,t);a.onclick=e=>{e.preventDefault();s.scrollIntoView()};side.append(a)});
 
+let logDone=false;
+function inline(el,s){s.split("`").forEach((part,i)=>{if(i%2){const c=document.createElement("code");c.textContent=part;el.append(c)}else part.split("**").forEach((q,j)=>{if(j%2){const b=document.createElement("strong");b.textContent=q;el.append(b)}else if(q)el.append(document.createTextNode(q))})})}
+function parseLog(md){const out=[];let cur=null;md.split(/\r?\n/).forEach(l=>{const m=l.match(/^##\s+(\S+)\s*(?:\(([^)]*)\))?/);if(m){cur={v:m[1],d:m[2]||"",items:[]};out.push(cur);return}const b=l.match(/^\s*-\s+(.*)/);if(cur&&b)cur.items.push(b[1])});return out.reverse()}
+function drawLog(list){const box=$("#log");box.textContent="";const SHOW=8;list.forEach((x,i)=>{const a=document.createElement("article");a.className="ver"+(i===0?" new":"");if(i>=SHOW)a.hidden=true;const h=document.createElement("h3");h.textContent=x.v;if(x.d){const s=document.createElement("span");s.textContent=x.d;h.append(s)}if(i===0){const p=document.createElement("span");p.className="pill ok";p.textContent="la más nueva";h.append(p)}const u=document.createElement("ul");x.items.forEach(it=>{const li=document.createElement("li");inline(li,it);u.append(li)});a.append(h,u);box.append(a)});if(list.length>SHOW){const btn=document.createElement("button");btn.className="logmore";btn.textContent="Ver las "+(list.length-SHOW)+" versiones anteriores";btn.onclick=()=>{box.querySelectorAll(".ver[hidden]").forEach(e=>e.hidden=false);btn.remove()};box.append(btn)}if(list[0])$("#brandV").textContent="arnés "+list[0].v}
+async function loadLog(){if(logDone)return;logDone=true;const st=$("#logState");try{const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),8000);const r=await fetch("https://raw.githubusercontent.com/forxa-ken/cerebro-vivo/main/CAMBIOS.md",{signal:ctl.signal,cache:"no-cache"});clearTimeout(tm);if(!r.ok)throw new Error(r.status);const list=parseLog(await r.text());if(!list.length)throw new Error("vacío");drawLog(list);st.textContent=list.length+" versiones."}catch(e){logDone=false;st.textContent="No se pudieron cargar los cambios ahora. Puedes leerlos en GitHub, en CAMBIOS.md."}}
+
 let view="comprender";
-function route(){let h=location.hash.slice(1);view=["usar","presentar"].includes(h)?h:"comprender";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});if(["usar","presentar","comprender"].includes(h))scrollTo(0,0)}
+function route(){let h=location.hash.slice(1);view=["usar","presentar","cambios"].includes(h)?h:"comprender";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});if(["usar","presentar","comprender","cambios"].includes(h))scrollTo(0,0);if(view==="cambios")loadLog()}
 addEventListener("hashchange",route);route();
 </script>
 
