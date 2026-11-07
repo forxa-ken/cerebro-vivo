@@ -1,7 +1,7 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "0c04716792cec292bed3d571e6aa5e4c467f07687c20d9b30b9b0317c52aa7be",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "a37d36b988e9baf975a5ddb981e514b510a6c855267898164473fdfefe290bed",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "b6f4a22e395b412224aa8a089e312179dc74cebbe76cd358cc6bacd23c08b2a2",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "c5ceda5aa5f395ed27b96c23281f5f8f6e536b641ccae29215d422a7deecab7e",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
@@ -12,7 +12,7 @@
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.md": "7c43a6c1527772f7aed6f68c7418508b84e4e1d690533618fb7e57f9e3c73591",
   ".brain/biblioteca/kit-arranque/plantillas/hechos_indice.md": "8f704bd4326b6382a4f389450821973f6f4bca56c809d71d0803435c8b29351c",
-  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "f1c91880c2c0fae9812e8e7d617b8ed4522e23a3f4147fcb4a4e3c56b4045ea3",
+  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "da60f2fd833dac95bce64ea7f5811c83dfa0eb2e6de776bfb2f5ccec660032f7",
   ".brain/biblioteca/kit-arranque/plantillas/objetivo.md": "7760b4baa031704b311804a4cdeb5830f52c8234559550e15323616bc111e092",
   ".brain/biblioteca/kit-arranque/plantillas/pendientes.md": "6cada8c986bfbf7321b17d4a0ead2c035a0ca1c3c0e3b5cc1c14f633fda00c8a",
   ".brain/biblioteca/kit-arranque/plantillas/pruebas_indice.md": "7d90fb2d89dc884b9dd9cfe0d28f5b488cb4dabbc5b2daf7293eac974e8fd80a",
@@ -32,14 +32,14 @@
   ".brain/guardianes/guardar_traspaso.py": "5a43aecb512f6d3a5adc69cc6e898b8caee802a30b4986300be39b65b3bf7804",
   ".brain/guardianes/indices.py": "2b4ec3b5c18004a826b6a0a845a72362474e8ab3d8d00f62db3d4dadfe62c96c",
   ".brain/guardianes/librerias.py": "7ed0a3faddc55032c911161951aa2774bb7006031281d9d9c62c4ec8e6e82f75",
-  ".brain/guardianes/longitud.py": "5d2dff7d600646c1bd94321c6a5c33e567a1fc737c461be06c70247e28f5005d",
+  ".brain/guardianes/longitud.py": "dd6f8d7b7764bcbc5e60e2bd03dbdd56c83e8111110d7bede5432427cf8686b2",
   ".brain/guardianes/medir.py": "9a199c2664a3a17098e6271722964c418bc634f6e990dee1337106ca25a25091",
   ".brain/guardianes/notas_abiertas.py": "7a596d6060af56f39e0e952394e2242cff61bfe081b1a517d008e5beef72bb4f",
   ".brain/guardianes/poda.py": "7e03d72ce0e15212373a5eb147141bd2036af4a5b6b12129fcc040d2a8ea924b",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "42d5a9991f3d65a9ac678c617f1bbc8ba125b529368db1ef0197acc826394c85",
   ".brain/guardianes/secretos.py": "17529d59012f5ba1a169f4b5065bd3fe4fe3cc74ec2c7de1594c6badfc012db3",
-  ".brain/guardianes/textos.py": "adf0d9db04e423882640cac277c01cb926b0967bda28383978ec0f85cb4a79a9",
+  ".brain/guardianes/textos.py": "45c19acce4bb9cf81e3d3bec7306a1d0a0afe737a9f28e722b8cfee89315b77a",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.md": "92de4261088063fd15591e503c934a03c55fa1d4d036b0e93ee26b4a2f33a0a4",
   ".claude/skills/acorta/SKILL.md": "5f7ef2ed23823c019c6370d6731f537609da2a3a4c9be773d8bb50898ae8a5e6",
@@ -48,6 +48,7 @@
   ".claude/skills/adoptar-indice-existente/SKILL.md": "daa01f489547d290fdccbff398ab63d5d30e0d9af2f1b7bdca45b3663a41153f",
   ".claude/skills/cero-dependencias/SKILL.md": "5a20e486a73efe70ef2f4a49f311696723f016dab7023c954c4859dfdae780ad",
   ".claude/skills/cerrar-una-tarea/SKILL.md": "b8caccc030532425a5077b2f47b5f80aad5a3625eb9a0f37ef74596aad6c78ba",
+  ".claude/skills/chat-nuevo/SKILL.md": "7d8c5a65ff17ca799e9383e9754e5b3be950ef382e279ed186e00354f3445943",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "5e758983ba04501e189e941219242fab4f5618066781ca3392cdc1d00d2bad78",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.md": "1779ea803ce0c13d3abc8331f55d0d375e94ed900757f25a6b7d7ad1e27d63ba",
   ".claude/skills/implementada-no-es-hecha/SKILL.md": "0eb40e628e7e01235086b1fc6c8a4706815a5814f7b3f8a526d3f926099577cd",
@@ -63,7 +64,7 @@
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "f77829644713ff6b2cefebc760d6f566830c1c0b0fe2819fad6c4ed042f543ef",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
   ".claude/skills/subir-a-github/SKILL.md": "486faca7f877d08969fbd478d9f8edd1a1f13722b0d87293bee21b8db9947c48",
-  ".claude/skills/traspaso-in/SKILL.md": "925d6876be959222ed8f33e786ec218eaabacecf89dabaf378b4320e6a16ccfd",
+  ".claude/skills/traspaso-in/SKILL.md": "279e2826f6b1dfca1fdc78fb49e5c1af468685d8f9e05863b6891cb07e85d3c4",
   ".claude/skills/traspaso-out/SKILL.md": "ebd4602a6d081761412a4f2750ecd9e7ed829f99a15cf08bb44ef19e1cc34ca9",
   ".claude/skills/trocea/SKILL.md": "5b51456ea8fcee6c279ad7a0b0f2437068631ba420b0b73d53afd7c20e514561",
   ".claude/skills/version/SKILL.md": "0519be83c902c7badf7a9b6e3347c1a5163c24fcf59566c6f5fc2a8e88925255",
@@ -80,7 +81,7 @@
   "tests/test_kit_arranque.py": "c9eda5585cabf34ca2193829933d489870fcef93113055b2af813caad1a5552d",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
-  "tests/test_longitud.py": "b4f40d050a5b7b46f61e7d9051a13cf8c66bb4bc5471ba02bd98c7b86ccd77c9",
+  "tests/test_longitud.py": "e47d08b6f52caf54ad623cf01f4932cb69db5bc829cb0d32d9fd7b7f052cef20",
   "tests/test_medir.py": "f6bb5990b4bec7e87dcf682899acc9ac3e45381cb44c55b4c7850c2f7879a530",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
   "tests/test_poda.py": "33a91761b1c9013adfa25c89aa92ecc41d2aca90a5bbc4899686c9c589bf1e79",
@@ -117,5 +118,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.22.0"
+ "version": "1.23.0"
 }

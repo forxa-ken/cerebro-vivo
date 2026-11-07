@@ -69,6 +69,33 @@ class TestLongitud(unittest.TestCase):
         self.assertIsNotNone(lg.aviso(registro(250000, nombre="a.jsonl"), CFG))
         self.assertIsNotNone(lg.aviso(registro(250000, nombre="b.jsonl"), CFG))
 
+    def test_spec025_aviso_firme_por_defecto(self):
+        texto, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True))
+        self.assertIn("start_session", texto)
+        self.assertIn("Nunca digas que la app lo rechaza", texto)
+        self.assertTrue(lg.ajustes({})["auto"])
+
+    def test_spec025_apagado_solo_avisa(self):
+        texto, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False))
+        self.assertNotIn("start_session", texto)
+        self.assertIn("No lo abras", texto)
+
+    def test_spec025_comando_chat_nuevo(self):
+        guardado = []
+        original = lg.guardar_config
+        lg.guardar_config = lambda cfg: guardado.append(dict(cfg))
+        try:
+            cfg = {}
+            self.assertIn("DESACTIVADO", lg.chat_nuevo(cfg, "no"))
+            self.assertIs(cfg["chat_nuevo_auto"], False)
+            self.assertIn("ACTIVADO", lg.chat_nuevo(cfg, "sí"))
+            self.assertIs(cfg["chat_nuevo_auto"], True)
+            self.assertIn("ACTIVADO", lg.chat_nuevo(cfg, "estado"))
+            self.assertIn("--chat-nuevo", lg.chat_nuevo(cfg, "quizá"))
+            self.assertEqual(len(guardado), 2)
+        finally:
+            lg.guardar_config = original
+
     def test_el_hook_de_cierre_lo_incorpora(self):
         estado = os.path.join(tempfile.mkdtemp(), "estado.json")
         r = subprocess.run([sys.executable, os.path.join(GUARDIANES, "cierre.py")], input=json.dumps({"transcript_path": registro(260000)}),

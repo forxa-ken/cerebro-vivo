@@ -42,13 +42,19 @@ TEXTOS = {
         # longitud.py (aviso de chat largo, lo llama cierre.py)
         "longitud_frase": ("Venimos de <este chat>. Qué se hizo: … Qué queda sin subir: … Qué debe probar el dueño: … "
                            "Lee el índice y responde; no empieces nada por tu cuenta."),
-        "longitud_aviso": ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Dile a Darwin, en lenguaje llano, que conviene "
-                           "abrir un chat nuevo. PRIMERO escribe el archivo .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md: sus últimas palabras literales, decisiones, estado de cada punto, lo que no se ha subido) y luego déjale la frase corta para pegar: «%s». "
-                           "Si tienes la herramienta start_session (Claude Code de escritorio), abre tú el chat nuevo (contexto fresh, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro y contarlo en 4-5 viñetas), "
-                           "llama enseguida a detach_session con su id para que quede al mismo nivel que este chat y no colgado de él, y dile a Darwin cómo se llama el chat nuevo. "
-                           "Si no puedes abrirlo (no hay herramienta o falla), basta con la frase."),
+        "longitud_aviso": ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Regla común de Cerebro Vivo (ajuste chat_nuevo_auto activo): abre TÚ el chat nuevo, sin preguntar. "
+                           "1) PRIMERO escribe .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md: sus últimas palabras literales, decisiones, estado de cada punto, lo que no se ha subido). "
+                           "2) Llama SIEMPRE a start_session (cárgala con ToolSearch si hace falta; contexto fresh, initiation user_asked, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro y contarlo en 4-5 viñetas) y enseguida a detach_session con su id. "
+                           "Nunca digas que la app lo rechaza sin haber hecho la llamada. Si initiation user_asked da error, prueba una vez con own_initiative (queda una tarjeta para un clic). "
+                           "3) Dile a Darwin, en lenguaje llano, cómo se llama el chat nuevo. Solo si no tienes la herramienta o las llamadas fallan, déjale la frase para pegar: «%s»"),
+        "longitud_aviso_manual": ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Dile a Darwin, en lenguaje llano, que conviene "
+                           "abrir un chat nuevo. PRIMERO escribe el archivo .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md) y luego déjale la frase corta para pegar: «%s». "
+                           "No lo abras tú: el ajuste chat_nuevo_auto está apagado (se enciende con /chat-nuevo si)."),
         "longitud_uso": "Uso: longitud.py RUTA_DEL_REGISTRO.jsonl",
         "longitud_actual": "Contexto actual: ~%dk tokens (aviso en %dk, tramo %d).",
+        "longitud_chat_si": "Chat nuevo automático: ACTIVADO. Al pasar el aviso de chat largo, la IA abre sola el chat nuevo con el traspaso.",
+        "longitud_chat_no": "Chat nuevo automático: DESACTIVADO. Al pasar el aviso de chat largo, la IA solo avisa y deja la frase para pegar.",
+        "longitud_chat_uso": "Uso: longitud.py --chat-nuevo si|no|estado",
         # cerrar.py (cierre rápido a mano)
         "cerrar_descripcion": "Añade la línea de cierre al registro",
         "cerrar_falta_texto": "Falta la frase de qué se hizo",
@@ -313,13 +319,19 @@ TEXTOS = {
         "cierre_auto": "(auto) touched %s; tests green",
         "longitud_frase": ("We come from <this chat>. What was done: … What is not pushed yet: … What the owner must test: … "
                            "Read the index and reply; do not start anything on your own."),
-        "longitud_aviso": ("This chat already weighs ~%dk tokens of context: every message rereads everything and costs more. Tell Darwin, in plain words, that it is "
-                           "worth opening a new chat. FIRST write the file .brain/traspaso.md (template in .brain/biblioteca/PLANTILLA_TRASPASO.md: their last literal words, decisions, status of each item, what has not been pushed) and then leave them the short phrase to paste: «%s». "
-                           "If you have the start_session tool (Claude Code desktop), open the new chat yourself (fresh context, task: read .brain/traspaso.md, run traspaso-in entro and report it in 4-5 bullets), "
-                           "call detach_session right away with its id so it sits at the same level as this chat and not nested under it, and tell Darwin the name of the new chat. "
-                           "If you cannot open it (no tool or it fails), the phrase is enough."),
+        "longitud_aviso": ("This chat already weighs ~%dk tokens of context: every message rereads everything and costs more. Common Cerebro Vivo rule (setting chat_nuevo_auto on): open the new chat YOURSELF, without asking. "
+                           "1) FIRST write .brain/traspaso.md (template in .brain/biblioteca/PLANTILLA_TRASPASO.md: their last literal words, decisions, status of each item, what has not been pushed). "
+                           "2) ALWAYS call start_session (load it with ToolSearch if needed; fresh context, initiation user_asked, task: read .brain/traspaso.md, run traspaso-in entro and report it in 4-5 bullets) and right after detach_session with its id. "
+                           "Never say the app refuses it without having made the call. If initiation user_asked returns an error, try once with own_initiative (it leaves a card for one click). "
+                           "3) Tell Darwin, in plain words, the name of the new chat. Only if you lack the tool or the calls fail, leave them the phrase to paste: «%s»"),
+        "longitud_aviso_manual": ("This chat already weighs ~%dk tokens of context: every message rereads everything and costs more. Tell Darwin, in plain words, that it is "
+                           "worth opening a new chat. FIRST write the file .brain/traspaso.md (template in .brain/biblioteca/PLANTILLA_TRASPASO.md) and then leave them the short phrase to paste: «%s». "
+                           "Do not open it yourself: the setting chat_nuevo_auto is off (turn it on with /chat-nuevo si)."),
         "longitud_uso": "Usage: longitud.py PATH_TO_TRANSCRIPT.jsonl",
         "longitud_actual": "Current context: ~%dk tokens (warning at %dk, step %d).",
+        "longitud_chat_si": "Automatic new chat: ON. When the long-chat warning fires, the AI opens the new chat by itself with the handover.",
+        "longitud_chat_no": "Automatic new chat: OFF. When the long-chat warning fires, the AI only warns and leaves the phrase to paste.",
+        "longitud_chat_uso": "Usage: longitud.py --chat-nuevo si|no|estado",
         "cerrar_descripcion": "Adds the closing line to the log",
         "cerrar_falta_texto": "The sentence saying what was done is missing",
         "cerrar_carril": "The lane must be one of: %s",

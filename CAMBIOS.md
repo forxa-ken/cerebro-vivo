@@ -134,3 +134,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.22.0 (2026-11-07)
 - Avisos en inglés (spec 024, fase 2): ajuste nuevo `"idioma": "es" | "en"` en `guardianes.json` (si falta, español: los proyectos que ya existen no cambian). Guardián nuevo `textos.py` con unos 250 mensajes en los dos idiomas; lo usan los 17 guardianes (arranque, cierre, traspaso, actualizador, secretos, librerías, base de datos, poda, medir…). Quedan en español la ayuda de `--help` y lo que se escribe dentro de los archivos de memoria (fase 3). El kit de arranque guarda el idioma elegido («English» → `en`). Prueba nueva `test_textos.py` (ninguna clave falta ni se repite en ningún idioma, y todos los guardianes usan `textos.py`). Los nombres de archivos y comandos siguen en español.
+
+## 1.23.0 (2026-11-07)
+- Chat nuevo solo, como regla común (spec 025): al pasar el aviso de chat largo, la IA escribe el traspaso y abre ella misma el chat nuevo (`start_session` + `detach_session`); el aviso le prohíbe decir que la app lo rechaza sin haberlo intentado y solo deja la frase para pegar si la llamada falla. Ajuste nuevo `chat_nuevo_auto` en `guardianes.json` (por defecto sí; el actualizador lo añade). Comando nuevo `/chat-nuevo si|no|estado` (`longitud.py --chat-nuevo`). La skill `traspaso-in` y la plantilla del índice dicen lo mismo.

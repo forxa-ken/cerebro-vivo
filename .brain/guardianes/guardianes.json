@@ -26,6 +26,7 @@
   "plugins_requeridos": [],
   "alerta_contexto_tokens": 300000,
   "longitud_activa": true,
+  "chat_nuevo_auto": true,
   "longitud_aviso_tokens": 200000,
   "longitud_repetir_tokens": 100000,
   "revision_indices_activa": true,
