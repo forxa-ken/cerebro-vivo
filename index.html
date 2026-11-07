@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cerebro Vivo de la A a la Z</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=JetBrains+Mono:wght@400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Concepto: un plano de la memoria. Los archivos son piezas, los automatismos son señales y cada capítulo añade una capa. */
+:root{
+  --bg:#EDF2F4;--surface:#FFFFFF;--sunk:#E1E9EC;--ink:#14262C;--muted:#51656C;--line:#C6D3D7;
+  --accent:#0A6A75;--accent-ink:#FFFFFF;--accent-soft:#D3EBEE;
+  --warn:#8F5A00;--warn-soft:#F8E9CC;--block:#A8251C;--block-soft:#F9DEDB;--ok:#1B6F3A;--ok-soft:#D9F0E1;--off:#66767C;--off-soft:#E2E8EA;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--body:"Source Sans 3","Segoe UI",system-ui,sans-serif;--mono:"JetBrains Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E181C;--surface:#162429;--sunk:#0A1215;--ink:#E5EFF1;--muted:#9FB2B8;--line:#2D4148;
+  --accent:#57C7D2;--accent-ink:#06262B;--accent-soft:#163A40;
+  --warn:#E8BB6C;--warn-soft:#3A2C11;--block:#FF9B91;--block-soft:#43201D;--ok:#80D6A0;--ok-soft:#173424;--off:#94A5AB;--off-soft:#233238;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E181C;--surface:#162429;--sunk:#0A1215;--ink:#E5EFF1;--muted:#9FB2B8;--line:#2D4148;
+  --accent:#57C7D2;--accent-ink:#06262B;--accent-soft:#163A40;
+  --warn:#E8BB6C;--warn-soft:#3A2C11;--block:#FF9B91;--block-soft:#43201D;--ok:#80D6A0;--ok-soft:#173424;--off:#94A5AB;--off-soft:#233238;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.7rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.55rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.14rem;font-weight:700}
+p{margin:0}
+code,.mono{font-family:var(--mono);font-size:.84em}
+code{background:var(--sunk);padding:.08em .34em;border-radius:4px;overflow-wrap:anywhere}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-block:9px}
+.brand{font:700 1.02rem var(--display);margin-right:auto}
+.brand span{color:var(--muted);font:400 .78rem var(--mono);margin-left:6px}
+nav.tabs{display:flex;gap:4px}
+nav.tabs a{padding:6px 13px;border-radius:7px;text-decoration:none;color:var(--muted);font-weight:600}
+nav.tabs a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.hero{padding-block:44px 30px;display:grid;gap:14px;max-width:820px}
+.lead{font-size:1.2rem;color:var(--muted);max-width:66ch}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;align-items:start;padding-bottom:70px}
+.side{position:sticky;top:calc(70px + env(safe-area-inset-top,0px));display:grid;gap:1px;font-size:.93rem}
+.side a{display:grid;grid-template-columns:24px 1fr;padding:4px 7px;border-radius:6px;text-decoration:none;color:var(--muted)}
+.side a:hover{background:var(--sunk);color:var(--ink)}
+.side a b{font:600 .76rem/1.9 var(--mono);color:var(--accent)}
+.main{display:grid;gap:50px;min-width:0}
+section.ch{display:grid;gap:16px;min-width:0}
+.eyebrow{font:600 .76rem var(--mono);color:var(--accent);letter-spacing:.05em}
+.txt{max-width:68ch}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.cap{font-size:.87rem;color:var(--muted);margin-top:11px}
+.scroll{overflow-x:auto}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.lane{display:grid;gap:8px}
+.lane h3{font-size:1rem}
+.chats{display:flex;gap:6px}
+.chat{flex:1;min-width:0;border:1px solid var(--line);border-radius:6px;padding:7px 4px;text-align:center;font:600 .74rem var(--mono);background:var(--bg)}
+.mem{height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:600;padding-inline:8px;text-align:center}
+.mem.full{background:var(--accent);color:var(--accent-ink)}
+.mem.none{border:2px dashed var(--line);color:var(--muted)}
+.lane .say{font-size:.92rem;color:var(--muted)}
+.prin{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.prin div{border-top:3px solid var(--accent);background:var(--surface);padding:11px 13px;border-radius:0 0 8px 8px}
+.prin b{display:block;margin-bottom:3px}
+.prin span{font-size:.93rem;color:var(--muted)}
+.explorer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:16px}
+.tree{display:grid;gap:2px;font:400 .84rem var(--mono)}
+.tree button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:5px;padding:4px 7px;overflow-wrap:anywhere}
+.tree button:hover{background:var(--sunk)}
+.tree button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.tree .d1{padding-left:24px}
+.tree .group{font-weight:600}
+.detail{background:var(--sunk);border-radius:8px;padding:15px;display:grid;gap:9px;align-content:start;min-width:0}
+.detail h3{font-family:var(--mono);font-size:.94rem;overflow-wrap:anywhere}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 8px;font-size:.93rem}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+dl{margin:0}
+.moments{display:grid;grid-template-columns:repeat(5,minmax(112px,1fr));gap:0;position:relative;min-width:600px}
+.moments::before{content:"";position:absolute;left:8%;right:8%;top:17px;height:3px;background:var(--line)}
+.moment{position:relative;background:none;border:0;padding:0 5px;display:grid;justify-items:center;gap:7px;text-align:center;font-size:.9rem}
+.moment i{width:37px;height:37px;border-radius:50%;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font:600 .8rem var(--mono);font-style:normal;z-index:1}
+.moment[aria-pressed="true"] i{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.moment[aria-pressed="true"] b{color:var(--accent)}
+.moment-detail{margin-top:15px;background:var(--sunk);border-radius:8px;padding:14px 15px;display:grid;gap:8px}
+.moment-detail ul,.plain{margin:0;padding-left:19px;display:grid;gap:4px}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:.76rem;font-weight:700;white-space:nowrap}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.block{background:var(--block-soft);color:var(--block)}.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.off{background:var(--off-soft);color:var(--off)}.pill.act{background:var(--accent-soft);color:var(--accent)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:7px 5px}
+.step{flex:1 1 104px;background:var(--sunk);padding:9px;border-radius:7px;text-align:center;font-size:.9rem;display:grid;align-items:center;min-width:0}
+.step.key{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.arrow{align-self:center;color:var(--muted);font-weight:700}
+.tree-q{display:grid;gap:12px}
+.q{background:var(--accent);color:var(--accent-ink);padding:11px 14px;border-radius:8px;font-weight:600}
+.branch{display:grid;gap:7px}
+.branch .tag{font-weight:700}
+.branch small{font-size:.87rem;color:var(--muted)}
+.state{display:grid;grid-template-columns:repeat(4,minmax(112px,1fr));gap:9px;min-width:560px}
+.state div{background:var(--sunk);padding:10px;border-radius:7px;font-size:.9rem}
+.state b{display:block}
+.state .now{background:var(--warn-soft);color:var(--warn)}
+.state .done{background:var(--ok-soft);color:var(--ok)}
+.table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:620px}
+.table th{text-align:left;font-size:.77rem;color:var(--muted);padding:6px 9px;border-bottom:1px solid var(--line)}
+.table td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.filters button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:3px 12px;font-size:.88rem}
+.filters button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.skillg{display:grid;gap:12px}
+.skillg>div{display:grid;gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chips span{font:400 .78rem var(--mono);background:var(--sunk);padding:2px 7px;border-radius:5px;overflow-wrap:anywhere}
+.rules{display:grid;gap:7px;margin:0;padding-left:26px}
+.dots{display:flex;gap:6px;margin-block:6px}
+.dots i{width:24px;height:24px;border-radius:50%;border:2px solid var(--accent)}
+.dots i.on{background:var(--accent)}
+.big{font:700 2rem var(--display);font-variant-numeric:tabular-nums}
+.range{position:relative;height:14px;background:var(--sunk);border-radius:7px;margin:27px 0 22px}
+.range i{position:absolute;top:0;bottom:0;left:35%;width:45%;background:var(--warn);border-radius:7px}
+.range span{position:absolute;top:18px;font:400 .76rem var(--mono);color:var(--muted);transform:translateX(-50%)}
+.range b{position:absolute;bottom:18px;font:600 .8rem var(--mono);color:var(--warn);transform:translateX(-50%)}
+.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 20px}
+.glossary div{border-bottom:1px solid var(--line);padding-bottom:8px;min-width:0}
+.glossary b{font-family:var(--display)}
+.glossary span{display:block;font-size:.93rem;color:var(--muted)}
+input[type=search]{width:100%;padding:10px 13px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.view{display:none}.view.on{display:block}
+.note{background:var(--warn-soft);color:var(--ink);padding:12px 15px;border-radius:8px}
+.tasks{display:grid;gap:10px;margin-top:16px}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:13px 15px;display:grid;gap:7px;min-width:0}
+.task header{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.task header span{font-size:.8rem;color:var(--muted)}
+.cmd{display:flex;gap:7px;align-items:flex-start;background:var(--sunk);border-radius:6px;padding:7px 9px;min-width:0}
+.cmd code{flex:1;background:none;padding:0;min-width:0;font-size:.82rem;line-height:1.5}
+.cmd button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:1px 8px;font-size:.8rem}
+.task p{font-size:.94rem;color:var(--muted)}
+.slide{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,42px);min-height:370px;display:grid;gap:15px;align-content:center}
+.slide h2{font-size:clamp(1.6rem,4vw,2.7rem)}
+.slide p,.slide li{font-size:clamp(1.03rem,2vw,1.28rem)}
+.slide ul{margin:0;padding-left:21px;display:grid;gap:7px}
+.deckbar{display:flex;align-items:center;gap:10px;margin-top:12px}
+.deckbar button{background:var(--accent);color:var(--accent-ink);border:0;border-radius:7px;padding:7px 16px;font-weight:700}
+.deckbar button:disabled{opacity:.4;cursor:default}
+.deckbar span{font:400 .84rem var(--mono);color:var(--muted)}
+.say-it{font-size:.94rem;color:var(--muted);margin-top:10px;max-width:72ch}
+.pgroup{display:grid;gap:12px;margin-top:38px}
+footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);font-size:.86rem}
+@media (max-width:880px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px}
+  .explorer,.two,.glossary{grid-template-columns:minmax(0,1fr)}
+  .three{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="top"><div class="wrap">
+  <div class="brand">Cerebro Vivo <span>arnés 1.20.0</span></div>
+  <nav class="tabs" aria-label="Secciones">
+    <a href="#comprender" data-v="comprender">Comprender</a>
+    <a href="#usar" data-v="usar">Usar</a>
+    <a href="#presentar" data-v="presentar">Presentar</a>
+  </nav>
+</div></header>
+
+<div id="v-comprender" class="view">
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">DE LA A A LA Z</div>
+      <h1>Una memoria en archivos para una IA que olvida</h1>
+      <p class="lead">Cerebro Vivo es un método y un conjunto de herramientas para trabajar con una IA a lo largo de muchos chats sin perder lo acordado. Estos capítulos lo desmontan pieza a pieza, en el orden en que conviene entenderlo.</p>
+    </div>
+    <div class="layout">
+      <nav class="side" aria-label="Capítulos" id="side"></nav>
+      <div class="main">
+
+        <section class="ch" id="c1" data-t="El problema">
+          <div class="eyebrow">CAPÍTULO 1</div>
+          <h2>La IA empieza cada chat sin recordar nada</h2>
+          <p class="txt">Cada chat nuevo arranca de cero. Si la información solo está en la conversación, se pierde al cerrarla, y tú acabas explicando lo mismo otra vez. Por eso la memoria se saca del chat y se guarda en archivos del proyecto.</p>
+          <div class="fig two">
+            <div class="lane"><h3>Sin el método</h3>
+              <div class="chats"><div class="chat">Chat 1</div><div class="chat">Chat 2</div><div class="chat">Chat 3</div></div>
+              <div class="mem none">Nada une un chat con el siguiente</div>
+              <p class="say">Se repiten explicaciones y se rompen acuerdos.</p></div>
+            <div class="lane"><h3>Con el método</h3>
+              <div class="chats"><div class="chat">Chat 1</div><div class="chat">Chat 2</div><div class="chat">Chat 3</div></div>
+              <div class="mem full">Carpeta .brain/: todos leen y escriben aquí</div>
+              <p class="say">Cada chat retoma el trabajo donde quedó.</p></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c2" data-t="Las ideas base">
+          <div class="eyebrow">CAPÍTULO 2</div>
+          <h2>Cinco principios sostienen todo lo demás</h2>
+          <div class="prin">
+            <div><b>Índice primero</b><span>Al empezar se lee algo corto. El detalle se abre solo si hace falta.</span></div>
+            <div><b>Cada cosa en su sitio</b><span>Reglas, pendientes, decisiones y planes van en archivos distintos.</span></div>
+            <div><b>Cerrar es trabajar</b><span>Una tarea no acaba hasta que la memoria queda al día.</span></div>
+            <div><b>Lo hecho sale de la vista</b><span>Lo terminado va al archivo, y lo pendiente sigue corto.</span></div>
+            <div><b>El porqué se guarda</b><span>Una decisión sin su razón se vuelve a discutir y a pagar.</span></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c3" data-t="El mapa de archivos">
+          <div class="eyebrow">CAPÍTULO 3</div>
+          <h2>Qué guarda cada archivo</h2>
+          <p class="txt">Pulsa una pieza para ver qué responde, cuándo se lee y quién la escribe.</p>
+          <div class="fig explorer">
+            <div class="tree" id="tree"></div>
+            <div class="detail" id="fileDetail" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c4" data-t="Un chat por dentro">
+          <div class="eyebrow">CAPÍTULO 4</div>
+          <h2>Cinco momentos en los que algo se lanza solo</h2>
+          <p class="txt">Los automatismos no corren de fondo. Se activan cuando pasa algo en un chat o en Git. Pulsa cada momento.</p>
+          <div class="fig">
+            <div class="scroll"><div class="moments" id="moments"></div></div>
+            <div class="moment-detail" id="momentDetail" aria-live="polite"></div>
+            <p class="cap">Sin un chat abierto, un commit o un traspaso, no se comprueba nada: hoy no hay tareas programadas ni CI/CD.</p>
+          </div>
+        </section>
+
+        <section class="ch" id="c5" data-t="Los dos carriles">
+          <div class="eyebrow">CAPÍTULO 5</div>
+          <h2>Cada encargo toma uno de dos caminos</h2>
+          <div class="fig tree-q">
+            <div class="q">¿Toca más de 2 archivos, o algo sensible como dinero, permisos, licencias, base de datos o despliegue?</div>
+            <div class="two">
+              <div class="branch"><div class="tag">Sí: carril con spec</div>
+                <div class="flow"><div class="step key">Spec</div><span class="arrow">→</span><div class="step">Tú apruebas</div><span class="arrow">→</span><div class="step">Programar</div><span class="arrow">→</span><div class="step">Pruebas</div><span class="arrow">→</span><div class="step">Cerrar</div></div>
+                <small>Una spec es un plan corto. Apruebas antes de gastar tokens en algo equivocado.</small></div>
+              <div class="branch"><div class="tag">No: carril rápido (Fast-Track)</div>
+                <div class="flow"><div class="step key">Cambio</div><span class="arrow">→</span><div class="step">Pruebas</div><span class="arrow">→</span><div class="step">Cerrar</div></div>
+                <small>En tareas pequeñas con pruebas en verde, la línea del registro puede escribirse sola.</small></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ch" id="c6" data-t="La vida de una tarea">
+          <div class="eyebrow">CAPÍTULO 6</div>
+          <h2>Programado no significa terminado</h2>
+          <p class="txt">Un punto sigue en <code>pendientes.md</code> hasta que tú lo pruebas. Su número nunca cambia, así que los huecos son tareas ya hechas.</p>
+          <div class="fig"><div class="scroll"><div class="state">
+            <div><b>Falta programar</b>Está en la lista, quizá con su spec.</div>
+            <div><b>Implementada</b>Hay código y las pruebas pasan.</div>
+            <div class="now"><b>Esperando tu prueba</b>La pruebas tú. Si falla, vuelve atrás con una nota.</div>
+            <div class="done"><b>Hecha</b>Sale a <code>archive/hechos.md</code> en esa misma respuesta.</div>
+          </div></div></div>
+          <p class="txt">Al cerrar una tarea, la IA añade una línea a <code>decisions.log</code> y, si hubo una decisión importante, escribe su ficha con el porqué.</p>
+        </section>
+
+        <section class="ch" id="c7" data-t="Los guardianes">
+          <div class="eyebrow">CAPÍTULO 7</div>
+          <h2>Guardianes: scripts que vigilan el método</h2>
+          <p class="txt">El punto débil del método es depender de que la IA se acuerde. Los guardianes detectan olvidos, y casi todos solo avisan. La tabla muestra cómo está configurado este repositorio.</p>
+          <div class="fig">
+            <div class="filters" id="gFilters"></div>
+            <div class="scroll"><table class="table"><thead><tr><th>Guardián</th><th>Qué hace</th><th>Cuándo</th><th>Efecto</th></tr></thead><tbody id="gBody"></tbody></table></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c8" data-t="Los traspasos">
+          <div class="eyebrow">CAPÍTULO 8</div>
+          <h2>Dos formas de cambiar de chat</h2>
+          <p class="txt">Un chat largo cuesta más, porque cada mensaje arrastra todo lo anterior. Antes de cerrarlo se escribe <code>.brain/traspaso.md</code> con lo que hay que saber para continuar.</p>
+          <div class="two">
+            <div class="fig"><h3>traspaso-in: misma IA, chat nuevo</h3>
+              <div class="flow" style="margin-top:11px"><div class="step">salgo: escribe el traspaso</div><span class="arrow">→</span><div class="step key">Abre el chat nuevo</div><span class="arrow">→</span><div class="step">entro: lo cuenta y lo archiva</div></div>
+              <p class="cap">No hace Git. Lo no subido no llega a otro ordenador.</p></div>
+            <div class="fig"><h3>traspaso-out: cambio de IA</h3>
+              <div class="flow" style="margin-top:11px"><div class="step">salgo: escribe el traspaso</div><span class="arrow">→</span><div class="step key">Commit y subida de la memoria</div><span class="arrow">→</span><div class="step">entro, en la otra IA</div></div>
+              <p class="cap">Se para si hay un secreto. Si hay otros commits sin subir, pregunta antes. El código suelto no entra: te lo lista. Claude, Gemini o Codex, una sola a la vez.</p></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c9" data-t="Las skills">
+          <div class="eyebrow">CAPÍTULO 9</div>
+          <h2>25 skills: instrucciones para cada situación</h2>
+          <p class="txt">Una skill es una ficha de instrucciones. No se lanza sola: la usa la IA cuando toca, o tú con un comando como <code>/resumen</code>.</p>
+          <div class="fig skillg" id="skills"></div>
+        </section>
+
+        <section class="ch" id="c10" data-t="Cómo se reparte">
+          <div class="eyebrow">CAPÍTULO 10</div>
+          <h2>Un solo origen para todos los proyectos</h2>
+          <p class="txt">El repositorio cerebro-vivo es el origen. Cada proyecto recibe las mejoras con el actualizador, que guarda copia y no pisa lo que cambiaste a mano ni tus datos.</p>
+          <div class="fig"><div class="scroll">
+            <svg viewBox="0 0 760 240" width="100%" style="min-width:560px;display:block" role="img" aria-label="El repositorio cerebro-vivo envía mejoras al actualizador, que las lleva a cada proyecto">
+              <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+              <rect x="10" y="62" width="205" height="116" rx="9" fill="var(--accent)"/>
+              <text x="112" y="94" text-anchor="middle" fill="var(--accent-ink)" font-family="var(--display)" font-weight="700" font-size="17">cerebro-vivo</text>
+              <text x="112" y="119" text-anchor="middle" fill="var(--accent-ink)" font-family="var(--mono)" font-size="11.5">VERSION</text>
+              <text x="112" y="137" text-anchor="middle" fill="var(--accent-ink)" font-family="var(--mono)" font-size="11.5">manifiesto.json</text>
+              <text x="112" y="155" text-anchor="middle" fill="var(--accent-ink)" font-family="var(--mono)" font-size="11.5">CAMBIOS.md</text>
+              <line x1="217" y1="120" x2="290" y2="120" stroke="var(--muted)" stroke-width="2" marker-end="url(#ah)"/>
+              <rect x="294" y="80" width="165" height="80" rx="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="376" y="110" text-anchor="middle" fill="var(--accent)" font-family="var(--display)" font-weight="700" font-size="15">Actualizador</text>
+              <text x="376" y="134" text-anchor="middle" fill="var(--accent)" font-family="var(--mono)" font-size="12">/actualizar</text>
+              <g fill="none" stroke="var(--muted)" stroke-width="2"><path d="M461 105L540 45" marker-end="url(#ah)"/><path d="M461 120L540 120" marker-end="url(#ah)"/><path d="M461 135L540 195" marker-end="url(#ah)"/></g>
+              <g fill="var(--sunk)" stroke="var(--line)"><rect x="544" y="18" width="205" height="56" rx="8"/><rect x="544" y="92" width="205" height="56" rx="8"/><rect x="544" y="166" width="205" height="56" rx="8"/></g>
+              <g fill="var(--ink)" font-family="var(--body)" font-size="15" font-weight="600" text-anchor="middle"><text x="646" y="44">LoboHook</text><text x="646" y="118">Guild Control</text><text x="646" y="192">Pegatinas</text></g>
+              <g fill="var(--muted)" font-family="var(--body)" font-size="12" text-anchor="middle"><text x="646" y="62">su .brain/ no se toca</text><text x="646" y="136">su .brain/ no se toca</text><text x="646" y="210">su .brain/ no se toca</text></g>
+            </svg></div>
+            <p class="cap">Se reparten guardianes, skills, manual y plantillas; nunca pendientes, specs, decisiones ni registro. Cada proyecto se actualiza cuando tú decides, y su versión puede ir por detrás.</p>
+          </div>
+          <div class="three">
+            <div class="fig"><span class="pill act">ligero</span><p style="margin-top:7px">Un índice, pendientes y registro. Para proyectos pequeños.</p></div>
+            <div class="fig"><span class="pill act">medio</span><p style="margin-top:7px">Algo más de memoria, sin guardianes.</p></div>
+            <div class="fig"><span class="pill act">completo</span><p style="margin-top:7px">Todo: guardianes, skills y pruebas del método.</p></div>
+          </div>
+        </section>
+
+        <section class="ch" id="c11" data-t="Las reglas">
+          <div class="eyebrow">CAPÍTULO 11</div>
+          <h2>Nueve reglas que no se saltan sin tu permiso</h2>
+          <div class="fig"><ol class="rules">
+            <li><b>Idioma:</b> responder en español, con tono técnico y conciso.</li>
+            <li><b>Alcance estricto:</b> tocar solo lo que atañe al cambio pedido.</li>
+            <li><b>Pruebas en verde:</b> lanzarlas tras cada cambio. Sin un fallo comprobado, no se altera lo que funciona.</li>
+            <li><b>Memoria viva:</b> una línea en el registro por tarea y una ficha por decisión importante.</li>
+            <li><b>Pendientes solo con lo que falta:</b> lo probado sale de la lista en esa misma respuesta.</li>
+            <li><b>Memoria de pruebas:</b> cada campaña con hallazgos abre su ficha.</li>
+            <li><b>Secretos:</b> las claves nunca van en el repositorio.</li>
+            <li><b>Llamadas externas:</b> siempre con tiempo máximo y un plan B local.</li>
+            <li><b>Subir a GitHub:</b> solo con tu orden. La única excepción es el commit de memoria de <code>traspaso-out salgo</code>.</li>
+          </ol></div>
+        </section>
+
+        <section class="ch" id="c12" data-t="Qué está demostrado">
+          <div class="eyebrow">CAPÍTULO 12</div>
+          <h2>Lo que se ha medido, y lo que todavía no</h2>
+          <p class="txt">Datos de la medición del 1 de noviembre de 2026. Son muestras pequeñas: sirven como indicio, no como prueba general.</p>
+          <div class="two">
+            <div class="fig"><h3>Respetar lo acordado al retomar en un chat nuevo</h3>
+              <p class="cap" style="margin-top:9px">Con el arnés</p><div class="dots" aria-label="5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+              <p class="cap" style="margin-top:6px">Sin el arnés</p><div class="dots" aria-label="0 de 5"><i></i><i></i><i></i><i></i><i></i></div>
+              <p class="big">5 de 5 frente a 0 de 5</p></div>
+            <div class="fig"><h3>Coste extra en tareas pequeñas</h3>
+              <div class="range" aria-label="Entre un 7 y un 16 por ciento más"><i></i><b style="left:35%">+7 %</b><b style="left:80%">+16 %</b><span style="left:0;transform:none">0 %</span><span style="left:100%;transform:translateX(-100%)">20 %</span></div>
+              <p>En una tarea suelta no compensa. Tiene sentido con muchos chats seguidos sobre lo mismo.</p></div>
+          </div>
+          <div class="fig"><ul class="plain">
+            <li><span class="pill off">Sin medir</span> Que ahorre a la larga en un proyecto real. Es una idea razonable, no un hecho.</li>
+            <li><span class="pill off">Medido</span> En un proyecto con unas 80 fichas, el índice no mejoró el acierto y salió cerca de un 19 % más caro. Por eso se abre solo cuando hace falta.</li>
+            <li><span class="pill warn">Por probar</span> La subida de <code>traspaso-out salgo</code> solo se ha probado contra un remoto local, y el actualizador fiable, en copias temporales.</li>
+            <li><span class="pill warn">Por probar</span> Soporte para Mac: solo se ha probado en Windows. Gemini está sin probar en los traspasos.</li>
+          </ul></div>
+        </section>
+
+        <section class="ch" id="c13" data-t="Glosario A-Z">
+          <div class="eyebrow">CAPÍTULO 13</div>
+          <h2>Glosario de la A a la Z</h2>
+          <input type="search" id="gloQ" placeholder="Busca un término, por ejemplo hook" aria-label="Buscar en el glosario">
+          <div class="fig glossary" id="glo"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="v-usar" class="view"><div class="wrap" style="padding-block:34px 70px">
+  <div class="hero" style="padding:0 0 16px"><div class="eyebrow">GUÍA DE USO</div><h2>¿Qué quieres hacer?</h2>
+    <p class="note">Esta página no ejecuta nada: es una chuleta. Copia el comando y pégalo en el chat o en la terminal, según indique cada tarjeta. Sustituye <code>RUTA</code> por la carpeta del proyecto.</p></div>
+  <input type="search" id="useQ" placeholder="Busca, por ejemplo: actualizar, chat nuevo, secretos" aria-label="Buscar una tarea">
+  <div class="filters" id="useF" style="margin-top:12px;margin-bottom:0"></div>
+  <div class="tasks" id="tasks"></div>
+  <p class="cap" id="useEmpty" hidden>No hay ninguna tarea con esa búsqueda.</p>
+</div></div>
+
+<div id="v-presentar" class="view"><div class="wrap" style="padding-block:34px 70px">
+  <div class="hero" style="padding:0 0 18px"><div class="eyebrow">PARA CONTARLO</div><h2>Presentación corta</h2>
+    <p class="lead">Avanza con los botones o con las flechas del teclado.</p></div>
+  <div class="slide" id="slide" aria-live="polite"></div>
+  <div class="deckbar"><button id="prev">Anterior</button><button id="next">Siguiente</button><span id="count"></span></div>
+  
+  </div></div>
+
+<footer><div class="wrap">Basado en el repositorio cerebro-vivo, versión 1.20.0, a 7 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const FILES=[
+ {p:"CLAUDE.md",d:0,q:"¿Cómo se trabaja aquí y dónde está cada cosa?",r:"Siempre, al empezar",w:"Se cuida a mano, hasta 5 KB",n:"GEMINI.md y AGENTS.md cumplen el mismo papel para otras IA."},
+ {p:".brain/",d:0,g:1,q:"Toda la memoria del proyecto",r:"Por partes, nunca entera",w:"La IA y los guardianes",n:"Es el corazón del método."},
+ {p:"constitution.md",d:1,q:"¿Qué reglas no se pueden romper?",r:"Al empezar",w:"Solo cambia con tu autorización",n:"Hay 9 reglas en este repositorio."},
+ {p:"pendientes.md",d:1,q:"¿Qué falta?",r:"Al empezar",w:"La IA, al abrir y cerrar puntos",n:"Tope de 8 KB. Solo lo que falta, con numeración fija."},
+ {p:"decisions.log",d:1,q:"¿Qué se hizo y cuándo?",r:"No se lee al empezar: se añade al final",w:"cerrar.py, o cierre.py en modo ligero",n:"Una línea por tarea terminada."},
+ {p:"decisions/",d:1,q:"¿Ya se decidió esto y por qué?",r:"Si se va a cambiar algo decidido",w:"La IA, una ficha D-NNN por decisión",n:"Una decisión que cambia no se borra: se marca como reemplazada."},
+ {p:"specs/",d:1,q:"¿Qué se aprobó construir?",r:"Solo la de la tarea en curso",w:"La IA; la apruebas tú",n:"Objetivo, qué entra y qué no, archivos, pruebas y riesgos."},
+ {p:"architecture/",d:1,q:"¿Cómo funciona esta parte del proyecto?",r:"Solo la ficha del área que toca",w:"La IA, también con /trocea",n:"Un archivo por tema, con nombre claro."},
+ {p:"traspaso.md",d:1,q:"¿Dónde se quedó el chat anterior?",r:"Al abrir el chat siguiente",w:"traspaso-in o traspaso-out",n:"Tras leerlo se mueve a archive/traspasos/. Solo existe entre un chat y otro."},
+ {p:"notas-chats/",d:1,q:"¿Qué hizo un chat auxiliar?",r:"Cuando hay una nota nueva; se avisa solo",w:"El chat que recibió el encargo",n:"Solo aparece cuando hace falta."},
+ {p:"archive/",d:1,q:"¿Se hizo esto? ¿Cuándo?",r:"Solo al consultar; primero hechos-indice.md",w:"La IA y la poda",n:"Lo terminado y probado. Mover, no borrar."},
+ {p:"pruebas/",d:1,q:"¿Qué hallazgos dejó una campaña de pruebas?",r:"Cuando toca",w:"La IA, una ficha P-NNN",n:"Cada hallazgo arreglado se marca."},
+ {p:"referencias.md",d:1,q:"¿Qué documentos y hoja de ruta tiene el proyecto?",r:"Solo si toca",w:"La IA",n:"Evita que los índices de entrada engorden."},
+ {p:"experiencia/",d:1,q:"¿Qué skills hay y cuándo se usa cada una?",r:"A demanda",w:"Al añadir o quitar una skill",n:"Lista maestra de skills."},
+ {p:"biblioteca/",d:1,q:"¿Dónde está el manual y lo reutilizable?",r:"Cuando hace falta",w:"Viene con el arnés",n:"Método, carta maestra, plantillas y kits."},
+ {p:"guardianes/",d:1,q:"¿Qué se comprueba automáticamente?",r:"Los ejecuta el sistema, no se leen",w:"Viene con el arnés",n:"Python con la librería estándar. Los ajustes están en guardianes.json."},
+ {p:".claude/",d:0,g:1,q:"La conexión con Claude Code",r:"Lo usa la herramienta",w:"El instalador",n:"Otras IA no tienen estos ganchos."},
+ {p:"settings.json",d:1,q:"¿Qué se lanza en cada momento?",r:"Lo usa Claude Code",w:"El instalador",n:"Declara 3 hooks: abrir sesión, enviar mensaje y acabar respuesta."},
+ {p:"skills/",d:1,q:"¿Cómo debe actuar la IA en cada situación?",r:"Solo la skill que toca",w:"Viene con el arnés",n:"25 skills en este repositorio."},
+ {p:"tests/",d:0,q:"¿Sigue funcionando el método?",r:"Se lanza: python -m unittest discover tests",w:"El arnés",n:"Último pase: 289 pruebas, con 6 saltadas."},
+ {p:"VERSION y manifiesto.json",d:0,q:"¿Qué versión es y qué archivos se reparten?",r:"Lo usa el actualizador",w:"generar_manifiesto.py",n:"Solo existen así en el repositorio origen. Una prueba falla si se olvida regenerarlo."}
+];
+const tree=$("#tree");let curF=0;
+function drawFile(i){curF=i;const f=FILES[i];[...tree.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+ const d=$("#fileDetail");d.textContent="";const h=document.createElement("h3");h.textContent=f.p;d.append(h);
+ const dl=document.createElement("dl");dl.className="kv";[["Responde a",f.q],["Se lee",f.r],["Lo escribe",f.w],["Nota",f.n]].forEach(([k,v])=>{const a=document.createElement("dt");a.textContent=k;const b=document.createElement("dd");b.textContent=v;dl.append(a,b)});d.append(dl)}
+FILES.forEach((f,i)=>{const b=document.createElement("button");b.type="button";b.textContent=f.p;b.className=(f.d?"d1 ":"")+(f.g?"group":"");b.onclick=()=>drawFile(i);tree.append(b)});
+drawFile(3);
+
+const MOM=[
+ {t:"Abrir chat",h:"SessionStart",what:"Se lanza arranque.py.",items:["Te resume pendientes, commits sin subir, lo que sigue sin commitear y la última línea del registro.","Muestra el traspaso anterior y lo archiva.","Mueve a archivo la memoria vieja, sin borrarla. Lo pospone si hay cambios sin guardar en esos archivos.","Avisa de secretos, librerías, archivos o índices demasiado grandes y versiones nuevas del arnés."]},
+ {t:"Enviar mensaje",h:"UserPromptSubmit",what:"Se lanza notas_abiertas.py.",items:["Avisa si otro chat auxiliar dejó una nota nueva."]},
+ {t:"Acabar respuesta",h:"Stop",what:"Se lanza cierre.py.",items:["Avisa si falta la línea en el registro.","En tareas pequeñas con pruebas en verde, escribe esa línea solo.","Avisa si el chat se alarga: a los 200.000 tokens, y repite cada 100.000."]},
+ {t:"Hacer commit",h:"Hook pre-commit de Git",what:"Se lanza secretos.py sobre lo que se va a guardar.",items:["Bloquea el commit si encuentra una clave o token de alta confianza. Se aplica con cualquier IA, porque es de Git."]},
+ {t:"Traspaso de IA",h:"traspaso-out salgo",what:"La skill lanza guardar_traspaso.py.",items:["Hace commit solo de la memoria y lo sube a GitHub.","Se para si hay un secreto. Pregunta antes si hay otros commits sin subir."]}
+];
+const mWrap=$("#moments");
+function drawMom(i){[...mWrap.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));const m=MOM[i],d=$("#momentDetail");d.textContent="";
+ const h=document.createElement("h3");h.textContent=m.t+": "+m.what;const c=document.createElement("code");c.textContent=m.h;const w=document.createElement("div");w.append(c);const u=document.createElement("ul");m.items.forEach(x=>{const l=document.createElement("li");l.textContent=x;u.append(l)});d.append(h,w,u)}
+MOM.forEach((m,i)=>{const b=document.createElement("button");b.type="button";b.className="moment";const n=document.createElement("i");n.textContent=i+1;const t=document.createElement("b");t.textContent=m.t;b.append(n,t);b.onclick=()=>drawMom(i);mWrap.append(b)});drawMom(0);
+
+const G=[
+ {n:"Arranque",f:"arranque.py",w:"Resume el estado real y lanza otras comprobaciones.",c:"Al abrir",e:"Avisa",k:"auto"},
+ {n:"Notas abiertas",f:"notas_abiertas.py",w:"Avisa de notas nuevas de chats auxiliares.",c:"Al enviar",e:"Avisa",k:"auto"},
+ {n:"Aviso de cierre",f:"cierre.py",w:"Recuerda la línea del registro y el tope de pendientes.",c:"Al acabar",e:"Avisa",k:"auto"},
+ {n:"Longitud",f:"longitud.py",w:"Avisa de que el chat se ha alargado.",c:"Al acabar",e:"Avisa",k:"auto"},
+ {n:"Secretos",f:"secretos.py",w:"Busca claves y tokens. También puede revisar el historial.",c:"Al abrir y en cada commit",e:"Bloquea",k:"auto"},
+ {n:"Poda",f:"poda.py",w:"Mueve a archivo la memoria vieja. Nunca borra.",c:"Al abrir",e:"Actúa",k:"auto"},
+ {n:"Git del traspaso",f:"guardar_traspaso.py",w:"Hace commit de la memoria y lo sube.",c:"En traspaso-out salgo",e:"Actúa",k:"auto"},
+ {n:"Librerías",f:"librerias.py",w:"Vigila versiones. Al abrir solo lee el último resultado; la consulta por internet se lanza aparte.",c:"Al abrir / a mano",e:"Avisa",k:"auto"},
+ {n:"Memoria de pruebas",f:"pruebas.py",w:"Sigue las campañas de pruebas y sus hallazgos.",c:"Al abrir",e:"Avisa",k:"auto"},
+ {n:"Revisión de índices",f:"revisar_indices.py",w:"Busca referencias rotas y deriva en CLAUDE.md, GEMINI.md y AGENTS.md.",c:"Al abrir / a mano",e:"Avisa",k:"auto"},
+ {n:"Archivos gordos",f:"archivos_gordos.py",w:"Avisa cuando un archivo de memoria se acerca a su tope de 8 KB.",c:"Al abrir / a mano",e:"Avisa",k:"auto"},
+ {n:"Cierre rápido",f:"cerrar.py",w:"Añade la línea del registro con su formato correcto.",c:"A mano o por la IA",e:"Actúa",k:"mano"},
+ {n:"Medidor",f:"medir.py",w:"Muestra por chat el coste y las correcciones. Solo lee.",c:"A mano",e:"Solo lee",k:"mano"},
+ {n:"Actualizador",f:"actualizar_arnes.py",w:"Trae las mejoras al proyecto, con copia de seguridad.",c:"A mano o con /actualizar",e:"Actúa",k:"mano"},
+ {n:"Análisis de código",f:"analisis.py",w:"Revisa el código con reglas como funciones demasiado largas.",c:"Apagado aquí",e:"Apagado",k:"off"},
+ {n:"Base de datos",f:"base_datos.py",w:"Defiende una base de datos SQLite con copias y reglas.",c:"Apagado aquí",e:"Apagado",k:"off"}
+];
+const PC={"Avisa":"warn","Bloquea":"block","Actúa":"act","Solo lee":"ok","Apagado":"off"};
+const gB=$("#gBody"),gF=$("#gFilters");const GOPT=[["Todos",""],["Se lanzan solos","auto"],["A mano","mano"],["Apagados","off"]];
+function drawG(k){gB.textContent="";G.filter(g=>!k||g.k===k).forEach(g=>{const r=gB.insertRow();const a=r.insertCell();const b=document.createElement("b");b.textContent=g.n;const br=document.createElement("br");const c=document.createElement("code");c.textContent=g.f;a.append(b,br,c);r.insertCell().textContent=g.w;r.insertCell().textContent=g.c;const e=r.insertCell();const s=document.createElement("span");s.className="pill "+PC[g.e];s.textContent=g.e;e.append(s)});[...gF.children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.k===k))}
+GOPT.forEach(([t,k])=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.dataset.k=k;b.onclick=()=>drawG(k);gF.append(b)});drawG("");
+
+const SK=[
+ ["Tus comandos",["resumen","pendiente","prompt-inicial","actualizar","subir-a-github"]],
+ ["Cambiar de chat o de IA",["traspaso-in","traspaso-out"]],
+ ["Adoptar y ordenar proyectos antiguos",["adopta","adoptar-indice-existente","acorta","trocea","revisar-indices-de-ia"]],
+ ["Cerrar bien el trabajo",["cerrar-una-tarea","implementada-no-es-hecha","pendientes-solo-lo-que-falta","mover-no-borrar","spec-antes-de-programar"]],
+ ["Evitar errores técnicos",["secretos-fuera-del-repo","vigilar-librerias","licencia-antes-de-usar","cero-dependencias","quitar-codigo-antiguo-con-test"]],
+ ["Construir guardianes y hablar claro",["guardian-avisa-o-bloquea","probar-guardian-en-windows","explicar-a-darwin-en-llano"]]
+];
+const skW=$("#skills");SK.forEach(([t,l])=>{const d=document.createElement("div");const h=document.createElement("h3");h.textContent=t;const c=document.createElement("div");c.className="chips";l.forEach(s=>{const x=document.createElement("span");x.textContent=s;c.append(x)});d.append(h,c);skW.append(d)});
+
+const GL=[
+ ["Actualizador","Programa que lleva las mejoras del arnés a un proyecto, sin pisar lo tuyo."],
+ ["Archivo","Carpeta donde va lo terminado o viejo. Se mueve allí, no se borra."],
+ ["Arnés","Todo lo que rodea a la IA para que trabaje bien: método, guardianes, skills y pruebas."],
+ ["Arranque","Resumen automático del estado del proyecto al abrir un chat."],
+ ["Bloquear","Impedir una acción, como un commit con una clave. Es más fuerte que avisar."],
+ ["Carril","Camino de un encargo: con spec o rápido."],
+ ["CI/CD","Automatización que lanza pruebas y despliegues en cada subida. Aún no la tenemos."],
+ ["Commit","Foto de los cambios guardada en el historial de Git. Solo es local hasta que se sube."],
+ ["Constitución","Reglas del proyecto que no se saltan sin permiso."],
+ ["Decisión (D-NNN)","Ficha corta que guarda qué se decidió y por qué."],
+ ["Fast-Track","Carril rápido, para tareas pequeñas."],
+ ["Git","Sistema que guarda el historial de cambios de un proyecto."],
+ ["Guardián","Script que comprueba solo que el método se cumple."],
+ ["Hook (gancho)","Orden que se lanza sola cuando pasa algo, como abrir un chat."],
+ ["Índice de entrada","Archivo corto que lee la IA primero: CLAUDE.md, GEMINI.md o AGENTS.md."],
+ ["Manifiesto","Lista de los archivos del arnés con su huella, para saber si cambiaron."],
+ ["Meta-arnés","Arnés que sirve para muchos proyectos, repartido desde un solo origen."],
+ ["Modo ligero","Cierre abreviado para tareas pequeñas con pruebas en verde."],
+ ["Nivel","Cuánto del método se instala en un proyecto: ligero, medio o completo."],
+ ["Nota de chat","Lo que deja un chat auxiliar para quien le hizo el encargo."],
+ ["Pendientes","Lista de lo que falta. Solo eso."],
+ ["Poda","Limpieza que mueve memoria vieja al archivo."],
+ ["Pre-commit","Hook de Git que se lanza justo antes de guardar un commit."],
+ ["Prueba (test)","Comprobación automática de que algo sigue funcionando."],
+ ["Push","Enviar los commits a GitHub."],
+ ["Registro","El archivo decisions.log: una línea por tarea terminada."],
+ ["Secreto","Clave o token que nunca debe entrar en el repositorio."],
+ ["Skill","Ficha de instrucciones para una situación concreta."],
+ ["Spec","Plan corto que apruebas antes de programar."],
+ ["Token","Unidad con la que se mide y se cobra lo que la IA lee y escribe."],
+ ["Traspaso","Archivo que pasa el contexto de un chat o de una IA a otra."],
+ ["Versión","Número del arnés. Sube con cada cambio repartido."]
+];
+const glo=$("#glo");function drawGlo(q){q=(q||"").toLowerCase();glo.textContent="";GL.filter(g=>(g[0]+" "+g[1]).toLowerCase().includes(q)).forEach(g=>{const d=document.createElement("div");const b=document.createElement("b");b.textContent=g[0];const s=document.createElement("span");s.textContent=g[1];d.append(b,s);glo.append(d)})}
+$("#gloQ").addEventListener("input",e=>drawGlo(e.target.value));drawGlo("");
+
+const T=[
+ {c:"Cada día",t:"Saber cómo va el proyecto",w:"En el chat",x:"/resumen",d:"Cuenta el estado en pocas viñetas, sin escribir nada."},
+ {c:"Cada día",t:"Ver lo que falta",w:"En el chat",x:"/pendiente",d:"Te deja elegir entre programar, tu prueba, tus acciones o specs. También vale /pendiente programar."},
+ {c:"Cada día",t:"Empezar un encargo bien explicado",w:"En el chat",x:"/prompt-inicial",d:"Te ayuda a escribir el objetivo, los límites y qué debes probar."},
+ {c:"Cada día",t:"Confirmar que probaste algo",w:"En el chat",x:"Probé el punto N y funciona",d:"La IA lo pasa de pendientes a hechos en esa misma respuesta."},
+ {c:"Cada día",t:"Cerrar una tarea a mano",w:"En la terminal",x:'python .brain/guardianes/cerrar.py --chat "Proyecto #N" "qué se hizo"',d:"Normalmente lo hace la IA."},
+ {c:"Chats e IA",t:"Pasar a un chat nuevo con la misma IA",w:"En el chat",x:"/traspaso-in salgo",d:"Escribe el traspaso y abre el chat nuevo. En Codex, $traspaso-in salgo."},
+ {c:"Chats e IA",t:"Entrar en el chat nuevo",w:"En el chat nuevo",x:"/traspaso-in entro",d:"Cuenta lo anterior en 4-5 viñetas. Claude lo muestra solo al abrir."},
+ {c:"Chats e IA",t:"Irte de esta IA a otra",w:"En el chat",x:"/traspaso-out salgo",d:"Escribe el traspaso, hace commit de la memoria y lo sube a GitHub."},
+ {c:"Chats e IA",t:"Llegar a la otra IA",w:"En la otra IA",x:"/traspaso-out entro",d:"Si Gemini no reconoce la skill, pídele que lea GEMINI.md, .brain/traspaso.md y .brain/pendientes.md."},
+ {c:"GitHub",t:"Subir a GitHub",w:"En el chat",x:"sube",d:"La skill repasa secretos y pruebas antes de subir."},
+ {c:"GitHub",t:"Buscar claves antes de publicar",w:"En la terminal",x:"python .brain/guardianes/secretos.py",d:"Añade --historial para revisar también lo ya guardado en Git."},
+ {c:"Proyectos",t:"Instalar en un proyecto nuevo",w:"En la terminal, desde cerebro-vivo",x:"python .brain/biblioteca/kit-arranque/instalar.py RUTA --nombre Nombre --dueno Darwin --nivel completo",d:"También hay doble clic en instalar_kit.bat. Niveles: ligero, medio y completo."},
+ {c:"Proyectos",t:"Comprobar un proyecto instalado",w:"En la terminal, desde cerebro-vivo",x:"python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar",d:"Dice qué piezas están y cuáles faltan."},
+ {c:"Proyectos",t:"Adoptar un proyecto con un CLAUDE.md antiguo",w:"En el chat",x:"/adopta",d:"Encadena los pasos de reparto, acortar y trocear, y te pide el sí en cada tabla."},
+ {c:"Proyectos",t:"Actualizar un proyecto (lo fácil)",w:"En el chat del proyecto",x:"/actualizar",d:"Te cuenta qué trae, te pide el sí y lo hace todo."},
+ {c:"Proyectos",t:"Ver qué traería una actualización",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA --simular",d:"No escribe nada. Conviene hacerlo siempre primero."},
+ {c:"Proyectos",t:"Actualizar un proyecto (a mano)",w:"En la terminal, desde cerebro-vivo",x:"python actualizar.py RUTA",d:"Guarda copia en .brain/copias_arnes/ y no pisa lo modificado."},
+ {c:"Mantenimiento",t:"Revisar los índices de IA",w:"En el chat",x:"revisa los índices",d:"Hace doble pasada y mueve lo retirado con tu visto bueno."},
+ {c:"Mantenimiento",t:"Acortar un índice demasiado grande",w:"En el chat",x:"/acorta",d:"Baja CLAUDE.md, GEMINI.md y AGENTS.md al tope de 5 KB."},
+ {c:"Mantenimiento",t:"Dividir un archivo de memoria gordo",w:"En el chat",x:"/trocea",d:"Lo divide por temas con nombre y guarda la copia íntegra."},
+ {c:"Mantenimiento",t:"Lanzar las pruebas",w:"En la terminal",x:"python -m unittest discover tests",d:"Tras cualquier cambio."},
+ {c:"Mantenimiento",t:"Medir chats",w:"En la terminal",x:"python .brain/guardianes/medir.py",d:"Muestra coste y correcciones. Solo lee."},
+ {c:"Mantenimiento",t:"Repartir un cambio del arnés",w:"En la terminal, en cerebro-vivo",x:"python generar_manifiesto.py",d:"Antes sube VERSION y anota CAMBIOS.md. Después lanza las pruebas."},
+ {c:"Si algo falla",t:"No sale el resumen al abrir",w:"En la terminal, o pídeselo a la IA",x:"python .brain/guardianes/arranque.py --manual",d:"Sirve también en Gemini y Codex."},
+ {c:"Si algo falla",t:"Un aviso se repite o molesta",w:"En el chat",x:"Este aviso me molesta, revisa guardianes.json",d:"Los topes están en .brain/guardianes/guardianes.json."}
+];
+const tW=$("#tasks"),uF=$("#useF");let uCat="";
+function drawT(){const q=$("#useQ").value.toLowerCase();tW.textContent="";const L=T.filter(t=>(!uCat||t.c===uCat)&&(t.t+" "+t.x+" "+t.d+" "+t.c).toLowerCase().includes(q));
+ L.forEach(t=>{const a=document.createElement("article");a.className="task";const h=document.createElement("header");const n=document.createElement("h3");n.textContent=t.t;const s=document.createElement("span");s.textContent=t.w;h.append(n,s);
+  const c=document.createElement("div");c.className="cmd";const k=document.createElement("code");k.textContent=t.x;const b=document.createElement("button");b.type="button";b.textContent="Copiar";b.onclick=()=>{const ok=()=>{b.textContent="Copiado";setTimeout(()=>b.textContent="Copiar",1500)};const fb=()=>{const r=document.createRange();r.selectNodeContents(k);const g=getSelection();g.removeAllRanges();g.addRange(r);b.textContent="Seleccionado"};try{navigator.clipboard.writeText(t.x).then(ok,fb)}catch(e){fb()}};c.append(k,b);
+  const p=document.createElement("p");p.textContent=t.d;a.append(h,c,p);tW.append(a)});
+ $("#useEmpty").hidden=L.length>0;[...uF.children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.c===uCat))}
+["",...new Set(T.map(t=>t.c))].forEach(c=>{const b=document.createElement("button");b.type="button";b.textContent=c||"Todo";b.dataset.c=c;b.onclick=()=>{uCat=c;drawT()};uF.append(b)});
+$("#useQ").addEventListener("input",drawT);drawT();
+
+const S=[
+ {h:"La IA no recuerda",b:["Cada chat empieza de cero.","Lo acordado se pierde al cerrar la conversación.","En proyectos largos, eso cuesta tiempo y errores."],s:"Empieza por el problema. Cualquiera que haya usado una IA en un proyecto largo lo reconocerá."},
+ {h:"La memoria vive en archivos",b:["Reglas, pendientes, decisiones y planes, cada uno en su sitio.","La IA lee poco al empezar y busca el detalle si hace falta.","Funciona con Claude, Gemini y Codex."],s:"La idea central es sacar la memoria del chat. La verdad está en el código y en estos archivos."},
+ {h:"Scripts que vigilan el método",b:["Hooks al abrir un chat, al enviar y al acabar cada respuesta.","Un hook pre-commit bloquea claves y tokens.","El resto, sobre todo, avisa de olvidos."],s:"Depender de la disciplina de la IA era el punto débil. Puedes poner el ejemplo de los secretos."},
+ {h:"Un solo origen, muchos proyectos",b:["Cada cambio tiene versión, registro y huella de archivos.","Los proyectos se actualizan cuando yo decido.","Nunca se pisan datos ni cambios hechos a mano."],s:"Aquí se ve la parte de ingeniería: el método se reparte como un producto."},
+ {h:"Lo he medido, también lo malo",b:["Respetó lo acordado 5 de 5 veces, frente a 0 de 5.","Gasta de un 7 % a un 16 % más en tareas pequeñas.","El ahorro a largo plazo sigue sin medir."],s:"Di que la muestra es pequeña. Enseñar lo que no salió bien da más credibilidad que un resultado perfecto."},
+ {h:"Lo siguiente",b:["CI/CD: lanzar las pruebas en cada subida.","Un agente revisor independiente.","Pruebas en proyectos reales de lo más reciente."],s:"Termina con lo que quieres aprender. Son planes: todavía no están hechos."}
+];
+let si=0;function drawS(){const x=S[si],e=$("#slide");e.textContent="";const h=document.createElement("h2");h.textContent=x.h;const u=document.createElement("ul");x.b.forEach(b=>{const l=document.createElement("li");l.textContent=b;u.append(l)});e.append(h,u);$("#count").textContent=(si+1)+" de "+S.length;$("#prev").disabled=si===0;$("#next").disabled=si===S.length-1}
+$("#prev").onclick=()=>{if(si>0){si--;drawS()}};$("#next").onclick=()=>{if(si<S.length-1){si++;drawS()}};drawS();
+addEventListener("keydown",e=>{if(view!=="presentar"||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight")$("#next").click();if(e.key==="ArrowLeft")$("#prev").click()});
+
+const side=$("#side");document.querySelectorAll("section.ch").forEach((s,i)=>{const a=document.createElement("a");a.href="#"+s.id;const b=document.createElement("b");b.textContent=i+1;const t=document.createElement("span");t.textContent=s.dataset.t;a.append(b,t);a.onclick=e=>{e.preventDefault();s.scrollIntoView()};side.append(a)});
+
+let view="comprender";
+function route(){let h=location.hash.slice(1);view=["usar","presentar"].includes(h)?h:"comprender";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});if(["usar","presentar","comprender"].includes(h))scrollTo(0,0)}
+addEventListener("hashchange",route);route();
+</script>
+
+</body>
+</html>
