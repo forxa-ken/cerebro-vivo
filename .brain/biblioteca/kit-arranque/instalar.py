@@ -248,11 +248,11 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
             poner(archivo, texto)
     pendientes = plantilla("pendientes.md")
     if adoptados:  # spec 015: la IA reparte lo que el proyecto ya tenía en los archivos de la memoria
-        tarea = ("- **2:** adaptar lo que ya tenía el proyecto (%s) a la memoria `.brain/`: skill `adoptar-indice-existente`; "
+        tarea = ("- **2:** adaptar lo que ya tenía el proyecto (%s) a la memoria `.brain/`: escribe `/adopta` (reparte, acorta y trocea, pidiendo tu sí en cada paso; skill `adoptar-indice-existente`); "
                  "originales en `.brain/archive/adoptado/`.\n" % ", ".join(adoptados))
         pendientes = pendientes.replace("\n## Esperando", tarea + "\n## Esperando", 1)
         hechos["avisos"].append("Se añadió el bloque de memoria al final de %s (copia del original en .brain/archive/adoptado/). "
-                                "En el primer chat, pide a la IA: «adopta el índice existente»." % ", ".join(adoptados))
+                                "En el primer chat escribe /adopta (reparte, acorta y trocea; te pide el sí en cada paso)." % ", ".join(adoptados))
     poner(".brain/pendientes.md", pendientes)
     poner(".brain/decisions.log", "")
     if traduccion:

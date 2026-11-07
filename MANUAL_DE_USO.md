@@ -39,7 +39,7 @@ Te pide **objetivo, cómo sabré que está bien, qué NO quiero, material, cómo
 | Registro de pruebas | Qué te toca probar y cómo | `.brain/pruebas/_plantilla.md` |
 
 ## 3 ter. Proyecto que ya tenía su CLAUDE.md: `/adopta`, `/acorta`, `/trocea`
-Para un proyecto empezado antes del método (con un CLAUDE.md gordo). Se instala el kit (no pisa nada: el original se guarda entero en `.brain/archive/adoptado/`), se reinicia Claude Code en esa carpeta y, en un chat nuevo, **en este orden**:
+**Desde la 1.18.0 basta con `/adopta`: hace los pasos 1 a 3 seguidos y te pide el sí en cada tabla.** Los comandos sueltos (`/acorta`, `/trocea`) siguen sirviendo por separado. Para un proyecto empezado antes del método (con un CLAUDE.md gordo). Se instala el kit (no pisa nada: el original se guarda entero en `.brain/archive/adoptado/`), se reinicia Claude Code en esa carpeta y, en un chat nuevo, **en este orden**:
 
 | Paso | Escribe | Qué hace | Tú |
 |---|---|---|---|
@@ -101,6 +101,8 @@ Si Gemini no reconoce la skill, pídele: «lee `GEMINI.md`, `.brain/traspaso.md`
 **Gemini y Codex:** `/prompt-inicial` y los ganchos de Claude Code (el resumen automático al abrir y el aviso al cerrar) no funcionan allí; el proyecto se adapta al método escrito en `GEMINI.md` / `AGENTS.md`. En Codex las skills se invocan con `$prompt-inicial` y deben estar en `.agents/skills/` (Codex no lee `.claude/skills/`). Abre siempre un chat nuevo: un chat ya abierto no recarga el archivo de entrada.
 
 ## 7. Traer mejoras a un proyecto que ya lo usa
+**Lo fácil (1.17.0):** cuando al abrir un chat sale «Arnés: hay una versión nueva», escribe **`/actualizar`**. Te cuenta qué trae, te pide el sí y lo hace todo (copia de seguridad, claves nuevas, fichas de skills). Lo de abajo es la forma manual, por si algún proyecto no tiene `arnes_repo` anotado: la primera vez actualízalo desde aquí con `python actualizar.py RUTA` y se anota solo.
+
 Primero **simular** (no escribe nada), luego actualizar:
 ```bash
 python .brain/guardianes/actualizar_arnes.py --simular
@@ -161,7 +163,8 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Instalar en un proyecto nuevo (terminal) | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --nombre Nombre --dueno Darwin --nivel completo` (niveles: `ligero`, `medio`, `completo`; `--traduccion` añade es/en/pt) |
 | Comprobar un proyecto ya instalado | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar` |
 | Ver qué traería una actualización | `python actualizar.py RUTA --simular` (o, dentro del proyecto, `python .brain/guardianes/actualizar_arnes.py --simular`) |
-| Actualizar un proyecto | `python actualizar.py RUTA` (o `python .brain/guardianes/actualizar_arnes.py`) |
+| Actualizar un proyecto (lo fácil) | escribe `/actualizar` cuando salga el aviso en el arranque |
+| Actualizar un proyecto (a mano) | `python actualizar.py RUTA` (o `python .brain/guardianes/actualizar_arnes.py`) |
 | Pisar archivos modificados a mano | `--forzar RUTA_ARCHIVO` (uno) o `--forzar-todo` (todos; commit antes) |
 | Migrar el objetivo a un proyecto antiguo | `python .brain/guardianes/actualizar_arnes.py --migrar-objetivo --simular` y luego sin `--simular` |
 | Otras opciones del actualizador | `--dueno NOMBRE`, `--repo RUTA`, `--sin-pruebas` |

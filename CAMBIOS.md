@@ -92,3 +92,15 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.16.1 (2026-11-04)
 - Prueba `test_arranque.py`: los índices que comprueba son los de `indices_entrada` de `guardianes.json` (antes siempre CLAUDE/GEMINI/AGENTS). Así un `AGENTS.md` ajeno al método (p. ej. el de Antigravity en Guild Control Forever, solo para traducciones y que no se edita) ya no da 2 pruebas rojas.
 - Manual: `/adopta`, `/acorta` y `/trocea` probados con éxito en un proyecto real (Guild Control Forever: CLAUDE.md 52 KB a 3,3 KB, referencias.md 47 KB a 13 archivos por tema, 0 líneas perdidas).
+
+## 1.17.0 (2026-11-04)
+- Actualizar con un aviso (spec 019): el arranque avisa cuando el repo del arnés (`arnes_repo`) tiene una versión mayor que la instalada (`aviso_arnes_activo` lo apaga); nueva skill `/actualizar` (simula, cuenta en llano, pide el sí, aplica). El actualizador ahora AÑADE a `guardianes.json` las claves que faltan (sin cambiar las existentes), anota `arnes_repo` si falta y completa las fichas de skills de `.brain/experiencia/indice.md`. Dos pruebas de `test_kit_arranque.py` solo corren en el repo del arnés.
+
+## 1.18.0 (2026-11-04)
+- `/adopta` encadena adoptar, acortar y trocear (spec 020), pidiendo el sí de Darwin en cada tabla; el instalador anota en `pendientes.md` y en su aviso final «escribe /adopta». Sin probar el encadenado completo en un proyecto real.
+
+## 1.18.1 (2026-11-04)
+- El aviso de arranque de índices de IA pasados de tope dice «escribe /adopta» (antes solo «revisa los índices»); lo notó Darwin al instalar el kit en Guild Control.
+
+## 1.18.2 (2026-11-04)
+- `/traspaso-in` sin palabra equivale a `salgo` y abre el chat nuevo (en LoboHook #79 Darwin lo escribió solo, la IA dio el resumen y no abrió el chat).

@@ -36,6 +36,7 @@
   "poda_excluir": [],
   "tope_registros_bytes": 61440,
   "tope_archivo_memoria_bytes": 8192,
+  "aviso_arnes_activo": true,
   "archivos_gordos_activo": true,
   "archivos_gordos_aviso_porcentaje": 80,
   "archivos_gordos_ignorar": [],

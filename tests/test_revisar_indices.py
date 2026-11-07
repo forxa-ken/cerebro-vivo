@@ -176,8 +176,14 @@ class TestResumenDeArranque(Base):
         rev.marcar_revision(self.d, HOY - datetime.timedelta(days=100))
         linea = rev.resumen(self.d, CFG, HOY)
         self.assertEqual(len(linea), 1)
-        for trozo in ("del tope", "1 referencia(s) rota(s)", "100 días", "revisa los índices"):
+        for trozo in ("del tope", "1 referencia(s) rota(s)", "100 días", "revisa los índices", "/adopta"):
             self.assertIn(trozo, linea[0])
+
+    def test_sin_tope_pasado_no_recomienda_adopta(self):
+        poner(self.d, "CLAUDE.md", "## M\nVer `src/viejo.py`.\n")
+        linea = rev.resumen(self.d, CFG, HOY)
+        self.assertIn("revisa los índices", linea[0])
+        self.assertNotIn("/adopta", linea[0])
 
     def test_un_dudoso_no_dispara_el_aviso(self):
         poner(self.d, "CLAUDE.md", "## M\nPor ejemplo `ruta/inventada.py`.\n")
