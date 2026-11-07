@@ -113,3 +113,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - El kit anota `nivel` en `.brain/arnes_instalado.json`; un proyecto de nivel ligero o medio no recibe nada y se le dice cómo subir a completo (punto 14).
 - `--simular` anuncia todo lo que hará: retirados, filas y fichas del índice, y lo que queda sin aplicar.
 - `README.md` y el manual ya no dicen que las claves nuevas «solo se proponen».
+
+## 1.19.1 (2026-11-07)
+- `traspaso-in entro` empieza separándose del chat anterior si sigue colgado de él (`get_session` y `detach_session` con `self`). Cubre el chat abierto desde una tarjeta, que el chat viejo no separaba (punto 20). El aviso de `longitud.py` manda ya ejecutar `traspaso-in entro` en el encargo del chat nuevo.

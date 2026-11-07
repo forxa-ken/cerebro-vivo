@@ -31,7 +31,7 @@
   ".brain/guardianes/cierre.py": "f1b6f2611a22d1b975c02ce954f4f5d861e6e395f8b25be41c6ea33302d58777",
   ".brain/guardianes/indices.py": "5b7186efcde640789a9694df2da39afa57bf10b2f6df91e2f753a4a4097e3368",
   ".brain/guardianes/librerias.py": "f759497f6a37e8438d2f3ec9f42c1f60fde212c7e42438d6d128fdc9baba2e55",
-  ".brain/guardianes/longitud.py": "ea74398d2bf527d733a1e3c5e5f84ff8fe41a0b7a71039bb2dcd6d20900ba239",
+  ".brain/guardianes/longitud.py": "b1ef5638b669ad77eafc6cccd99f97f7394cdb41b4f308988c5a337b3b001f23",
   ".brain/guardianes/medir.py": "67d236b613558a248ab8e3aa85bab1c9d6f9ba877b89712c4552b6f768906983",
   ".brain/guardianes/notas_abiertas.py": "ad763b49ecd3cebae3b4f35e74939015d8ca4f784287e5d361ca37f300eb91e3",
   ".brain/guardianes/poda.py": "f9702c0f5c423da5eecba19d12acdcd9ff1bd5d70c64e11f80a9495fd4ee25bb",
@@ -60,7 +60,7 @@
   ".claude/skills/revisar-indices-de-ia/SKILL.md": "c065c99ac5cebf500a66e704bb41592a1bdc352490541088be8b211941491588",
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "f77829644713ff6b2cefebc760d6f566830c1c0b0fe2819fad6c4ed042f543ef",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
-  ".claude/skills/traspaso-in/SKILL.md": "a55f40349979035bbdf40f5dc79a7e0d248aabcffcfbd0eb2880d0e04bdd20b3",
+  ".claude/skills/traspaso-in/SKILL.md": "925d6876be959222ed8f33e786ec218eaabacecf89dabaf378b4320e6a16ccfd",
   ".claude/skills/traspaso-out/SKILL.md": "46b9ba533b6c77bb5b1f23fce366efe94229bbeb20de2a619007a76b2d675abc",
   ".claude/skills/trocea/SKILL.md": "5b51456ea8fcee6c279ad7a0b0f2437068631ba420b0b73d53afd7c20e514561",
   ".claude/skills/vigilar-librerias/SKILL.md": "e005efc94916c8714ea2153c1428a26439b783efb786e4fc24be9e0b3ead9eb6",
@@ -75,7 +75,7 @@
   "tests/test_kit_arranque.py": "c9eda5585cabf34ca2193829933d489870fcef93113055b2af813caad1a5552d",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
-  "tests/test_longitud.py": "82356937175493d3da001b2cbcfd0299a5a2bb35f3f3123f210512772e9318c6",
+  "tests/test_longitud.py": "b4f40d050a5b7b46f61e7d9051a13cf8c66bb4bc5471ba02bd98c7b86ccd77c9",
   "tests/test_medir.py": "f6bb5990b4bec7e87dcf682899acc9ac3e45381cb44c55b4c7850c2f7879a530",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
   "tests/test_poda.py": "7a1afbd3632f38989e833f2f8dcf2ed2970a24ba73b4333ddabc796754f43ec8",
@@ -83,7 +83,7 @@
   "tests/test_revisar_indices.py": "e77393b598a2d62068c629bb486496954b4d9caf7143d4a4c1ef87c5f724a667",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980",
   "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
-  "tests/test_traspaso_in_out.py": "39f90f940f3740e8d4828698e5b36cf75e0f4346f1ca3a7a1f5bb6cc629369c7"
+  "tests/test_traspaso_in_out.py": "a4f0bfb554b7601c6885d19fc361cc9d115ea51ee1719bc85d14a40b35f13237"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -109,5 +109,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.19.0"
+ "version": "1.19.1"
 }

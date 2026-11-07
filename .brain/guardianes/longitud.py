@@ -56,7 +56,7 @@ def tramo(contexto, a):
 def texto_aviso(contexto):
     return ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Dile a Darwin, en lenguaje llano, que conviene "
             "abrir un chat nuevo. PRIMERO escribe el archivo .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md: sus últimas palabras literales, decisiones, estado de cada punto, lo que no se ha subido) y luego déjale la frase corta para pegar: «%s». "
-            "Si tienes la herramienta start_session (Claude Code de escritorio), abre tú el chat nuevo (contexto fresh, encargo: leer .brain/traspaso.md y contarlo en 4-5 viñetas), "
+            "Si tienes la herramienta start_session (Claude Code de escritorio), abre tú el chat nuevo (contexto fresh, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro y contarlo en 4-5 viñetas), "
             "llama enseguida a detach_session con su id para que quede al mismo nivel que este chat y no colgado de él, y dile a Darwin cómo se llama el chat nuevo. "
             "Si no puedes abrirlo (no hay herramienta o falla), basta con la frase." % (round(contexto / 1000), TRASPASO))
 

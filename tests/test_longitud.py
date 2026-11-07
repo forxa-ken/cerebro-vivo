@@ -50,6 +50,7 @@ class TestLongitud(unittest.TestCase):
         self.assertIn("traspaso.md", texto)
         self.assertIn("start_session", texto)  # spec 012: abre el chat nuevo...
         self.assertIn("detach_session", texto)  # ...y lo deja al mismo nivel
+        self.assertIn("traspaso-in entro", texto)  # si se abre por tarjeta, se separa él al entrar
         self.assertIsNone(lg.aviso(ruta, CFG))  # siguiente respuesta en el mismo tramo: no repite
         registro(250000, 310000, ruta=ruta)  # el mismo chat crece y pasa al tramo siguiente
         self.assertIn("310k", lg.aviso(ruta, CFG))
