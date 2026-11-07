@@ -35,7 +35,7 @@ O desde este repo:
 python actualizar.py RUTA_PROYECTO --simular
 python actualizar.py RUTA_PROYECTO
 ```
-`--simular` solo enseña qué cambiaría. Al actualizar se guarda antes una copia en `.brain/copias_arnes/`, **no se pisa** lo que el proyecto modificó a mano (se lista; `--forzar RUTA` lo pisa) y nunca se tocan pendientes, specs, decisiones, registro ni `guardianes.json` (las claves nuevas solo se proponen). Al final corre las pruebas del método del proyecto.
+`--simular` solo enseña qué cambiaría. Al actualizar se guarda antes una copia en `.brain/copias_arnes/` y **no se pisa** lo que el proyecto modificó a mano (se lista; `--forzar RUTA` lo pisa). Lo que el arnés retiró sale del proyecto a esa copia, salvo que se haya modificado. Nunca se tocan pendientes, specs, decisiones ni registro; en `guardianes.json` solo se añaden las claves que falten, sin cambiar las que hay. Un proyecto de nivel ligero o medio no recibe nada. Al final corre las pruebas del método del proyecto.
 
 ## Para mejorar el arnés
 Cambiar aquí, subir `VERSION`, anotar en `CAMBIOS.md`, lanzar `python generar_manifiesto.py` y las pruebas (`python -m unittest discover tests`).

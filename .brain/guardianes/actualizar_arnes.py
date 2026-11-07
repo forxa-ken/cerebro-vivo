@@ -14,7 +14,10 @@ Reglas: solo toca los archivos del manifiesto (`manifiesto.json`); si el proyect
 (se lista; `--forzar RUTA` lo pisa tras guardar copia); nunca toca pendientes, specs, decisiones, registro ni `guardianes.json`
 (si el arnés trae claves nuevas de configuración, las AÑADE sin tocar las que ya hay; anota `arnes_repo` si falta y es una
 carpeta local; y añade a la ficha de skills `.brain/experiencia/indice.md` las filas de las skills nuevas). Spec 019: el arranque
-avisa cuando el repo del arnés tiene una versión más nueva (`aviso_arnes`), y la skill `/actualizar` lo hace todo. Solo librería estándar."""
+avisa cuando el repo del arnés tiene una versión más nueva (`aviso_arnes`), y la skill `/actualizar` lo hace todo.
+Spec 021: lo retirado del arnés (`retirados` del manifiesto) pasa a la copia de seguridad si no se modificó; cada archivo se escribe
+de forma atómica; la versión se anota con lo que quedó sin aplicar (`sin_aplicar`); se comprueba la huella del manifiesto antes de
+escribir; y un proyecto de nivel ligero o medio no recibe nada. Solo librería estándar."""
 
 import argparse
 import datetime
@@ -32,6 +35,7 @@ RAIZ_PROPIA = os.path.abspath(os.path.join(AQUI, "..", ".."))
 MANIFIESTO = "manifiesto.json"
 REGISTRO = os.path.join(".brain", "arnes_instalado.json")
 COPIAS = os.path.join(".brain", "copias_arnes")
+INDICE_SKILLS = os.path.join(".brain", "experiencia", "indice.md")
 TEXTO = (".py", ".md", ".txt")
 DUENO_ORIGINAL = "Dar" + "win"  # partido a propósito: el kit cambia el nombre del dueño en los textos y no debe cambiar este
 
@@ -76,12 +80,44 @@ def cargar_registro(proyecto):
         return {}
 
 
-def guardar_registro(proyecto, registro):
-    ruta = os.path.join(proyecto, REGISTRO)
+def escribir_atomico(ruta, datos):
+    """Spec 021: escribe en un temporal de la misma carpeta y lo cambia de golpe; un corte deja el archivo viejo o el nuevo, entero."""
     os.makedirs(os.path.dirname(ruta), exist_ok=True)
-    with open(ruta, "w", encoding="utf-8", newline="\n") as f:
-        json.dump(registro, f, ensure_ascii=False, indent=2, sort_keys=True)
-        f.write("\n")
+    temporal = "%s.%d.tmp" % (ruta, os.getpid())
+    try:
+        with open(temporal, "wb") as f:
+            f.write(datos)
+            f.flush()
+            os.fsync(f.fileno())
+        if os.path.exists(ruta):
+            shutil.copymode(ruta, temporal)  # instalar_kit.command debe seguir siendo ejecutable
+        os.replace(temporal, ruta)
+    except BaseException:
+        try:
+            os.remove(temporal)
+        except OSError:
+            pass
+        raise
+
+
+def guardar_registro(proyecto, registro):
+    texto = json.dumps(registro, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    escribir_atomico(os.path.join(proyecto, REGISTRO), texto.encode("utf-8"))
+
+
+def comprobar_manifiesto(repo, manifiesto=None):
+    """Spec 021: cada archivo del manifiesto debe existir en el repo con su huella. Si no, ValueError antes de escribir nada."""
+    manifiesto = manifiesto or cargar_manifiesto(repo)
+    mal = []
+    for rel, esperada in sorted(manifiesto["archivos"].items()):
+        ruta = ruta_segura(repo, rel)
+        if ruta is None:
+            raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
+        if not os.path.isfile(ruta) or huella(_normalizar(leer_bytes(ruta), rel)) != esperada:
+            mal.append(rel)
+    if mal:
+        raise ValueError("El manifiesto no coincide con los archivos del repo del arnés (%d): %s. No se ha tocado nada. "
+                         "En el repo del arnés lanza `python generar_manifiesto.py`." % (len(mal), ", ".join(mal[:5]) + (", …" if len(mal) > 5 else "")))
 
 
 def esperado(repo, rel, dueno):
@@ -93,7 +129,7 @@ def esperado(repo, rel, dueno):
 
 
 def claves_nuevas(repo, proyecto):
-    """Claves de primer nivel que el arnés trae en `guardianes.json` y el proyecto aún no tiene (solo se proponen)."""
+    """Claves de primer nivel que el arnés trae en `guardianes.json` y el proyecto aún no tiene (`completar_configuracion` las añade)."""
     try:
         with open(os.path.join(repo, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
             del_arnes = json.load(f)
@@ -118,26 +154,27 @@ def completar_configuracion(repo, proyecto, simular=False):
         nuevas["arnes_repo"] = os.path.abspath(repo)
     if nuevas and not simular:
         cfg.update(nuevas)
-        with open(ruta, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(cfg, f, ensure_ascii=False, indent=2)
-            f.write("\n")
+        escribir_atomico(ruta, (json.dumps(cfg, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     return nuevas
 
 
-def completar_fichas_skills(repo, proyecto, simular=False):
+def completar_fichas_skills(repo, proyecto, simular=False, llegan=(), salen=()):
     """Spec 019: las skills que hay en `.claude/skills/` sin fila en `.brain/experiencia/indice.md` reciben la fila del arnés
-    (una prueba lo exige). Devuelve los nombres añadidos (o que se añadirían)."""
+    (una prueba lo exige). Devuelve los nombres añadidos (o que se añadirían). `llegan` y `salen`: skills que la simulación
+    daría por copiadas o retiradas (spec 021)."""
     indice = os.path.join(proyecto, ".brain", "experiencia", "indice.md")
     fuente = os.path.join(repo, ".brain", "experiencia", "indice.md")
     carpeta = os.path.join(proyecto, ".claude", "skills")
-    if not (os.path.isfile(indice) and os.path.isfile(fuente) and os.path.isdir(carpeta)):
+    if not (os.path.isfile(indice) and os.path.isfile(fuente)):
         return []
+    presentes = {n for n in (os.listdir(carpeta) if os.path.isdir(carpeta) else []) if os.path.isfile(os.path.join(carpeta, n, "SKILL.md"))}
+    presentes = (presentes | set(llegan)) - set(salen)
     texto = leer_bytes(indice).decode("utf-8")
     hay = set(re.findall(r"skills/([^/]+)/SKILL\.md\)", texto))
     filas_arnes = leer_bytes(fuente).decode("utf-8").splitlines()
     anadir, nombres = [], []
-    for n in sorted(os.listdir(carpeta)):
-        if n in hay or not os.path.isfile(os.path.join(carpeta, n, "SKILL.md")):
+    for n in sorted(presentes):
+        if n in hay:
             continue
         fila = next((l for l in filas_arnes if "skills/%s/SKILL.md)" % n in l), None)
         if fila:
@@ -147,9 +184,35 @@ def completar_fichas_skills(repo, proyecto, simular=False):
         fin = "\r\n" if "\r\n" in texto else "\n"
         if not texto.endswith(fin):
             texto += fin
-        with open(indice, "wb") as f:
-            f.write((texto + fin.join(anadir) + fin).encode("utf-8"))
+        escribir_atomico(indice, (texto + fin.join(anadir) + fin).encode("utf-8"))
     return nombres
+
+
+def _skill_de(rel):
+    """Nombre de la skill si `rel` es su `SKILL.md` (de Claude o de Codex); si no, None."""
+    m = re.fullmatch(r"\.(?:claude|agents)/skills/([^/]+)/SKILL\.md", rel)
+    return m.group(1) if m else None
+
+
+def filas_de_retiradas(manifiesto, proyecto, salen):
+    """Spec 021: skills retiradas que ya no estarán en `.claude/skills/` y siguen con fila en el índice. `salen`: las que se van ahora."""
+    indice = os.path.join(proyecto, INDICE_SKILLS)
+    if not os.path.isfile(indice):
+        return []
+    texto = leer_bytes(indice).decode("utf-8")
+    res = []
+    for rel in manifiesto.get("retirados") or []:
+        n = _skill_de(rel)
+        if n and n not in res and "skills/%s/SKILL.md)" % n in texto and (n in salen or not os.path.isfile(os.path.join(proyecto, ".claude", "skills", n, "SKILL.md"))):
+            res.append(n)
+    return sorted(res)
+
+
+def quitar_filas(proyecto, nombres):
+    """Quita del índice de skills las filas de `nombres`, para no dejar enlaces rotos."""
+    indice = os.path.join(proyecto, INDICE_SKILLS)
+    lineas = leer_bytes(indice).decode("utf-8").splitlines(True)
+    escribir_atomico(indice, "".join(l for l in lineas if not any("skills/%s/SKILL.md)" % n in l for n in nombres)).encode("utf-8"))
 
 
 def version_disponible(proyecto, cfg=None):
@@ -182,15 +245,38 @@ def destinos(manifiesto, proyecto):
     return pares
 
 
+def destinos_retirados(manifiesto):
+    """Rutas retiradas del arnés que pueden seguir en el proyecto, con su copia de Codex en `.agents/skills/` (spec 021)."""
+    res = []
+    for rel in sorted(set(manifiesto.get("retirados") or []) - set(manifiesto["archivos"])):
+        res.append(rel)
+        if rel.startswith(".claude/skills/"):
+            res.append(".agents/skills/" + rel[len(".claude/skills/"):])
+    return res
+
+
+def quitar_carpetas_vacias(proyecto, ruta):
+    """Sube desde el archivo retirado borrando las carpetas que quedan vacías, sin salir del proyecto."""
+    carpeta = os.path.dirname(ruta)
+    while os.path.abspath(carpeta) != os.path.abspath(proyecto):
+        try:
+            os.rmdir(carpeta)
+        except OSError:
+            return
+        carpeta = os.path.dirname(carpeta)
+
+
 def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=(), ahora=None, forzar_todo=False):
     """Compara el proyecto con el repo y (si no es simulación) copia lo que toca.
-    Devuelve {'version_antes', 'version', 'nuevos', 'actualizados', 'sin_cambios', 'a_mano', 'forzados', 'copia', 'claves_nuevas'}.
+    Devuelve {'version_antes', 'version', 'nuevos', 'actualizados', 'sin_cambios', 'a_mano', 'forzados', 'retirados', 'retirados_a_mano',
+    'filas_quitadas', 'sin_aplicar', 'fichas', 'copia', 'claves_nuevas', 'claves_escritas'}. La simulación anuncia lo mismo que hace la ejecución real.
     `adoptar`: rutas absolutas que el kit de arranque acaba de crear (se tratan como no modificadas a mano).
     `forzar_todo`: pisa (con copia de seguridad) también todo lo modificado a mano; para la primera adopción de un proyecto antiguo."""
     repo, proyecto = os.path.abspath(repo), os.path.abspath(proyecto)
     if repo == proyecto:
         raise ValueError("El proyecto y el repo del arnés son la misma carpeta.")
     manifiesto = cargar_manifiesto(repo)
+    comprobar_manifiesto(repo, manifiesto)
     registro = cargar_registro(proyecto)
     dueno = dueno or registro.get("dueno")
     archivos_reg = dict(registro.get("archivos") or {})
@@ -198,7 +284,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     forzar = {f.replace("\\", "/") for f in forzar}
     res = {"version_antes": registro.get("version"), "version": manifiesto.get("version"), "nuevos": [], "actualizados": [],
            "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto),
-           "claves_escritas": {}, "fichas": []}
+           "claves_escritas": {}, "fichas": [], "retirados": [], "retirados_a_mano": [], "filas_quitadas": [], "sin_aplicar": []}
     por_escribir = []  # (rel, destino, contenido, existia)
     for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
@@ -225,22 +311,46 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
             archivos_reg[rel] = h_nuevo
         else:
             res["a_mano"].append(rel)  # modificado a mano (o sin registro previo): no se pisa
+    por_retirar = []  # (rel, destino)
+    for rel in destinos_retirados(manifiesto):
+        destino = ruta_segura(proyecto, rel)
+        if destino is None:
+            raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
+        if not os.path.exists(destino):
+            archivos_reg.pop(rel, None)
+        elif archivos_reg.get(rel) == huella(_normalizar(leer_bytes(destino), rel)) or rel in forzar or forzar_todo:
+            res["retirados"].append(rel)
+            por_retirar.append((rel, destino))
+            archivos_reg.pop(rel, None)
+        else:
+            res["retirados_a_mano"].append(rel)  # modificado a mano o sin registro: no se toca
+    res["sin_aplicar"] = sorted(res["a_mano"] + res["retirados_a_mano"])
+    salen = {_skill_de(rel) for rel in res["retirados"] if rel.startswith(".claude/")} - {None}
+    res["filas_quitadas"] = filas_de_retiradas(manifiesto, proyecto, salen)
     if simular:
         res["claves_escritas"] = completar_configuracion(repo, proyecto, simular=True)
+        llegan = [_skill_de(rel) for rel in res["nuevos"] if rel.startswith(".claude/") and _skill_de(rel)]
+        res["fichas"] = completar_fichas_skills(repo, proyecto, simular=True, llegan=llegan, salen=salen)
         return res
-    sobrescritos = [p for p in por_escribir if p[3] and os.path.normcase(p[1]) not in adoptar]  # lo que acaba de crear el kit no necesita copia
-    if sobrescritos:
+    respaldos = [(p[0], p[1]) for p in por_escribir if p[3] and os.path.normcase(p[1]) not in adoptar] + por_retirar  # lo que acaba de crear el kit no necesita copia
+    if res["filas_quitadas"]:
+        respaldos.append((INDICE_SKILLS, os.path.join(proyecto, INDICE_SKILLS)))
+    if respaldos:
         sello = (ahora or datetime.datetime.now()).strftime("%Y%m%d-%H%M%S")
         res["copia"] = os.path.join(COPIAS, sello)
-        for rel, destino, _, _ in sobrescritos:
+        for rel, destino in respaldos:
             copia = os.path.join(proyecto, res["copia"], rel)
             os.makedirs(os.path.dirname(copia), exist_ok=True)
             shutil.copyfile(destino, copia)
     for rel, destino, contenido, _ in por_escribir:
-        os.makedirs(os.path.dirname(destino), exist_ok=True)
-        with open(destino, "wb") as f:
-            f.write(contenido)
-    guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg})
+        escribir_atomico(destino, contenido)
+    for rel, destino in por_retirar:
+        os.remove(destino)  # ya está en la copia de seguridad
+        quitar_carpetas_vacias(proyecto, destino)
+    if res["filas_quitadas"]:
+        quitar_filas(proyecto, res["filas_quitadas"])
+    guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg,
+                                "nivel": "completo", "sin_aplicar": res["sin_aplicar"]})
     res["claves_escritas"] = completar_configuracion(repo, proyecto)
     res["fichas"] = completar_fichas_skills(repo, proyecto)
     return res
@@ -338,9 +448,7 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
             copia = os.path.join(proyecto, COPIAS, sello, rel)
             os.makedirs(os.path.dirname(copia), exist_ok=True)
             shutil.copyfile(destino, copia)
-        os.makedirs(os.path.dirname(destino), exist_ok=True)
-        with open(destino, "wb") as f:
-            f.write(texto.encode("utf-8"))
+        escribir_atomico(destino, texto.encode("utf-8"))
     return res
 
 
@@ -359,18 +467,39 @@ def informe(res, simular):
         if res[clave]:
             L.append("%s (%d):" % (titulo, len(res[clave])))
             L += ["  + " + r for r in res[clave]]
+    if res.get("retirados"):
+        L.append("Retirados del arnés, %s la copia de seguridad (%d):" % ("irían a" if simular else "movidos a", len(res["retirados"])))
+        L += ["  - " + r for r in res["retirados"]]
     L.append("Sin cambios: %d archivo(s)." % len(res["sin_cambios"]))
     if res["a_mano"]:
-        L.append("⚠️ Modificados a mano (o sin registro previo) y NO pisados (%d). Decide tú; si quieres la versión nueva usa --forzar RUTA:" % len(res["a_mano"]))
+        L.append("⚠️ Modificados a mano, sin registro previo o cortados a media escritura, y NO pisados (%d). Decide tú; si quieres la versión nueva usa --forzar RUTA:" % len(res["a_mano"]))
         L += ["  ! " + r for r in res["a_mano"]]
+    if res.get("retirados_a_mano"):
+        L.append("⚠️ Retirados del arnés pero modificados a mano o sin registro, y NO quitados (%d). Si sobran, usa --forzar RUTA (guarda copia):" % len(res["retirados_a_mano"]))
+        L += ["  ! " + r for r in res["retirados_a_mano"]]
+    if res.get("sin_aplicar"):
+        L.append("⚠️ Versión %s aplicada salvo %d archivo(s): los de arriba se quedan como están." % (res["version"], len(res["sin_aplicar"])))
     if res.get("claves_escritas"):
         L.append("Configuración: %s %d clave(s) nueva(s) en .brain/guardianes/guardianes.json (las que ya tenías no se tocan): %s" % (
             "se añadirían" if simular else "se añadieron", len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
     if res.get("fichas"):
-        L.append("Fichas de skills añadidas a .brain/experiencia/indice.md: %s" % ", ".join(res["fichas"]))
+        L.append("Fichas de skills %s a .brain/experiencia/indice.md: %s" % ("que se añadirían" if simular else "añadidas", ", ".join(res["fichas"])))
+    if res.get("filas_quitadas"):
+        L.append("Filas de skills retiradas %s de .brain/experiencia/indice.md: %s" % ("que se quitarían" if simular else "quitadas", ", ".join(res["filas_quitadas"])))
     if res["copia"]:
         L.append("Copia de seguridad de lo sustituido en %s" % res["copia"])
     return "\n".join(L)
+
+
+def nivel_sin_arnes(proyecto, forzar_todo=False):
+    """Spec 021 (punto 14): el motivo para no actualizar un proyecto sin guardianes, o None si se puede. Un proyecto antiguo sin
+    nivel anotado se adopta a propósito con `--forzar-todo`; uno de nivel ligero o medio sube con el kit."""
+    nivel = cargar_registro(proyecto).get("nivel")
+    if nivel:
+        return None if nivel == "completo" else "está en nivel %s" % nivel
+    if forzar_todo or os.path.isfile(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")):
+        return None
+    return "no tiene guardianes (.brain/guardianes/guardianes.json)"
 
 
 def main(argv=None, repo=None):
@@ -406,6 +535,11 @@ def main(argv=None, repo=None):
         if not os.path.isdir(proyecto):
             print("❌ No existe la carpeta del proyecto: %s" % proyecto)
             return 2
+        motivo = nivel_sin_arnes(proyecto, a.forzar_todo)
+        if motivo:
+            print("ℹ️ No se copia nada: este proyecto %s, así que no hay guardianes ni pruebas del arnés que actualizar.\n"
+                  "Para subirlo a completo, desde el repo del arnés: python .brain/biblioteca/kit-arranque/instalar.py \"%s\" --nivel completo" % (motivo, proyecto))
+            return 0
         res = sincronizar(repo, proyecto, dueno=a.dueno, simular=a.simular, forzar=a.forzar, forzar_todo=a.forzar_todo)
         print(informe(res, a.simular))
         if a.simular or a.sin_pruebas:

@@ -4,7 +4,8 @@
 
 Uso:  python generar_manifiesto.py           (reescribe el manifiesto)
       python generar_manifiesto.py --ver     (dice si está al día, sin escribir)
-Hay que lanzarlo después de cambiar cualquier archivo del arnés y subir `VERSION`; una prueba avisa si se olvida."""
+Hay que lanzarlo después de cambiar cualquier archivo del arnés y subir `VERSION`; una prueba avisa si se olvida.
+Spec 021: lo que estaba en el manifiesto anterior y ya no se reparte entra solo en `retirados`, y el actualizador lo quita de los proyectos."""
 
 import fnmatch
 import importlib.util
@@ -33,6 +34,9 @@ EXCLUIR = ["*/__pycache__/*", "*.pyc", ".brain/biblioteca/kit-arranque/preferenc
 PRUEBAS = ["tests.test_arranque", "tests.test_cerebro_indices", "tests.test_kit_arranque", "tests.test_kit_traduccion",
            "tests.test_longitud", "tests.test_librerias", "tests.test_secretos", "tests.test_poda",
            "tests.test_pruebas", "tests.test_experiencia", "tests.test_instalar_gui", "tests.test_analisis", "tests.test_medir", "tests.test_modo_ligero"]
+# Retirado o renombrado antes de que el manifiesto llevara la lista (sacado del historial de Git).
+RETIRADOS_HISTORICOS = [".brain/guardianes/modo_auto.py", ".brain/guardianes/uso_tokens.py", ".claude/skills/cambio-de-ia/SKILL.md",
+                        ".claude/skills/traspaso-entre-chats/SKILL.md", "tests/test_cambio_de_ia.py", "tests/test_modo_auto.py"]
 
 
 def listar():
@@ -50,13 +54,27 @@ def listar():
     return sorted({r for r in res if not any(fnmatch.fnmatch(r, x) for x in EXCLUIR)})
 
 
+def calcular_retirados(actuales, previo):
+    """Lo que alguna vez se repartió y ya no; lo que vuelve a repartirse sale de la lista."""
+    return sorted((set(RETIRADOS_HISTORICOS) | set(previo.get("retirados") or []) | set(previo.get("archivos") or {})) - set(actuales))
+
+
+def leer_actual():
+    try:
+        with open(os.path.join(RAIZ, "manifiesto.json"), encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
 def construir():
     with open(os.path.join(RAIZ, "VERSION"), encoding="utf-8") as f:
         version = f.read().strip()
     archivos = {}
     for rel in listar():
         archivos[rel] = actualizador.huella(actualizador._normalizar(actualizador.leer_bytes(os.path.join(RAIZ, rel)), rel))
-    return {"version": version, "archivos": archivos, "pruebas": [p for p in PRUEBAS if os.path.exists(os.path.join(RAIZ, *p.split(".")) + ".py")]}
+    return {"version": version, "archivos": archivos, "retirados": calcular_retirados(archivos, leer_actual() or {}),
+            "pruebas": [p for p in PRUEBAS if os.path.exists(os.path.join(RAIZ, *p.split(".")) + ".py")]}
 
 
 def main():
@@ -64,11 +82,7 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8")
     nuevo = construir()
     ruta = os.path.join(RAIZ, "manifiesto.json")
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            actual = json.load(f)
-    except Exception:
-        actual = None
+    actual = leer_actual()
     if "--ver" in sys.argv:
         print("al día" if actual == nuevo else "DESACTUALIZADO: lanza `python generar_manifiesto.py`")
         return 0 if actual == nuevo else 1
@@ -76,6 +90,8 @@ def main():
         json.dump(nuevo, f, ensure_ascii=False, indent=1, sort_keys=True)
         f.write("\n")
     print("Manifiesto %s: %d archivos." % (nuevo["version"], len(nuevo["archivos"])))
+    for rel in sorted(set(nuevo["retirados"]) - set((actual or {}).get("retirados") or [])):
+        print("⚠️ Retirado: %s. Saldrá de los proyectos donde esté sin modificar (queda en su copia de seguridad)." % rel)
     return 0
 
 

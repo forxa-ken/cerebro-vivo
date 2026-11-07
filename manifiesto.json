@@ -1,12 +1,12 @@
 {
  "archivos": {
   ".brain/biblioteca/CARTA_META_ARNES.md": "1a4330e7a678d27d8d38cb5b715f75e65b9031e06d6145c76ffa6b3f1c09622f",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "baf3ad1ca4d10082811faa0f4545e872d7fb969c474f5d52ac2629cbea0c8bf6",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "230d761240bd080ef685717646848672ea5c2bf75acd96604c02d479ac8b5772",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "c5ceda5aa5f395ed27b96c23281f5f8f6e536b641ccae29215d422a7deecab7e",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "9b57ca75e02dc06c059e03846c390d9c1f38a1ae6622549d0f03fb2c3b4a8441",
-  ".brain/biblioteca/kit-arranque/instalar.py": "c29b8e5b70320cc792a433c71e8f47f8c9fb0c757336d0c216cb3e3a6406881d",
+  ".brain/biblioteca/kit-arranque/instalar.py": "9c07d3c8942ee8c3eab562fee5c4272e9a4975034decdb53b9e3a1dd705195a5",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "39b83c17a0ac470dfba6cdf8efd57494278a96a5f8173db0dd1ba268d45605a6",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
@@ -22,7 +22,7 @@
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
   ".brain/biblioteca/kit-traduccion/idiomas.js": "eb75510aff146b5c17fa4abf15bc20590525ff73b3844b37325012407af170e6",
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
-  ".brain/guardianes/actualizar_arnes.py": "8bb2539ac429678a28f7f1274469e80f3287b8966e9ad791552ee2208bffbbff",
+  ".brain/guardianes/actualizar_arnes.py": "b767932728b94b7440b3fe2e706a1c14fbd29a4e564a3586cc739ad3e109fd2a",
   ".brain/guardianes/analisis.py": "9646dccc07930ec06f449edd06c0bca5635266ccd69b32276dbe8c2d6608150d",
   ".brain/guardianes/archivos_gordos.py": "2100b67a751fdf0d46263238f8f5729db19a5b26bb47a1d71b417b8158f3715a",
   ".brain/guardianes/arranque.py": "260a3cd7880dc0cffd14276086d91a1aa65834dcbb5832e88fc1cd26af00fa68",
@@ -41,7 +41,7 @@
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.md": "92de4261088063fd15591e503c934a03c55fa1d4d036b0e93ee26b4a2f33a0a4",
   ".claude/skills/acorta/SKILL.md": "5f7ef2ed23823c019c6370d6731f537609da2a3a4c9be773d8bb50898ae8a5e6",
-  ".claude/skills/actualizar/SKILL.md": "3ef5d7bada3375fc3ba91f7c23e9ff594f06e0ca8b75efcfa2370dd10184e3bb",
+  ".claude/skills/actualizar/SKILL.md": "9059248021010b6fc6c3811294bb6fe6286cd5f5cf4404c1c4a25b3a59b4a011",
   ".claude/skills/adopta/SKILL.md": "b784847cf3a873e9a4edcd0e2cd6ea973dd704336058bb2ad37024048df53d98",
   ".claude/skills/adoptar-indice-existente/SKILL.md": "daa01f489547d290fdccbff398ab63d5d30e0d9af2f1b7bdca45b3663a41153f",
   ".claude/skills/cero-dependencias/SKILL.md": "5a20e486a73efe70ef2f4a49f311696723f016dab7023c954c4859dfdae780ad",
@@ -72,7 +72,7 @@
   "tests/test_cerebro_indices.py": "4d2db27db31613fc073161a57a0f5362dbee86c7edfc1d63263995235a781489",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_instalar_gui.py": "be24832e32e66834c041bf9653359d1e1bf27afd3168df2ef637af894c5e1f86",
-  "tests/test_kit_arranque.py": "2b592105660f822c08294d02eb78f8f5e460c8aba22445cb57f13b03a90c82e7",
+  "tests/test_kit_arranque.py": "c9eda5585cabf34ca2193829933d489870fcef93113055b2af813caad1a5552d",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_librerias.py": "1a00f3197ae94c76a4b44db0e134dd348d29ed519a25eaeaf99ddfcd87a67d31",
   "tests/test_longitud.py": "82356937175493d3da001b2cbcfd0299a5a2bb35f3f3123f210512772e9318c6",
@@ -101,5 +101,13 @@
   "tests.test_medir",
   "tests.test_modo_ligero"
  ],
- "version": "1.18.2"
+ "retirados": [
+  ".brain/guardianes/modo_auto.py",
+  ".brain/guardianes/uso_tokens.py",
+  ".claude/skills/cambio-de-ia/SKILL.md",
+  ".claude/skills/traspaso-entre-chats/SKILL.md",
+  "tests/test_cambio_de_ia.py",
+  "tests/test_modo_auto.py"
+ ],
+ "version": "1.19.0"
 }
