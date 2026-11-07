@@ -17,6 +17,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
 
 def cargar_config():
@@ -136,7 +138,7 @@ def cierre_ligero(cfg, archivos, verde):
         return None
     if any(clave in a.lower() for a in propios for clave in lig.get("sensibles", [])):
         return None
-    return "(auto) tocó %s; pruebas en verde" % ", ".join(propios)
+    return t(cfg, "cierre_auto", ", ".join(propios))
 
 
 def escribir_linea_auto(raiz, cfg, texto):
@@ -164,15 +166,10 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
     else:
         registro_tocado = any(c == cfg["registro"] for c in cambios)
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
-        avisos.append(
-            "Hay cambios en el proyecto (%s) y falta la línea en %s. "
-            "Cierra la tarea (solo con las pruebas en verde): línea en el registro, pendientes al día y, si hubo una decisión importante, su ficha D-NNN."
-            % (", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
+        avisos.append(t(cfg, "cierre_falta_linea",
+                        ", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
     if tam_pendientes is not None and tam_pendientes > cfg["tope_pendientes_bytes"]:
-        avisos.append(
-            "%s pesa %d bytes y el tope es %d. Pasa lo ya probado a archive/hechos.md "
-            "(y su fila al índice) y deja aquí solo lo que falta."
-            % (cfg["pendientes"], tam_pendientes, cfg["tope_pendientes_bytes"]))
+        avisos.append(t(cfg, "cierre_tope_pendientes", cfg["pendientes"], tam_pendientes, cfg["tope_pendientes_bytes"]))
     return avisos
 
 
@@ -217,7 +214,7 @@ def main():
     except Exception:
         return 0  # un guardián nunca debe romper el trabajo
     if avisos:
-        texto = "🐺 Cerebro Vivo · antes de dar la tarea por terminada:\n- " + "\n- ".join(avisos) + "\n"
+        texto = t(cfg, "cierre_titulo") + "\n- " + "\n- ".join(avisos) + "\n"
         sys.stderr.buffer.write(texto.encode("utf-8"))  # bytes UTF-8: la consola de Windows (cp1252) rompía tildes y emoji
         sys.stderr.flush()
         return 2

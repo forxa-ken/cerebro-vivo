@@ -15,9 +15,10 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ESTADO = os.environ.get("CEREBRO_ESTADO_LONGITUD") or os.path.join(AQUI, "longitud_estado.json")  # la variable la usan los tests
 MAX_CHATS_EN_ESTADO = 50
+sys.path.insert(0, AQUI)
+from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
-TRASPASO = ("Venimos de <este chat>. Qué se hizo: … Qué queda sin subir: … Qué debe probar el dueño: … "
-            "Lee el índice y responde; no empieces nada por tu cuenta.")
+TRASPASO = t("es", "longitud_frase")
 
 
 def cargar_config():
@@ -53,12 +54,8 @@ def tramo(contexto, a):
     return 1 + (contexto - a["aviso"]) // max(a["repetir"], 1)
 
 
-def texto_aviso(contexto):
-    return ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Dile a Darwin, en lenguaje llano, que conviene "
-            "abrir un chat nuevo. PRIMERO escribe el archivo .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md: sus últimas palabras literales, decisiones, estado de cada punto, lo que no se ha subido) y luego déjale la frase corta para pegar: «%s». "
-            "Si tienes la herramienta start_session (Claude Code de escritorio), abre tú el chat nuevo (contexto fresh, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro y contarlo en 4-5 viñetas), "
-            "llama enseguida a detach_session con su id para que quede al mismo nivel que este chat y no colgado de él, y dile a Darwin cómo se llama el chat nuevo. "
-            "Si no puedes abrirlo (no hay herramienta o falla), basta con la frase." % (round(contexto / 1000), TRASPASO))
+def texto_aviso(contexto, lengua=None):
+    return t(lengua, "longitud_aviso", round(contexto / 1000), t(lengua, "longitud_frase"))
 
 
 def leer_estado():
@@ -75,15 +72,15 @@ def guardar_estado(estado):
         json.dump({k: estado[k] for k in claves}, f)
 
 
-def evaluar(contexto, chat, estado, a):
+def evaluar(contexto, chat, estado, a, lengua=None):
     """(aviso o None, estado nuevo). Función pura, probada en tests."""
-    t = tramo(contexto, a)
-    if t == 0 or t <= estado.get(chat, 0):
+    paso = tramo(contexto, a)
+    if paso == 0 or paso <= estado.get(chat, 0):
         return None, estado
     nuevo = dict(estado)
     nuevo.pop(chat, None)
-    nuevo[chat] = t
-    return texto_aviso(contexto), nuevo
+    nuevo[chat] = paso
+    return texto_aviso(contexto, lengua), nuevo
 
 
 def aviso(ruta_registro, cfg):
@@ -92,7 +89,7 @@ def aviso(ruta_registro, cfg):
         a = ajustes(cfg)
         if not a["activo"] or not ruta_registro:
             return None
-        texto, estado = evaluar(contexto_actual(ruta_registro), os.path.basename(ruta_registro), leer_estado(), a)
+        texto, estado = evaluar(contexto_actual(ruta_registro), os.path.basename(ruta_registro), leer_estado(), a, cfg)
         if texto:
             guardar_estado(estado)
         return texto
@@ -104,12 +101,16 @@ def main():
     """A mano: `longitud.py RUTA_DEL_REGISTRO` muestra el contexto actual del chat."""
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    try:
+        cfg = cargar_config()
+    except Exception:
+        cfg = {}
     if len(sys.argv) < 2:
-        print("Uso: longitud.py RUTA_DEL_REGISTRO.jsonl")
+        print(t(cfg, "longitud_uso"))
         return 0
     c = contexto_actual(sys.argv[1])
-    a = ajustes(cargar_config())
-    print("Contexto actual: ~%dk tokens (aviso en %dk, tramo %d)." % (round(c / 1000), a["aviso"] // 1000, tramo(c, a)))
+    a = ajustes(cfg)
+    print(t(cfg, "longitud_actual", round(c / 1000), a["aviso"] // 1000, tramo(c, a)))
     return 0
 
 

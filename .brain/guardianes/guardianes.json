@@ -1,5 +1,6 @@
 {
   "_ayuda": "Ajustes neutros de los guardianes de Cerebro Vivo (repo del arnés). Cada proyecto edita solo su copia.",
+  "idioma": "es",
   "registro": ".brain/decisions.log",
   "pendientes": ".brain/pendientes.md",
   "tope_pendientes_bytes": 8192,

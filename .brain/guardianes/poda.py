@@ -16,6 +16,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 IGNORAR_CARPETAS = {".git", "venv", "node_modules", "__pycache__", "scratch"}
 ENLACE = re.compile(r"\]\(([^)\s]+)\)")
 
@@ -157,9 +159,9 @@ def plan(raiz):
     implicados = [o for o, _ in mover]
     sucio = sucios(raiz, implicados)
     if sucio is None:
-        return {"mover": mover, "bloqueado": "Git no responde"}
+        return {"mover": mover, "bloqueado": tp("poda_git_responde")}
     if sucio:
-        return {"mover": mover, "bloqueado": "cambios sin guardar en " + ", ".join(sucio[:3])}
+        return {"mover": mover, "bloqueado": tp("poda_cambios_sin_guardar") + ", ".join(sucio[:3])}
     return {"mover": mover, "bloqueado": None}
 
 
@@ -174,7 +176,7 @@ def aplicar(raiz, mover):
             os.makedirs(os.path.dirname(os.path.join(raiz, d)), exist_ok=True)
             cod, _ = git(raiz, "mv", o, d)
             if cod != 0:
-                raise RuntimeError("git mv falló con " + o)
+                raise RuntimeError(tp("poda_git_fallo") + o)
             hechos.append((o, d))
         inverso = {v: k for k, v in mapa.items()}
         for ruta in list(archivos_md(raiz)):
@@ -187,7 +189,7 @@ def aplicar(raiz, mover):
         indice_archivo(raiz)
         nuevos = enlaces_rotos(raiz) - antes
         if nuevos:
-            raise RuntimeError("quedarían enlaces rotos: %s" % sorted(nuevos)[:3])
+            raise RuntimeError(tp("poda_quedarian_enlaces_rotos") % sorted(nuevos)[:3])
     except Exception as e:
         for ruta, texto in originales.items():
             escribir(ruta, texto)
@@ -204,7 +206,7 @@ def aviso_tamano(raiz, cfg):
     for rel in (cfg.get("registro", ".brain/decisions.log"), ".brain/archive/hechos.md"):
         ruta = os.path.join(raiz, rel)
         if os.path.exists(ruta) and os.path.getsize(ruta) > tope:
-            avisos.append("%s pesa %d KB (tope %d KB): conviene archivar lo antiguo" %
+            avisos.append(tp("poda_pesa_tope_conviene") %
                           (os.path.basename(rel), os.path.getsize(ruta) // 1024, tope // 1024))
     return avisos
 
@@ -215,15 +217,14 @@ def podar_y_resumir(raiz, cfg):
     if cfg.get("poda_activa", True) and not os.environ.get("CEREBRO_SIN_PODA"):  # la variable la usan los tests
         p = plan(raiz)
         if p["mover"] and p["bloqueado"]:
-            lineas.append("- Poda de memoria pospuesta (%s): %d archivos listos para archivar." %
+            lineas.append(tp("poda_poda_memoria_pospuesta") %
                           (p["bloqueado"], len(p["mover"])))
         elif p["mover"]:
             n, error = aplicar(raiz, p["mover"])
             if error:
-                lineas.append("- Poda de memoria no aplicada (nada se movió): %s." % error)
+                lineas.append(tp("poda_poda_memoria_aplicada") % error)
             else:
-                lineas.append("- Poda de memoria: archivadas %d specs/fichas terminadas en `archivo/` (nada se borró; "
-                              "sin commitear, se deshace con Git)." % n)
+                lineas.append(tp("poda_poda_memoria_archivadas") % n)
                 try:
                     cerrar = os.path.join(AQUI, "cerrar.py")
                     subprocess.run([sys.executable, cerrar, "--chat", "poda automática", "--quien", "Guardián",

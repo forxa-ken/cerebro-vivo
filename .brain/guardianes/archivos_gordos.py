@@ -17,6 +17,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 CARPETAS_FUERA = ("archive", "biblioteca", "copias_arnes", "specs", "pruebas", "experiencia", "notas-chats", "guardianes")
 ARCHIVOS_FUERA = ("pendientes.md", "traspaso.md")
 
@@ -60,8 +62,8 @@ def resumen(raiz, cfg):
     if not gordos:
         return []
     nombres = ", ".join("%s (%d KB)" % (h["ruta"].replace(".brain/", ""), round(h["bytes"] / 1024)) for h in gordos[:3])
-    mas = " y %d más" % (len(gordos) - 3) if len(gordos) > 3 else ""
-    return ["- Memoria con archivos gordos (tope %d KB): %s%s; pide «trocea» (skill trocea)." % (int(cfg.get("tope_archivo_memoria_bytes", 8192)) // 1024, nombres, mas)]
+    mas = tp("archivos_gordos_mas") % (len(gordos) - 3) if len(gordos) > 3 else ""
+    return [tp("archivos_gordos_memoria_archivos_gordos") % (int(cfg.get("tope_archivo_memoria_bytes", 8192)) // 1024, nombres, mas)]
 
 
 def main():
@@ -70,7 +72,7 @@ def main():
     cfg = cargar_config()
     gordos = analizar(RAIZ, cfg)
     if not gordos:
-        print("Ningún archivo de .brain/ llega al aviso (tope %d bytes)." % int(cfg.get("tope_archivo_memoria_bytes", 8192)))
+        print(tp("archivos_gordos_ningun_archivo_brain") % int(cfg.get("tope_archivo_memoria_bytes", 8192)))
         return 0
     for h in gordos:
         print("%6d bytes  %3d %%  %s" % (h["bytes"], h["porcentaje"], h["ruta"]))

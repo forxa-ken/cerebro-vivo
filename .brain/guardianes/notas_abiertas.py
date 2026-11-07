@@ -16,6 +16,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 CARPETA = os.path.join(".brain", "notas-chats")
 ESTADO = ".avisadas.json"
 MAX_NOTAS = 3
@@ -43,7 +45,7 @@ def avisar(raiz, sesion):
     nuevas = [n for n in nombres if n not in vistas]
     if not nuevas:
         return []
-    lineas = ["NOTA NUEVA DE UN CHAT AUXILIAR (spec 081; cuéntasela a Darwin en una frase y sigue con lo suyo):"]
+    lineas = [tp("notas_abiertas_nota_nueva_chat")]
     for n in nuevas[:MAX_NOTAS]:
         try:
             with open(os.path.join(carpeta, n), encoding="utf-8") as f:
@@ -54,7 +56,7 @@ def avisar(raiz, sesion):
             texto = texto[:MAX_CARACTERES] + "…"
         lineas.append("— " + n + "\n" + texto)
     if len(nuevas) > MAX_NOTAS:
-        lineas.append("(y %d más en .brain/notas-chats/)" % (len(nuevas) - MAX_NOTAS))
+        lineas.append(tp("notas_abiertas_mas_brain_notas") % (len(nuevas) - MAX_NOTAS))
     estado[sesion] = sorted(vistas | set(nuevas))
     try:
         with open(os.path.join(carpeta, ESTADO), "w", encoding="utf-8") as f:

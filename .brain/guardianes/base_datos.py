@@ -24,6 +24,8 @@ from pathlib import Path
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 FOTO = os.path.join(AQUI, "esquema_base.json")
 
 
@@ -90,7 +92,7 @@ def copia_previa(raiz, bd, motivo, carpeta=None):
         carpeta = carpeta or os.path.join(raiz, a.get("copias_carpeta", "copias_bd"))
         return copiar(bd, carpeta, motivo, a.get("copias_max", 5))
     except Exception as e:
-        print("[BaseDatos] No se pudo hacer la copia previa: %s" % e)
+        print(tp("base_datos_basedatos_pudo_hacer") % e)
         return None
 
 
@@ -100,7 +102,7 @@ def restaurar(copia, bd, carpeta, maximo=5):
     try:
         estado = c.execute("PRAGMA integrity_check").fetchone()[0]
         if estado != "ok":
-            raise ValueError("la copia está dañada: %s" % estado)
+            raise ValueError(tp("base_datos_copia_esta_danada") % estado)
         guardada = copiar(bd, carpeta, "antes-de-restaurar", maximo)
         dest = sqlite3.connect(bd)
         try:
@@ -121,7 +123,7 @@ def revisar(bd, triggers=()):
     try:
         con = _solo_lectura(bd)
     except Exception as e:
-        return ["no se pudo abrir la base (%s)" % e]
+        return [tp("base_datos_pudo_abrir_base") % e]
     try:
         for fila in con.execute("PRAGMA integrity_check").fetchall():
             if fila[0] != "ok":
@@ -129,13 +131,13 @@ def revisar(bd, triggers=()):
                 break
         fk = con.execute("PRAGMA foreign_key_check").fetchall()
         if fk:
-            avisos.append("foreign_key_check: %d fila(s) con clave foránea rota (p. ej. tabla %s)" % (len(fk), fk[0][0]))
+            avisos.append(tp("base_datos_foreign_key_check") % (len(fk), fk[0][0]))
         puestos = {r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='trigger'")}
         for t in triggers:
             if t not in puestos:
-                avisos.append("falta el trigger %s" % t)
+                avisos.append(tp("base_datos_falta_trigger") % t)
     except Exception as e:
-        avisos.append("la revisión falló (%s)" % e)
+        avisos.append(tp("base_datos_revision_fallo") % e)
     finally:
         con.close()
     return avisos
@@ -151,8 +153,8 @@ def resumen(raiz, cfg):
     except Exception:
         return []
     if not avisos:
-        return ["- Base de datos: sana (integridad y triggers de auditoría puestos)."]
-    return ["- Base de datos: %d aviso(s): %s" % (len(avisos), "; ".join(avisos[:2]))]
+        return [tp("base_datos_base_datos_sana")]
+    return [tp("base_datos_base_datos_aviso") % (len(avisos), "; ".join(avisos[:2]))]
 
 
 # ─── Capa 3 · foto del esquema ──────────────────────────────────────
@@ -170,19 +172,19 @@ def comparar(actual, foto):
     """Diferencias entre el esquema actual y la foto (lista de textos; vacía = igual)."""
     d = []
     for t in sorted(set(actual["tablas"]) - set(foto["tablas"])):
-        d.append("tabla nueva sin ficha: %s" % t)
+        d.append(tp("base_datos_tabla_nueva_sin") % t)
     for t in sorted(set(foto["tablas"]) - set(actual["tablas"])):
-        d.append("tabla desaparecida: %s" % t)
+        d.append(tp("base_datos_tabla_desaparecida") % t)
     for t in sorted(set(actual["tablas"]) & set(foto["tablas"])):
         a = {c[0]: c for c in actual["tablas"][t]}
         f = {c[0]: c for c in foto["tablas"][t]}
         for c in sorted(set(a) - set(f)):
-            d.append("columna nueva sin ficha: %s.%s" % (t, c))
+            d.append(tp("base_datos_columna_nueva_sin") % (t, c))
         for c in sorted(set(f) - set(a)):
-            d.append("columna desaparecida: %s.%s" % (t, c))
+            d.append(tp("base_datos_columna_desaparecida") % (t, c))
         for c in sorted(set(a) & set(f)):
             if a[c] != f[c]:
-                d.append("columna cambiada: %s.%s" % (t, c))
+                d.append(tp("base_datos_columna_cambiada") % (t, c))
     for clave, nombre in (("indices", "índice"), ("triggers", "trigger")):
         for x in sorted(set(actual[clave]) ^ set(foto[clave])):
             d.append("%s distinto: %s" % (nombre, x))
@@ -197,7 +199,7 @@ def cargar_foto(ruta=FOTO):
 def guardar_foto(actual, ficha, raiz=RAIZ, ruta=FOTO):
     """Renueva la foto. Exige que exista la ficha D-NNN en .brain/decisions/."""
     if not re.fullmatch(r"D-\d{3}", ficha or "") or not glob.glob(os.path.join(raiz, ".brain", "decisions", ficha + "-*.md")):
-        raise ValueError("la ficha %s no existe en .brain/decisions/" % ficha)
+        raise ValueError(tp("base_datos_ficha_existe_brain") % ficha)
     fichas = []
     if os.path.exists(ruta):
         fichas = cargar_foto(ruta).get("fichas", [])
@@ -218,7 +220,7 @@ def esquema_actual_del_proyecto(raiz, a):
     for linea in salida.stdout.splitlines():
         if linea.startswith("@@"):
             return json.loads(linea[2:])
-    raise RuntimeError("no se pudo construir el esquema: %s" % salida.stderr[-300:])
+    raise RuntimeError(tp("base_datos_pudo_construir_esquema") % salida.stderr[-300:])
 
 
 def main():
@@ -233,22 +235,22 @@ def main():
     carpeta = os.path.join(RAIZ, a.get("copias_carpeta", "copias_bd"))
     args = sys.argv[1:]
     if "--copia" in args:
-        print("Copia hecha: %s" % copiar(bd, carpeta, "manual", a.get("copias_max", 5)))
+        print(tp("base_datos_copia_hecha") % copiar(bd, carpeta, "manual", a.get("copias_max", 5)))
     elif "--restaurar" in args:
         i = args.index("--restaurar")
         if i + 1 >= len(args):
-            sys.exit("Falta el archivo de la copia (mira la carpeta %s)." % carpeta)
+            sys.exit(tp("base_datos_falta_archivo_copia") % carpeta)
         guardada = restaurar(args[i + 1], bd, carpeta, a.get("copias_max", 5))
-        print("Restaurada. El estado anterior quedó en: %s" % guardada)
+        print(tp("base_datos_restaurada_estado_anterior") % guardada)
     elif "--renovar-esquema" in args:
         if "--ficha" not in args or args.index("--ficha") + 1 >= len(args):
-            sys.exit("Falta --ficha D-NNN (la decisión que explica el cambio de tablas).")
+            sys.exit(tp("base_datos_falta_ficha_nnn"))
         guardar_foto(esquema_actual_del_proyecto(RAIZ, a), args[args.index("--ficha") + 1])
-        print("Foto del esquema renovada: %s" % os.path.relpath(FOTO, RAIZ))
+        print(tp("base_datos_foto_esquema_renovada") % os.path.relpath(FOTO, RAIZ))
     else:
         avisos = revisar(bd, a.get("triggers", []))
-        print("\n".join("- " + x for x in avisos) if avisos else "Base sana.")
-        print("Copias guardadas: %d en %s" % (len(copias(carpeta, bd)), carpeta))
+        print("\n".join("- " + x for x in avisos) if avisos else tp("base_datos_base_sana"))
+        print(tp("base_datos_copias_guardadas") % (len(copias(carpeta, bd)), carpeta))
 
 
 if __name__ == "__main__":

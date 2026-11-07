@@ -16,6 +16,8 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
 sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
+sys.path.insert(0, AQUI)
 import arranque  # noqa: E402  (mismo aviso de lo suelto que el resumen de arranque)
 
 
@@ -61,33 +63,33 @@ def hay_secreto(raiz):
     """(True, motivo) si no se puede hacer commit. Sin revisor no se guarda: la subida automática lo necesita."""
     revisor = os.path.join(AQUI, "secretos.py")
     if not os.path.isfile(revisor):
-        return True, "no encuentro secretos.py para revisar"
+        return True, tp("guardar_traspaso_encuentro_secretos_revisar")
     try:
         r = subprocess.run([sys.executable, revisor, "--staged"], cwd=raiz, capture_output=True, text=True,
                            encoding="utf-8", errors="replace", timeout=60)
     except Exception as e:
-        return True, "la revisión de secretos falló: %s" % e
+        return True, tp("guardar_traspaso_revision_secretos_fallo") % e
     return r.returncode != 0, r.stderr.strip()
 
 
 def hacer_commit(raiz, archivos):
     """(¿sigue adelante?, líneas)."""
     if not archivos:
-        return True, ["Memoria: nada nuevo que guardar."]
+        return True, [tp("guardar_traspaso_memoria_nada_nuevo")]
     cod, _, err = g(raiz, "add", "-A", "--", *archivos)
     if cod != 0:
-        return False, ["No he hecho el commit de la memoria: %s" % err.strip()]
+        return False, [tp("guardar_traspaso_hecho_commit_memoria") % err.strip()]
     bloqueado, motivo = hay_secreto(raiz)
     if bloqueado:
         g(raiz, "reset", "-q", "--", *archivos)
-        return False, ["No he hecho el commit ni he subido nada, por la revisión de secretos.", motivo]
+        return False, [tp("guardar_traspaso_hecho_commit_subido"), motivo]
     mensaje = "chore: memoria del traspaso (%s)" % datetime.date.today().isoformat()
     cod, _, err = g(raiz, "commit", "-q", "-m", mensaje, "--", *archivos)
     if cod != 0:
         g(raiz, "reset", "-q", "--", *archivos)
-        return False, ["No he hecho el commit de la memoria: %s" % (err.strip() or "Git falló")]
+        return False, [tp("guardar_traspaso_hecho_commit_memoria2") % (err.strip() or tp("guardar_traspaso_git_fallo"))]
     _, corto, _ = g(raiz, "rev-parse", "--short", "HEAD")
-    return True, ["Memoria guardada en el commit %s (%d archivos)." % (corto.strip(), len(archivos))]
+    return True, [tp("guardar_traspaso_memoria_guardada_commit") % (corto.strip(), len(archivos))]
 
 
 def solo_memoria(raiz, commit, memoria):
@@ -104,32 +106,32 @@ def subir(raiz, memoria, subir_todo):
     _, destino, _ = g(raiz, "config", "branch.%s.merge" % rama)
     remoto, destino = remoto.strip(), destino.strip()
     if rama in ("", "HEAD") or not remoto or not destino:
-        return ["Sin subir: esta rama no tiene remoto en GitHub. El commit queda en este ordenador."]
+        return [tp("guardar_traspaso_sin_subir_esta")]
     cod, salida, err = g(raiz, "rev-list", "@{u}..HEAD")
     if cod != 0:
-        return ["Sin subir: no he podido comparar con GitHub (%s)." % err.strip()]
+        return [tp("guardar_traspaso_sin_subir_podido") % err.strip()]
     pendientes = salida.split()
     if not pendientes:
-        return ["GitHub ya está al día."]
+        return [tp("guardar_traspaso_github_esta_dia")]
     otros = [c for c in pendientes if not solo_memoria(raiz, c, memoria)]
     if otros and not subir_todo:
-        lineas = ["Sin subir: hay %d commits sin subir que no son solo de memoria y pueden llevar código sin probar:" % len(otros)]
+        lineas = [tp("guardar_traspaso_sin_subir_commits") % len(otros)]
         for c in otros:
             _, texto, _ = g(raiz, "log", "-1", "--format=%h %s", c)
             lineas.append("- " + texto.strip()[:100])
-        lineas.append("Pregúntale al dueño. Con su sí: python .brain/guardianes/guardar_traspaso.py --subir-todo")
+        lineas.append(tp("guardar_traspaso_preguntale_dueno_python"))
         return lineas
     cod, _, err = g(raiz, "push", remoto, "HEAD:%s" % destino, timeout=60)
     if cod != 0:
-        return ["Sin subir: GitHub rechazó la subida o no respondió. El commit queda en este ordenador y no he mezclado nada.",
-                (err.strip().splitlines() or ["(sin detalle)"])[-1]]
-    return ["Subido a GitHub: %d commits en %s." % (len(pendientes), rama)]
+        return [tp("guardar_traspaso_sin_subir_github"),
+                (err.strip().splitlines() or [tp("guardar_traspaso_sin_detalle")])[-1]]
+    return [tp("guardar_traspaso_subido_github_commits") % (len(pendientes), rama)]
 
 
 def guardar(raiz, cfg, subir_todo=False):
     cod, _, _ = g(raiz, "rev-parse", "--is-inside-work-tree")
     if cod != 0:
-        return ["Sin Git en este proyecto: no he guardado ni subido nada. El traspaso sigue adelante."]
+        return [tp("guardar_traspaso_sin_git_este")]
     memoria = rutas_memoria(cfg)
     sigue, lineas = hacer_commit(raiz, cambios(raiz, memoria))
     if not sigue:
@@ -140,7 +142,7 @@ def guardar(raiz, cfg, subir_todo=False):
     except Exception:
         resto = []
     if resto:
-        lineas.append(arranque.texto_sin_commitear(resto) + " No entran en este commit: decide el dueño.")
+        lineas.append(arranque.texto_sin_commitear(resto) + tp("guardar_traspaso_entran_este_commit"))
     return lineas
 
 
@@ -154,7 +156,7 @@ def main():
     try:
         print("\n".join(guardar(RAIZ, cfg, "--subir-todo" in sys.argv[1:])))
     except Exception as e:
-        print("No he podido guardar la memoria (%s). El traspaso sigue adelante." % e)
+        print(tp("guardar_traspaso_podido_guardar_memoria") % e)
     return 0
 
 

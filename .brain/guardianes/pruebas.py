@@ -14,6 +14,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 
 
 def cargar_config():
@@ -36,13 +38,13 @@ def analizar(raiz, a):
     for pid, archivo in indexados.items():
         ruta = os.path.join(carpeta, archivo)
         if not os.path.exists(ruta):
-            problemas.append("%s está en el índice pero falta el archivo %s" % (pid, archivo))
+            problemas.append(tp("pruebas_esta_indice_pero") % (pid, archivo))
             continue
         with open(ruta, encoding="utf-8") as f:
             abiertos += [(pid, t.strip()) for t in re.findall(r"^\s*- \[ \]\s*(.+)$", f.read(), re.M)]
     for nombre in sorted(os.listdir(carpeta)):
         if re.match(r"P-\d+-.*\.md$", nombre) and nombre not in indexados.values():
-            problemas.append("%s no está en el índice de pruebas" % nombre)
+            problemas.append(tp("pruebas_esta_indice_pruebas") % nombre)
     return abiertos, problemas
 
 
@@ -60,9 +62,9 @@ def resumen(raiz, cfg):
     ids = sorted({p for p, _ in abiertos})
     partes = []
     if abiertos:
-        partes.append("%d hallazgo(s) sin cerrar (%s)" % (len(abiertos), ", ".join(ids)))
+        partes.append(tp("pruebas_hallazgo_sin_cerrar") % (len(abiertos), ", ".join(ids)))
     partes += problemas[:1]
-    return ["- Pruebas: %s; detalle con `pruebas.py --ver`." % "; ".join(partes)]
+    return [tp("pruebas_pruebas_detalle_pruebas") % "; ".join(partes)]
 
 
 def main():
@@ -75,7 +77,7 @@ def main():
     for p in problemas:
         print("Incoherencia: " + p)
     if not abiertos and not problemas:
-        print("Pruebas: sin hallazgos abiertos.")
+        print(tp("pruebas_pruebas_sin_hallazgos"))
     return 0
 
 

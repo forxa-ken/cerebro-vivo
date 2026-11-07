@@ -19,6 +19,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
 
 def cargar_config():
@@ -74,7 +76,7 @@ TRASPASO_MAX_DIAS = 3
 TRASPASO_MAX_CARACTERES = 6000
 
 
-def leer_traspaso(raiz, ahora=None):
+def leer_traspaso(raiz, ahora=None, lengua=None):
     """Spec 078: líneas con el traspaso del chat anterior (`.brain/traspaso.md`), o [] si no hay,
     está vacío o tiene más de TRASPASO_MAX_DIAS días."""
     ruta = os.path.join(raiz, TRASPASO_RUTA)
@@ -89,8 +91,8 @@ def leer_traspaso(raiz, ahora=None):
         if not texto:
             return []
         if len(texto) > TRASPASO_MAX_CARACTERES:
-            texto = texto[:TRASPASO_MAX_CARACTERES] + "\n[…recortado; el original queda archivado]"
-        return ["- TRASPASO DEL CHAT ANTERIOR (lo hablado justo antes; resúmeselo a Darwin y sigue desde ahí):", texto]
+            texto = texto[:TRASPASO_MAX_CARACTERES] + t(lengua, "arranque_recortado")
+        return [t(lengua, "arranque_traspaso"), texto]
     except Exception:
         return []
 
@@ -124,7 +126,7 @@ def _notas_pendientes(raiz):
         return []
 
 
-def leer_notas_chats(raiz, ahora=None):
+def leer_notas_chats(raiz, ahora=None, lengua=None):
     """Spec 080: líneas con las notas que dejaron los chats auxiliares (`.brain/notas-chats/*.md`).
     Las de más de NOTAS_MAX_DIAS días no se muestran (solo se archivan)."""
     ahora = ahora if ahora is not None else datetime.datetime.now().timestamp()
@@ -134,14 +136,14 @@ def leer_notas_chats(raiz, ahora=None):
             if ahora - os.path.getmtime(ruta) > NOTAS_MAX_DIAS * 86400:
                 continue
             with open(ruta, encoding="utf-8") as f:
-                t = f.read().strip()
-            if t:
-                textos.append(t[:NOTAS_MAX_CARACTERES])
+                nota = f.read().strip()
+            if nota:
+                textos.append(nota[:NOTAS_MAX_CARACTERES])
         except Exception:
             continue
     if not textos:
         return []
-    return ["- NOTAS DE CHATS AUXILIARES (lo que hicieron otros chats mientras tanto; resúmeselo a Darwin):"] + textos
+    return [t(lengua, "arranque_notas")] + textos
 
 
 def archivar_notas_chats(raiz):
@@ -191,45 +193,45 @@ def sin_commitear(raiz, cfg):
     return sucios
 
 
-def texto_sin_commitear(sucios):
-    return "- Sin commitear: %d archivo%s (%s%s)." % (len(sucios), "" if len(sucios) == 1 else "s", ", ".join(sucios[:5]),
-                                                      "…" if len(sucios) > 5 else "")
+def texto_sin_commitear(sucios, lengua=None):
+    return t(lengua, "arranque_sin_commitear", len(sucios), "" if len(sucios) == 1 else "s", ", ".join(sucios[:5]),
+             "…" if len(sucios) > 5 else "")
 
 
 def resumen(raiz, cfg):
-    lineas = ["🐺 Cerebro Vivo · estado real al abrir el chat:"]
+    lineas = [t(cfg, "arranque_titulo")]
     try:
         ruta_p = os.path.join(raiz, cfg["pendientes"])
         with open(ruta_p, encoding="utf-8") as f:
             cuentas = contar_pendientes(f.read())
         tam = os.path.getsize(ruta_p)
         detalle = ", ".join("%s: %d" % (k, v) for k, v in cuentas.items())
-        lineas.append("- Pendientes: %s (%d de %d bytes)." % (detalle or "vacío", tam, cfg["tope_pendientes_bytes"]))
+        lineas.append(t(cfg, "arranque_pendientes", detalle or t(cfg, "arranque_vacio"), tam, cfg["tope_pendientes_bytes"]))
     except Exception:
         pass
     try:
         sin_subir = git(raiz, "rev-list", "--count", "@{u}..HEAD").strip()
         if sin_subir.isdigit():
-            lineas.append("- Commits sin subir a GitHub: %s (no subir sin orden de Darwin)." % sin_subir)
+            lineas.append(t(cfg, "arranque_sin_subir", sin_subir))
     except Exception:
         pass
     try:
         sucios = sin_commitear(raiz, cfg)
         if sucios:
-            lineas.append(texto_sin_commitear(sucios))
+            lineas.append(texto_sin_commitear(sucios, cfg))
     except Exception:
         pass
     try:
         with open(os.path.join(raiz, cfg["registro"]), encoding="utf-8") as f:
             ultima = [l for l in f.read().splitlines() if l.strip()][-1]
-        lineas.append("- Última línea del registro: %s" % ultima[:110])
+        lineas.append(t(cfg, "arranque_registro", ultima[:110]))
     except Exception:
         pass
     try:
         rev = fichas_a_revisar(raiz)
         if rev:
-            lineas.append("- Fichas de decisión a revisar (sus archivos cambiaron después): %s." %
-                          ", ".join("%s (%s)" % (n[:5], r) for n, r, _ in rev[:4]))
+            lineas.append(t(cfg, "arranque_fichas",
+                            ", ".join("%s (%s)" % (n[:5], r) for n, r, _ in rev[:4])))
     except Exception:
         pass
     try:  # spec 048: poda de memoria (mueve lo terminado a archivo/; se apaga con poda_activa)
@@ -304,26 +306,25 @@ def resumen(raiz, cfg):
             espec.loader.exec_module(act)
             v = act.version_disponible(raiz, cfg)
             if v:
-                lineas.append("- Arnés: hay una versión nueva (tienes la %s, está la %s). Escribe /actualizar y te lo hago todo." % v)
+                lineas.append(t(cfg, "arranque_arnes", *v))
     except Exception:
         pass
     try:  # spec 085: plugins del meta-arnés que no están instalados
         falta = plugins_que_faltan(cfg)
         if falta:
-            lineas.append("- Plugins sin instalar: %s (pasos en el README de github.com/forxa-ken/cerebro-vivo)." % ", ".join(falta))
+            lineas.append(t(cfg, "arranque_plugins", ", ".join(falta)))
     except Exception:
         pass
     if cfg.get("modo_ligero_activo"):  # spec 002: el resumen solo lleva lo que pide acción
-        lineas = [l for l in lineas if not re.search(r"sin avisos|sin hallazgos|todo en orden|al día\.?$", l)]
-    lineas += leer_traspaso(raiz)
-    lineas += leer_notas_chats(raiz)
-    lineas.append("- Lee CLAUDE.md, la constitución y pendientes.md; cierra cada tarea con su línea en el registro.")
+        lineas = [l for l in lineas if not re.search(r"sin avisos|sin hallazgos|todo en orden|al día\.?$|no warnings|no findings|all in order|up to date\.?$", l)]
+    lineas += leer_traspaso(raiz, lengua=cfg)
+    lineas += leer_notas_chats(raiz, lengua=cfg)
+    lineas.append(t(cfg, "arranque_leer"))
     return "\n".join(lineas) + "\n"
 
 
 # La app de escritorio no pinta el `systemMessage` del hook: se pide a la IA que lo muestre ella.
-ORDEN_A_LA_IA = ("INSTRUCCIÓN para el asistente: en tu primera respuesta de esta sesión, dile a Darwin el resumen en "
-                 "4-5 viñetas sin jerga (o en una línea si no hay nada que requiera acción) antes de seguir con lo que pida.\n")
+ORDEN_A_LA_IA = t("es", "arranque_orden")  # main() la pide en el idioma del proyecto
 
 
 def main():
@@ -333,7 +334,8 @@ def main():
         except Exception:
             pass  # con `--manual` (Codex, Gemini, a mano) no se espera nada del teclado
     try:
-        texto = resumen(RAIZ, cargar_config())
+        cfg = cargar_config()
+        texto = resumen(RAIZ, cfg)
     except Exception:
         return 0
     if not os.environ.get("CEREBRO_NO_ARCHIVAR_TRASPASO"):  # la variable la usan los tests
@@ -342,7 +344,7 @@ def main():
     # JSON (ASCII escapado, sin problemas de consola): `systemMessage` lo ve Darwin en pantalla y
     # `additionalContext` llega a la IA como contexto.
     salida = {"systemMessage": texto.rstrip("\n"),
-              "hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": texto + ORDEN_A_LA_IA}}
+              "hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": texto + t(cfg, "arranque_orden")}}
     sys.stdout.write(json.dumps(salida))
     sys.stdout.flush()
     return 0

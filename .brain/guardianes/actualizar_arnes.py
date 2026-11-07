@@ -31,6 +31,8 @@ import sys
 import tempfile
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 RAIZ_PROPIA = os.path.abspath(os.path.join(AQUI, "..", ".."))
 MANIFIESTO = "manifiesto.json"
 REGISTRO = os.path.join(".brain", "arnes_instalado.json")
@@ -67,7 +69,7 @@ def cargar_manifiesto(repo):
     with open(os.path.join(repo, MANIFIESTO), encoding="utf-8") as f:
         m = json.load(f)
     if not isinstance(m.get("archivos"), dict):
-        raise ValueError("El manifiesto no tiene la lista de archivos.")
+        raise ValueError(tp("actualizar_arnes_manifiesto_tiene_lista"))
     return m
 
 
@@ -112,12 +114,11 @@ def comprobar_manifiesto(repo, manifiesto=None):
     for rel, esperada in sorted(manifiesto["archivos"].items()):
         ruta = ruta_segura(repo, rel)
         if ruta is None:
-            raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
+            raise ValueError(tp("actualizar_arnes_ruta_permitida_manifiesto") % rel)
         if not os.path.isfile(ruta) or huella(_normalizar(leer_bytes(ruta), rel)) != esperada:
             mal.append(rel)
     if mal:
-        raise ValueError("El manifiesto no coincide con los archivos del repo del arnés (%d): %s. No se ha tocado nada. "
-                         "En el repo del arnés lanza `python generar_manifiesto.py`." % (len(mal), ", ".join(mal[:5]) + (", …" if len(mal) > 5 else "")))
+        raise ValueError(tp("actualizar_arnes_manifiesto_coincide_archivos") % (len(mal), ", ".join(mal[:5]) + (", …" if len(mal) > 5 else "")))
 
 
 def esperado(repo, rel, dueno):
@@ -274,7 +275,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     `forzar_todo`: pisa (con copia de seguridad) también todo lo modificado a mano; para la primera adopción de un proyecto antiguo."""
     repo, proyecto = os.path.abspath(repo), os.path.abspath(proyecto)
     if repo == proyecto:
-        raise ValueError("El proyecto y el repo del arnés son la misma carpeta.")
+        raise ValueError(tp("actualizar_arnes_proyecto_repo_arnes"))
     manifiesto = cargar_manifiesto(repo)
     comprobar_manifiesto(repo, manifiesto)
     registro = cargar_registro(proyecto)
@@ -289,7 +290,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
         if destino is None or ruta_segura(repo, fuente) is None:
-            raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
+            raise ValueError(tp("actualizar_arnes_ruta_permitida_manifiesto2") % rel)
         nuevo = esperado(repo, fuente, dueno)
         h_nuevo = huella(nuevo)
         if not os.path.exists(destino):
@@ -315,7 +316,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     for rel in destinos_retirados(manifiesto):
         destino = ruta_segura(proyecto, rel)
         if destino is None:
-            raise ValueError("Ruta no permitida en el manifiesto: %s" % rel)
+            raise ValueError(tp("actualizar_arnes_ruta_permitida_manifiesto3") % rel)
         if not os.path.exists(destino):
             archivos_reg.pop(rel, None)
         elif archivos_reg.get(rel) == huella(_normalizar(leer_bytes(destino), rel)) or rel in forzar or forzar_todo:
@@ -360,7 +361,7 @@ def correr_pruebas(repo, proyecto):
     """Pasa las pruebas del método que el proyecto tiene. Devuelve (ok, texto) o (None, aviso) si no hay ninguna."""
     modulos = [m for m in cargar_manifiesto(repo).get("pruebas", []) if os.path.exists(os.path.join(proyecto, *m.split(".")) + ".py")]
     if not modulos:
-        return None, "El proyecto no tiene pruebas del método que correr."
+        return None, tp("actualizar_arnes_proyecto_tiene_pruebas")
     env = dict(os.environ, CEREBRO_SIN_PODA="1", PYTHONIOENCODING="utf-8")
     r = subprocess.run([sys.executable, "-m", "unittest"] + modulos, cwd=proyecto, capture_output=True, text=True, encoding="utf-8",
                        errors="replace", env=env, stdin=subprocess.DEVNULL, timeout=900)
@@ -377,13 +378,13 @@ def localizar_repo(proyecto, indicado):
         except Exception:
             origen = None
     if not origen:
-        raise ValueError("No sé dónde está el repo del arnés: indícalo con --repo o anota `arnes_repo` en guardianes.json.")
+        raise ValueError(tp("actualizar_arnes_donde_esta_repo"))
     if origen.startswith(("http://", "https://", "git@", "ssh://")) or origen.endswith(".git"):
         tmp = tempfile.mkdtemp(prefix="cerebro-vivo-")
         r = subprocess.run(["git", "clone", "--depth", "1", "-q", origen, tmp], capture_output=True, text=True, timeout=180)
         if r.returncode != 0:
             shutil.rmtree(tmp, ignore_errors=True)
-            raise ValueError("No pude bajar el repo del arnés: %s" % r.stderr.strip()[-200:])
+            raise ValueError(tp("actualizar_arnes_pude_bajar_repo") % r.stderr.strip()[-200:])
         return tmp, tmp
     carpeta = origen if os.path.isabs(origen) else os.path.join(proyecto, origen)
     return os.path.abspath(carpeta), None
@@ -410,7 +411,7 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
             res["creados"].append(OBJETIVO)
             cambios.append((OBJETIVO, texto))
         else:
-            res["avisos"].append("Falta la plantilla del objetivo: actualiza primero con `actualizar_arnes.py`.")
+            res["avisos"].append(tp("actualizar_arnes_falta_plantilla_objetivo"))
     for nombre in INDICES_ENTRADA:
         ruta = os.path.join(proyecto, nombre)
         if not os.path.isfile(ruta):
@@ -422,7 +423,7 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
         lineas = texto.split(salto)
         donde = next((i for i, l in enumerate(lineas) if l.lstrip().startswith("* **Pendientes:**")), None)
         if donde is None:
-            res["avisos"].append("%s: no encuentro dónde insertarlo; añade a mano esta línea al principio de la lista de memoria: %s" % (nombre, LINEA_OBJETIVO))
+            res["avisos"].append(tp("actualizar_arnes_encuentro_donde_insertarlo") % (nombre, LINEA_OBJETIVO))
             continue
         lineas.insert(donde, LINEA_OBJETIVO)
         res["modificados"].append(nombre)
@@ -438,7 +439,7 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
             res["modificados"].append(os.path.join(".brain", "constitution.md"))
             cambios.append((os.path.join(".brain", "constitution.md"), texto.rstrip("\r\n") + salto + regla + salto))
     else:
-        res["avisos"].append("No hay `.brain/constitution.md`: no se añadió la regla del objetivo.")
+        res["avisos"].append(tp("actualizar_arnes_brain_constitution_anadio"))
     if simular or not cambios:
         return res
     sello = (ahora or datetime.datetime.now()).strftime("%Y%m%d-%H%M%S")
@@ -453,41 +454,41 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
 
 
 def informe_migracion(res, simular):
-    L = ["Migración del objetivo (%s):" % ("simulación, no se escribió nada" if simular else "aplicada")]
+    L = [tp("actualizar_arnes_migracion_objetivo") % (tp("actualizar_arnes_simulacion_escribio_nada") if simular else tp("actualizar_arnes_aplicada"))]
     L += ["  + creado %s" % r for r in res["creados"]] + ["  ~ modificado %s" % r for r in res["modificados"]]
     if not res["creados"] and not res["modificados"]:
-        L.append("  Nada que cambiar: el proyecto ya tiene el objetivo, sus enlaces y la regla.")
+        L.append(tp("actualizar_arnes_nada_cambiar_proyecto"))
     L += ["  ⚠ " + a for a in res["avisos"]]
     return "\n".join(L)
 
 
 def informe(res, simular):
-    L = ["Arnés %s → %s%s" % (res["version_antes"] or "sin registrar", res["version"], " (simulación: no se escribió nada)" if simular else "")]
-    for clave, titulo in (("nuevos", "Archivos nuevos"), ("actualizados", "Archivos que se actualizan"), ("forzados", "Archivos pisados con --forzar")):
+    L = [tp("actualizar_arnes_arnes") % (res["version_antes"] or tp("actualizar_arnes_sin_registrar"), res["version"], tp("actualizar_arnes_simulacion_escribio_nada2") if simular else "")]
+    for clave, titulo in (("nuevos", tp("actualizar_arnes_archivos_nuevos")), ("actualizados", tp("actualizar_arnes_archivos_actualizan")), ("forzados", tp("actualizar_arnes_archivos_pisados_forzar"))):
         if res[clave]:
             L.append("%s (%d):" % (titulo, len(res[clave])))
             L += ["  + " + r for r in res[clave]]
     if res.get("retirados"):
-        L.append("Retirados del arnés, %s la copia de seguridad (%d):" % ("irían a" if simular else "movidos a", len(res["retirados"])))
+        L.append(tp("actualizar_arnes_retirados_arnes_copia") % (tp("actualizar_arnes_irian") if simular else tp("actualizar_arnes_movidos"), len(res["retirados"])))
         L += ["  - " + r for r in res["retirados"]]
-    L.append("Sin cambios: %d archivo(s)." % len(res["sin_cambios"]))
+    L.append(tp("actualizar_arnes_sin_cambios_archivo") % len(res["sin_cambios"]))
     if res["a_mano"]:
-        L.append("⚠️ Modificados a mano, sin registro previo o cortados a media escritura, y NO pisados (%d). Decide tú; si quieres la versión nueva usa --forzar RUTA:" % len(res["a_mano"]))
+        L.append(tp("actualizar_arnes_modificados_mano_sin") % len(res["a_mano"]))
         L += ["  ! " + r for r in res["a_mano"]]
     if res.get("retirados_a_mano"):
-        L.append("⚠️ Retirados del arnés pero modificados a mano o sin registro, y NO quitados (%d). Si sobran, usa --forzar RUTA (guarda copia):" % len(res["retirados_a_mano"]))
+        L.append(tp("actualizar_arnes_retirados_arnes_pero") % len(res["retirados_a_mano"]))
         L += ["  ! " + r for r in res["retirados_a_mano"]]
     if res.get("sin_aplicar"):
-        L.append("⚠️ Versión %s aplicada salvo %d archivo(s): los de arriba se quedan como están." % (res["version"], len(res["sin_aplicar"])))
+        L.append(tp("actualizar_arnes_version_aplicada_salvo") % (res["version"], len(res["sin_aplicar"])))
     if res.get("claves_escritas"):
-        L.append("Configuración: %s %d clave(s) nueva(s) en .brain/guardianes/guardianes.json (las que ya tenías no se tocan): %s" % (
-            "se añadirían" if simular else "se añadieron", len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
+        L.append(tp("actualizar_arnes_configuracion_clave_nueva") % (
+            tp("actualizar_arnes_anadirian2") if simular else tp("actualizar_arnes_anadieron"), len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
     if res.get("fichas"):
-        L.append("Fichas de skills %s a .brain/experiencia/indice.md: %s" % ("que se añadirían" if simular else "añadidas", ", ".join(res["fichas"])))
+        L.append(tp("actualizar_arnes_fichas_skills_brain") % (tp("actualizar_arnes_anadirian") if simular else tp("actualizar_arnes_anadidas"), ", ".join(res["fichas"])))
     if res.get("filas_quitadas"):
-        L.append("Filas de skills retiradas %s de .brain/experiencia/indice.md: %s" % ("que se quitarían" if simular else "quitadas", ", ".join(res["filas_quitadas"])))
+        L.append(tp("actualizar_arnes_filas_skills_retiradas") % (tp("actualizar_arnes_quitarian") if simular else tp("actualizar_arnes_quitadas"), ", ".join(res["filas_quitadas"])))
     if res["copia"]:
-        L.append("Copia de seguridad de lo sustituido en %s" % res["copia"])
+        L.append(tp("actualizar_arnes_copia_seguridad_sustituido") % res["copia"])
     return "\n".join(L)
 
 
@@ -496,10 +497,10 @@ def nivel_sin_arnes(proyecto, forzar_todo=False):
     nivel anotado se adopta a propósito con `--forzar-todo`; uno de nivel ligero o medio sube con el kit."""
     nivel = cargar_registro(proyecto).get("nivel")
     if nivel:
-        return None if nivel == "completo" else "está en nivel %s" % nivel
+        return None if nivel == "completo" else tp("actualizar_arnes_esta_nivel") % nivel
     if forzar_todo or os.path.isfile(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")):
         return None
-    return "no tiene guardianes (.brain/guardianes/guardianes.json)"
+    return tp("actualizar_arnes_tiene_guardianes_brain")
 
 
 def main(argv=None, repo=None):
@@ -522,7 +523,7 @@ def main(argv=None, repo=None):
     temporal = None
     if a.migrar_objetivo:
         if not os.path.isdir(proyecto):
-            print("❌ No existe la carpeta del proyecto: %s" % proyecto)
+            print(tp("actualizar_arnes_existe_carpeta_proyecto") % proyecto)
             return 2
         print(informe_migracion(migrar_objetivo(proyecto, simular=a.simular), a.simular))
         return 0
@@ -530,15 +531,14 @@ def main(argv=None, repo=None):
         if not repo:
             repo, temporal = localizar_repo(proyecto, a.repo)
         if not os.path.isfile(os.path.join(repo, MANIFIESTO)):
-            print("❌ %s no es el repo del arnés (falta %s)." % (repo, MANIFIESTO))
+            print(tp("actualizar_arnes_repo_arnes_falta") % (repo, MANIFIESTO))
             return 2
         if not os.path.isdir(proyecto):
-            print("❌ No existe la carpeta del proyecto: %s" % proyecto)
+            print(tp("actualizar_arnes_existe_carpeta_proyecto2") % proyecto)
             return 2
         motivo = nivel_sin_arnes(proyecto, a.forzar_todo)
         if motivo:
-            print("ℹ️ No se copia nada: este proyecto %s, así que no hay guardianes ni pruebas del arnés que actualizar.\n"
-                  "Para subirlo a completo, desde el repo del arnés: python .brain/biblioteca/kit-arranque/instalar.py \"%s\" --nivel completo" % (motivo, proyecto))
+            print(tp("actualizar_arnes_copia_nada_este") % (motivo, proyecto))
             return 0
         res = sincronizar(repo, proyecto, dueno=a.dueno, simular=a.simular, forzar=a.forzar, forzar_todo=a.forzar_todo)
         print(informe(res, a.simular))
@@ -548,9 +548,9 @@ def main(argv=None, repo=None):
         if ok is None:
             print("ℹ️ " + texto)
         elif ok:
-            print("✅ Pruebas del método del proyecto: en verde.")
+            print(tp("actualizar_arnes_pruebas_metodo_proyecto"))
         else:
-            print("❌ Las pruebas del método fallan tras actualizar (la copia de seguridad está arriba):\n" + texto)
+            print(tp("actualizar_arnes_pruebas_metodo_fallan") + texto)
             return 1
         return 0
     except (ValueError, OSError, subprocess.SubprocessError) as e:

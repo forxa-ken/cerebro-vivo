@@ -8,6 +8,11 @@ Las dos devuelven los textos nuevos y no escriben: quien llama decide (así exis
 
 import os
 import re
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 
 
 def leer(ruta):
@@ -59,11 +64,11 @@ def pasar_a_hechos(brain, num, titulo, detalle, ref, fecha, conservar=False):
     nl = _salto(pend)
     num = str(num).strip()
     if re.search(r"^## %s ·" % re.escape(num), hechos, flags=re.M):
-        raise ValueError("El punto %s ya está en hechos.md" % num)
+        raise ValueError(tp("indices_punto_esta_hechos") % num)
     patron = re.compile(r"^- \*\*%s(?::\*\*| \().*(?:\r?\n|$)" % re.escape(num), flags=re.M)
     if not conservar:
         if not patron.search(pend):
-            raise ValueError("No encuentro el punto %s en pendientes.md (usa --conservar si el resto sigue pendiente)" % num)
+            raise ValueError(tp("indices_encuentro_punto_pendientes") % num)
         pend = patron.sub("", pend, count=1)
     entrada = "## %s · %s%s**Fecha:** %s · **Ref:** %s%s%s%s%s" % (num, titulo, nl, fecha, ref, nl, detalle, nl, nl)
     primero = re.search(r"^## ", hechos, flags=re.M)
@@ -73,7 +78,7 @@ def pasar_a_hechos(brain, num, titulo, detalle, ref, fecha, conservar=False):
         hechos = hechos.rstrip() + nl + nl + entrada
     cab = re.search(r"^\| :---.*(?:\r?\n)", indice, flags=re.M)
     if not cab:
-        raise ValueError("hechos-indice.md no tiene tabla")
+        raise ValueError(tp("indices_hechos_indice_tiene"))
     fila = "| %s | %s | %s | %s |" % (num, titulo, fecha, ref)
     indice = indice[:cab.end()] + fila + nl + indice[cab.end():]
     return pend, hechos, indice

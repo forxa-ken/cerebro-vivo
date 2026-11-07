@@ -21,6 +21,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 ESTADO = os.path.join(AQUI, "secretos_estado.json")
 MARCAS_EJEMPLO = ("tu_", "your", "xxxx", "example", "ejemplo", "changeme", "...", "…", "<", "$", "placeholder", "fake", "dummy")
 MAX_BYTES = 1_000_000
@@ -99,9 +101,9 @@ def problemas_archivos_secretos(raiz, a):
     seguidos = set(archivos_seguidos(raiz))
     for nombre in a.get("archivos_secretos", []):
         if nombre in seguidos:
-            problemas.append("%s está subido a Git" % nombre)
+            problemas.append(tp("secretos_esta_subido_git") % nombre)
         elif subprocess.run(["git", "check-ignore", "-q", nombre], cwd=raiz).returncode != 0:
-            problemas.append("%s no está en .gitignore" % nombre)
+            problemas.append(tp("secretos_esta_gitignore") % nombre)
     return problemas
 
 
@@ -118,7 +120,7 @@ def analizar_preparados(raiz, a):
     secretos = set(a.get("archivos_secretos", []))
     for ruta in nombres:
         if os.path.basename(ruta) in secretos or ruta in secretos:
-            hallazgos.append((ruta, 0, "archivo secreto preparado para el commit", "alta", ""))
+            hallazgos.append((ruta, 0, tp("secretos_archivo_secreto_preparado"), "alta", ""))
             continue
         contenido = _git(raiz, "show", ":" + ruta)
         if _texto_ok(contenido.encode("utf-8", "replace")):
@@ -147,7 +149,7 @@ def escanear_historial(raiz, a):
 
 
 def _formato(h):
-    return "%s:%s · %s (%s) · empieza por «%s»" % (h[0], h[1], h[2], h[3], h[4])
+    return tp("secretos_empieza") % (h[0], h[1], h[2], h[3], h[4])
 
 
 def dias_desde_historial():
@@ -172,13 +174,13 @@ def resumen(raiz, cfg):
     if hallazgos or problemas:
         partes = [_formato(hallazgos[0])] if hallazgos else []
         partes += problemas[:1]
-        lineas.append("- Secretos: %d aviso(s) (ver con `secretos.py --ver`): %s" % (len(hallazgos) + len(problemas), "; ".join(partes)))
+        lineas.append(tp("secretos_secretos_aviso_ver") % (len(hallazgos) + len(problemas), "; ".join(partes)))
     else:
-        lineas.append("- Secretos: sin avisos (patrones y archivos secretos ignorados).")
+        lineas.append(tp("secretos_secretos_sin_avisos"))
     dias, tope = dias_desde_historial(), a.get("dias_aviso_historial", 30)
     if dias is None or dias >= tope:
-        lineas.append("- Secretos: toca revisar el historial de Git (%s): `secretos.py --historial`." %
-                      ("nunca revisado" if dias is None else "hace %d días" % dias))
+        lineas.append(tp("secretos_secretos_toca_revisar") %
+                      (tp("secretos_nunca_revisado") if dias is None else tp("secretos_hace_dias") % dias))
     return lineas
 
 
@@ -194,10 +196,10 @@ def instalar_hook(raiz):
     if os.path.exists(ruta):
         with open(ruta, encoding="utf-8", errors="replace") as f:
             if "secretos.py" not in f.read():
-                return "Ya existe otro hook pre-commit; no lo toco. Añade a mano la llamada a secretos.py --staged."
+                return tp("secretos_existe_otro_hook")
     with open(ruta, "w", encoding="utf-8", newline="\n") as f:
         f.write(HOOK)
-    return "Hook instalado: %s" % os.path.relpath(ruta, raiz)
+    return tp("secretos_hook_instalado") % os.path.relpath(ruta, raiz)
 
 
 def main():
@@ -219,10 +221,10 @@ def main():
             raiz = _git(os.getcwd(), "rev-parse", "--show-toplevel").strip() or os.getcwd()
             altos = [h for h in analizar_preparados(raiz, a) if h[3] == "alta"]
             if altos:
-                print("🐺 COMMIT BLOQUEADO: posible secreto en lo que vas a subir:", file=sys.stderr)
+                print(tp("secretos_commit_bloqueado_posible"), file=sys.stderr)
                 for h in altos:
                     print("   - " + _formato(h), file=sys.stderr)
-                print("Quítalo (y si era real, cambia esa clave ya). Para saltarlo a conciencia: git commit --no-verify",
+                print(tp("secretos_quitalo_era_real"),
                       file=sys.stderr)
                 sys.exit(1)
             return
@@ -230,11 +232,11 @@ def main():
             hs = escanear_historial(RAIZ, a)
             with open(ESTADO, "w", encoding="utf-8", newline="\n") as f:
                 json.dump({"historial": datetime.date.today().isoformat(), "hallazgos": len(hs)}, f)
-            print("\n".join("- " + _formato(h) for h in hs) if hs else "Historial sin hallazgos.")
-            print("Total: %d. Fecha anotada en secretos_estado.json." % len(hs))
+            print("\n".join("- " + _formato(h) for h in hs) if hs else tp("secretos_historial_sin_hallazgos"))
+            print(tp("secretos_total_fecha_anotada") % len(hs))
             return
         hs, pr = analizar(RAIZ, cfg)
-        print("\n".join(["- " + _formato(h) for h in hs] + ["- " + p for p in pr]) if hs or pr else "Sin avisos.")
+        print("\n".join(["- " + _formato(h) for h in hs] + ["- " + p for p in pr]) if hs or pr else tp("secretos_sin_avisos"))
         print("Total: %d." % (len(hs) + len(pr)))
     except SystemExit:
         raise

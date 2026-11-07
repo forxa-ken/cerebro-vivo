@@ -23,6 +23,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 
 
 def leer_chat(ruta):
@@ -60,7 +62,7 @@ def leer_chat(ruta):
         salida += u.get("output_tokens", 0) or 0
         maximo = max(maximo, ent + esc + lec)
     return {"id": os.path.basename(ruta)[:8], "fecha": primera_fecha or "?", "mensajes": len(por_mensaje),
-            "nuevos": nuevos, "cache": cache, "salida": salida, "maximo": maximo, "arranque": arranque, "titulo": titulo or "(sin título)"}
+            "nuevos": nuevos, "cache": cache, "salida": salida, "maximo": maximo, "arranque": arranque, "titulo": titulo or tp("medir_sin_titulo")}
 
 
 def k(n):
@@ -148,8 +150,8 @@ def media(chats, clave):
     return sum(c[clave] for c in chats) / len(chats) if chats else 0
 
 
-CLAVES = (("coste", "Coste pond."), ("nuevos", "Tokens nuevos"), ("salida", "Salida"), ("arranque", "Arranque"), ("mensajes", "Mensajes IA"),
-          ("turnos", "Tus mensajes"), ("correcciones", "Correcciones"))
+CLAVES = (("coste", tp("medir_coste_pond")), ("nuevos", tp("medir_tokens_nuevos")), ("salida", tp("medir_salida")), ("arranque", tp("medir_arranque")), ("mensajes", tp("medir_mensajes")),
+          ("turnos", tp("medir_tus_mensajes")), ("correcciones", tp("medir_correcciones")))
 
 
 def comparar(con, sin, igualar=True):
@@ -157,17 +159,17 @@ def comparar(con, sin, igualar=True):
         for frio in (True, False):
             a, b = [c for c in con if c["frio"] == frio], [c for c in sin if c["frio"] == frio]
             if a and b:
-                print("== Caché %s" % ("FRÍA" if frio else "CALIENTE"))
+                print(tp("medir_cache_titulo") % (tp("medir_fria") if frio else tp("medir_caliente")))
                 comparar(a, b, igualar=False)
             elif a or b:
-                print("== Caché %s: solo hay chats de un lado (%d con, %d sin); no se compara" % ("FRÍA" if frio else "CALIENTE", len(a), len(b)))
+                print(tp("medir_cache_solo_chats") % (tp("medir_fria") if frio else tp("medir_caliente"), len(a), len(b)))
         return
-    print("%-14s %12s %12s %10s" % ("Media por chat", "CON arnés", "SIN arnés", "Diferencia"))
+    print("%-14s %12s %12s %10s" % (tp("medir_media_chat"), tp("medir_arnes"), tp("medir_sin_arnes"), tp("medir_diferencia")))
     for clave, nombre in CLAVES:
         a, b = media(con, clave), media(sin, clave)
         dif = "%+.0f%%" % ((a - b) / b * 100) if b else "-"
         print("%-14s %12.1f %12.1f %10s" % (nombre, a, b, dif))
-    print("Chats medidos: %d con arnés, %d sin arnés. Con pocos chats es una tendencia, no una prueba." % (len(con), len(sin)))
+    print(tp("medir_chats_medidos_arnes") % (len(con), len(sin)))
 
 
 def main(argv=None):
@@ -189,7 +191,7 @@ def main(argv=None):
         carpeta = carpeta_de(a.proyecto)
         rutas = [r for r in glob.glob(os.path.join(carpeta, "*.jsonl")) if os.path.basename(r).startswith(a.desglose)]
         if not rutas:
-            print("No encontré el chat %s en %s" % (a.desglose, carpeta))
+            print(tp("medir_encontre_chat") % (a.desglose, carpeta))
             return 1
         print("%3s %8s %8s %8s %7s %9s  %s" % ("#", "Escribe", "Lee", "Salida", "Coste", "Acumul.", "Herramientas"))
         total = 0
@@ -200,14 +202,14 @@ def main(argv=None):
         return 0
     chats = chats_de(carpeta_de(a.proyecto), a.ultimos, a.tarea)
     if not chats:
-        print("No encontré registros de %s" % a.proyecto)
+        print(tp("medir_encontre_registros") % a.proyecto)
         return 1
-    print("%-9s %-11s %5s %8s %8s %8s %8s %6s %6s %-6s %s" % ("Chat", "Fecha", "IA", "Coste", "Nuevos", "Salida", "Arranque", "Tuyos", "Corr.", "Caché", "Empieza con…"))
+    print("%-9s %-11s %5s %8s %8s %8s %8s %6s %6s %-6s %s" % ("Chat", tp("medir_fecha"), "IA", "Coste", "Nuevos", "Salida", tp("medir_arranque2"), tp("medir_tuyos"), tp("medir_corr"), tp("medir_cache"), tp("medir_empieza")))
     for c in chats:
         print("%-9s %-11s %5d %8s %8s %8s %8s %6d %6d %-6s %s" % (c["id"], c["fecha"], c["mensajes"], k(c["coste"]), k(c["nuevos"]), k(c["salida"]),
-                                                              k(c["arranque"]), c["turnos"], c["correcciones"], "fría" if c["frio"] else "caliente", (c["encargo"] or c["titulo"])[:40]))
+                                                              k(c["arranque"]), c["turnos"], c["correcciones"], tp("medir_fria2") if c["frio"] else tp("medir_caliente2"), (c["encargo"] or c["titulo"])[:40]))
     print("-" * 100)
-    print("Por chat (media): coste %s · nuevos %s · salida %s · arranque %s · tus mensajes %.1f · correcciones %.2f"
+    print(tp("medir_chat_media_coste")
           % (k(media(chats, "coste")), k(media(chats, "nuevos")), k(media(chats, "salida")), k(media(chats, "arranque")),
              media(chats, "turnos"), media(chats, "correcciones")))
     return 0

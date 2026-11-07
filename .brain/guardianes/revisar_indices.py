@@ -28,6 +28,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 ESTADO = "revision_indices.json"
 MARCA_INI = "<!-- cerebro-vivo:inicio -->"
 MARCA_FIN = "<!-- cerebro-vivo:fin -->"
@@ -150,9 +152,9 @@ def hallazgos_referencias(raiz, indice, texto, a):
         donde = [r for r in nombres.get(os.path.basename(ruta).lower(), []) if r != ruta][:3]
         contexto = lineas[n - 1] if n <= len(lineas) else ""
         nivel = "dudoso" if PALABRAS_EJEMPLO.search(contexto) or ("/" not in ruta and donde) or ruta.endswith("/") else "roto"  # nombre suelto hallado en otra carpeta: ambiguo
-        detalle = "cita `%s` (línea %d) y no existe" % (ruta, n)
+        detalle = tp("revisar_indices_cita_linea_existe") % (ruta, n)
         if donde:
-            detalle += "; hay un archivo con ese nombre en: %s" % ", ".join(donde)
+            detalle += tp("revisar_indices_archivo_ese_nombre") % ", ".join(donde)
         res.append({"tipo": "referencia_rota", "indice": indice, "seccion": _seccion_de(texto, n), "detalle": detalle,
                     "clave": "referencia_rota|%s|%s" % (indice, ruta), "nivel": nivel, "posible_nuevo_sitio": donde})
     return res
@@ -179,7 +181,7 @@ def hallazgos_deriva(textos):
         faltan = [i for i in mapas if t not in mapas[i]]
         if faltan:
             res.append({"tipo": "deriva", "indice": ", ".join(tienen), "seccion": t,
-                        "detalle": "la sección «%s» está en %s y falta en %s" % (t, ", ".join(tienen), ", ".join(faltan)),
+                        "detalle": tp("revisar_indices_seccion_esta_falta") % (t, ", ".join(tienen), ", ".join(faltan)),
                         "clave": "deriva|%s|falta" % t, "nivel": "dudoso"})
             continue
         base = tienen[0]
@@ -187,7 +189,7 @@ def hallazgos_deriva(textos):
             a, b = normalizar(mapas[base][t]).split(". "), normalizar(mapas[otro][t]).split(". ")
             if difflib.SequenceMatcher(None, a, b, autojunk=False).ratio() < 0.9:
                 res.append({"tipo": "deriva", "indice": "%s / %s" % (base, otro), "seccion": t,
-                            "detalle": "la sección «%s» difiere entre %s y %s" % (t, base, otro),
+                            "detalle": tp("revisar_indices_seccion_difiere_entre") % (t, base, otro),
                             "clave": "deriva|%s|%s" % (t, otro), "nivel": "dudoso"})
     return res
 
@@ -202,7 +204,7 @@ def hallazgos_peso_y_fechas(indice, texto, a, hoy):
         peso = len(cuerpo.encode("utf-8"))
         if peso > a["seccion_bytes"]:
             res.append({"tipo": "seccion_pesada", "indice": indice, "seccion": titulo, "nivel": "dudoso",
-                        "detalle": "«%s» pesa %d bytes (%d %% del índice); candidata a una ficha en .brain/architecture/" % (titulo, peso, 100 * peso // total),
+                        "detalle": tp("revisar_indices_pesa_bytes_indice") % (titulo, peso, 100 * peso // total),
                         "clave": "seccion_pesada|%s|%s" % (indice, titulo)})
         fechas = []
         for y, m, d in re.findall(r"\b(20\d\d)-(\d\d)-(\d\d)\b", cuerpo):
@@ -212,7 +214,7 @@ def hallazgos_peso_y_fechas(indice, texto, a, hoy):
                 pass
         if fechas and (hoy - max(fechas)).days > a["dias"]:
             res.append({"tipo": "fecha_vieja", "indice": indice, "seccion": titulo, "nivel": "dudoso",
-                        "detalle": "«%s»: su fecha más reciente es %s (hace %d días)" % (titulo, max(fechas), (hoy - max(fechas)).days),
+                        "detalle": tp("revisar_indices_fecha_mas_reciente") % (titulo, max(fechas), (hoy - max(fechas)).days),
                         "clave": "fecha_vieja|%s|%s" % (indice, titulo)})
     return res
 
@@ -241,7 +243,7 @@ def hallazgos_duplicados(raiz, indice, texto):
             for r, contenido in destinos.items():
                 if p in contenido:
                     res.append({"tipo": "duplicado", "indice": indice, "seccion": titulo or "(cabecera)", "nivel": "dudoso",
-                                "detalle": "un párrafo de «%s» ya está en %s (empieza: «%s…»)" % (titulo or "cabecera", r, parrafo.strip()[:50]),
+                                "detalle": tp("revisar_indices_parrafo_esta_empieza") % (titulo or "cabecera", r, parrafo.strip()[:50]),
                                 "clave": "duplicado|%s|%s|%s" % (indice, titulo, p[:40])})
                     break
     return res
@@ -302,23 +304,23 @@ def analizar(raiz, cfg, hoy=None):
 
 def formatear(informe, cfg):
     tope = int(cfg.get("tope_claude_md_bytes", 5120))
-    lineas = ["Revisión de los índices de IA (solo lectura; no se ha cambiado nada)"]
+    lineas = [tp("revisar_indices_revision_indices_solo")]
     for n, b in informe["indices"].items():
-        lineas.append("- %s: %d bytes (%d %% del tope de %d)" % (n, b, 100 * b // max(1, tope), tope))
+        lineas.append(tp("revisar_indices_bytes_tope") % (n, b, 100 * b // max(1, tope), tope))
     if not informe["indices"]:
-        lineas.append("- No hay índices de IA que revisar.")
-    nombres = {"referencia_rota": "Referencias rotas", "deriva": "Deriva entre índices", "seccion_pesada": "Secciones pesadas",
-               "fecha_vieja": "Fechas viejas", "duplicado": "Ya está en .brain/"}
+        lineas.append(tp("revisar_indices_indices_revisar"))
+    nombres = {"referencia_rota": tp("revisar_indices_referencias_rotas"), "deriva": tp("revisar_indices_deriva_entre_indices"), "seccion_pesada": tp("revisar_indices_secciones_pesadas"),
+               "fecha_vieja": tp("revisar_indices_fechas_viejas"), "duplicado": tp("revisar_indices_esta_brain")}
     for tipo, titulo in nombres.items():
         grupo = [h for h in informe["hallazgos"] if h["tipo"] == tipo]
         if grupo:
             lineas.append("\n%s (%d)" % (titulo, len(grupo)))
             lineas += ["  [%s] %s\n      clave: %s" % (h["nivel"], h["detalle"], h["clave"]) for h in grupo]
     if not informe["hallazgos"]:
-        lineas.append("\nSin hallazgos.")
+        lineas.append(tp("revisar_indices_sin_hallazgos"))
     if informe["descartados"]:
-        lineas.append("\n(%d hallazgo(s) ya descartados antes no se repiten.)" % informe["descartados"])
-    lineas.append("Última revisión anotada: %s" % (informe["ultima_revision"] or "ninguna"))
+        lineas.append(tp("revisar_indices_hallazgo_descartados_antes") % informe["descartados"])
+    lineas.append(tp("revisar_indices_ultima_revision_anotada") % (informe["ultima_revision"] or tp("revisar_indices_ninguna")))
     return "\n".join(lineas)
 
 
@@ -335,25 +337,25 @@ def resumen(raiz, cfg, hoy=None):
     motivos = []
     llenos = [n for n, t in textos.items() if 100 * len(t.encode("utf-8")) // max(1, tope) >= a["aviso_porcentaje"]]
     if llenos:
-        motivos.append("%s al %s del tope" % (", ".join(llenos), "/".join("%d %%" % (100 * len(textos[n].encode("utf-8")) // max(1, tope)) for n in llenos)))
+        motivos.append(tp("revisar_indices_tope") % (", ".join(llenos), "/".join("%d %%" % (100 * len(textos[n].encode("utf-8")) // max(1, tope)) for n in llenos)))
     descartadas = {d["clave"] for d in leer_estado(raiz)["descartes"]}
     rotas = 0
     for n, t in textos.items():
         rotas += sum(1 for h in hallazgos_referencias(raiz, n, sin_bloque_del_kit(t), a) if h["nivel"] == "roto" and h["clave"] not in descartadas)
     if rotas:
-        motivos.append("%d referencia(s) rota(s)" % rotas)
+        motivos.append(tp("revisar_indices_referencia_rota") % rotas)
     ultima = leer_estado(raiz).get("ultima_revision", "")
     if ultima:
         try:
             dias = (hoy - datetime.date.fromisoformat(ultima)).days
             if dias > a["aviso_dias"]:
-                motivos.append("sin revisar desde hace %d días" % dias)
+                motivos.append(tp("revisar_indices_sin_revisar_desde") % dias)
         except ValueError:
             pass
     if not motivos:
         return []
-    paso = "escribe /adopta (reparte, acorta y trocea) o pide «revisa los índices»" if llenos else "pide «revisa los índices»"
-    return ["- Índices de IA: %s; %s (skills adopta y revisar-indices-de-ia)." % (", ".join(motivos), paso)]
+    paso = tp("revisar_indices_escribe_adopta_reparte") if llenos else tp("revisar_indices_pide_revisa_indices")
+    return [tp("revisar_indices_indices_skills_adopta") % (", ".join(motivos), paso)]
 
 
 def main():
@@ -363,13 +365,13 @@ def main():
     args = sys.argv[1:]
     if "--descartar" in args:
         i = args.index("--descartar")
-        motivo = args[args.index("--motivo") + 1] if "--motivo" in args else "sin motivo anotado"
+        motivo = args[args.index("--motivo") + 1] if "--motivo" in args else tp("revisar_indices_sin_motivo_anotado")
         descartar(RAIZ, args[i + 1], motivo)
         print("Descartado: %s" % args[i + 1])
         return 0
     if "--marcar-revision" in args:
         marcar_revision(RAIZ)
-        print("Revisión anotada con fecha de hoy.")
+        print(tp("revisar_indices_revision_anotada_fecha"))
         return 0
     informe = analizar(RAIZ, cfg)
     print(json.dumps(informe, ensure_ascii=False, indent=2) if "--json" in args else formatear(informe, cfg))

@@ -15,21 +15,30 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
 CARRILES = ("Fast-Track", "SDD")
+sys.path.insert(0, AQUI)
+from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
 
-def linea_registro(fecha, quien, chat, texto, carril):
+def cargar_config():
+    try:
+        with open(os.path.join(AQUI, "guardianes.json"), encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def linea_registro(fecha, quien, chat, texto, carril, lengua=None):
     """Formato de decisions.log: `AAAA-MM-DD | quién (chat) | qué | carril`."""
     texto = " ".join(texto.split())
     if not texto:
-        raise ValueError("Falta la frase de qué se hizo")
+        raise ValueError(t(lengua, "cerrar_falta_texto"))
     if carril not in CARRILES:
-        raise ValueError("El carril debe ser uno de: %s" % ", ".join(CARRILES))
+        raise ValueError(t(lengua, "cerrar_carril", ", ".join(CARRILES)))
     return "%s | %s (%s) | %s | %s" % (fecha, quien, chat, texto, carril)
 
 
-def _indices_o_hecho(a):
+def _indices_o_hecho(a, cfg=None):
     """Spec 083: filas de índice de decisiones y paso de un punto a hechos (con --simular no escribe)."""
-    sys.path.insert(0, AQUI)
     import indices
     brain = os.path.join(RAIZ, ".brain")
     try:
@@ -37,25 +46,26 @@ def _indices_o_hecho(a):
             texto, filas = indices.filas_decisiones_faltantes(brain)
             if not a.simular:
                 indices.escribir(os.path.join(brain, "decisions", "indice.md"), texto)
-            salida = "Filas añadidas al índice de decisiones: %d\n%s" % (len(filas), "\n".join(filas))
+            salida = t(cfg, "cerrar_filas", len(filas), "\n".join(filas))
         else:
             if not a.titulo:
-                raise ValueError("Falta --titulo")
+                raise ValueError(t(cfg, "cerrar_falta_titulo"))
             pend, hechos, indice = indices.pasar_a_hechos(brain, a.hecho, a.titulo, a.detalle, a.ref, a.fecha, a.conservar)
             if not a.simular:
                 indices.escribir(os.path.join(brain, "pendientes.md"), pend)
                 indices.escribir(os.path.join(brain, "archive", "hechos.md"), hechos)
                 indices.escribir(os.path.join(brain, "archive", "hechos-indice.md"), indice)
-            salida = "Punto %s pasado a hechos (pendientes, hechos y su índice)." % a.hecho
+            salida = t(cfg, "cerrar_hecho", a.hecho)
     except Exception as e:
-        sys.stderr.write("No se pudo: %s\n" % e)
+        sys.stderr.write(t(cfg, "cerrar_no_se_pudo", e))
         return 1
-    sys.stdout.buffer.write((("[SIMULACIÓN, no se escribió] " if a.simular else "") + salida + "\n").encode("utf-8"))
+    sys.stdout.buffer.write(((t(cfg, "cerrar_simulacion") if a.simular else "") + salida + "\n").encode("utf-8"))
     return 0
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Añade la línea de cierre al registro")
+    cfg = cargar_config()
+    ap = argparse.ArgumentParser(description=t(cfg, "cerrar_descripcion"))
     ap.add_argument("texto", nargs="?", default="", help="qué se hizo, en una frase")
     ap.add_argument("--chat", help="p. ej. «Proyecto #40»")
     ap.add_argument("--quien", default="Claude")
@@ -70,19 +80,18 @@ def main():
     ap.add_argument("--simular", action="store_true", help="mostrar lo que haría sin escribir")
     a = ap.parse_args()
     if a.indices or a.hecho:
-        return _indices_o_hecho(a)
+        return _indices_o_hecho(a, cfg)
     if not a.chat:
-        ap.error("falta --chat")
+        ap.error(t(cfg, "cerrar_falta_chat"))
     try:
-        linea = linea_registro(a.fecha, a.quien, a.chat, a.texto, a.carril)
-        with open(os.path.join(AQUI, "guardianes.json"), encoding="utf-8") as f:
-            registro = os.path.join(RAIZ, json.load(f)["registro"])
+        linea = linea_registro(a.fecha, a.quien, a.chat, a.texto, a.carril, cfg)
+        registro = os.path.join(RAIZ, cfg["registro"])
         with open(registro, "a", encoding="utf-8", newline="") as f:
             f.write(linea + "\n")
     except Exception as e:
-        sys.stderr.write("No se pudo cerrar: %s\n" % e)
+        sys.stderr.write(t(cfg, "cerrar_no_cerrar", e))
         return 1
-    sys.stdout.buffer.write(("Registrado: " + linea + "\n").encode("utf-8"))
+    sys.stdout.buffer.write(t(cfg, "cerrar_registrado", linea).encode("utf-8"))
     return 0
 
 

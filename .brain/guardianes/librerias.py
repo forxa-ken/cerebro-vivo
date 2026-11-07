@@ -19,6 +19,8 @@ import urllib.request
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 ESTADO = os.path.join(AQUI, "librerias_estado.json")
 OSV_LOTE = "https://api.osv.dev/v1/querybatch"
 OSV_VULN = "https://api.osv.dev/v1/vulns/"
@@ -121,9 +123,9 @@ def avisos(estado, a):
         vulns = [v for v in p.get("vulns", []) if v["id"] not in ignorados]
         if vulns:
             fix = next((v["corregida"] for v in vulns if v.get("corregida")), "")
-            res.append("%s %s con %d vulnerabilidad(es)%s" % (p["nombre"], p["version"], len(vulns), " (corregida en %s)" % fix if fix else ""))
+            res.append(tp("librerias_vulnerabilidad") % (p["nombre"], p["version"], len(vulns), tp("librerias_corregida") % fix if fix else ""))
         elif p.get("mayor") and a.get("avisar_version_mayor", True):
-            res.append("%s %s: hay versión mayor (%s)" % (p["nombre"], p["version"], p["ultima"]))
+            res.append(tp("librerias_version_mayor") % (p["nombre"], p["version"], p["ultima"]))
     return res
 
 
@@ -143,12 +145,12 @@ def resumen(raiz, cfg, hoy=None):
     try:
         estado = leer_estado()
         if not estado:
-            return ["- Librerías: sin chequear aún (`%s`)." % ("venv\\Scripts\\python.exe .brain\\guardianes\\librerias.py" if os.name == "nt" else "python3 .brain/guardianes/librerias.py")]
+            return [tp("librerias_librerias_sin_chequear") % ("venv\\Scripts\\python.exe .brain\\guardianes\\librerias.py" if os.name == "nt" else "python3 .brain/guardianes/librerias.py")]
         dias = ((hoy or datetime.date.today()) - datetime.date.fromisoformat(estado["fecha"])).days
         av = avisos(estado, a)
-        txt = "- Librerías: %s (chequeo de hace %d días)" % ("%d aviso(s): %s · detalle con `librerias.py --ver`" % (len(av), av[0]) if av else "sin avisos", dias)
+        txt = tp("librerias_librerias_chequeo_hace") % (tp("librerias_aviso_detalle_librerias") % (len(av), av[0]) if av else tp("librerias_sin_avisos"), dias)
         if dias >= a.get("dias_aviso", 10):
-            txt += "; toca volver a chequear"
+            txt += tp("librerias_toca_volver_chequear")
         return [txt + "."]
     except Exception:
         return []
@@ -157,14 +159,14 @@ def resumen(raiz, cfg, hoy=None):
 def ver(a):
     estado = leer_estado()
     if not estado:
-        return "Sin chequeo guardado todavía."
+        return tp("librerias_sin_chequeo_guardado")
     ignorados = {i.get("id") for i in a.get("ignorar", [])}
-    out = ["Último chequeo: %s" % estado["fecha"]]
+    out = [tp("librerias_ultimo_chequeo") % estado["fecha"]]
     for p in estado["paquetes"]:
-        out.append("- %s %s (última: %s)%s" % (p["nombre"], p["version"], p["ultima"] or "?", " · versión mayor disponible" if p.get("mayor") else ""))
+        out.append(tp("librerias_ultima") % (p["nombre"], p["version"], p["ultima"] or "?", tp("librerias_version_mayor_disponible") if p.get("mayor") else ""))
         for v in p["vulns"]:
             out.append("    %s%s %s · https://osv.dev/%s%s" % ("(ignorada) " if v["id"] in ignorados else "", v["id"], v["resumen"], v["id"],
-                                                               " · corregida en " + v["corregida"] if v["corregida"] else ""))
+                                                               tp("librerias_corregida2") + v["corregida"] if v["corregida"] else ""))
     return "\n".join(out)
 
 
@@ -176,16 +178,16 @@ def main():
         print(ver(a))
         return 0
     if not a["activo"]:
-        print("Vigilancia de librerías apagada (librerias_activo).")
+        print(tp("librerias_vigilancia_librerias_apagada"))
         return 0
     nuevo = chequear(RAIZ, a)
     if nuevo is None:
-        print("No se pudo chequear (sin red o respuesta rara); se conserva el estado anterior.")
+        print(tp("librerias_pudo_chequear_sin"))
         return 0
     with open(ESTADO, "w", encoding="utf-8") as f:
         json.dump(nuevo, f, ensure_ascii=False)
     av = avisos(nuevo, a)
-    print("Chequeo hecho: %s." % ("%d aviso(s)" % len(av) if av else "sin avisos"))
+    print(tp("librerias_chequeo_hecho") % ("%d aviso(s)" % len(av) if av else tp("librerias_sin_avisos2")))
     for t in av:
         print("  - " + t)
     return 0

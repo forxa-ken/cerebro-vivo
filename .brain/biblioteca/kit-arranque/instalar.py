@@ -25,7 +25,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
+GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -200,9 +200,18 @@ def mapa(nivel):
     return "\n".join(lineas)
 
 
-def configuracion(ias):
+def codigo_idioma(idioma):
+    """Spec 024: «English», «inglés», «en»… -> "en"; cualquier otro idioma -> "es" (los avisos solo están en es/en)."""
+    espec = importlib.util.spec_from_file_location("textos", os.path.join(GUARDIANES_FUENTE, "textos.py"))
+    textos = importlib.util.module_from_spec(espec)
+    espec.loader.exec_module(textos)
+    return textos.idioma(idioma)
+
+
+def configuracion(ias, idioma="español"):
     cfg = json.loads(leer(os.path.join(GUARDIANES_FUENTE, "guardianes.json")))
     cfg = mezclar(cfg, json.loads(leer(os.path.join(AQUI, "ajustes_neutros.json"))))
+    cfg["idioma"] = codigo_idioma(idioma)  # spec 024: idioma de los avisos de los guardianes
     archivos = [IAS[i][0] for i in ias]
     cfg["indices_entrada"] = archivos
     cfg["claude_md"] = archivos[0]
@@ -300,7 +309,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     if nivel == "medio":
         return hechos
 
-    cfg = configuracion(ias)
+    cfg = configuracion(ias, idioma)
     for g in GUARDIANES:
         texto = fuente(GUARDIANES_FUENTE, g + ".py")
         poner(".brain/guardianes/%s.py" % g, texto)

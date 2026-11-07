@@ -20,6 +20,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+sys.path.insert(0, AQUI)
+from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
 BASE = os.path.join(AQUI, "analisis_base.json")
 METODOS_SQL = ("execute", "executemany", "executescript")
 METODOS_ESCRITURA = ("POST", "PUT", "DELETE", "PATCH")
@@ -87,7 +89,7 @@ def _avisos_sql(ruta, arbol, texto, ajustes):
             fuente = ast.get_source_segment(texto, n.args[0]) or ""
             if any(e["archivo"] == ruta and e["contiene"] in fuente for e in excepciones):
                 continue
-            avisos.append("SQL armado con texto en %s:%d (usar parámetros ?, o anotar la excepción con su motivo): %s"
+            avisos.append(tp("analisis_sql_armado_texto")
                           % (ruta, n.lineno, " ".join(fuente.split())[:70]))
     return avisos
 
@@ -100,7 +102,7 @@ def _avisos_reglas(ruta, arbol, texto, ajustes):
             for n in ast.walk(arbol):
                 if isinstance(n, ast.Call) and _nombre_llamada(n) in r["llamadas"] \
                         and not any(k.arg == "timeout" for k in n.keywords):
-                    avisos.append("Llamada de red sin timeout en %s:%d (%s)" % (ruta, n.lineno, _nombre_llamada(n)))
+                    avisos.append(tp("analisis_llamada_red_sin") % (ruta, n.lineno, _nombre_llamada(n)))
         elif tipo == "ruta_escritura_audita":
             patron = re.compile(r["patron"])
             if ruta not in r.get("archivos", [ruta]):
@@ -109,12 +111,12 @@ def _avisos_reglas(ruta, arbol, texto, ajustes):
                 rutas = [c for c, escribe in _rutas_de_escritura(f) if escribe and patron.search(c)]
                 if rutas and f.name not in r.get("excepciones", []) and not any(
                         isinstance(c, ast.Call) and _nombre_llamada(c).endswith("audit_event") for c in ast.walk(f)):
-                    avisos.append("Ruta de escritura sin audit_event en %s:%d (%s %s)" % (ruta, f.lineno, f.name, rutas[0]))
+                    avisos.append(tp("analisis_ruta_escritura_sin") % (ruta, f.lineno, f.name, rutas[0]))
         elif tipo == "sin_dml_sobre":
             dml = re.compile(r"\b(UPDATE|DELETE\s+FROM|INSERT\s+OR\s+REPLACE\s+INTO)\s+%s\b" % re.escape(r["tabla"]), re.I)
             for n in ast.walk(arbol):
                 if isinstance(n, ast.Constant) and isinstance(n.value, str) and dml.search(n.value):
-                    avisos.append("Se modifica/borra la tabla protegida %s en %s:%d" % (r["tabla"], ruta, n.lineno))
+                    avisos.append(tp("analisis_modifica_borra_tabla") % (r["tabla"], ruta, n.lineno))
     return avisos
 
 
@@ -129,11 +131,11 @@ def _avisos_limites(ruta, arbol, texto, ajustes, base):
     for nombre, lineas in sorted(_tamanos(arbol).items()):
         antes = previo.get("funciones", {}).get(nombre)
         if lineas > tope and (antes is None or lineas > antes + margen):
-            avisos.append("Función %s() de %s mide %d líneas (%s)" % (
-                nombre, ruta, lineas, "nueva, tope %d" % tope if antes is None else "antes %d" % antes))
+            avisos.append(tp("analisis_funcion_mide_lineas") % (
+                nombre, ruta, lineas, tp("analisis_nueva_tope") % tope if antes is None else tp("analisis_antes") % antes))
     total = len(texto.splitlines())
     if total > previo.get("lineas", total) + margen_arch:
-        avisos.append("%s creció de %d a %d líneas" % (ruta, previo["lineas"], total))
+        avisos.append(tp("analisis_crecio_lineas") % (ruta, previo["lineas"], total))
     return avisos
 
 
@@ -183,8 +185,8 @@ def resumen(raiz, cfg):
     except Exception:
         return []
     if not avisos:
-        return ["- Análisis de código: sin avisos (SQL, límites y reglas)."]
-    return ["- Análisis de código: %d aviso(s) (ver con `analisis.py --ver`): %s" % (len(avisos), avisos[0])]
+        return [tp("analisis_analisis_codigo_sin")]
+    return [tp("analisis_analisis_codigo_aviso") % (len(avisos), avisos[0])]
 
 
 def main():
@@ -197,10 +199,10 @@ def main():
     if "--renovar-base" in sys.argv:
         with open(BASE, "w", encoding="utf-8", newline="\n") as f:
             json.dump(foto_actual(RAIZ, cfg.get("analisis", {})), f, ensure_ascii=False, indent=1, sort_keys=True)
-        print("Base de tamaños renovada: %s" % os.path.relpath(BASE, RAIZ))
+        print(tp("analisis_base_tamanos_renovada") % os.path.relpath(BASE, RAIZ))
         return
     avisos = analizar(RAIZ, cfg)
-    print("\n".join("- " + a for a in avisos) if avisos else "Sin avisos.")
+    print("\n".join("- " + a for a in avisos) if avisos else tp("analisis_sin_avisos"))
     print("Total: %d." % len(avisos))
 
 

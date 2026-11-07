@@ -120,3 +120,13 @@
 2026-11-07 | Claude (cerebro-vivo #20) | Commit y subida de la 1.20.2 (reconocimiento con el texto de la pagina) por orden de Darwin. | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #20) | Arnes 1.21.0: skill /version (spec 023), manual y pagina con el caso de /actualizar inexistente (gh-pages f4aa574). Modelo 2 actualizado de 1.12.0 a 1.21.0. Pruebas en verde. Sin commit. | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #20) | Pagina publica: pestana Cambios que lee CAMBIOS.md de GitHub al momento (version de la cabecera tambien). Commit y subida de la 1.21.0 y de la pagina por orden de Darwin. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina: recuadro de proyectos antiguos (si /actualizar no existe) en el capitulo Como se reparte, gh-pages fe2c16a. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina: pasos completos (simular y aplicar) para actualizar un proyecto antiguo, en Comprender y en Usar; gh-pages 095f8f1. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Pagina: el pie dice 1.21.0 y toma la version de Cambios como la cabecera (commit local en gh-pages, sin subir) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Pagina: arreglo del pie subido (gh-pages de3ca0f) y comprobado en la pagina real: pie y cabecera dicen 1.21.0, sin errores de consola | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 (Cerebro Vivo y pagina en ingles) en borrador, espera aprobacion de Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 fase 1: pagina en espanol e ingles con selector (gh-pages a09ce01, commit local sin subir); probada en local, movil sin desbordes | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 fase 1 subida (gh-pages a09ce01) y comprobada en la pagina real: ES/EN, Cambios en los dos idiomas, sin errores de consola | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #22) | Spec 024 fase 2 (1a parte, arnes 1.22.0 sin subir): textos.py es/en, ajuste idioma (defecto es), instalador guarda el idioma, test_textos; arranque, cierre, cerrar y longitud pasados; 300 pruebas OK y comprobado en proyecto de prueba en ingles | SDD
+2026-11-07 | Claude (cerebro-vivo #22) | Spec 024 fase 2 completa (arnes 1.22.0 sin subir): los 17 guardianes toman sus avisos de textos.py es/en (unos 250); test_textos con paridad, claves repetidas y uso; 303 pruebas OK y comprobado en proyecto de prueba en ingles | SDD
+2026-11-07 | Claude (cerebro-vivo #23) | Commit de arnes 1.22.0 (spec 024 fase 2, avisos de los guardianes en es/en); sin subir a GitHub | Fast-Track

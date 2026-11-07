@@ -131,3 +131,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.21.0 (2026-11-07)
 - Skill nueva `/version` (spec 023): dice qué versión del arnés tiene el proyecto, si hay una más nueva y cómo actualizar. Si el proyecto es anterior a la 1.17.0 y `/actualizar` no existe, da los comandos para actualizar a mano la primera vez. Solo lee.
+
+## 1.22.0 (2026-11-07)
+- Avisos en inglés (spec 024, fase 2): ajuste nuevo `"idioma": "es" | "en"` en `guardianes.json` (si falta, español: los proyectos que ya existen no cambian). Guardián nuevo `textos.py` con unos 250 mensajes en los dos idiomas; lo usan los 17 guardianes (arranque, cierre, traspaso, actualizador, secretos, librerías, base de datos, poda, medir…). Quedan en español la ayuda de `--help` y lo que se escribe dentro de los archivos de memoria (fase 3). El kit de arranque guarda el idioma elegido («English» → `en`). Prueba nueva `test_textos.py` (ninguna clave falta ni se repite en ningún idioma, y todos los guardianes usan `textos.py`). Los nombres de archivos y comandos siguen en español.

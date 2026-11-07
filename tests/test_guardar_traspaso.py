@@ -45,7 +45,7 @@ class Base(unittest.TestCase):
         ejecutar_git(self.raiz, "config", "user.name", "t")
         destino = os.path.join(self.raiz, ".brain", "guardianes")
         os.makedirs(destino)
-        for nombre in ("guardar_traspaso.py", "arranque.py", "secretos.py", "guardianes.json"):
+        for nombre in ("guardar_traspaso.py", "arranque.py", "secretos.py", "textos.py", "guardianes.json"):
             shutil.copy(os.path.join(GUARDIANES, nombre), destino)
         escribir(self.raiz, ".brain/pendientes.md", "# Pendientes\n")
         escribir(self.raiz, ".brain/decisions.log", "linea\n")
