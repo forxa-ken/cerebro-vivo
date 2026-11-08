@@ -4,4 +4,4 @@
 
 | Tema | Lecciones |
 | :--- | :---: |
-| [metodo](metodo.md) | 9 |
+| [metodo](metodo.md) | 10 |

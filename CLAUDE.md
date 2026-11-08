@@ -17,6 +17,7 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 ## Cómo se reparte el arnés
 * Lo que llega a los proyectos está listado en **`manifiesto.json`** (huella de cada archivo) con la versión de **`VERSION`**. Tras cambiar cualquier archivo del arnés: subir `VERSION`, anotar en `CAMBIOS.md` y lanzar `python generar_manifiesto.py` (una prueba falla si se olvida). **El ZIP de Mac está en pausa:** solo se regenera si Darwin lo pide, con `python generar_zip_mac.py`.
 * Un proyecto se actualiza con `python .brain/guardianes/actualizar_arnes.py --simular` (y luego sin `--simular`), o desde aquí con `python actualizar.py RUTA --simular`. No pisa lo modificado a mano ni toca datos ni configuración.
+* **Página pública** https://forxa-ken.github.io/cerebro-vivo/ : vive en la rama `gh-pages` (no en `main`; `git fetch origin gh-pages`). Tras cada versión nueva del arnés, revisar que no se quede atrás (guardianes, skills, comandos); subirla solo con orden de Darwin.
 * Esto es el origen único: nada de LoboHook ni de otro proyecto entra aquí (lo vigila `tests/test_arnes_repo.py`).
 
 ## Reglas esenciales
