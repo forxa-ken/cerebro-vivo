@@ -54,4 +54,8 @@ Darwin confirma «14 ok» tras probarlo en un proyecto real. Su confirmación no
 
 ## 26 · `/version` (spec 023, arnés 1.21.0)
 **Fecha:** 2026-11-08
-Darwin confirma «26 ok». Su confirmación no detalla si probó en Modelo 2 ni qué versión le dijo. Además hay prueba automática de los datos que lee y del aviso de versión nueva (`tests/test_esperando_prueba.py`, 1.28.2).
+Darwin confirma «26 ok». Su confirmación no detalla si probó en Modelo 2 ni qué versión le dijo. Además hay prueba automática de los datos que lee y del aviso de versión nueva (`tests/test_arnes_esperando_prueba.py`, 1.28.3).
+
+## 13 · `traspaso-in` y `traspaso-out` en Codex y Gemini (specs 010 y 011, arnés 1.9.0)
+**Fecha:** 2026-11-08
+Probado por Darwin en `F:\Modelo` (arnés 1.28.3) con capturas. Codex: `$traspaso-in salgo` escribió traspaso corto y completo; `$traspaso-in entro` en chat nuevo contó 5 viñetas y una pregunta; `$traspaso-out salgo` hizo commit local de solo `.brain/` (`b62ef7a`, 20 archivos), no subió por no haber remoto y avisó de 180 archivos sueltos. Gemini: `traspaso-out entro` contó 4 viñetas y una pregunta. Observaciones: el primer `entro` falló porque Darwin abrió el chat nuevo mientras `salgo` seguía escribiendo (5 min); hay que esperar el aviso de «Traspaso preparado». Sin la palabra, `$traspaso-in` se toma como `salgo`. La suite en el entorno restringido de Codex da errores de permisos y `git push`, no del arnés. La subida a GitHub de `salgo` no se probó (el proyecto no tiene remoto).
