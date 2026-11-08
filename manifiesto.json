@@ -108,8 +108,8 @@
   ".claude/skills/spec-antes-de-programar/SKILL.md": "6f53427ccd753b4d58a4cdb6ada23b492e54f6bd9e69b11aa1ac0e5ab11e4be0",
   ".claude/skills/subir-a-github/SKILL.en.md": "28ce136970e62b2d39215fd0ec9638405cf78dacb366ab3e1caab64efc36220b",
   ".claude/skills/subir-a-github/SKILL.md": "486faca7f877d08969fbd478d9f8edd1a1f13722b0d87293bee21b8db9947c48",
-  ".claude/skills/traspaso-in/SKILL.en.md": "9c17b2e143024c7cf44a1a08651da9437401e10dacbb4cadfbb4fb98396ce36c",
-  ".claude/skills/traspaso-in/SKILL.md": "b14a4c436c4b014a8e47d325f73614c35e83468f6ba2aa748c3e07706f8cb4c6",
+  ".claude/skills/traspaso-in/SKILL.en.md": "7d493a66135356cc01f8f7563d23267125f1f83205165d6e73e4f8b5cf55b5c5",
+  ".claude/skills/traspaso-in/SKILL.md": "931da35e9252c74a0eefa1c981b9e70deb2e8f4ad46841aa1018b5eb1b532839",
   ".claude/skills/traspaso-out/SKILL.en.md": "5fd5d73853b6924dc2adbe36590706c6d4dda282110365b0e68e8d361b5c9c8a",
   ".claude/skills/traspaso-out/SKILL.md": "11d604c6c5f4eb648fd5e710564cd31b7966d45b2123f6d9be1b252184f64ef1",
   ".claude/skills/trocea/SKILL.en.md": "f9ba111da774fdc1f78682ca787d978b8a9c848bd8b4acc49f2e0f936f5cbbf5",
@@ -173,5 +173,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.26.1"
+ "version": "1.26.2"
 }

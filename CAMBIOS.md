@@ -164,3 +164,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.26.1 (2026-11-08)
 - Plantilla de pruebas en inglés (`.brain/pruebas/_plantilla.en.md`): un proyecto con `"idioma": "en"` la recibe en el sitio de `_plantilla.md`. Prueba de paridad ampliada. Con esto la edición inglesa del arnés queda completa (salvo `CAMBIOS.md`, las specs de este repo y la carta maestra, por decisión).
+
+## 1.26.2 (2026-11-08)
+- `traspaso-in salgo` (es/en): el traspaso se escribe una sola vez; si ya existe de este chat y nada cambió, no se reescribe (punto 20, b2). El resto del punto 20 ya estaba hecho: probar `start_session` y no decir «rechazada» sin llamarla (1.23.0 y 1.23.1), aviso de chat largo una vez por tramo de 100k (spec 056) y `detach_session` al entrar (1.23.2).
