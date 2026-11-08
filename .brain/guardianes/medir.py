@@ -177,12 +177,12 @@ def main(argv=None):
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:
         pass
-    ap = argparse.ArgumentParser(description="Mide ahorro y efectividad por chat")
+    ap = argparse.ArgumentParser(description=tp("ayuda_medir_descripcion"))
     ap.add_argument("--proyecto", default=RAIZ)
     ap.add_argument("--comparar", nargs=2, metavar=("CON", "SIN"))
-    ap.add_argument("--desglose", metavar="ID", help="coste mensaje a mensaje de un chat (los primeros caracteres de su id)")
+    ap.add_argument("--desglose", metavar="ID", help=tp("ayuda_medir_desglose"))
     ap.add_argument("--ultimos", type=int, default=0)
-    ap.add_argument("--tarea", default="", help="solo los chats cuyo primer mensaje contiene este texto, p. ej. [T3]")
+    ap.add_argument("--tarea", default="", help=tp("ayuda_medir_tarea"))
     a = ap.parse_args(argv)
     if a.comparar:
         comparar(chats_de(carpeta_de(a.comparar[0]), a.ultimos, a.tarea), chats_de(carpeta_de(a.comparar[1]), a.ultimos, a.tarea))

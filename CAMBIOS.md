@@ -158,3 +158,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.25.3 (2026-11-08)
 - Plantilla de spec en inglés (`.brain/specs/_template.en.md`): un proyecto con `"idioma": "en"` la recibe en el sitio de `_template.md` (actualizador e instalador), así las specs nuevas salen en inglés. `test_cada_spec_declara_su_estado` acepta «Status». Prueba de paridad ampliada.
+
+## 1.26.0 (2026-11-08)
+- La ayuda de `--help` de `cerrar.py`, `medir.py` y `actualizar_arnes.py` sale en el idioma del proyecto (claves `ayuda_*` de `textos.py`, es/en).

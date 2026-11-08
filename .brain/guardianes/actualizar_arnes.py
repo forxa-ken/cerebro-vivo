@@ -536,17 +536,17 @@ def main(argv=None, repo=None):
     """`repo` indica que se lanza desde el repo del arnés (entonces el proyecto es un argumento)."""
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    ap = argparse.ArgumentParser(description="Actualiza un proyecto con las mejoras del arnés de Cerebro Vivo")
+    ap = argparse.ArgumentParser(description=tp("ayuda_actualizar_descripcion"))
     if repo:
-        ap.add_argument("proyecto", help="carpeta del proyecto que se actualiza")
+        ap.add_argument("proyecto", help=tp("ayuda_actualizar_proyecto"))
     else:
-        ap.add_argument("--repo", help="carpeta o dirección git del repo del arnés (si no, `arnes_repo` de guardianes.json)")
-    ap.add_argument("--simular", action="store_true", help="muestra qué cambiaría sin escribir nada")
-    ap.add_argument("--forzar", action="append", default=[], metavar="RUTA", help="pisa este archivo aunque se haya modificado a mano")
-    ap.add_argument("--forzar-todo", action="store_true", help="pisa TODO lo modificado a mano (con copia); para adoptar el arnés por primera vez en un proyecto antiguo")
-    ap.add_argument("--dueno", help="nombre del dueño (si el proyecto no lo tiene registrado)")
-    ap.add_argument("--migrar-objetivo", action="store_true", help="crea objetivo.md, lo enlaza en los índices y añade la regla a la constitución (solo añade; con --simular no escribe)")
-    ap.add_argument("--sin-pruebas", action="store_true", help="no corre las pruebas del método al terminar")
+        ap.add_argument("--repo", help=tp("ayuda_actualizar_repo"))
+    ap.add_argument("--simular", action="store_true", help=tp("ayuda_actualizar_simular"))
+    ap.add_argument("--forzar", action="append", default=[], metavar="RUTA", help=tp("ayuda_actualizar_forzar"))
+    ap.add_argument("--forzar-todo", action="store_true", help=tp("ayuda_actualizar_forzar_todo"))
+    ap.add_argument("--dueno", help=tp("ayuda_actualizar_dueno"))
+    ap.add_argument("--migrar-objetivo", action="store_true", help=tp("ayuda_actualizar_migrar_objetivo"))
+    ap.add_argument("--sin-pruebas", action="store_true", help=tp("ayuda_actualizar_sin_pruebas"))
     a = ap.parse_args(argv)
     proyecto = os.path.abspath(a.proyecto if repo else RAIZ_PROPIA)
     temporal = None
