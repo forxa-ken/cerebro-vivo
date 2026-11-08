@@ -9,7 +9,7 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 * **Al terminar cada tarea:** el hook `Stop` avisa si falta la línea en `decisions.log`; cierre rápido: `python .brain/guardianes/cerrar.py --chat "cerebro-vivo #N" "qué se hizo"`.
 * **Pendientes:** [`.brain/pendientes.md`](.brain/pendientes.md) (solo lo que falta). **Registro:** [`.brain/decisions.log`](.brain/decisions.log).
 * **Reglas innegociables:** [`.brain/constitution.md`](.brain/constitution.md). **Decisiones:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md).
-* **Manual del método y de todos los comandos:** [`.brain/biblioteca/CEREBRO_VIVO.md`](.brain/biblioteca/CEREBRO_VIVO.md); carta maestra en `CARTA_META_ARNES.md`.
+* **Manual del método y de todos los comandos:** [`.brain/biblioteca/CEREBRO_VIVO.md`](.brain/biblioteca/CEREBRO_VIVO.md); carta maestra en [`.brain/biblioteca/CARTA_META_ARNES.md`](.brain/biblioteca/CARTA_META_ARNES.md).
 * **Traspaso entre chats:** si existe `.brain/traspaso.md`, el arranque lo muestra solo; al proponer un chat nuevo se escribe antes (plantilla en `.brain/biblioteca/PLANTILLA_TRASPASO.md`).
 * **Notas de chats auxiliares:** el chat que recibe un encargo de otro deja su nota en `.brain/notas-chats/` (plantilla en `.brain/biblioteca/PLANTILLA_NOTA_CHAT.md`).
 * **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir el chat nuevo yo mismo (`/chat-nuevo` lo activa o apaga). **Darwin autoriza de forma permanente abrir ese chat nuevo de forma automática** (herramientas `start_session` y `detach_session`), sin pedirle permiso cada vez. Hablarle en lenguaje llano.

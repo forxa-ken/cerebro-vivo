@@ -1,0 +1,25 @@
+{
+  "ultima_revision": "2026-11-08",
+  "descartes": [
+    {
+      "clave": "referencia_rota|CLAUDE.md|actualizar_arnes.py",
+      "motivo": "nombre corto de un archivo que existe en .brain/; no esta roto",
+      "fecha": "2026-11-08"
+    },
+    {
+      "clave": "referencia_rota|CLAUDE.md|decisions.log",
+      "motivo": "nombre corto de un archivo que existe en .brain/; no esta roto",
+      "fecha": "2026-11-08"
+    },
+    {
+      "clave": "referencia_rota|CLAUDE.md|textos.py",
+      "motivo": "nombre corto de un archivo que existe en .brain/; no esta roto",
+      "fecha": "2026-11-08"
+    },
+    {
+      "clave": "referencia_rota|CLAUDE.md|.en.md",
+      "motivo": "es un sufijo de nombre de archivo, no un archivo",
+      "fecha": "2026-11-08"
+    }
+  ]
+}

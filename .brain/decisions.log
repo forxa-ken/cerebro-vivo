@@ -152,3 +152,4 @@
 2026-11-08 | Claude (cerebro-vivo #26) | Informe 028: pendientes.md acortado de 7,7 a 4,3 KB (detalle archivado; puntos 16 y 27 fundidos en el 20) y regla nueva de editar codigo sin scripts heredoc en la constitucion; arnes 1.28.1; 360 pruebas en verde | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #26) | Traspaso al chat #27 escrito y chat nuevo abierto; leccion 4 de heredoc apuntada | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Informe 028 3.4: tests/test_esperando_prueba.py cubre de punta a punta los puntos 14, 21 y 26 con el arnes real (1.28.2, 365 pruebas en verde); sin commitear | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Revision de indices de IA: ruta de CARTA_META_ARNES.md corregida en CLAUDE.md, 4 hallazgos descartados, informe limpio | Fast-Track
