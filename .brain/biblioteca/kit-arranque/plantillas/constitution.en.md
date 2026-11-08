@@ -12,3 +12,4 @@
 8. **Every external call** has a maximum time and a local plan B.
 9. **Push to GitHub** only on {{DUENO}}'s express order. Only exception: `traspaso-out salgo` pushes its memory commit without further order, and asks first if other commits are pending.
 10. **The goal is written down:** any goal or change of goal that {{DUENO}} gives in a chat is noted in `.brain/architecture/objetivo.md` in that same reply; what exists only in the chat is lost.
+11. **Edit code without terminal tricks:** code blocks (more than 3 lines) are written with the Edit or Write tools, never with a Python script in a heredoc, where `\n` and quotes get mangled; if a script edit is unavoidable, check the syntax (`python -c "import ast; ast.parse(open('FILE', encoding='utf-8').read())"`) before going on.

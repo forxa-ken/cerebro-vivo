@@ -12,3 +12,4 @@
 8. **Toda llamada externa** lleva tiempo máximo y un plan B local.
 9. **Subir a GitHub** solo con orden expresa de {{DUENO}}. Única excepción: `traspaso-out salgo` sube sin más orden su commit de memoria, y pregunta antes si hay otros commits pendientes.
 10. **El objetivo se escribe:** todo objetivo o cambio de objetivo que {{DUENO}} dé en un chat se anota en `.brain/architecture/objetivo.md` en esa misma respuesta; lo que solo está en el chat se pierde.
+11. **Editar código sin trucos de terminal:** los bloques de código (más de 3 líneas) se escriben con las herramientas Edit o Write, nunca con un script Python en heredoc, donde `\n` y las comillas se estropean; si aun así se edita con script, comprobar la sintaxis (`python -c "import ast; ast.parse(open('ARCHIVO', encoding='utf-8').read())"`) antes de seguir.

@@ -12,8 +12,8 @@
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
   ".brain/biblioteca/kit-arranque/instalar.py": "c4fdd55eba074c0b2755cc1070befd7c572d0025c0f2787d438974b624ce600a",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
-  ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "cc290de2340fa57008d6d5ca99575deb4ea24fc1ddb65cec97ba663b6d756364",
-  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f6bfc9f1b2efd77ba1984124835174c2e199cb7b19e88bd4e35e75291bf1cd7d",
+  ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "d7e6f0b56cd57ab61e02810fbb03f617eb31c6a66b04a0ec091356002ba6544f",
+  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "d64e71f1495d8b34b4db1af757408171c4245e898cb4efe1c8421dea9f52f9a3",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.en.md": "6b64301e7af75e029d78281db9b8c7ac8da56f6b2e7a3ed3726e5e24e62b4561",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.en.md": "11a61e5d01fb444feae54dbb0070e690263e4fe51481d231503bf96e3500ae07",
@@ -176,5 +176,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.28.0"
+ "version": "1.28.1"
 }

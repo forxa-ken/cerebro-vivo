@@ -176,3 +176,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.0 (2026-11-08)
 - `medir.py --skills` (informe 028, 3.2): uso real de cada skill, leído de los registros de los chats (llamadas a la herramienta Skill y comandos `/skill`; las no usadas salen con 0, con chats y última fecha). Sustituye al campo «Veces», que nadie actualizaba y marcaba 0 en todas: las 29 skills (es/en) ahora apuntan al comando en su sección «Usada». Solo mira los chats de la carpeta pedida (`--proyecto RUTA` para otro). Textos es/en y pruebas nuevas en `test_medir.py`.
+
+## 1.28.1 (2026-11-08)
+- Plantilla de constitución (es/en) con una regla nueva (informe 028, 3.5): los bloques de código se escriben con Edit/Write y no con scripts Python en heredoc, y tras editar con script se comprueba la sintaxis. Falló tres veces en cerebro-vivo. Solo la reciben los proyectos nuevos; los ya instalados tienen su propia constitución. Sin cambios de código.

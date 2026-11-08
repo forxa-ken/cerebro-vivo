@@ -12,3 +12,4 @@ Specs terminadas, movidas aquí por el guardián de poda (spec 048). Nada se bor
 - [018-trocea-archivos-gordos](018-trocea-archivos-gordos.md) — Spec 018: /trocea — dividir los archivos de memoria gordos
 - [019-actualizar-con-un-aviso](019-actualizar-con-un-aviso.md) — Spec 019: aviso de versión nueva y /actualizar
 - [020-adopta-encadena-todo](020-adopta-encadena-todo.md) — Spec 020: /adopta encadena adoptar, acortar y trocear
+- [025-chat-nuevo-automatico](025-chat-nuevo-automatico.md) — Spec 025: abrir el chat nuevo solo, como regla común, y /chat-nuevo para activarlo o no
