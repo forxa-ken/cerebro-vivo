@@ -5,6 +5,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 **Regla de cierre:** cuando Darwin prueba una tarea y confirma, en esa misma respuesta se pasa su detalle a `archive/hechos.md`, se añade su fila a `archive/hechos-indice.md` y se quita de aquí. Si la prueba falla, vuelve a «Falta programar» con una nota de qué falló.
 
 ## Falta programar (IA)
+- **28:** REABIERTO: la prueba de Modelo #59 (2026-11-08) falló. `eventos_chat.py` (`revisar_push`) pide la versión con `librerias.version_instalada` del Python del hook, no ve las librerías del `.venv` del proyecto y deja pasar `git push` con django==3.2 (fallo conocido) sin avisar. Arreglo a decidir: usar la versión fijada en el propio `pip install` o consultar el Python del `.venv`. Spec antes; es/en; correr en un proyecto con `.venv`. Sin comprobar: que en el Python del sistema sí bloquee. Efecto colateral: commit vacío 9222812 en el GitHub de Modelo 2.
 - **4:** (opcional) medir el arnés en un proyecto real con `medir.py` durante semanas; GuildControl/GuildControlForever no sirven (no son independientes). Decide los recortes del informe 028.
 
 - **19:** diseñar (spec aparte) cómo colaboran varias IA con responsabilidades distintas en un proyecto (caso Guild Control Forever: Claude con `.brain/`, Gemini solo traducciones con `AGENTS.md`). A decidir: qué lee/escribe cada IA, cómo no pisarse, `indices_ajenos` en `guardianes.json`. Detalle en `archive/pendientes-detalle-2026-11-08.md`.

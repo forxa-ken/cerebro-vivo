@@ -59,7 +59,3 @@ Darwin confirma «26 ok». Su confirmación no detalla si probó en Modelo 2 ni 
 ## 13 · `traspaso-in` y `traspaso-out` en Codex y Gemini (specs 010 y 011, arnés 1.9.0)
 **Fecha:** 2026-11-08
 Probado por Darwin en `F:\Modelo` (arnés 1.28.3) con capturas. Codex: `$traspaso-in salgo` escribió traspaso corto y completo; `$traspaso-in entro` en chat nuevo contó 5 viñetas y una pregunta; `$traspaso-out salgo` hizo commit local de solo `.brain/` (`b62ef7a`, 20 archivos), no subió por no haber remoto y avisó de 180 archivos sueltos. Gemini: `traspaso-out entro` contó 4 viñetas y una pregunta. Observaciones: el primer `entro` falló porque Darwin abrió el chat nuevo mientras `salgo` seguía escribiendo (5 min); hay que esperar el aviso de «Traspaso preparado». Sin la palabra, `$traspaso-in` se toma como `salgo`. La suite en el entorno restringido de Codex da errores de permisos y `git push`, no del arnés. La subida a GitHub de `salgo` no se probó (el proyecto no tiene remoto).
-
-## 28 · Guardián con memoria del chat (spec 027, arnés 1.27.0)
-**Fecha:** 2026-11-08
-Darwin confirma que ya lo probó con Claude («ya lo probamos»). El chat #27 no lo presenció y su confirmación no detalla si la librería sin problemas pasó callada ni si la de fallo conocido se detuvo. Se apunta por su palabra.
