@@ -330,6 +330,22 @@ TEXTOS = {
         "revisar_indices_referencia_rota": "%d referencia(s) rota(s)",
         # medir.py
         "medir_cache_titulo": "== Caché %s",
+        # eventos_chat.py (hook PreToolUse, spec 027)
+        "eventos_chat_descripcion": "Guardián con memoria del chat: revisa solo las librerías recién instaladas antes de git push. Sin argumentos es el hook; con «permitir» se autoriza un push bloqueado.",
+        "ayuda_eventos_chat_accion": "Acción manual: permitir (autoriza el git push bloqueado; solo con el visto bueno de Darwin).",
+        "ayuda_eventos_chat_motivo": "Motivo de la autorización; queda en el registro.",
+        "eventos_chat_vuln_linea": "%s %s: %d vulnerabilidad(es) conocida(s)%s",
+        "eventos_chat_corregida": " (se corrige en la versión %s)",
+        "eventos_chat_bloqueo": ("🐺 Cerebro Vivo · git push detenido: en este chat se instalaron librerías con problemas de seguridad conocidos: %s. "
+                                 "Díselo a Darwin en lenguaje llano (qué librería, qué riesgo y a qué versión subir). Si él decide subir igualmente, "
+                                 "que lo diga en el chat y entonces ejecuta: python .brain/guardianes/eventos_chat.py permitir \"motivo\". No lo hagas por tu cuenta."),
+        "eventos_chat_aviso_vuln": "🐺 Cerebro Vivo · aviso (el bloqueo está apagado): librerías instaladas con problemas de seguridad conocidos: %s. Dile a Darwin lo que pasa.",
+        "eventos_chat_sin_red": "🐺 Cerebro Vivo · no pude revisar las librerías nuevas (%s) por falta de red o error; no bloqueo y lo intentaré de nuevo en el próximo git push.",
+        "eventos_chat_sin_red_bloqueo": "🐺 Cerebro Vivo · git push detenido: no pude revisar las librerías nuevas (%s) y el ajuste eventos_chat_sin_red_bloquear está activo. Prueba de nuevo con red.",
+        "eventos_chat_no_revisable": "🐺 Cerebro Vivo · se instaló (%s) y el guardián solo revisa Python por sí mismo; revísalo a mano antes de subir. Se avisa una vez.",
+        "eventos_chat_nada_que_permitir": "No hay ningún git push bloqueado que permitir.",
+        "eventos_chat_permitido": "Permitido el git push con: %s (queda en el registro).",
+        "eventos_chat_registro": "Se permite git push con %s pese al aviso de seguridad; motivo: %s",
     },
     "en": {
         "arranque_titulo": "🐺 Cerebro Vivo · real status when opening the chat:",
@@ -626,6 +642,22 @@ TEXTOS = {
         "revisar_indices_cita_linea_existe": "cites `%s` (line %d) and it does not exist",
         "revisar_indices_referencia_rota": "%d broken reference(s)",
         "medir_cache_titulo": "== %s cache",
+        # eventos_chat.py (PreToolUse hook, spec 027)
+        "eventos_chat_descripcion": "Chat-memory guardian: reviews only the libraries just installed before git push. With no arguments it is the hook; with \"permitir\" it authorises a blocked push.",
+        "ayuda_eventos_chat_accion": "Manual action: permitir (authorises the blocked git push; only with the owner's go-ahead).",
+        "ayuda_eventos_chat_motivo": "Reason for the authorisation; it goes into the log.",
+        "eventos_chat_vuln_linea": "%s %s: %d known vulnerability(ies)%s",
+        "eventos_chat_corregida": " (fixed in version %s)",
+        "eventos_chat_bloqueo": ("🐺 Cerebro Vivo · git push stopped: libraries with known security problems were installed in this chat: %s. "
+                                 "Tell the owner in plain language (which library, what risk, which version to move to). If they decide to push anyway, "
+                                 "they must say so in the chat and then you run: python .brain/guardianes/eventos_chat.py permitir \"reason\". Never do it on your own."),
+        "eventos_chat_aviso_vuln": "🐺 Cerebro Vivo · warning (blocking is off): installed libraries with known security problems: %s. Tell the owner what is going on.",
+        "eventos_chat_sin_red": "🐺 Cerebro Vivo · I could not review the new libraries (%s) because of no network or an error; I am not blocking and will try again on the next git push.",
+        "eventos_chat_sin_red_bloqueo": "🐺 Cerebro Vivo · git push stopped: I could not review the new libraries (%s) and the eventos_chat_sin_red_bloquear setting is on. Try again with network.",
+        "eventos_chat_no_revisable": "🐺 Cerebro Vivo · installed (%s) and the guardian only reviews Python by itself; check it by hand before pushing. Said only once.",
+        "eventos_chat_nada_que_permitir": "There is no blocked git push to allow.",
+        "eventos_chat_permitido": "git push allowed with: %s (it is in the log).",
+        "eventos_chat_registro": "git push allowed with %s despite the security warning; reason: %s",
     },
 }
 

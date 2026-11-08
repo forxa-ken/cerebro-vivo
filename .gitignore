@@ -6,3 +6,4 @@ __pycache__/
 .env
 node_modules/
 copias_bd/
+/.brain/guardianes/eventos_chat_estado.json

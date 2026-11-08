@@ -83,10 +83,15 @@ def _corregida(detalle):
 
 def chequear(raiz, a, http=None):
     """Consulta OSV y PyPI. Devuelve el estado nuevo o None si no se pudo (entonces no se toca el anterior)."""
+    pedidos = [(n, version_instalada(n, m)) for n, m in leer_requisitos(os.path.join(raiz, a.get("requisitos", "requirements.txt")))]
+    return consultar([(n, v) for n, v in pedidos if v], a, http)
+
+
+def consultar(pedidos, a, http=None, con_pypi=True):
+    """Consulta OSV (y PyPI si `con_pypi`) para una lista [(nombre, versión)]. Devuelve el estado o None si no se pudo.
+    Spec 027: el guardián de eventos del chat lo usa con `con_pypi=False` para revisar solo lo recién instalado."""
     http = http or http_json
     timeout = a.get("timeout", 7)
-    pedidos = [(n, version_instalada(n, m)) for n, m in leer_requisitos(os.path.join(raiz, a.get("requisitos", "requirements.txt")))]
-    pedidos = [(n, v) for n, v in pedidos if v]
     if not pedidos:
         return None
     try:
@@ -106,10 +111,11 @@ def chequear(raiz, a, http=None):
                 d = {}
             vulns.append({"id": v["id"], "resumen": (d.get("summary") or "")[:100], "corregida": _corregida(d)})
         ultima = ""
-        try:
-            ultima = http(PYPI % nombre, None, timeout)["info"]["version"]
-        except Exception:
-            pass
+        if con_pypi:
+            try:
+                ultima = http(PYPI % nombre, None, timeout)["info"]["version"]
+            except Exception:
+                pass
         mayor = bool(ultima) and _version(ultima)[0] > _version(ver)[0]
         paquetes.append({"nombre": nombre, "version": ver, "ultima": ultima, "mayor": mayor, "vulns": vulns})
     return {"fecha": datetime.date.today().isoformat(), "paquetes": paquetes}

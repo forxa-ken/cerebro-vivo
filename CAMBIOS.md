@@ -167,3 +167,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.26.2 (2026-11-08)
 - `traspaso-in salgo` (es/en): el traspaso se escribe una sola vez; si ya existe de este chat y nada cambió, no se reescribe (punto 20, b2). El resto del punto 20 ya estaba hecho: probar `start_session` y no decir «rechazada» sin llamarla (1.23.0 y 1.23.1), aviso de chat largo una vez por tramo de 100k (spec 056) y `detach_session` al entrar (1.23.2).
+
+## 1.27.0 (2026-11-08)
+- Guardián nuevo `eventos_chat.py` (spec 027, punto 28): hook `PreToolUse` con memoria del chat. Recuerda las instalaciones de librerías del chat y, antes de `git push`, revisa él solo las nuevas con `librerias.py` (que gana `consultar()`); limpio no molesta, vulnerabilidad conocida detiene el push (`permitir "motivo"` para seguir, queda en el registro), sin red no bloquea y lo recuerda en el siguiente push. Solo Python; de npm/cargo/go avisa una vez. Ajustes nuevos en `guardianes.json` (`eventos_chat_*`), textos es/en, instalador y prueba `test_eventos_chat.py`. Los proyectos ya instalados reciben el guardián con `/actualizar`, pero el hook en `.claude/settings.json` se añade volviendo a lanzar el instalador del kit.

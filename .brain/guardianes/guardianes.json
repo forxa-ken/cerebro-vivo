@@ -114,6 +114,10 @@
     "avisar_version_mayor": true,
     "ignorar": []
   },
+  "eventos_chat_activo": true,
+  "eventos_chat_bloquear": true,
+  "eventos_chat_sin_red_bloquear": false,
+  "eventos_chat_comandos": ["pip install", "pip3 install", "uv add", "uv pip install", "poetry add", "npm install", "npm i", "npm add", "yarn add", "pnpm add", "cargo add", "go get"],
   "pruebas_activo": true,
   "pruebas": {
     "carpeta": ".brain/pruebas"

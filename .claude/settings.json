@@ -32,6 +32,18 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.brain/guardianes/eventos_chat.py\"",
+            "timeout": 20
+          }
+        ]
+      }
     ]
   },
   "permissions": {

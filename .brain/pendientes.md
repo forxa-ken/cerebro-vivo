@@ -14,7 +14,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **23:** aprender a montar otro agente de IA que verifique las pruebas y los errores de la IA principal (idea aún somera de Darwin; su objetivo es aprender a hacerlo así). Es un revisor independiente, distinto del que hizo el trabajo. Sale de su investigación en `F:\Arquitectura de desarrollo` (`biblioteca/REC-004`, `REC-005` y `REC-003`; `OBJETIVO_PROYECTO.md`). Antes de nada: explicárselo en llano y hacerlo paso a paso con él. Queda para después decidir cuándo se lanza, qué revisa, si avisa o bloquea y cuánto cuesta. Sin empezar.
 
-- **28:** idea de la investigación del punto 24 (Omnigent): guardianes con memoria dentro del chat, p. ej. avisar antes de subir a GitHub si en el chat se instaló una librería nueva. Spec antes de programar; en español e inglés. Sin empezar.
+- **32:** ampliar `librerias.py` y el guardián `eventos_chat.py` a npm, cargo y go (OSV.dev los cubre; hoy solo avisa). Spec antes; es/en.
 
 - **29:** idea del punto 24 (OpenAI, «jardinero de documentación»): guardián que detecte memoria desactualizada (pendientes, hechos, specs que ya no reflejan el código) y la proponga arreglar; hoy solo se vigila el tamaño. Spec antes de programar; en español e inglés. Sin empezar.
 
@@ -24,6 +24,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 
 ## Esperando tu prueba (Darwin)
+- **28:** guardián con memoria del chat (spec 027, arnés 1.27.0). Pasos: `/actualizar` en un proyecto con remoto y vuelve a lanzar el instalador del kit (añade el hook). Instala una librería sin problemas y haz `git push`: debe pasar sin decir nada. Para ver el bloqueo, pon una librería con fallo conocido y mira que el push se detiene con el mensaje.
 - **20:** chat nuevo desde otra sesión (arnés 1.23.0 a 1.26.2). Qué es: el aviso de chat largo manda a la IA abrir ella el chat nuevo (siempre llama a `start_session` antes de decir que no puede), avisa una vez por cada 100k tokens, escribe el traspaso una sola vez y el chat nuevo se separa solo con `detach_session`. Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` en 20000, habla hasta que salte el aviso y mira que Claude abre el chat nuevo, que queda al mismo nivel y que el aviso no se repite en cada mensaje. Si va bien: chat nuevo abierto sin que lo pidas. Si no: dime qué frase dijo la IA.
 - **13:** `traspaso-in` y `traspaso-out` (specs 010 y 011, arnés 1.9.0). Qué es: pasar de un chat a otro con la misma IA (`traspaso-in`) y de una IA a otra (`traspaso-out`). Pasos: actualiza un proyecto (`python actualizar.py RUTA`); en Codex escribe `$traspaso-in salgo`, abre un chat nuevo y escribe `$traspaso-in entro`; luego `$traspaso-out salgo` en Codex y, en Gemini (pídele que lea `GEMINI.md` y la skill), `traspaso-out entro`. Si va bien: te cuenta lo último que hablaron. Gemini sin probar.
 - **16:** aviso de chat largo que abre el chat nuevo al mismo nivel (spec 012, arnés 1.10.0). Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` bajo (p. ej. 20000) en `guardianes.json`, habla hasta que salte el aviso y comprueba que Claude abre el chat nuevo, lo deja al mismo nivel que el anterior y te dice su nombre. Si te deja una tarjeta, dale clic: el chat nuevo debe separarse solo al entrar (arnés 1.19.1).
