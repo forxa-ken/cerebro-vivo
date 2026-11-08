@@ -23,7 +23,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 
 ## Esperando tu prueba (Darwin)
-- **28:** guardián con memoria del chat (spec 027, arnés 1.27.0). Prueba: `/actualizar` y reinicia Claude Code; instala una librería sin problemas y haz `git push` (debe pasar callado); con una de fallo conocido debe detenerse.
 - **20:** chat nuevo solo (arnés 1.23.0 a 1.26.2; junta los antiguos 16 y 27). Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` en 20000 y habla hasta el aviso; Claude debe abrir el chat nuevo al mismo nivel, decirte su nombre y no repetir el aviso en cada mensaje. Si falla, dime qué frase dijo la IA.
 - **17:** soporte para Mac (spec 013, arnés 1.11.0; solo probado en Windows). Prueba en un Mac: `python3 -m unittest discover tests`, doble clic en `instalar_kit.command` y abrir Claude Code en el proyecto de prueba.
 - **21:** nada suelto ni viejo (spec 022, arnés 1.20.0). Prueba: `/traspaso-out salgo` en un proyecto con remoto debe hacer commit de la memoria, subirlo y listar el código suelto sin meterlo; y con `/actualizar` mira si el aviso ayuda o estorba.

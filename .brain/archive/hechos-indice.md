@@ -20,3 +20,4 @@
 | 14 | Actualizador fiable (spec 021, 1.19.0; hooks desde 1.27.1) | 2026-11-08 | archive/hechos.md |
 | 26 | `/version` (spec 023, 1.21.0) | 2026-11-08 | archive/hechos.md |
 | 13 | `traspaso-in`/`traspaso-out` en Codex y Gemini (specs 010 y 011, 1.9.0) | 2026-11-08 | archive/hechos.md |
+| 28 | Guardián con memoria del chat (spec 027, 1.27.0) | 2026-11-08 | archive/hechos.md |
