@@ -137,7 +137,7 @@
   "tests/test_revisar_indices.py": "e77393b598a2d62068c629bb486496954b4d9caf7143d4a4c1ef87c5f724a667",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980",
   "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
-  "tests/test_textos.py": "dd55633cb3c8b20f1af38b70fbd683a9cfc7d2bb2087551212f6c875dd703edc",
+  "tests/test_textos.py": "76d4305fe85f9ae8d46372691d92717e29bf4a5744f5d54a0b641311bc8109f8",
   "tests/test_traspaso_in_out.py": "c4633847c17ebcf105e7825e686b99bb9a4425baad0f18ba05d6a27fe77995e4"
  },
  "pruebas": [
@@ -169,5 +169,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.25.0"
+ "version": "1.25.1"
 }

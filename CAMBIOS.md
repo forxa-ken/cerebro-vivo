@@ -149,3 +149,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.25.0 (2026-11-08)
 - Edición inglesa de lo que lee la IA y la persona (spec 024, fase 3). Cada `X.md` puede tener su `X.en.md`: las 28 skills (`SKILL.en.md`), `CEREBRO_VIVO.en.md`, `PLANTILLA_TRASPASO.en.md`, `PLANTILLA_NOTA_CHAT.en.md` y las 9 plantillas del kit (`plantillas/*.en.md`, constitución, índice de IA, pendientes…). `actualizar_arnes.py` copia la edición inglesa en el sitio de `X.md` solo si el proyecto tiene `"idioma": "en"` en `guardianes.json` (en español no copia las `.en`; cambiar de idioma y actualizar basta); el manifiesto guarda la huella de las dos. El instalador, con `--idioma English`, monta constitución, índices de IA, pendientes y manual en inglés. Nombres de archivos, carpetas y comandos siguen en español. En este repo: `README.en.md` y `MANUAL_DE_USO.en.md`, enlazados desde los originales. Pruebas nuevas `test_ediciones_en.py` (se reparte) y `test_arnes_paridad_en.py` (esqueleto, marcadores y comandos iguales).
+
+## 1.25.1 (2026-11-08)
+- La prueba `test_todos_los_guardianes_usan_textos` solo revisa los guardianes que reparte el arnés (los de `manifiesto.json` o `arnes_instalado.json`); un guardián propio de un proyecto, como el modo auto de LoboHook, ya no la pone en rojo.

@@ -18,6 +18,20 @@ def cargar(nombre):
     return mod
 
 
+def _lo_reparte_el_arnes(nombre):
+    """True si el guardián viene del arnés: está en `manifiesto.json` (repo del método) o en
+    `.brain/arnes_instalado.json` (proyecto). Sin ninguno de los dos, se revisa todo."""
+    import json
+    rel = ".brain/guardianes/" + nombre
+    for ruta in (os.path.join(RAIZ, "manifiesto.json"), os.path.join(RAIZ, ".brain", "arnes_instalado.json")):
+        try:
+            with open(ruta, encoding="utf-8") as f:
+                return rel in (json.load(f).get("archivos") or {})
+        except (OSError, ValueError, AttributeError):
+            continue
+    return True
+
+
 textos = cargar("textos")
 
 
@@ -76,9 +90,10 @@ class TestIdioma(unittest.TestCase):
             self.assertEqual(textos.idioma(valor), "en", valor)
 
     def test_todos_los_guardianes_usan_textos(self):
-        """Cada guardián (salvo textos.py) toma sus mensajes de textos.py."""
+        """Cada guardián del arnés (salvo textos.py) toma sus mensajes de textos.py. Los guardianes propios de un
+        proyecto (que no reparte el arnés) no se revisan."""
         for nombre in sorted(os.listdir(G)):
-            if nombre.endswith(".py") and nombre != "textos.py":
+            if nombre.endswith(".py") and nombre != "textos.py" and _lo_reparte_el_arnes(nombre):
                 with open(os.path.join(G, nombre), encoding="utf-8") as f:
                     self.assertIn("from textos import", f.read(), nombre)
 
