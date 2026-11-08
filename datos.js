@@ -250,6 +250,15 @@ window.DATOS = {
     "ek": "warn"
    },
    {
+    "n": "Hitos y lecciones",
+    "f": "hitos.py",
+    "w": "Obliga a apuntar la lección cuando se resuelve un error o se toca un archivo delicado.",
+    "c": "Al acabar",
+    "e": "Bloquea",
+    "k": "auto",
+    "ek": "block"
+   },
+   {
     "n": "Longitud",
     "f": "longitud.py",
     "w": "Avisa de que el chat se ha alargado.",
@@ -293,6 +302,15 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn"
+   },
+   {
+    "n": "Memoria del chat",
+    "f": "eventos_chat.py",
+    "w": "Recuerda qué librerías se instalan en el chat y, en el git push, detiene la subida si alguna tiene un fallo conocido.",
+    "c": "Antes de cada orden",
+    "e": "Bloquea",
+    "k": "auto",
+    "ek": "block"
    },
    {
     "n": "Memoria de pruebas",
@@ -383,7 +401,9 @@ window.DATOS = {
     "Cambiar de chat o de IA",
     [
      "traspaso-in",
-     "traspaso-out"
+     "traspaso-out",
+     "chat-nuevo",
+     "memoria-traspaso"
     ]
    ],
    [
@@ -403,7 +423,8 @@ window.DATOS = {
      "implementada-no-es-hecha",
      "pendientes-solo-lo-que-falta",
      "mover-no-borrar",
-     "spec-antes-de-programar"
+     "spec-antes-de-programar",
+     "leccion"
     ]
    ],
    [
@@ -1060,6 +1081,15 @@ window.DATOS = {
     "ek": "warn"
    },
    {
+    "n": "Milestones and lessons",
+    "f": "hitos.py",
+    "w": "Forces the lesson to be written down when an error is solved or a delicate file is changed.",
+    "c": "On finish",
+    "e": "Blocks",
+    "k": "auto",
+    "ek": "block"
+   },
+   {
     "n": "Length",
     "f": "longitud.py",
     "w": "Warns that the chat has grown long.",
@@ -1103,6 +1133,15 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn"
+   },
+   {
+    "n": "Chat memory",
+    "f": "eventos_chat.py",
+    "w": "Remembers which libraries are installed in the chat and, on git push, stops the upload if one has a known flaw.",
+    "c": "Before every command",
+    "e": "Blocks",
+    "k": "auto",
+    "ek": "block"
    },
    {
     "n": "Test memory",
@@ -1193,7 +1232,9 @@ window.DATOS = {
     "Changing chat or AI",
     [
      "traspaso-in",
-     "traspaso-out"
+     "traspaso-out",
+     "chat-nuevo",
+     "memoria-traspaso"
     ]
    ],
    [
@@ -1213,7 +1254,8 @@ window.DATOS = {
      "implementada-no-es-hecha",
      "pendientes-solo-lo-que-falta",
      "mover-no-borrar",
-     "spec-antes-de-programar"
+     "spec-antes-de-programar",
+     "leccion"
     ]
    ],
    [
@@ -1620,4 +1662,4 @@ window.DATOS = {
    }
   ]
  }
-};
+}
