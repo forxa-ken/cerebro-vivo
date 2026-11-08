@@ -13,7 +13,7 @@ _espec.loader.exec_module(gen)
 
 RASTROS = re.compile(r"lobohook|users\.db|gumroad|ko-fi", re.I)
 # La carta, el manual y las pruebas citan el proyecto de origen como caso real; las pruebas lo nombran para vigilarlo.
-PERMITIDOS = (".brain/biblioteca/CARTA_META_ARNES.md", ".brain/biblioteca/CEREBRO_VIVO.md", "generar_manifiesto.py", "CAMBIOS.md", "CLAUDE.md")
+PERMITIDOS = (".brain/biblioteca/CARTA_META_ARNES.md", ".brain/biblioteca/CEREBRO_VIVO.md", ".brain/biblioteca/CEREBRO_VIVO.en.md", "generar_manifiesto.py", "CAMBIOS.md", "CLAUDE.md")
 
 
 def leer(rel):

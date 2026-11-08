@@ -25,7 +25,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
+GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "lecciones", "hitos", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -166,7 +166,9 @@ def python_del_proyecto(destino):
     return "python", "python"
 
 
-def bloque_ia(ia, nivel, py):
+def bloque_ia(ia, nivel, py, en=False):
+    if en:
+        return bloque_ia_en(ia, nivel, py)
     if nivel != "completo":
         return "* **Al iniciar:** leer este índice y `.brain/pendientes.md`. **Al terminar cada tarea:** añadir una línea en `.brain/decisions.log`."
     manual = ("* **Al iniciar sesión**, antes de nada: leer `.brain/constitution.md` y `.brain/pendientes.md`, y ejecutar el resumen de arranque, "
@@ -178,6 +180,42 @@ def bloque_ia(ia, nivel, py):
                 "Leer `.brain/constitution.md` y `.brain/pendientes.md` solo si la tarea es grande, toca una decisión o hay duda de reglas.\n* **Al terminar cada tarea pequeña** (hasta 2 archivos, nada sensible, pruebas en verde): NO escribas la línea del registro, el hook `Stop` la pone solo (modo ligero). "
                 "**Tarea grande, sensible o con una decisión:** cierre rápido: `%s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" \"qué se hizo\"`." % py)
     return manual
+
+
+def bloque_ia_en(ia, nivel, py):
+    """Spec 024 fase 3: el mismo bloque que `bloque_ia`, en inglés."""
+    if nivel != "completo":
+        return "* **At startup:** read this index and `.brain/pendientes.md`. **When finishing each task:** add one line to `.brain/decisions.log`."
+    manual = ("* **At session start**, before anything else: read `.brain/constitution.md` and `.brain/pendientes.md`, and run the startup summary, "
+              "showing it in 4-5 bullets (`--manual` is mandatory):\n  ```\n  %s .brain/guardianes/arranque.py --manual\n  ```\n"
+              "* **When finishing each task**, record the line with the quick close (there is no automatic notice):\n  ```\n"
+              "  %s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" --quien \"%s\" \"what was done, in one sentence\"\n  ```" % (py, py, ia))
+    if ia == "Claude":
+        return ("* **At session start** the startup summary arrives by itself (`SessionStart` hook) with the real state; there is no need to reread anything for a small task. "
+                "Read `.brain/constitution.md` and `.brain/pendientes.md` only if the task is big, touches a decision or the rules are in doubt.\n* **When finishing each small task** (up to 2 files, nothing sensitive, tests green): do NOT write the log line, the `Stop` hook adds it by itself (light mode). "
+                "**Big or sensitive task, or one with a decision:** quick close: `%s .brain/guardianes/cerrar.py --chat \"{{NOMBRE}} #N\" \"what was done\"`." % py)
+    return manual
+
+
+def mapa_en(nivel):
+    """Spec 024 fase 3: el mismo mapa que `mapa`, en inglés."""
+    lineas = []
+    if nivel != "ligero":
+        lineas.append("* **Project goal (read first):** [`.brain/architecture/objetivo.md`](.brain/architecture/objetivo.md).")
+    lineas += ["* **Pending:** [`.brain/pendientes.md`](.brain/pendientes.md) is the living list of **only what is missing**; read it at startup.",
+               "* **Log:** [`.brain/decisions.log`](.brain/decisions.log): one line per finished task."]
+    if nivel != "ligero":
+        lineas += ["* **Switching AI (Claude, Gemini, Codex):** if `.brain/traspaso.md` exists, read it first; when opening a new chat with the same AI use `traspaso-in entro`, and when switching AI `traspaso-out salgo` / `traspaso-out entro` (in Codex, with `$`).",
+                   "* **Non-negotiable rules:** [`.brain/constitution.md`](.brain/constitution.md).",
+                   "* **Decisions and their why:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md); check it before changing anything already decided.",
+                   "* **History:** `.brain/archive/` (**do not open it whole**; check `hechos-indice.md`).",
+                   "* **Map and roadmap:** [`.brain/referencias.md`](.brain/referencias.md) (check only when needed)."]
+    if nivel == "completo":
+        lineas += ["* **Handoff between chats:** if `.brain/traspaso.md` exists, startup shows it by itself; when proposing a new chat it is written first (template in `.brain/biblioteca/PLANTILLA_TRASPASO.md`).",
+                   "* **Helper-chat notes:** the chat that receives an errand from another leaves its note in `.brain/notas-chats/` (template in `.brain/biblioteca/PLANTILLA_NOTA_CHAT.md`).",
+                   "* **Library:** [`.brain/biblioteca/README.md`](.brain/biblioteca/README.md): the \"Cerebro Vivo\" method and the meta-harness letter.",
+                   "* **Tests with findings:** `.brain/pruebas/` (startup warns if any is left open)."]
+    return "\n".join(lineas)
 
 
 def mapa(nivel):
@@ -250,10 +288,18 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     if not simular:
         os.makedirs(destino, exist_ok=True)
     hook_py, py = python_del_proyecto(destino)
+    en = codigo_idioma(idioma) == "en"  # spec 024 fase 3: con inglés se usan las ediciones `.en` de las plantillas y del manual
+    if en and idioma.strip().lower() in ("en", "inglés", "ingles", "english"):
+        idioma = "English"
     valores = {"NOMBRE": nombre, "DUENO": dueno, "IDIOMA": idioma, "PRUEBAS": pruebas, "FECHA": hoy or datetime.date.today().isoformat()}
 
+    def edicion(ruta):
+        """`X.md` o, en inglés y si existe, `X.en.md`."""
+        raiz, ext = os.path.splitext(ruta)
+        return raiz + ".en" + ext if en and os.path.isfile(raiz + ".en" + ext) else ruta
+
     def plantilla(nombre_archivo):
-        return rellenar(leer(os.path.join(PLANTILLAS, nombre_archivo)), valores)
+        return rellenar(leer(edicion(os.path.join(PLANTILLAS, nombre_archivo))), valores)
 
     def fuente(*partes):  # texto de este proyecto con el nombre del dueño cambiado
         return leer(os.path.join(*partes)).replace("Darwin", dueno)
@@ -265,8 +311,8 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     adoptados = []
     for i in ias:
         archivo, ia = IAS[i]
-        texto = leer(os.path.join(PLANTILLAS, "indice_ia.md"))
-        texto = texto.replace("{{BLOQUE_IA}}", bloque_ia(ia, nivel, py)).replace("{{MAPA}}", mapa(nivel))
+        texto = leer(edicion(os.path.join(PLANTILLAS, "indice_ia.md")))
+        texto = texto.replace("{{BLOQUE_IA}}", bloque_ia(ia, nivel, py, en)).replace("{{MAPA}}", mapa_en(nivel) if en else mapa(nivel))
         texto = texto.replace("{{IA}}", ia).replace("{{ARCHIVO}}", archivo)
         texto = texto.replace("{{OTROS}}", ", ".join("`%s`" % t for t in todos if t != archivo) or "ninguno más por ahora")
         texto = rellenar(texto, valores)
@@ -316,7 +362,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     poner(".brain/guardianes/guardianes.json", json.dumps(cfg, ensure_ascii=False, indent=2) + "\n")
     poner("tests/test_cerebro_indices.py", fuente(RAIZ_FUENTE, "tests", "test_cerebro_indices.py"))
     for b in BIBLIOTECA:
-        poner(".brain/biblioteca/" + b, leer(os.path.join(BRAIN_FUENTE, "biblioteca", b)))
+        poner(".brain/biblioteca/" + b, leer(edicion(os.path.join(BRAIN_FUENTE, "biblioteca", b))))
     poner(".brain/biblioteca/README.md", "# Biblioteca\n\nMaterial reutilizable: `CEREBRO_VIVO.md` (el método) y `CARTA_META_ARNES.md` (carta maestra). No se lee al arrancar.\n")
     poner(".brain/pruebas/indice.md", plantilla("pruebas_indice.md"))
     poner(".brain/pruebas/_plantilla.md", fuente(BRAIN_FUENTE, "pruebas", "_plantilla.md"))

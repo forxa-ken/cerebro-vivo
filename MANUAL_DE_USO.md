@@ -1,6 +1,6 @@
 # Manual de uso de Cerebro Vivo (para Darwin)
 
-Guía práctica, sin jerga. Para el porqué de cada cosa está `.brain/biblioteca/CEREBRO_VIVO.md`; este manual responde a «¿qué hago yo y cuándo?». Versión del arnés al escribirlo: 1.3.1.
+Guía práctica, sin jerga. Para el porqué de cada cosa está `.brain/biblioteca/CEREBRO_VIVO.md`; este manual responde a «¿qué hago yo y cuándo?». Versión del arnés al escribirlo: 1.3.1. (English edition: [`MANUAL_DE_USO.en.md`](MANUAL_DE_USO.en.md).)
 
 ## 1. Qué es, en una frase
 Un conjunto de carpetas, avisos automáticos y costumbres para que la IA **recuerde lo acordado entre chats** y no te haga repetirlo. La memoria vive en la carpeta `.brain/` de cada proyecto.
@@ -172,6 +172,8 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Comprobar un proyecto ya instalado | `python .brain/biblioteca/kit-arranque/instalar.py RUTA --comprobar` |
 | Ver qué traería una actualización | `python actualizar.py RUTA --simular` (o, dentro del proyecto, `python .brain/guardianes/actualizar_arnes.py --simular`) |
 | Ver la versión del arnés del proyecto | `/version` (dice también si hay una más nueva) |
+| Apuntar una lección en el momento (el guardián de hitos lo exige) | `/leccion` |
+| Ver el historial completo del chat anterior | `/memoria-traspaso` (o `/memoria-traspaso 2` para uno más antiguo) |
 | Que la IA abra sola el chat nuevo cuando el chat se alarga (o que solo avise) | `/chat-nuevo si`, `/chat-nuevo no`, `/chat-nuevo estado` |
 | Actualizar un proyecto (lo fácil) | escribe `/actualizar` cuando salga el aviso en el arranque |
 | `/actualizar` o `/version` no existen (proyecto anterior a la 1.17.0 o a la 1.21.0) | la primera vez, a mano: `python .brain/guardianes/actualizar_arnes.py --simular` dentro del proyecto, o `python actualizar.py RUTA --simular` desde cerebro-vivo; luego, lo mismo sin `--simular` |
@@ -190,5 +192,5 @@ Enseña por chat el coste, los mensajes tuyos y cuántas veces tuviste que corre
 | Bajar los índices de IA al tope de 5 KB | `/acorta` |
 | Dividir un archivo de `.brain/` gordo por temas | `/trocea` (ver cuáles: `python .brain/guardianes/archivos_gordos.py`) |
 | Revisar los índices de IA (doble pasada) | «revisa los índices» (`python .brain/guardianes/revisar_indices.py` para el informe) |
-| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea`, `/subir-a-github`, `/version`, `/chat-nuevo` |
+| Skills en Claude | `/resumen`, `/pendiente`, `/prompt-inicial`, `/traspaso-in`, `/traspaso-out`, `/adopta`, `/acorta`, `/trocea`, `/subir-a-github`, `/version`, `/chat-nuevo`, `/leccion`, `/memoria-traspaso` |
 | Skills en Codex | `$resumen`, `$pendiente`, `$prompt-inicial`, `$traspaso-in`, `$traspaso-out`, `$adopta`, `$acorta`, `$trocea`, `$subir-a-github`, `$version` (necesitan `.agents/skills/`) |

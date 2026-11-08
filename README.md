@@ -1,5 +1,7 @@
 # cerebro-vivo
 
+[Read it in English](README.en.md)
+
 El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin perder el contexto entre chats y gastando pocos tokens, más las herramientas que lo hacen cumplir. Un solo repositorio, y cada proyecto decide cuándo traerse las mejoras.
 
 **Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**

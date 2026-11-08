@@ -33,7 +33,7 @@ def g(raiz, *args, timeout=30):
 
 
 def rutas_memoria(cfg):
-    return [".brain/traspaso.md", ".brain/archive/traspasos", cfg.get("registro", ".brain/decisions.log"),
+    return [".brain/traspaso.md", ".brain/traspaso-completo.md", ".brain/lecciones", ".brain/archive/traspasos", cfg.get("registro", ".brain/decisions.log"),
             cfg.get("pendientes", ".brain/pendientes.md"), ".brain/specs"]
 
 

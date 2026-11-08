@@ -133,3 +133,6 @@
 2026-11-07 | Claude (cerebro-vivo #23) | Spec 025 (arnes 1.23.0 sin commit): chat nuevo solo como regla comun (aviso firme de longitud.py, ajuste chat_nuevo_auto) y comando /chat-nuevo si|no|estado | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #23) | Arnes 1.23.1 sin commit: permiso fijo de abrir el chat nuevo en CLAUDE.md y plantilla de indices (Claude, Gemini, Codex) | Fast-Track
 2026-11-07 | Claude (cerebro-vivo #23) | Arnes 1.23.2 sin commit: traspaso-in entro llama siempre a detach_session self (GCF #18 quedo colgado) | Fast-Track
+
+2026-11-07 | Claude (cerebro-vivo #24) | Arnes 1.24.0 sin commit: spec 026 hecha (lecciones.py, hitos.py, traspaso corto + completo, skills /leccion y /memoria-traspaso, pruebas nuevas) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #24) | Arnes 1.25.0 sin commit: spec 024 fase 3 hecha (ediciones .en de 28 skills, manual, plantillas y README; actualizador e instalador eligen por idioma; pruebas de paridad) | SDD

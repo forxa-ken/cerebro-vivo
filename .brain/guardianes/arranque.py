@@ -72,6 +72,7 @@ def fichas_a_revisar(raiz):
 
 TRASPASO_RUTA = os.path.join(".brain", "traspaso.md")
 TRASPASO_CARPETA = os.path.join(".brain", "archive", "traspasos")
+TRASPASO_COMPLETO = os.path.join(".brain", "traspaso-completo.md")  # spec 026: historial entero, no se carga solo
 TRASPASO_MAX_DIAS = 3
 TRASPASO_MAX_CARACTERES = 6000
 
@@ -92,6 +93,8 @@ def leer_traspaso(raiz, ahora=None, lengua=None):
             return []
         if len(texto) > TRASPASO_MAX_CARACTERES:
             texto = texto[:TRASPASO_MAX_CARACTERES] + t(lengua, "arranque_recortado")
+        if os.path.isfile(os.path.join(raiz, TRASPASO_COMPLETO)):
+            texto += "\n" + t(lengua, "arranque_traspaso_completo")
         return [t(lengua, "arranque_traspaso"), texto]
     except Exception:
         return []
@@ -105,8 +108,12 @@ def archivar_traspaso(raiz):
             return None
         carpeta = os.path.join(raiz, TRASPASO_CARPETA)
         os.makedirs(carpeta, exist_ok=True)
-        destino = os.path.join(carpeta, datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S") + ".md")
+        sello = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
+        destino = os.path.join(carpeta, sello + ".md")
         shutil.move(ruta, destino)
+        completo = os.path.join(raiz, TRASPASO_COMPLETO)
+        if os.path.isfile(completo):  # spec 026: el historial completo va al archivo con el mismo sello
+            shutil.move(completo, os.path.join(carpeta, sello + "-completo.md"))
         return destino
     except Exception:
         return None
@@ -178,7 +185,7 @@ def plugins_que_faltan(cfg, ruta=None):
     return [p for p in requeridos if not instalados.get(p)]
 
 
-NO_AVISAR_COMMIT = ["*.migrado", "__pycache__/*", "*.pyc", "*.bak*", ".brain/decisions.log", ".brain/traspaso.md",
+NO_AVISAR_COMMIT = ["*.migrado", "__pycache__/*", "*.pyc", "*.bak*", ".brain/decisions.log", ".brain/traspaso.md", ".brain/traspaso-completo.md", ".brain/lecciones/*",
                     ".brain/archive/traspasos/*", ".brain/guardianes/*_estado.json"]  # spec 022: lo que se genera solo
 
 
@@ -317,6 +324,13 @@ def resumen(raiz, cfg):
         pass
     if cfg.get("modo_ligero_activo"):  # spec 002: el resumen solo lleva lo que pide acción
         lineas = [l for l in lineas if not re.search(r"sin avisos|sin hallazgos|todo en orden|al día\.?$|no warnings|no findings|all in order|up to date\.?$", l)]
+    try:  # spec 026: temas con lecciones aprendidas (línea solo si las hay)
+        import lecciones
+        temas = lecciones.resumen_temas(raiz)
+        if temas and cfg.get("lecciones_activas", True):
+            lineas.append(t(cfg, "arranque_lecciones", temas))
+    except Exception:
+        pass
     lineas += leer_traspaso(raiz, lengua=cfg)
     lineas += leer_notas_chats(raiz, lengua=cfg)
     lineas.append(t(cfg, "arranque_leer"))

@@ -211,6 +211,13 @@ def main():
                 avisos.append(largo)
         except Exception:
             pass
+        try:  # spec 026: hito (error resuelto, archivo delicado, cambio grande) sin lección apuntada, y traspaso corto
+            espec = importlib.util.spec_from_file_location("hitos", os.path.join(AQUI, "hitos.py"))
+            hitos = importlib.util.module_from_spec(espec)
+            espec.loader.exec_module(hitos)
+            avisos += hitos.avisos(datos.get("transcript_path"), cfg, RAIZ)
+        except Exception:
+            pass
     except Exception:
         return 0  # un guardián nunca debe romper el trabajo
     if avisos:

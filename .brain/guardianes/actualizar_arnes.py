@@ -238,11 +238,40 @@ def version_disponible(proyecto, cfg=None):
         return None
 
 
+EDICION_EN = re.compile(r"^(.*)\.en(\.[^./]+)$")
+
+
+def base_de_edicion(rel, archivos):
+    """Spec 024 fase 3: `X.en.md` es la edición inglesa de `X.md` si las dos están en el manifiesto; devuelve `X.md`, o None."""
+    m = EDICION_EN.match(rel)
+    base = (m.group(1) + m.group(2)) if m else None
+    return base if base and base in archivos else None
+
+
+def idioma_del_proyecto(proyecto):
+    """`idioma` de `guardianes.json` del proyecto («es» por defecto; solo «en» cambia algo)."""
+    try:
+        with open(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+            return "en" if str(json.load(f).get("idioma", "es")).lower().startswith("en") else "es"
+    except Exception:
+        return "es"
+
+
 def destinos(manifiesto, proyecto):
-    """Pares (ruta en el repo, ruta en el proyecto). Con `AGENTS.md` (Codex) las skills de `.claude/skills/` también van a `.agents/skills/`."""
-    pares = [(rel, rel) for rel in sorted(manifiesto["archivos"])]
+    """Pares (ruta en el repo, ruta en el proyecto). Con `AGENTS.md` (Codex) las skills de `.claude/skills/` también van a `.agents/skills/`.
+    Spec 024 fase 3: un proyecto con `idioma: en` recibe la edición `X.en.md` en el sitio de `X.md`; en español, las `.en` no se copian."""
+    archivos = manifiesto["archivos"]
+    en = idioma_del_proyecto(proyecto) == "en"
+    pares = []
+    for rel in sorted(archivos):
+        base = base_de_edicion(rel, archivos)
+        if base:
+            if en:
+                pares.append((rel, base))
+        elif not (en and any(base_de_edicion(o, archivos) == rel for o in archivos)):
+            pares.append((rel, rel))
     if os.path.isfile(os.path.join(proyecto, "AGENTS.md")):
-        pares += [(rel, ".agents/skills/" + rel[len(".claude/skills/"):]) for rel in sorted(manifiesto["archivos"]) if rel.startswith(".claude/skills/")]
+        pares += [(f, ".agents/skills/" + d[len(".claude/skills/"):]) for f, d in list(pares) if d.startswith(".claude/skills/")]
     return pares
 
 

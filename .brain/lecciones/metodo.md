@@ -1,0 +1,6 @@
+# Lecciones: metodo
+
+Formato: problema → causa → regla. Las escribe `lecciones.py` en el momento del hito (spec 026).
+
+- **Al escribir código con un script Python en heredoc se coló un salto de línea real dentro de un texto y rompió la sintaxis** → un \n dentro de comillas triples se interpreta al ejecutar el script que escribe el archivo → **escribir código con Edit o Write, o doblar la barra (\n), y comprobar la sintaxis con ast.parse antes de seguir** (2026-11-07)
+- **Al editar archivos con Python desde la terminal, los saltos de linea escritos como barra-n dentro de textos largos acabaron como saltos reales y rompieron el archivo (instalar.py y arranque.py no arrancaban)** → El texto pasa por varias capas de comillas y escapes (heredoc, cadena de Python, archivo destino) y cada una reinterpreta la barra → **Para textos largos usar la herramienta Write o Edit en vez de scripts con escapes, y tras cada edicion de .py comprobar que compila con ast.parse o python -c antes de seguir** (2026-11-08)

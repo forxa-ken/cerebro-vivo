@@ -7,6 +7,7 @@ Este archivo (`{{ARCHIVO}}`) es el índice que lee **{{IA}}**. Mismo contenido o
 ## Memoria persistente (Cerebro `.brain/`)
 {{BLOQUE_IA}}
 {{MAPA}}
+* **Lecciones:** al resolver un hito (error resuelto, archivo delicado, cambio grande) apuntar la lección en el momento con `/leccion`; el guardián `hitos.py` no deja cerrar sin ella. Leer `.brain/lecciones/` antes de repetir ese trabajo.
 * **Chats cortos:** cuando la sesión se alargue, escribir el traspaso y abrir tú el chat nuevo (`{{NOMBRE}} #N`), salvo que `/chat-nuevo no` lo haya apagado. **{{DUENO}} autoriza de forma permanente abrir ese chat nuevo de forma automática** (herramientas `start_session` y `detach_session`), sin pedirle permiso cada vez. Hablarle en lenguaje llano.
 
 ## Reglas esenciales
