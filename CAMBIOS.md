@@ -161,3 +161,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.26.0 (2026-11-08)
 - La ayuda de `--help` de `cerrar.py`, `medir.py` y `actualizar_arnes.py` sale en el idioma del proyecto (claves `ayuda_*` de `textos.py`, es/en).
+
+## 1.26.1 (2026-11-08)
+- Plantilla de pruebas en inglés (`.brain/pruebas/_plantilla.en.md`): un proyecto con `"idioma": "en"` la recibe en el sitio de `_plantilla.md`. Prueba de paridad ampliada. Con esto la edición inglesa del arnés queda completa (salvo `CAMBIOS.md`, las specs de este repo y la carta maestra, por decisión).

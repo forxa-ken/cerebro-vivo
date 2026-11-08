@@ -21,5 +21,6 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 
 ## Reglas esenciales
 * Idioma de respuesta: **español**, tono técnico y conciso. **Alcance estricto:** solo lo que atañe al cambio pedido.
+* **Todo lo nuevo que llegue a los proyectos va en español e inglés** (orden de Darwin, 2026-11-08): textos de guardianes en `textos.py` es/en, y cada documento, skill o plantilla con su edición `.en.md`; la prueba de paridad lo vigila. Excepciones: `CAMBIOS.md`, las specs de este repo y la carta maestra.
 * **Pruebas tras cada cambio:** `python -m unittest discover tests`
 * Lo irreversible (subir a GitHub, borrar, gastar) se pregunta antes. **No subir a GitHub sin orden de Darwin**, salvo el commit de memoria de `traspaso-out salgo`. Lo no probado se dice como no probado.
