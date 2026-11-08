@@ -7,9 +7,10 @@
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.en.md": "ef85bebb28f62c7397a2d7700b2afd2fc97e2c6ae32e6767ed01ff81722059f9",
   ".brain/biblioteca/PLANTILLA_TRASPASO.md": "b0b8bbfd1c0bf466afb19838c6ea9bcfa33c0dda2e860f22f916ec765e344ca8",
+  ".brain/biblioteca/kit-arranque/README.en.md": "1d1aeeb8fcb9be2ac86ca596384a9876e5356d5ee5eb2747c2f5e03c37839d53",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
-  ".brain/biblioteca/kit-arranque/instalar.py": "00e29466815f13586502057b8de5648fbfaf261a9548fa8871065f44f56fd4b4",
+  ".brain/biblioteca/kit-arranque/instalar.py": "bab19ff5d3cb509541be4b6ccedbaa7f52140068097bc0ad163317148d6fea8f",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "cc290de2340fa57008d6d5ca99575deb4ea24fc1ddb65cec97ba663b6d756364",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f6bfc9f1b2efd77ba1984124835174c2e199cb7b19e88bd4e35e75291bf1cd7d",
@@ -29,6 +30,7 @@
   ".brain/biblioteca/kit-arranque/plantillas/pruebas_indice.md": "7d90fb2d89dc884b9dd9cfe0d28f5b488cb4dabbc5b2daf7293eac974e8fd80a",
   ".brain/biblioteca/kit-arranque/plantillas/referencias.en.md": "17d5d16ec019e3c06fbcf2ae936d678ccad558d2c8adbc7b5dd84af1bd8e8c1d",
   ".brain/biblioteca/kit-arranque/plantillas/referencias.md": "49ccf9fd2ca9e248c4daca110a2305118dc68fb46b3a99ca6824bf580ae487d3",
+  ".brain/biblioteca/kit-traduccion/README.en.md": "c3b7c8dff7f977a6a060bf9bcde652b1f025c880e8cea03b314efaa977adf503",
   ".brain/biblioteca/kit-traduccion/README.md": "cba2d96c0bb13fbcfc8443fa3d9525028c3694d86ad4d5386eaa74fbfe2cbb72",
   ".brain/biblioteca/kit-traduccion/ejemplo.html": "b5aa4fbd62c3d7c0f1b55bfc6683aa9368178db0f94f041fc7db605e36407ba1",
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
@@ -169,5 +171,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.25.1"
+ "version": "1.25.2"
 }

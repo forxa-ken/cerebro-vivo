@@ -337,7 +337,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         for archivo in ("i18n_motor.js", "idiomas.js", "ejemplo.html"):
             texto = leer(os.path.join(KIT_TRADUCCION, archivo))
             poner("static/i18n/" + archivo, texto.replace("mi_proyecto_lang", clave + "_lang"))
-        poner("static/i18n/LEEME.md", leer(os.path.join(KIT_TRADUCCION, "README.md")))
+        poner("static/i18n/LEEME.md", leer(os.path.join(KIT_TRADUCCION, "README.en.md" if en else "README.md")))
         poner("tests/test_paridad_idiomas.py", leer(os.path.join(KIT_TRADUCCION, "paridad_idiomas.py")))
     if nivel != "completo":  # spec 021: el actualizador sabe que aquí no hay guardianes que actualizar
         poner(".brain/arnes_instalado.json", json.dumps({"archivos": {}, "dueno": dueno, "nivel": nivel}, ensure_ascii=False, indent=2, sort_keys=True) + "\n")

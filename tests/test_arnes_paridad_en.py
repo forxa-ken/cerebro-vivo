@@ -40,7 +40,8 @@ class TestParidadEn(unittest.TestCase):
         for n in sorted(os.listdir(skills)):
             self.assertTrue(os.path.isfile(os.path.join(skills, n, "SKILL.en.md")), "falta SKILL.en.md en " + n)
         for rel in (".brain/biblioteca/CEREBRO_VIVO.en.md", ".brain/biblioteca/PLANTILLA_TRASPASO.en.md",
-                    ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md", "README.en.md", "MANUAL_DE_USO.en.md"):
+                    ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md", "README.en.md", "MANUAL_DE_USO.en.md",
+                    ".brain/biblioteca/kit-arranque/README.en.md", ".brain/biblioteca/kit-traduccion/README.en.md"):
             self.assertTrue(os.path.isfile(os.path.join(RAIZ, rel)), "falta " + rel)
         plantillas = os.path.join(RAIZ, ".brain", "biblioteca", "kit-arranque", "plantillas")
         for n in sorted(os.listdir(plantillas)):

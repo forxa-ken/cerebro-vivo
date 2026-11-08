@@ -152,3 +152,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.25.1 (2026-11-08)
 - La prueba `test_todos_los_guardianes_usan_textos` solo revisa los guardianes que reparte el arnés (los de `manifiesto.json` o `arnes_instalado.json`); un guardián propio de un proyecto, como el modo auto de LoboHook, ya no la pone en rojo.
+
+## 1.25.2 (2026-11-08)
+- Edición inglesa de los dos README que reparte el arnés: `kit-arranque/README.en.md` y `kit-traduccion/README.en.md` (spec 024, fase 3). El instalador con `--idioma English --traduccion` copia el README inglés del kit de traducción. Prueba de paridad ampliada.
