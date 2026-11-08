@@ -150,6 +150,74 @@ class TestPermitir(Base):
         self.assertIn("No hay", ev.permitir("x", self.dir, CFG))
 
 
+class TestEntornoVirtual(Base):
+    """Spec 029: lo instalado en el `.venv` del proyecto se revisa aunque el Python del hook no lo vea (entorno REAL, no simulado)."""
+
+    def setUp(self):
+        super().setUp()
+        ev.librerias.version_instalada = lambda nombre, minima: minima  # el Python del hook no ve nada
+
+    def crear_venv(self, **instaladas):
+        import subprocess
+        import venv
+        destino = os.path.join(self.dir, ".venv")
+        venv.EnvBuilder(with_pip=False).create(destino)
+        python = ev.python_del_entorno(self.dir)
+        self.assertTrue(python, "el entorno creado debe encontrarse")
+        paquetes = subprocess.run([python, "-c", "import sysconfig; print(sysconfig.get_paths()['purelib'])"],
+                                  capture_output=True, text=True).stdout.strip()
+        for nombre, version in instaladas.items():
+            info = os.path.join(paquetes, "%s-%s.dist-info" % (nombre, version))
+            os.makedirs(info)
+            with open(os.path.join(info, "METADATA"), "w", encoding="utf-8") as f:
+                f.write("Metadata-Version: 2.1\nName: %s\nVersion: %s\n" % (nombre, version))
+
+    def red_con_versiones(self, vistas, vulnerables=()):
+        base = red(vulnerables)
+
+        def http(url, datos=None, timeout=7):
+            if url == ev.librerias.OSV_LOTE:
+                vistas.extend((q["package"]["name"], q.get("version")) for q in datos["queries"])
+            return base(url, datos, timeout)
+        return http
+
+    def test_libreria_vulnerable_en_el_venv_detiene_el_push_aunque_el_comando_no_fije_version(self):
+        self.crear_venv(django="3.2")
+        self.orden("pip install django")
+        vistas = []
+        codigo, texto = self.orden("git push", http=self.red_con_versiones(vistas, ("django",)))
+        self.assertEqual(codigo, 2)
+        self.assertIn("django", texto)
+        self.assertEqual(vistas, [("django", "3.2")])
+
+    def test_lo_instalado_en_el_venv_manda_sobre_la_version_del_comando(self):
+        self.crear_venv(django="3.3")
+        self.orden("pip install django==3.2")
+        vistas = []
+        self.orden("git push", http=self.red_con_versiones(vistas))
+        self.assertEqual(vistas, [("django", "3.3")])
+
+    def test_sin_venv_usa_la_version_fijada_en_el_comando(self):
+        self.orden("python -m pip install Django[argon2]==3.2 --no-deps")
+        vistas = []
+        codigo, _ = self.orden("git push", http=self.red_con_versiones(vistas, ("django",)))
+        self.assertEqual((codigo, vistas), (2, [("django", "3.2")]))
+
+    def test_si_no_hay_version_en_ningun_sitio_avisa_una_vez_en_vez_de_callar(self):
+        self.orden("pip install fantasma")
+        codigo, texto = self.orden("git push")
+        self.assertEqual(codigo, 0)
+        self.assertIn("fantasma", texto)
+        self.assertIn("no pude ver", texto)
+        self.assertEqual(self.orden("git push"), (0, ""))
+
+    def test_ayudas(self):
+        self.assertEqual(ev.versiones_fijadas("uv pip install Flask_Login[x]==0.6.2 requests>=2 -U", CFG), {"flask-login": "0.6.2"})
+        self.assertEqual(ev.versiones_fijadas("npm install left-pad==1.0", CFG), {})
+        self.assertEqual(ev.python_del_entorno(self.dir), "")
+        self.assertEqual(ev.versiones_en_entorno(os.path.join(self.dir, "no-existe"), ["x"]), {})
+
+
 class TestIngles(Base):
     def test_mensaje_en_ingles(self):
         import textos

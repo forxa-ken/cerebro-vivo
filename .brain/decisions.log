@@ -160,3 +160,4 @@
 2026-11-08 | Claude (cerebro-vivo #27) | Darwin prueba traspaso-in/out en Codex y Gemini (F:/Modelo, 1.28.3): punto 13 cerrado, pasa a hechos | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Darwin confirma el punto 28 (ya probado con Claude); pasa a hechos y sale de pendientes | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Punto 28 reabierto: Modelo #59 probo y el guardian no bloquea git push con libreria vulnerable instalada en un .venv (version_instalada usa el Python del hook); vuelve a Falta programar | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Arnes 1.28.4 (spec 029): el guardian eventos_chat ve las librerias del .venv (venv, version fijada, Python del hook) y avisa si no encuentra version; probado con .venv real y hook real contra OSV (django 3.2 detiene el push); punto 28 vuelve a esperando prueba | Fast-Track

@@ -43,7 +43,7 @@
   ".brain/guardianes/base_datos.py": "254d88257f1808d36b471f3ff64f90537339034903f229c6c67affc582548b75",
   ".brain/guardianes/cerrar.py": "fbc1c8bd7b5258146d972950b63363351196f4e8a5ef00323fbbec384abee372",
   ".brain/guardianes/cierre.py": "efe6cd7dffd8270f9c8aaaa492ba7b0592868c2187e8fc288c17d81d906ff256",
-  ".brain/guardianes/eventos_chat.py": "457f055b3e94394dcf2cf5ce221f6a0d25566b592d4c34b9049840840d7dd9df",
+  ".brain/guardianes/eventos_chat.py": "4b13bbfee5483fb3c44dc4f6ef05acbbd24cb561110b85250061ea38ddd3a61e",
   ".brain/guardianes/guardar_traspaso.py": "4ce4359519f95863711aad34f074360bb902f1efc8c4c2f9f4cfd277e312eb0f",
   ".brain/guardianes/hitos.py": "5d1f60117c3cf1713ab5a2c2e89e26c9b27cf209ba9e9e4299c50a1706cf03aa",
   ".brain/guardianes/indices.py": "2b4ec3b5c18004a826b6a0a845a72362474e8ab3d8d00f62db3d4dadfe62c96c",
@@ -56,7 +56,7 @@
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "42d5a9991f3d65a9ac678c617f1bbc8ba125b529368db1ef0197acc826394c85",
   ".brain/guardianes/secretos.py": "17529d59012f5ba1a169f4b5065bd3fe4fe3cc74ec2c7de1594c6badfc012db3",
-  ".brain/guardianes/textos.py": "a8a857d7f539d3c98f54f51a813a307f6962a3a95d9a3bdd1ea8cbaa6848e893",
+  ".brain/guardianes/textos.py": "c6e450212339957b44a1ba49fe870a20b94cc63c2751298fbbe7da81062b135c",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -126,7 +126,7 @@
   "tests/test_arranque.py": "e3b837586bee4be340a13c384f91c84c9de7ffdf86eb9b70fc6425fb9f88d3a5",
   "tests/test_cerebro_indices.py": "a2d2f4a49607754af5cc5484bbb0c98f620ebbefd79ef8ee839729bcfa91ecda",
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
-  "tests/test_eventos_chat.py": "8392bc05c3aae773d386860d50d0a3e0cf707a402c81e8c25acc0035e56bfd45",
+  "tests/test_eventos_chat.py": "dbd68a7151fe811f649571dd89dc4db59338bc1793b2cd84730c23fd15ddad70",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hitos.py": "eeed87e62b6c95480385b0ee91debbd815d671e32577cc772b8c1e2d2f1753a6",
@@ -177,5 +177,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.28.3"
+ "version": "1.28.4"
 }

@@ -185,3 +185,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.3 (2026-11-08)
 - Arreglo de un fallo de 1.28.2: la prueba nueva dependia de `VERSION` y `CAMBIOS.md`, que solo existen en este repo, y se repartio a los proyectos donde fallaba. Se renombra a `tests/test_arnes_esperando_prueba.py` (las `test_arnes_*` no se reparten) y la vieja pasa a retirados: el actualizador la saca de los proyectos que ya la recibieron, con copia.
+
+## 1.28.4 (2026-11-08)
+- Spec 029, punto 28 reabierto: el guardián con memoria del chat (`eventos_chat.py`) no veía las librerías instaladas en el `.venv` del proyecto y dejaba pasar `git push` con una vulnerable (fallo hallado por Modelo #59). Ahora pregunta la versión, por este orden, al Python del `.venv`/`venv` del proyecto, a la versión fijada en el comando (`nombre==versión`) y al Python del hook; y si no la encuentra en ninguno **avisa una vez** en vez de callar (texto nuevo `eventos_chat_sin_version`, es/en). Pruebas con un `.venv` real.

@@ -18,6 +18,7 @@ import json
 import os
 import re
 import shlex
+import subprocess
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -128,6 +129,63 @@ def instalaciones(comando, cfg):
     return res
 
 
+FIJADA = re.compile(r"^([A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?==([0-9][A-Za-z0-9._+!-]*)$")
+
+
+def versiones_fijadas(comando, cfg):
+    """{nombre: versión} de lo que la orden fija con `nombre==versión` (solo PyPI). Spec 029."""
+    res = {}
+    for palabras in trozos(comando):
+        for cmd in (cfg.get("eventos_chat_comandos") or COMANDOS):
+            sec = cmd.lower().split()
+            fin = _contiene(palabras, sec)
+            if fin < 0:
+                continue
+            if ECOSISTEMA.get(sec[0], "otro") == "pypi":
+                for tok in palabras[fin:]:
+                    m = FIJADA.match(tok)
+                    if m:
+                        res[re.sub(r"[-_.]+", "-", m.group(1)).lower()] = m.group(2)
+            break
+    return res
+
+
+def python_del_entorno(raiz):
+    """Ruta del Python del entorno virtual del proyecto (`.venv` o `venv`), o '' si no hay. Spec 029."""
+    for carpeta in (".venv", "venv"):
+        for rel in (("Scripts", "python.exe"), ("bin", "python")):
+            ruta = os.path.join(raiz, carpeta, *rel)
+            if os.path.isfile(ruta):
+                return ruta
+    return ""
+
+
+def versiones_en_entorno(python, nombres, timeout=5):
+    """{nombre: versión} de lo que está instalado en ese Python (una sola llamada). Ante cualquier fallo, {}."""
+    codigo = ("import sys, json\nfrom importlib.metadata import version\nr = {}\nfor n in sys.argv[1:]:\n"
+              "    try:\n        r[n] = version(n)\n    except Exception:\n        pass\nprint(json.dumps(r))")
+    try:
+        r = subprocess.run([python, "-c", codigo] + list(nombres), capture_output=True, text=True, timeout=timeout)
+        datos = json.loads(r.stdout) if r.returncode == 0 else {}
+        return datos if isinstance(datos, dict) else {}
+    except Exception:
+        return {}
+
+
+def versiones_a_revisar(nombres, chat, raiz):
+    """[(nombre, versión)] con lo que de verdad hay que consultar. Orden de confianza (spec 029):
+    1) lo instalado en el `.venv` del proyecto; 2) la versión fijada en el propio comando; 3) el Python que ejecuta el hook."""
+    python = python_del_entorno(raiz)
+    del_venv = versiones_en_entorno(python, nombres) if python else {}
+    fijadas = chat.get("versiones") or {}
+    res = []
+    for n in nombres:
+        v = del_venv.get(n) or fijadas.get(n) or librerias.version_instalada(n, "")
+        if v:
+            res.append((n, v))
+    return res
+
+
 def es_push(comando):
     for palabras in trozos(comando):
         bajas = [p.lower() for p in palabras]
@@ -169,6 +227,7 @@ def recordar(chat, comando, raiz, cfg):
             for n in nombres:
                 if n not in chat["pendientes"]:
                     chat["pendientes"].append(n)
+            chat.setdefault("versiones", {}).update(versiones_fijadas(comando, cfg))
         else:
             for n in nombres:
                 clave = "%s:%s" % (eco, n)
@@ -211,9 +270,12 @@ def revisar_push(estado, chat, cfg, raiz, http=None):
     nombres = [n for n in chat["pendientes"]]
     if not nombres:
         return 0, " ".join(avisos)
-    pedidos = [(n, librerias.version_instalada(n, "")) for n in nombres]
-    pedidos = [(n, v) for n, v in pedidos if v]
-    if not pedidos:  # nada instalado de verdad en este Python (p. ej. otro entorno): no hay versión que consultar
+    pedidos = versiones_a_revisar(nombres, chat, raiz)
+    sin_version = [n for n in nombres if n not in {p for p, _ in pedidos}]
+    if sin_version:  # spec 029: no dejar pasar en silencio lo que no se pudo mirar (antes ocultaba los .venv)
+        avisos.append(tp("eventos_chat_sin_version") % ", ".join(sin_version))
+        chat["pendientes"] = [n for n in chat["pendientes"] if n not in sin_version]  # se avisa una vez
+    if not pedidos:
         chat["pendientes"] = []
         return 0, " ".join(avisos)
     est = librerias.consultar(pedidos, a, http, con_pypi=False)
