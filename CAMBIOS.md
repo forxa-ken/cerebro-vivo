@@ -179,3 +179,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.1 (2026-11-08)
 - Plantilla de constitución (es/en) con una regla nueva (informe 028, 3.5): los bloques de código se escriben con Edit/Write y no con scripts Python en heredoc, y tras editar con script se comprueba la sintaxis. Falló tres veces en cerebro-vivo. Solo la reciben los proyectos nuevos; los ya instalados tienen su propia constitución. Sin cambios de código.
+
+## 1.28.2 (2026-11-08)
+- Informe 028, 3.4: `tests/test_esperando_prueba.py` comprueba de punta a punta, con el arnés real instalado en una carpeta temporal, los puntos 14 (actualizador: repone lo borrado, respeta lo tocado, retira a `copias_arnes`), 21 (`traspaso-out salgo` sube la memoria y lista el código suelto) y 26 (`/version`: datos que lee y aviso de versión nueva). Solo pruebas; el código no cambia.
