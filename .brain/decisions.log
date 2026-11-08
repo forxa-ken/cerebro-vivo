@@ -167,3 +167,4 @@
 2026-11-08 | Claude (cerebro-vivo #28) | Subido a GitHub por orden de Darwin: main (410c99f, 1.28.5, 12 commits) y gh-pages (84a7d4a, pagina al dia) | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.6 (spec 031, punto 33): el aviso de cierre solo cuenta lo que el chat edito con Edit/Write; lo que trae /actualizar ya no se le atribuye; 376 pruebas en verde; punto 33 a esperando prueba | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.7: hitos.py reconoce lecciones.py lanzado con PowerShell (hallazgo de Modelo #61); prueba nueva; 377 pruebas en verde. Verificado en GitHub: commit 439b298 de Modelo-2 solo lleva 7 archivos de .brain (prueba 21 sigue esperando confirmacion de Darwin) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Punto 21 probado por Darwin (traspaso-out salgo con remoto) y pasado a hechos | Fast-Track
