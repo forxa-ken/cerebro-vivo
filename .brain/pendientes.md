@@ -19,6 +19,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
 
+- **33:** falso aviso del guardián de cierre (`cierre.py`) tras `/actualizar`: toma por trabajo del chat los archivos que trae el actualizador (visto en Modelo 2 con `tests/test_eventos_chat.py`) y pide línea de registro. Que ignore lo que acaba de repartir `actualizar_arnes.py`. Spec antes; es/en. Sin empezar.
 - **31:** idea del punto 24 (The Harness Effect): cortar un guardián que falla repetidamente y que `medir.py` dé tokens por tarea terminada. Spec antes; es/en.
 
 
