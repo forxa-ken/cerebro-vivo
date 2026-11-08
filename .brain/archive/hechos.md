@@ -47,3 +47,11 @@ Darwin confirma que `/actualizar` funciona en LoboHook. Su registro (chat #86) d
 ## 18 · `/traspaso-in` abre el chat nuevo solo (arnés 1.12.0 y 1.18.2)
 **Fecha:** 2026-11-07
 Probado por Darwin en LoboHook. Su confirmación no detalla si miró en el sidebar el mismo nivel del chat nuevo ni si su resumen coincidía con lo hablado.
+
+## 14 · Actualizador fiable (spec 021, arnés 1.19.0; con hooks desde 1.27.1)
+**Fecha:** 2026-11-08
+Darwin confirma «14 ok» tras probarlo en un proyecto real. Su confirmación no detalla en cuál, ni si lo retirado fue a `.brain/copias_arnes/`, ni qué decidió sobre `modo_auto.py`, `uso_tokens.py` y `test_modo_auto.py` de LoboHook. Además hay prueba automática de punta a punta (`tests/test_esperando_prueba.py`, 1.28.2).
+
+## 26 · `/version` (spec 023, arnés 1.21.0)
+**Fecha:** 2026-11-08
+Darwin confirma «26 ok». Su confirmación no detalla si probó en Modelo 2 ni qué versión le dijo. Además hay prueba automática de los datos que lee y del aviso de versión nueva (`tests/test_esperando_prueba.py`, 1.28.2).

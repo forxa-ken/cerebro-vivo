@@ -154,3 +154,5 @@
 2026-11-08 | Claude (cerebro-vivo #27) | Informe 028 3.4: tests/test_esperando_prueba.py cubre de punta a punta los puntos 14, 21 y 26 con el arnes real (1.28.2, 365 pruebas en verde); sin commitear | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Revision de indices de IA: ruta de CARTA_META_ARNES.md corregida en CLAUDE.md, 4 hallazgos descartados, informe limpio | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Subidos a GitHub 23 commits (27ecd4f..df98d40), sin secretos, pruebas en verde | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Darwin prueba y confirma los puntos 14 y 26; pasan a archive/hechos.md y salen de pendientes | Fast-Track
