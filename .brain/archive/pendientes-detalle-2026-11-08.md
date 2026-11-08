@@ -1,0 +1,34 @@
+# Detalle de pendientes recortados (2026-11-08)
+
+Texto completo de los puntos de `pendientes.md` que se acortaron (informe 028, 3.6). Los puntos 16 y 27 se fundieron en el 20. Se conserva aquí para no perder los pasos de prueba.
+
+- **4:** (opcional, sin urgencia) medir el arnés en un proyecto real con `medir.py` durante semanas para comprobar la hipótesis de que ahorra a la larga; los proyectos gemelos GuildControl/GuildControlForever NO sirven como comparación (Darwin adapta los cambios de uno a otro, así que no son independientes); solo si Darwin quiere una cifra más firme, spec 004 con una tarea larga repartida en 3-4 chats.
+
+- **13:** `traspaso-in` y `traspaso-out` (specs 010 y 011, arnés 1.9.0). Qué es: pasar de un chat a otro con la misma IA (`traspaso-in`) y de una IA a otra (`traspaso-out`). Pasos: actualiza un proyecto (`python actualizar.py RUTA`); en Codex escribe `$traspaso-in salgo`, abre un chat nuevo y escribe `$traspaso-in entro`; luego `$traspaso-out salgo` en Codex y, en Gemini (pídele que lea `GEMINI.md` y la skill), `traspaso-out entro`. Si va bien: te cuenta lo último que hablaron. Gemini sin probar.
+
+- **14:** actualizador fiable (spec 021, arnés 1.19.0). Ensayado solo en copias temporales de Pegatinas y LoboHook. Pasos: en un proyecto real escribe `/actualizar`, o desde cerebro-vivo `python actualizar.py RUTA --simular` y luego sin `--simular`. Si va bien: lo retirado pasa a `.brain/copias_arnes/` y el informe dice qué archivos se quedaron viejos. Para el nivel medio: instala un proyecto de prueba con `--nivel medio` y actualízalo; debe decir «No se copia nada». En LoboHook quedarán listados `modo_auto.py`, `uso_tokens.py` y `test_modo_auto.py`: decide si sobran.
+
+- **16:** aviso de chat largo que abre el chat nuevo al mismo nivel (spec 012, arnés 1.10.0). Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` bajo (p. ej. 20000) en `guardianes.json`, habla hasta que salte el aviso y comprueba que Claude abre el chat nuevo, lo deja al mismo nivel que el anterior y te dice su nombre. Si te deja una tarjeta, dale clic: el chat nuevo debe separarse solo al entrar (arnés 1.19.1).
+
+- **17:** soporte para Mac (spec 013, arnés 1.11.0). Solo probado en Windows. Pasos en un Mac: `python3 -m unittest discover tests`; doble clic en `instalar_kit.command` (si no abre, `chmod +x instalar_kit.command`) y crea un proyecto de prueba; abre Claude Code ahí y mira que el arranque muestra el resumen.
+
+- **19:** diseñar (spec aparte, sin programar) cómo colaboran varias IA en un mismo proyecto cuando sus responsabilidades son distintas. Caso real: Guild Control Forever, donde Claude trabaja con la memoria `.brain/` y Gemini (Antigravity) solo hace traducciones con sus reglas en `AGENTS.md`, que no se edita. A decidir: qué archivos lee y escribe cada IA, cómo se avisan los cambios entre ellas sin que una pise a otra, si el instalador debe respetar archivos ajenos (idea: `indices_ajenos` en `guardianes.json`; hoy reinstalar con `--ias gemini/codex` añadiría el bloque de memoria a ese `AGENTS.md`) y cómo encajan `traspaso-out` y los roles por IA.
+
+- **20:** chat nuevo desde otra sesión (arnés 1.23.0 a 1.26.2). Qué es: el aviso de chat largo manda a la IA abrir ella el chat nuevo (siempre llama a `start_session` antes de decir que no puede), avisa una vez por cada 100k tokens, escribe el traspaso una sola vez y el chat nuevo se separa solo con `detach_session`. Pasos: en un proyecto de prueba pon `longitud_aviso_tokens` en 20000, habla hasta que salte el aviso y mira que Claude abre el chat nuevo, que queda al mismo nivel y que el aviso no se repite en cada mensaje. Si va bien: chat nuevo abierto sin que lo pidas. Si no: dime qué frase dijo la IA.
+
+- **21:** nada suelto ni viejo (spec 022, arnés 1.20.0). Pasos: abre un chat con algo sin commitear en `.brain/` y mira que el resumen lo dice. En un proyecto de prueba con remoto escribe `/traspaso-out salgo`: debe hacer commit de la memoria, subirlo y listarte el código suelto, sin meterlo. Si hay otros commits sin subir, debe preguntarte antes. Con `/actualizar` en un proyecto real, mira si el aviso te ayuda o te estorba (en LoboHook saldrá trabajo de otros chats).
+
+- **22:** implementar automatizaciones en la nube con Jenkins o GitHub (pedido por Darwin tras preguntarle por ellas en una entrevista; hoy los automatismos solo corren en local y no hay CI/CD). Antes de programar: explicarle a Darwin en llano qué es cada opción y en qué se diferencian, y que elija él. Sin empezar.
+
+- **23:** aprender a montar otro agente de IA que verifique las pruebas y los errores de la IA principal (idea aún somera de Darwin; su objetivo es aprender a hacerlo así). Es un revisor independiente, distinto del que hizo el trabajo. Sale de su investigación en `F:\Arquitectura de desarrollo` (`biblioteca/REC-004`, `REC-005` y `REC-003`; `OBJETIVO_PROYECTO.md`). Antes de nada: explicárselo en llano y hacerlo paso a paso con él. Queda para después decidir cuándo se lanza, qué revisa, si avisa o bloquea y cuánto cuesta. Sin empezar.
+
+
+- **26:** `/version` (spec 023, arnés 1.21.0). Pasos: en Modelo 2 (ya actualizado a la 1.21.0; reinicia Claude Code allí) escribe `/version`. Debe decir 1.21.0, que no hay otra más nueva y cómo se actualiza. En la página, pestaña «Usar», mira las tarjetas «Ver la versión» y «Si /actualizar no existe».
+
+- **27:** chat nuevo solo (spec 025, arnés 1.23.0). En Guild Control Forever: `/actualizar`, luego `/chat-nuevo estado` (debe decir ACTIVADO); al pasar de 200k, el chat nuevo se abre solo.
+
+- **28:** guardián con memoria del chat (spec 027, arnés 1.27.0). Pasos: `/actualizar` en un proyecto con remoto y vuelve a lanzar el instalador del kit (añade el hook). Instala una librería sin problemas y haz `git push`: debe pasar sin decir nada. Para ver el bloqueo, pon una librería con fallo conocido y mira que el push se detiene con el mensaje.
+
+- **29:** idea del punto 24 (OpenAI, «jardinero de documentación»): guardián que detecte memoria desactualizada (pendientes, hechos, specs que ya no reflejan el código) y la proponga arreglar; hoy solo se vigila el tamaño. Spec antes de programar; en español e inglés. Sin empezar.
+
+- **31:** idea del punto 24 (The Harness Effect): cortar un guardián que falla repetidamente (p. ej. tras 3 fallos iguales) en vez de reintentar siempre; y que `medir.py` dé también tokens por tarea terminada. Spec antes de programar; en español e inglés. Sin empezar.
