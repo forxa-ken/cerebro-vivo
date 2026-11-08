@@ -155,10 +155,14 @@ def escribir_linea_auto(raiz, cfg, texto):
         f.write("%s | Claude (auto) | %s | Fast-Track\n" % (datetime.date.today().isoformat(), texto))
 
 
-def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None):
-    """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests."""
+def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None):
+    """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests.
+    `editados` (spec 031): archivos que el chat editó con Edit/Write; si hay, solo cuentan esos cambios de git
+    (lo que trajo `/actualizar` u otro chat no es de este chat). Sin lista, vale todo lo que git ve cambiado."""
     avisos = []
     del_proyecto = [c for c in cambios if not esta_ignorada(c, cfg["ignorar_cambios"])]
+    if editados:
+        del_proyecto = [c for c in del_proyecto if c in editados]
     # Si se sabe qué hizo la IA en esta respuesta, manda eso (un registro modificado de una tarea anterior
     # sin commitear no cuenta); si no, se usa el estado de git.
     if registro_en_respuesta is not None:
@@ -200,7 +204,13 @@ def main():
                         en_registro = True
                 except Exception:
                     pass
-        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro)
+        editados = []
+        if datos.get("transcript_path"):
+            try:
+                editados = detalle_respuesta(datos["transcript_path"], RAIZ)[0]
+            except Exception:
+                editados = []
+        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util
             espec = importlib.util.spec_from_file_location("longitud", os.path.join(AQUI, "longitud.py"))

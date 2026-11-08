@@ -19,11 +19,11 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
 
-- **33:** falso aviso del guardián de cierre (`cierre.py`) tras `/actualizar`: toma por trabajo del chat los archivos que trae el actualizador (visto en Modelo 2 con `tests/test_eventos_chat.py`) y pide línea de registro. Que ignore lo que acaba de repartir `actualizar_arnes.py`. Spec antes; es/en. Sin empezar.
 - **31:** idea del punto 24 (The Harness Effect): cortar un guardián que falla repetidamente y que `medir.py` dé tokens por tarea terminada. Spec antes; es/en.
 
 
 ## Esperando tu prueba (Darwin)
+- **33:** el aviso de cierre ya no atribuye al chat lo que trajo `/actualizar` (spec 031, arnés 1.28.6). Prueba: `/actualizar` en un proyecto con el arnés viejo y, en un chat que solo toque `.brain/`, no debe pedir línea de registro por los archivos recién repartidos.
 - **28:** guardián con memoria del chat, arreglado para `.venv` (spec 029, arnés 1.28.4; el fallo lo halló Modelo #59). Prueba: `/actualizar` en un proyecto con `.venv`, reinicia Claude Code, instala `django==3.2` en el venv y `git push`: debe detenerse; con una librería limpia, pasar callado. Sin comprobar: en un proyecto con el `.venv` en otra ruta. Queda el commit vacío 9222812 en el GitHub de Modelo 2.
 - **20:** chat nuevo solo (arnés 1.23.0 a 1.26.2; junta los antiguos 16 y 27). Pasos: dile al chat «En `F:\Modelo 2\.brain\guardianes\guardianes.json` pon `longitud_aviso_tokens` en 20000» (normal: 200000), reinicia Claude Code allí y habla hasta el aviso; Claude debe abrir el chat nuevo al mismo nivel, decirte su nombre y no repetir el aviso en cada mensaje. Si falla, dime qué frase dijo la IA. Al acabar, devuélvelo: «En el mismo archivo pon `longitud_aviso_tokens` en 200000».
 - **17:** soporte para Mac (spec 013, arnés 1.11.0; solo probado en Windows). Prueba en un Mac: `python3 -m unittest discover tests`, doble clic en `instalar_kit.command` y abrir Claude Code en el proyecto de prueba.

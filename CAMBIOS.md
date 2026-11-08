@@ -191,3 +191,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.5 (2026-11-08)
 - Spec 030, hallazgos de Modelo #59 sobre el guardián con memoria del chat (`eventos_chat.py`): ya no recuerda para siempre una librería que no está instalada (desinstalada, o cuya orden se detuvo antes de ejecutarse): la olvida sola si hay `.venv` y no está ni en él ni en el Python del hook; y `2>&1`, `>fichero` y similares ya no se toman por una librería (de ahí el «(2)» del aviso). Prueba con `.venv` real.
+
+## 1.28.6 (2026-11-08)
+- Spec 031, punto 33: el aviso de cierre (`cierre.py`) ya no atribuye al chat los cambios sin commitear que trajo `/actualizar` u otro chat. Si el chat editó archivos con Edit/Write, solo cuentan esos; si trabajó solo con la terminal, todo sigue como antes. Límite: lo escrito con la terminal en un chat que también usó Edit puede no avisarse.

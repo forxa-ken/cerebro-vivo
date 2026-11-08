@@ -134,6 +134,22 @@ class TestGuardianCierre(unittest.TestCase):
         avisos = self.cierre.evaluar(cambios, 1000, self.cfg, True, registro_en_respuesta=False)
         self.assertEqual(len(avisos), 1)
 
+    def test_spec031_cambio_ajeno_no_se_atribuye_al_chat(self):
+        # el chat solo editó un archivo ignorado; tests/x.py lo trajo /actualizar
+        cambios = ["tests/x.py", ".brain/guardianes/guardianes.json"]
+        self.assertEqual(self.cierre.evaluar(cambios, 1000, self.cfg, True, False, [".brain/guardianes/guardianes.json"]), [])
+
+    def test_spec031_lo_que_edito_el_chat_si_avisa(self):
+        cambios = ["tests/x.py", "server.py"]
+        avisos = self.cierre.evaluar(cambios, 1000, self.cfg, True, False, ["server.py"])
+        self.assertEqual(len(avisos), 1)
+        self.assertIn("server.py", avisos[0])
+        self.assertNotIn("tests/x.py", avisos[0])
+
+    def test_spec031_chat_solo_de_terminal_avisa_como_antes(self):
+        avisos = self.cierre.evaluar(["server.py"], 1000, self.cfg, True, False, [])
+        self.assertEqual(len(avisos), 1)
+
     def _transcript(self, bloques):
         import json, tempfile
         ruta = os.path.join(tempfile.mkdtemp(), "t.jsonl")
