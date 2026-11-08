@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 28 | Guardián con memoria del chat revisa el .venv (specs 027, 029 y 030, 1.28.5) | 2026-11-08 | archive/hechos.md |
 | 0 | Proyecto creado con el kit de arranque | 2026-10-31 | instalar.py |
 | 1 | Repo subido a GitHub privado | 2026-11-01 | e1b483b |
 | 9 | Índice central INDICE.md (descartado, ahorro no demostrado) | 2026-11-01 | archive/hechos.md |

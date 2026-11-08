@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 28 · Guardián con memoria del chat revisa el .venv (specs 027, 029 y 030, 1.28.5)
+**Fecha:** 2026-11-08 · **Ref:** archive/hechos.md
+Probado por Darwin el 2026-11-09 (confirmado tras las pruebas de Modelo #59 y #60 en F:/Modelo 2): con django==3.2 en el .venv el git push se detiene; con humanize==4.16.0 pasa callado. Arreglos: 1.28.4 (ve el .venv), 1.28.5 (olvida lo no instalado; 2>&1 no es una libreria). Sin comprobar: .venv en otra ruta; bloqueo con npm/cargo/go (punto 32). Commit vacio 9222812 en el GitHub de Modelo 2.
+
 ## 0 · Proyecto creado con el kit de arranque
 **Fecha:** 2026-10-31
 Estructura de Cerebro Vivo instalada con `instalar.py`.
