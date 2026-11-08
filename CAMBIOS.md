@@ -194,3 +194,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.6 (2026-11-08)
 - Spec 031, punto 33: el aviso de cierre (`cierre.py`) ya no atribuye al chat los cambios sin commitear que trajo `/actualizar` u otro chat. Si el chat editó archivos con Edit/Write, solo cuentan esos; si trabajó solo con la terminal, todo sigue como antes. Límite: lo escrito con la terminal en un chat que también usó Edit puede no avisarse.
+
+## 1.28.7 (2026-11-08)
+- Arreglo de `hitos.py` (hallado por Modelo #61): reconocía que se había apuntado la lección (`lecciones.py`) solo si se lanzaba con Bash; con PowerShell, habitual en Windows, el aviso «hito sin lección» se repetía aunque ya estuviera apuntada. Ahora vale también PowerShell. Prueba nueva.

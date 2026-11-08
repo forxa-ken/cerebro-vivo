@@ -78,6 +78,11 @@ class TestHitos(unittest.TestCase):
         j, m = uso("Bash", {"command": 'python .brain/guardianes/lecciones.py ninguna "cosmetico"'})
         self.assertEqual(self.avisos([u, resultado(i, "ok"), m, resultado(j, "ok")]), [])
 
+    def test_leccion_lanzada_con_powershell_tambien_cierra_el_hito(self):
+        i, u = uso("Edit", {"file_path": self.ruta("lanzador_video.py")})
+        j, m = uso("PowerShell", {"command": 'python .brain/guardianes/lecciones.py ninguna "cosmetico"'})
+        self.assertEqual(self.avisos([u, resultado(i, "ok"), m, resultado(j, "ok")]), [])
+
     def test_senal_nueva_tras_la_leccion_vuelve_a_avisar(self):
         i, u = uso("Edit", {"file_path": self.ruta("lanzador_video.py")})
         j, m = uso("Bash", {"command": "python .brain/guardianes/lecciones.py --tema video 'a | b | c'"})

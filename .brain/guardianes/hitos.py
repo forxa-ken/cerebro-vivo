@@ -51,7 +51,7 @@ def relativa(ruta, raiz):
 
 def es_marca(nombre, entrada):
     """¿Esta llamada de la IA apunta una lección (o cierra el hito con «ninguna»)?"""
-    if nombre == "Bash":
+    if nombre in ("Bash", "PowerShell"):  # en Windows la IA suele usar PowerShell (hallado por Modelo #61)
         return "lecciones.py" in str(entrada.get("command", ""))
     if nombre in EDITORES:
         return "/lecciones/" in str(entrada.get("file_path", "")).replace("\\", "/")
