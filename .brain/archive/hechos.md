@@ -6,7 +6,7 @@
 
 ## 21 · Nada suelto ni viejo: traspaso-out salgo con remoto (spec 022, 1.20.0)
 **Fecha:** 2026-11-08 · **Ref:** archive/hechos.md
-Probado por Darwin el 2026-11-08 con Modelo #61 en un proyecto con GitHub: traspaso-out salgo hizo commit solo de la memoria (439b298, 7 archivos de .brain, verificado en GitHub), lo subio y listo el codigo suelto (prueba_suelta.py y otros) sin meterlo. Sin valorar: si el aviso de /actualizar ayuda o estorba. Hallazgo aparte: hitos.py no reconocia lecciones.py con PowerShell (arreglado en 1.28.7).
+Probado por Darwin el 2026-11-08 con Modelo #61 en un proyecto con GitHub: traspaso-out salgo hizo commit solo de la memoria (439b298, 7 archivos de .brain, verificado en GitHub), lo subio y listo el codigo suelto (prueba_suelta.py y otros) sin meterlo. El aviso de «hay una versión nueva» de /actualizar le ayuda (Darwin). Hallazgo aparte: hitos.py no reconocia lecciones.py con PowerShell (arreglado en 1.28.7).
 
 ## 28 · Guardián con memoria del chat revisa el .venv (specs 027, 029 y 030, 1.28.5)
 **Fecha:** 2026-11-08 · **Ref:** archive/hechos.md
