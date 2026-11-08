@@ -150,3 +150,4 @@
 2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.28.0: medir.py --skills mide el uso real de las skills (informe 028, 3.2); quitado el campo Veces que nadie actualizaba; 360 pruebas en verde | Fast-Track
 2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #26) | Informe 028: pendientes.md acortado de 7,7 a 4,3 KB (detalle archivado; puntos 16 y 27 fundidos en el 20) y regla nueva de editar codigo sin scripts heredoc en la constitucion; arnes 1.28.1; 360 pruebas en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Traspaso al chat #27 escrito y chat nuevo abierto; leccion 4 de heredoc apuntada | Fast-Track
