@@ -188,3 +188,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.4 (2026-11-08)
 - Spec 029, punto 28 reabierto: el guardián con memoria del chat (`eventos_chat.py`) no veía las librerías instaladas en el `.venv` del proyecto y dejaba pasar `git push` con una vulnerable (fallo hallado por Modelo #59). Ahora pregunta la versión, por este orden, al Python del `.venv`/`venv` del proyecto, a la versión fijada en el comando (`nombre==versión`) y al Python del hook; y si no la encuentra en ninguno **avisa una vez** en vez de callar (texto nuevo `eventos_chat_sin_version`, es/en). Pruebas con un `.venv` real.
+
+## 1.28.5 (2026-11-08)
+- Spec 030, hallazgos de Modelo #59 sobre el guardián con memoria del chat (`eventos_chat.py`): ya no recuerda para siempre una librería que no está instalada (desinstalada, o cuya orden se detuvo antes de ejecutarse): la olvida sola si hay `.venv` y no está ni en él ni en el Python del hook; y `2>&1`, `>fichero` y similares ya no se toman por una librería (de ahí el «(2)» del aviso). Prueba con `.venv` real.

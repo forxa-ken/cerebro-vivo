@@ -211,6 +211,26 @@ class TestEntornoVirtual(Base):
         self.assertIn("no pude ver", texto)
         self.assertEqual(self.orden("git push"), (0, ""))
 
+    def test_spec030_orden_detenida_antes_de_ejecutarse_no_deja_recuerdo_eterno(self):
+        self.crear_venv()  # entorno real sin django
+        codigo, _ = self.orden("pip install django==3.2 && git push", http=self.red_con_versiones([], ("django",)))
+        self.assertEqual(codigo, 2)  # la misma orden que instala sí se revisa
+        self.assertEqual(self.orden("git push", http=self.red_con_versiones([], ("django",))), (0, ""))  # nunca se instaló
+
+    def test_spec030_desinstalada_se_olvida_pero_instalada_sigue_bloqueando(self):
+        self.crear_venv(django="3.2")
+        self.orden("pip install django==3.2")
+        self.assertEqual(self.orden("git push", http=red(("django",)))[0], 2)
+        self.assertEqual(self.orden("git push", http=red(("django",)))[0], 2)  # sigue instalada: sigue deteniendo
+        import shutil
+        shutil.rmtree(os.path.join(os.path.dirname(ev.python_del_entorno(self.dir)), "..", "Lib", "site-packages", "django-3.2.dist-info"), ignore_errors=True)
+        shutil.rmtree(os.path.join(self.dir, ".venv", "lib"), ignore_errors=True)  # en Linux/Mac
+        self.assertEqual(self.orden("git push", http=red(("django",))), (0, ""))
+
+    def test_spec030_redireccion_no_es_una_libreria(self):
+        self.assertEqual(ev.instalaciones("pip install --no-deps django==3.2 2>&1 | tail -3", CFG), [("pypi", ["django"], "")])
+        self.assertEqual(ev.instalaciones("pip install rich 2>/dev/null >salida.txt", CFG), [("pypi", ["rich"], "")])
+
     def test_ayudas(self):
         self.assertEqual(ev.versiones_fijadas("uv pip install Flask_Login[x]==0.6.2 requests>=2 -U", CFG), {"flask-login": "0.6.2"})
         self.assertEqual(ev.versiones_fijadas("npm install left-pad==1.0", CFG), {})

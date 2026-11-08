@@ -116,7 +116,7 @@ def instalaciones(comando, cfg):
                 if tok in CON_VALOR:
                     i += 2
                     continue
-                if tok.startswith("-") or re.match(r"^(\.|/|[A-Za-z]:\\|https?:|git\+)", tok):
+                if tok.startswith("-") or re.match(r"^(\.|/|[A-Za-z]:\\|https?:|git\+|[0-9]*[<>&])", tok):  # spec 030: `2>&1` no es una librería
                     i += 1
                     continue
                 n = _nombre(tok, eco)
@@ -236,6 +236,25 @@ def recordar(chat, comando, raiz, cfg):
     return hubo
 
 
+def olvidar_no_instaladas(chat, raiz):
+    """Spec 030: quita del recuerdo del chat lo que ya no está instalado (se desinstaló, o la orden se detuvo antes de
+    ejecutarse). Solo si hay `.venv` y la librería no está ni en él ni en el Python del hook; se llama ANTES de apuntar
+    la orden actual, para no olvidar lo que esa misma orden instala."""
+    python = python_del_entorno(raiz)
+    if not python or not chat["pendientes"]:
+        return
+    en_venv = versiones_en_entorno(python, chat["pendientes"])
+    ausentes = [n for n in chat["pendientes"] if not en_venv.get(n) and not librerias.version_instalada(n, "")]
+    if not ausentes:
+        return
+    chat["pendientes"] = [n for n in chat["pendientes"] if n not in ausentes]
+    for n in ausentes:
+        (chat.get("versiones") or {}).pop(n, None)
+    chat["bloqueados"] = [b for b in chat.get("bloqueados", []) if b.split("==")[0] not in ausentes]
+    if not chat["bloqueados"]:
+        chat.pop("bloqueados", None)
+
+
 def pendientes_por_requisitos(chat, raiz, cfg):
     """Si requirements.txt cambió desde que se vio por primera vez en este chat, sus librerías cuentan como nuevas."""
     actual = huella_requisitos(raiz, cfg)
@@ -319,6 +338,7 @@ def procesar(datos, cfg, raiz=RAIZ, http=None):
     pendientes_por_requisitos(chat, raiz, cfg)
     salida = (0, "")
     if herramienta in ("Bash", "PowerShell") and comando:
+        olvidar_no_instaladas(chat, raiz)
         recordar(chat, comando, raiz, cfg)
         if es_push(comando):
             salida = revisar_push(estado, chat, cfg, raiz, http)
