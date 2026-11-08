@@ -126,7 +126,6 @@
   "tests/test_arranque.py": "e3b837586bee4be340a13c384f91c84c9de7ffdf86eb9b70fc6425fb9f88d3a5",
   "tests/test_cerebro_indices.py": "a2d2f4a49607754af5cc5484bbb0c98f620ebbefd79ef8ee839729bcfa91ecda",
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
-  "tests/test_esperando_prueba.py": "05ba9dc116f9297dbd186fa63d8447f0391160ccc6de423632d204a3f9c2aa4e",
   "tests/test_eventos_chat.py": "8392bc05c3aae773d386860d50d0a3e0cf707a402c81e8c25acc0035e56bfd45",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
@@ -175,7 +174,8 @@
   ".claude/skills/cambio-de-ia/SKILL.md",
   ".claude/skills/traspaso-entre-chats/SKILL.md",
   "tests/test_cambio_de_ia.py",
+  "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.28.2"
+ "version": "1.28.3"
 }

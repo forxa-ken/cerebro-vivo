@@ -156,3 +156,4 @@
 2026-11-08 | Claude (cerebro-vivo #27) | Subidos a GitHub 23 commits (27ecd4f..df98d40), sin secretos, pruebas en verde | Fast-Track
 2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #27) | Darwin prueba y confirma los puntos 14 y 26; pasan a archive/hechos.md y salen de pendientes | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Arnes 1.28.3: la prueba nueva de 1.28.2 se repartia y fallaba en proyectos; renombrada a test_arnes_esperando_prueba y retirada de Modelo 2 | Fast-Track

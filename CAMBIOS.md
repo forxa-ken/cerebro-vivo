@@ -182,3 +182,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.2 (2026-11-08)
 - Informe 028, 3.4: `tests/test_esperando_prueba.py` comprueba de punta a punta, con el arnés real instalado en una carpeta temporal, los puntos 14 (actualizador: repone lo borrado, respeta lo tocado, retira a `copias_arnes`), 21 (`traspaso-out salgo` sube la memoria y lista el código suelto) y 26 (`/version`: datos que lee y aviso de versión nueva). Solo pruebas; el código no cambia.
+
+## 1.28.3 (2026-11-08)
+- Arreglo de un fallo de 1.28.2: la prueba nueva dependia de `VERSION` y `CAMBIOS.md`, que solo existen en este repo, y se repartio a los proyectos donde fallaba. Se renombra a `tests/test_arnes_esperando_prueba.py` (las `test_arnes_*` no se reparten) y la vieja pasa a retirados: el actualizador la saca de los proyectos que ya la recibieron, con copia.

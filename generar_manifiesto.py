@@ -37,7 +37,8 @@ PRUEBAS = ["tests.test_arranque", "tests.test_cerebro_indices", "tests.test_kit_
            "tests.test_pruebas", "tests.test_experiencia", "tests.test_instalar_gui", "tests.test_analisis", "tests.test_medir", "tests.test_modo_ligero", "tests.test_textos", "tests.test_lecciones", "tests.test_hitos", "tests.test_ediciones_en", "tests.test_eventos_chat"]
 # Retirado o renombrado antes de que el manifiesto llevara la lista (sacado del historial de Git).
 RETIRADOS_HISTORICOS = [".brain/guardianes/modo_auto.py", ".brain/guardianes/uso_tokens.py", ".claude/skills/cambio-de-ia/SKILL.md",
-                        ".claude/skills/traspaso-entre-chats/SKILL.md", "tests/test_cambio_de_ia.py", "tests/test_modo_auto.py"]
+                        ".claude/skills/traspaso-entre-chats/SKILL.md", "tests/test_cambio_de_ia.py", "tests/test_modo_auto.py",
+                        "tests/test_esperando_prueba.py"]  # 1.28.2 la repartió por error; desde 1.28.3 es test_arnes_esperando_prueba.py (solo del repo)
 
 
 def listar():
