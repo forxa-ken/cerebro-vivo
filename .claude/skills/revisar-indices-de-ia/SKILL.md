@@ -26,4 +26,4 @@ Limpia `CLAUDE.md`, `GEMINI.md` y `AGENTS.md` sin perder información y sin fals
 - spec 016
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04, spec 016)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04, spec 016)

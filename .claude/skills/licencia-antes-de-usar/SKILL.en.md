@@ -21,4 +21,4 @@ description: Use when adopting a free service, voice, font, model or library in 
 - D-037, D-041, letter §16
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

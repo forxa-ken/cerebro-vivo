@@ -22,4 +22,4 @@ Activa, desactiva o muestra el ajuste `chat_nuevo_auto` de `.brain/guardianes/gu
 - Spec 025 (petición de Darwin, 2026-11-07)
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-07)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-07)

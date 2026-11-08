@@ -22,4 +22,4 @@ description: Use when Darwin types /pendiente or asks to see a list of what is m
 - Spec 006
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-01)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-01)

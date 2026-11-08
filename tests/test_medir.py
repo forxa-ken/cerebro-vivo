@@ -80,5 +80,41 @@ class TestMedir(unittest.TestCase):
         self.assertEqual(medir.media(con, "nuevos"), 110)
 
 
+class TestSkills(unittest.TestCase):
+    """Informe 028 (3.2): uso real de las skills leído de los registros de los chats."""
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.proyecto = tempfile.mkdtemp()
+        for n in ("traspaso-in", "pendiente", "nunca-usada"):
+            os.makedirs(os.path.join(self.proyecto, ".claude", "skills", n))
+
+    def chat(self, nombre, eventos):
+        with open(os.path.join(self.dir, nombre), "w", encoding="utf-8") as f:
+            f.write("\n".join(json.dumps(e) for e in eventos))
+
+    def llamada(self, skill):
+        return {"type": "assistant", "timestamp": "2026-11-08T10:00:00Z",
+                "message": {"id": skill, "content": [{"type": "tool_use", "name": "Skill", "input": {"skill": skill}}]}}
+
+    def comando(self, skill):
+        return {"type": "user", "timestamp": "2026-11-07T10:00:00Z",
+                "message": {"content": [{"type": "text", "text": "<command-name>/%s</command-name>" % skill}]}}
+
+    def test_cuenta_llamadas_y_comandos_sin_sumar_el_mismo_uso(self):
+        self.chat("a.jsonl", [self.comando("traspaso-in"), self.llamada("traspaso-in"), self.llamada("traspaso-in"), self.comando("pendiente")])
+        self.assertEqual(medir.skills_usadas(os.path.join(self.dir, "a.jsonl")), {"traspaso-in": 2, "pendiente": 1})
+
+    def test_tabla_incluye_las_no_usadas_con_cero_y_ordena(self):
+        self.chat("a.jsonl", [self.llamada("traspaso-in"), self.llamada("plugin:traspaso-in")])
+        self.chat("b.jsonl", [self.llamada("traspaso-in"), self.llamada("de-otro-proyecto")])
+        tabla = medir.uso_de_skills(self.dir, self.proyecto)
+        self.assertEqual([f[0] for f in tabla], ["traspaso-in", "nunca-usada", "pendiente"])
+        self.assertEqual(tabla[0][1:3], (3, 2))
+        self.assertEqual(tabla[1][1:3], (0, 0))
+
+    def test_sin_registros_ni_skills_no_falla(self):
+        self.assertEqual(medir.uso_de_skills(self.dir, tempfile.mkdtemp()), [])
+
+
 if __name__ == "__main__":
     unittest.main()

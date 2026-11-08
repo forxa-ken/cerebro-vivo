@@ -26,4 +26,4 @@ Read-only; it writes and updates nothing.
 - Spec 023 (Darwin's request, 2026-11-07)
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-07)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-07)

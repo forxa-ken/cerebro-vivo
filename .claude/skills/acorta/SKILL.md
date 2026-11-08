@@ -25,4 +25,4 @@ Lleva `CLAUDE.md`, `GEMINI.md` y `AGENTS.md` al tope de `tope_claude_md_bytes` (
 - spec 017 (petición de Darwin, 2026-11-04)
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04)

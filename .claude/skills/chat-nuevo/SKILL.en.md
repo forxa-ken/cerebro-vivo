@@ -22,4 +22,4 @@ Turns on, turns off or shows the `chat_nuevo_auto` setting in `.brain/guardianes
 - Spec 025 (Darwin's request, 2026-11-07)
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-07)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-07)

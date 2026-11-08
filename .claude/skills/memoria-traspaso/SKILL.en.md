@@ -22,4 +22,4 @@ The handoff the new chat loads is short. The full detail is kept apart and consu
 - Spec 026
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-07)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-07)

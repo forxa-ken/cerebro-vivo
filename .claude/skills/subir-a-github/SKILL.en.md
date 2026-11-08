@@ -24,4 +24,4 @@ Only on Darwin's order, except for the memory commit of `traspaso-out salgo`, wh
 - Spec 022
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-07, spec 022)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-07, spec 022)

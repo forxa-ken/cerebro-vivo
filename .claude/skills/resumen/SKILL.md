@@ -20,4 +20,4 @@ description: Use when Darwin types /resumen or asks where the project stands.
 - Spec 006
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-01)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-01)

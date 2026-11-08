@@ -34,4 +34,4 @@ The kit installer overwrites nothing: it added a memory block at the end of the 
 - spec 015
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-04, spec 015)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-04, spec 015)

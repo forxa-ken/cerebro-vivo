@@ -24,4 +24,4 @@ It only serves to write an errand. To see the state there is `/resumen`; to see 
 - D-075, spec 084 (item 81)
 
 ## Used
-- Times: 1 · Last: 2026-11-01 (created on 2026-11-01)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-01)

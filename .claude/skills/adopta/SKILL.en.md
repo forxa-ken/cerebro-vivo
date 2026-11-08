@@ -24,4 +24,4 @@ One command for a project that already had its CLAUDE.md. It chains three steps 
 - Darwin's request (2026-11-04), specs 015, 017 and 018
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-04)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-04)

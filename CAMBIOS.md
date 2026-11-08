@@ -173,3 +173,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.27.1 (2026-11-08)
 - Dos arreglos del informe de poda (spec 028, puntos 3.1 y 3.3). El actualizador (`actualizar_arnes.py`) ahora añade a `.claude/settings.json` del proyecto los hooks de guardianes que le faltan (`completar_hooks`; no quita ni cambia los que hay, respeta el `python`/`python3` del proyecto, guarda copia y avisa en el informe), así que un guardián nuevo como `eventos_chat.py` queda activo con `/actualizar` sin volver a lanzar el instalador (reiniciar Claude Code). Y el hook de `eventos_chat.py` solo vigila `Bash` y `PowerShell` (se quitan `Edit`, `Write` y `MultiEdit`: ahorra una ejecución por edición). Pruebas nuevas en `test_arnes_actualizar.py`.
+
+## 1.28.0 (2026-11-08)
+- `medir.py --skills` (informe 028, 3.2): uso real de cada skill, leído de los registros de los chats (llamadas a la herramienta Skill y comandos `/skill`; las no usadas salen con 0, con chats y última fecha). Sustituye al campo «Veces», que nadie actualizaba y marcaba 0 en todas: las 29 skills (es/en) ahora apuntan al comando en su sección «Usada». Solo mira los chats de la carpeta pedida (`--proyecto RUTA` para otro). Textos es/en y pruebas nuevas en `test_medir.py`.

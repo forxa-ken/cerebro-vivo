@@ -25,4 +25,4 @@ Splits a `.brain/` file that goes over `tope_archivo_memoria_bytes` (8 KB) into 
 - spec 018 (Darwin's request, 2026-11-04)
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-04)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-04)

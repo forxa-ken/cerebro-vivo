@@ -26,4 +26,4 @@ Cleans `CLAUDE.md`, `GEMINI.md` and `AGENTS.md` without losing information and w
 - spec 016
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-04, spec 016)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-04, spec 016)

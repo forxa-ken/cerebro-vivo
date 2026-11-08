@@ -31,4 +31,4 @@ Gemini y Codex no corren ganchos: no hay resumen al abrir ni aviso al cerrar. Es
 - Specs 010, 011 y 022, spec 078
 
 ## Usada
-- Veces: 0 · Última: — (renombrada de cambio-de-ia el 2026-11-03)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (renombrada de cambio-de-ia el 2026-11-03)

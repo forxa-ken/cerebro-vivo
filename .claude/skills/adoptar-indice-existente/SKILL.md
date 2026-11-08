@@ -34,4 +34,4 @@ El instalador del kit no pisa nada: añadió un bloque de memoria al final del �
 - spec 015
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04, spec 015)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04, spec 015)

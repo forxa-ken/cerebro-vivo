@@ -23,4 +23,4 @@ La lección se apunta cuando ocurre el hito, no al final ni «si nos acordamos»
 - Spec 026
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-07)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-07)

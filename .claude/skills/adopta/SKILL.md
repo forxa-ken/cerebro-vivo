@@ -24,4 +24,4 @@ Un solo comando para un proyecto que ya tenía su CLAUDE.md. Encadena tres pasos
 - Petición de Darwin (2026-11-04), specs 015, 017 y 018
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04)

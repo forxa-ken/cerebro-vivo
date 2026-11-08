@@ -172,6 +172,52 @@ def comparar(con, sin, igualar=True):
     print(tp("medir_chats_medidos_arnes") % (len(con), len(sin)))
 
 
+def skills_usadas(ruta):
+    """{skill: veces} de UN chat. Cuenta las llamadas a la herramienta Skill y los comandos «/skill» escritos por Darwin;
+    como un comando suele acabar en una llamada, por skill se toma el mayor de los dos números (no se suman)."""
+    llamadas, comandos = {}, {}
+    with open(ruta, encoding="utf-8", errors="replace") as f:
+        for linea in f:
+            try:
+                e = json.loads(linea)
+            except ValueError:
+                continue
+            contenido = (e.get("message") or {}).get("content")
+            bloques = contenido if isinstance(contenido, list) else [{"type": "text", "text": contenido}] if isinstance(contenido, str) else []
+            for b in bloques:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "tool_use" and b.get("name") == "Skill":
+                    nombre = str((b.get("input") or {}).get("skill") or "").split(":")[-1]
+                    if nombre:
+                        llamadas[nombre] = llamadas.get(nombre, 0) + 1
+                elif e.get("type") == "user" and b.get("type") == "text":
+                    for nombre in re.findall(r"<command-name>/?([^<\s]+)</command-name>", b.get("text") or ""):
+                        nombre = nombre.split(":")[-1]
+                        comandos[nombre] = comandos.get(nombre, 0) + 1
+    return {n: max(llamadas.get(n, 0), comandos.get(n, 0)) for n in set(llamadas) | set(comandos)}
+
+
+def uso_de_skills(carpeta, raiz):
+    """Tabla [(skill, veces, chats, última fecha)] de las skills del proyecto (las no usadas salen con 0), de más a menos usadas.
+    Informe 028 (3.2): sustituye al campo «Veces» de cada skill, que nadie actualizaba."""
+    ruta_skills = os.path.join(raiz, ".claude", "skills")
+    nombres = sorted(d for d in os.listdir(ruta_skills) if os.path.isdir(os.path.join(ruta_skills, d))) if os.path.isdir(ruta_skills) else []
+    veces, chats, ultima = {n: 0 for n in nombres}, {n: 0 for n in nombres}, {n: "" for n in nombres}
+    for ruta in glob.glob(os.path.join(carpeta, "*.jsonl")):
+        try:
+            usos = skills_usadas(ruta)
+            fecha = leer_chat(ruta)["fecha"]
+        except Exception:
+            continue
+        for n, v in usos.items():
+            if n in veces:
+                veces[n] += v
+                chats[n] += 1
+                ultima[n] = max(ultima[n], fecha or "")
+    return sorted(((n, veces[n], chats[n], ultima[n]) for n in nombres), key=lambda f: (-f[1], f[0]))
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -183,7 +229,15 @@ def main(argv=None):
     ap.add_argument("--desglose", metavar="ID", help=tp("ayuda_medir_desglose"))
     ap.add_argument("--ultimos", type=int, default=0)
     ap.add_argument("--tarea", default="", help=tp("ayuda_medir_tarea"))
+    ap.add_argument("--skills", action="store_true", help=tp("ayuda_medir_skills"))
     a = ap.parse_args(argv)
+    if a.skills:
+        tabla = uso_de_skills(carpeta_de(a.proyecto), a.proyecto)
+        print("%-34s %6s %6s  %s" % (tp("medir_skill"), tp("medir_veces"), "Chats", tp("medir_ultima")))
+        for nombre, veces, chats, ultima in tabla:
+            print("%-34s %6d %6d  %s" % (nombre, veces, chats, ultima or "-"))
+        print(tp("medir_skills_resumen") % (sum(1 for f in tabla if f[1]), len(tabla)))
+        return 0
     if a.comparar:
         comparar(chats_de(carpeta_de(a.comparar[0]), a.ultimos, a.tarea), chats_de(carpeta_de(a.comparar[1]), a.ultimos, a.tarea))
         return 0

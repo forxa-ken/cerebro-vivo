@@ -24,4 +24,4 @@ Solo con la orden de Darwin, salvo el commit de memoria de `traspaso-out salgo`,
 - Spec 022
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-07, spec 022)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-07, spec 022)

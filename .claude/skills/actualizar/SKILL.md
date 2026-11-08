@@ -24,4 +24,4 @@ Hace todo el proceso sin que Darwin escriba comandos. El actualizador guarda cop
 - spec 019 (petición de Darwin, 2026-11-04)
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04)

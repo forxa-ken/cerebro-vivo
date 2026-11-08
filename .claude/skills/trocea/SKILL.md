@@ -25,4 +25,4 @@ Divide un archivo de `.brain/` que pasa de `tope_archivo_memoria_bytes` (8 KB) e
 - spec 018 (petición de Darwin, 2026-11-04)
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-04)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-04)

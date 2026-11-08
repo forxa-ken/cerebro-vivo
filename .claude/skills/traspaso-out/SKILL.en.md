@@ -31,4 +31,4 @@ Gemini and Codex do not run hooks: there is no summary on opening and no notice 
 - Specs 010, 011 and 022, spec 078
 
 ## Used
-- Times: 0 · Last: — (renamed from cambio-de-ia on 2026-11-03)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (renamed from cambio-de-ia on 2026-11-03)

@@ -21,4 +21,4 @@ description: Use when you must generate Excel, PDF, GIF or similar files and wan
 - herramientas.md (Reports without dependencies), letter §16
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

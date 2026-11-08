@@ -34,4 +34,4 @@ Hacerlo pronto: la IA solo puede resumir lo que aún tiene en contexto. Claude C
 - D-051, D-069, specs 078 y 011
 
 ## Usada
-- Veces: 0 · Última: — (renombrada de traspaso-entre-chats el 2026-11-03)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (renombrada de traspaso-entre-chats el 2026-11-03)

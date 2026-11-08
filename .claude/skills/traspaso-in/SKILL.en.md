@@ -34,4 +34,4 @@ Do it early: the AI can only summarize what it still has in context. Claude Code
 - D-051, D-069, specs 078 and 011
 
 ## Used
-- Times: 0 · Last: — (renamed from traspaso-entre-chats on 2026-11-03)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (renamed from traspaso-entre-chats on 2026-11-03)

@@ -22,4 +22,4 @@ description: Use when creating an automatic check (guardian) for the Cerebro Viv
 - D-039, D-044, D-046, letter principle 8
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

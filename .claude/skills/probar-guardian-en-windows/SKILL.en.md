@@ -21,4 +21,4 @@ description: Use when testing a guardian, hook or script that prints to the Wind
 - letter §16 (#39)
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

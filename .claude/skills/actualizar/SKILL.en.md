@@ -24,4 +24,4 @@ Does the whole process without Darwin typing commands. The updater keeps a backu
 - spec 019 (Darwin's request, 2026-11-04)
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-04)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-04)

@@ -21,4 +21,4 @@ description: Use when a change touches more than 2 files or quotas, payments, li
 - D-001
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-10-31, spec 079)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-10-31, spec 079)

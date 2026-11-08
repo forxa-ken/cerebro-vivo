@@ -21,4 +21,4 @@ description: Use when removing an old function, window or feature.
 - #68, item 000b, spec 028
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

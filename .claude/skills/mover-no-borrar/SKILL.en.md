@@ -21,4 +21,4 @@ description: Use when pruning, archiving or replacing information in the brain.
 - spec 048, D-007, D-043
 
 ## Used
-- Times: 0 · Last: — (created on 2026-10-31, spec 079)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-10-31, spec 079)

@@ -26,4 +26,4 @@ Solo lee; no escribe ni actualiza nada.
 - Spec 023 (petición de Darwin, 2026-11-07)
 
 ## Usada
-- Veces: 0 · Última: — (creada el 2026-11-07)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-07)

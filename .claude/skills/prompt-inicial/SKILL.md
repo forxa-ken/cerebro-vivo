@@ -24,4 +24,4 @@ Solo sirve para escribir un encargo. Para ver el estado está `/resumen`; para v
 - D-075, spec 084 (punto 81)
 
 ## Usada
-- Veces: 1 · Última: 2026-11-01 (creada el 2026-11-01)
+- Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-01)

@@ -23,4 +23,4 @@ The lesson is noted when the milestone happens, not at the end or "if we remembe
 - Spec 026
 
 ## Used
-- Times: 0 · Last: — (created on 2026-11-07)
+- Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-07)
