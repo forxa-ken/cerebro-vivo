@@ -155,3 +155,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.25.2 (2026-11-08)
 - Edición inglesa de los dos README que reparte el arnés: `kit-arranque/README.en.md` y `kit-traduccion/README.en.md` (spec 024, fase 3). El instalador con `--idioma English --traduccion` copia el README inglés del kit de traducción. Prueba de paridad ampliada.
+
+## 1.25.3 (2026-11-08)
+- Plantilla de spec en inglés (`.brain/specs/_template.en.md`): un proyecto con `"idioma": "en"` la recibe en el sitio de `_template.md` (actualizador e instalador), así las specs nuevas salen en inglés. `test_cada_spec_declara_su_estado` acepta «Status». Prueba de paridad ampliada.

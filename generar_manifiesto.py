@@ -25,7 +25,7 @@ INCLUIR = [
     ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md", ".brain/biblioteca/PLANTILLA_TRASPASO.md",
     ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md", ".brain/biblioteca/PLANTILLA_TRASPASO.en.md",
     ".brain/biblioteca/kit-arranque/", ".brain/biblioteca/kit-traduccion/",
-    ".brain/specs/_template.md", ".brain/pruebas/_plantilla.md",
+    ".brain/specs/_template.md", ".brain/specs/_template.en.md", ".brain/pruebas/_plantilla.md",
     ".claude/skills/",
     "instalar_kit.bat", "instalar_kit.command",
     "tests/test_*.py",

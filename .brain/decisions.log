@@ -139,3 +139,4 @@
 2026-11-08 | Claude (cerebro-vivo #25) | Commit local de arnes 1.24.0 (spec 026) y 1.25.0 (spec 024 fase 3); suite en verde, sin subir a GitHub | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.1: la prueba de textos solo revisa guardianes repartidos por el arnes (fallaba en LoboHook por el modo auto); suite en verde | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.2: README ingles del kit de arranque y del kit de traduccion; el instalador copia el ingles; suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.3: plantilla de spec en ingles (_template.en.md); suite en verde | Fast-Track

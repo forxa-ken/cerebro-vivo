@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-CARPETAS = [".claude/skills", ".brain/biblioteca", ".brain/biblioteca/kit-arranque/plantillas"]
+CARPETAS = [".claude/skills", ".brain/biblioteca", ".brain/biblioteca/kit-arranque/plantillas", ".brain/specs"]
 
 
 def ediciones():
@@ -41,7 +41,8 @@ class TestParidadEn(unittest.TestCase):
             self.assertTrue(os.path.isfile(os.path.join(skills, n, "SKILL.en.md")), "falta SKILL.en.md en " + n)
         for rel in (".brain/biblioteca/CEREBRO_VIVO.en.md", ".brain/biblioteca/PLANTILLA_TRASPASO.en.md",
                     ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md", "README.en.md", "MANUAL_DE_USO.en.md",
-                    ".brain/biblioteca/kit-arranque/README.en.md", ".brain/biblioteca/kit-traduccion/README.en.md"):
+                    ".brain/biblioteca/kit-arranque/README.en.md", ".brain/biblioteca/kit-traduccion/README.en.md",
+                    ".brain/specs/_template.en.md"):
             self.assertTrue(os.path.isfile(os.path.join(RAIZ, rel)), "falta " + rel)
         plantillas = os.path.join(RAIZ, ".brain", "biblioteca", "kit-arranque", "plantillas")
         for n in sorted(os.listdir(plantillas)):

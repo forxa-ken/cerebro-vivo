@@ -94,7 +94,7 @@ class TestIndicesCerebro(unittest.TestCase):
         carpeta = os.path.join(BRAIN, "specs")
         for f in sorted(os.listdir(carpeta)):
             if f.endswith(".md") and "borrador" not in f:  # los «borrador-*» son textos de ayuda, no specs
-                self.assertRegex(leer(carpeta, f), r"(?i)estado", "La spec %s no declara su estado" % f)
+                self.assertRegex(leer(carpeta, f), r"(?i)estado|status", "La spec %s no declara su estado" % f)
 
     def test_registro_de_decisiones_con_formato_de_linea(self):
         # Solo se exige a las entradas recientes: las antiguas tienen formatos anteriores.
