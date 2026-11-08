@@ -1,0 +1,6 @@
+# Lecciones: arnes
+
+Formato: problema → causa → regla. Las escribe `lecciones.py` en el momento del hito (spec 026).
+
+- **completar_hooks escribia 'python' a secas en proyectos con el venv entre comillas, y el vigilante nuevo podia no arrancar** → la regex del interprete cortaba en la primera comilla y daba vacio; ademas pisar con --forzar sin copia fue denegado por la app → **al leer un comando de hook tomar todo lo anterior a '"$CLAUDE_PROJECT_DIR/.brain/', probar con venv y python normal antes de cambiar, y hacer copia propia antes de usar --forzar** (2026-11-08)
+- **Dos veces un test quedó con SyntaxError y un heredoc con comillas rompió el comando** → escribí código con \n dentro de un heredoc de Python en bash: la \n se convirtió en salto de línea real; y armé una clave de textos al vuelo (tp('x_' + c)) que la prueba de paridad no admite → **Los bloques con \n o muchas comillas se escriben con Write/Edit (o un .py en el scratchpad), y las claves de textos.py se citan completas y literales en el código** (2026-11-08)

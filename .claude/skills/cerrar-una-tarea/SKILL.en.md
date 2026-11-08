@@ -5,6 +5,8 @@ description: Use when finishing any task in the project.
 
 # Close a task
 
+**Close by block** (spec 033): a finished topic with tests green, not every small change. The guardian does not ask for the line until 15 files are edited without closing (`cierre_bloque_max_ediciones`). **Always** close before opening a new chat, writing a handover or switching AI.
+
 ## How (steps)
 1. Tests green: `venv\Scripts\python.exe -m unittest discover tests`.
 2. A line in `.brain/decisions.log` (or `cerrar.py`). The line first and then the commit; if the line arrives later, it goes into the next commit.

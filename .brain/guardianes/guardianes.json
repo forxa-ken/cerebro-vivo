@@ -4,6 +4,8 @@
   "registro": ".brain/decisions.log",
   "pendientes": ".brain/pendientes.md",
   "tope_pendientes_bytes": 8192,
+  "cierre_por_bloque": true,
+  "cierre_bloque_max_ediciones": 15,
   "modo_ligero_activo": true,
   "modo_ligero": {
     "max_archivos": 2,

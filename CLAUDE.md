@@ -6,7 +6,7 @@ Repositorio del **meta-arnés «Cerebro Vivo»**: el método, los guardianes, la
 
 ## Memoria persistente (Cerebro `.brain/`)
 * **Al iniciar sesión** el resumen de arranque llega solo (hook `SessionStart`); copiarlo al usuario en 4-5 viñetas. Leer `.brain/constitution.md` y `.brain/pendientes.md`.
-* **Al terminar cada tarea:** el hook `Stop` avisa si falta la línea en `decisions.log`; cierre rápido: `python .brain/guardianes/cerrar.py --chat "cerebro-vivo #N" "qué se hizo"`.
+* **Al terminar cada bloque de trabajo** (spec 033; siempre antes de un traspaso o chat nuevo): el hook `Stop` avisa si falta la línea en `decisions.log` tras 15 ediciones sin cerrar; cierre rápido: `python .brain/guardianes/cerrar.py --chat "cerebro-vivo #N" "qué se hizo"`.
 * **Pendientes:** [`.brain/pendientes.md`](.brain/pendientes.md) (solo lo que falta). **Registro:** [`.brain/decisions.log`](.brain/decisions.log).
 * **Reglas innegociables:** [`.brain/constitution.md`](.brain/constitution.md). **Decisiones:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md).
 * **Manual del método y de todos los comandos:** [`.brain/biblioteca/CEREBRO_VIVO.md`](.brain/biblioteca/CEREBRO_VIVO.md); carta maestra en [`.brain/biblioteca/CARTA_META_ARNES.md`](.brain/biblioteca/CARTA_META_ARNES.md).

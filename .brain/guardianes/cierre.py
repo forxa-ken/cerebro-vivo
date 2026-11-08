@@ -125,6 +125,46 @@ def detalle_respuesta(transcript_path, raiz):
     return archivos, verde
 
 
+def ediciones_sin_cerrar(transcript_path, cfg, raiz):
+    """Spec 033 (cierre por bloque): cuántos archivos del proyecto (no ignorados) editó el chat con Edit/Write desde la
+    última vez que tocó el registro. None si no se puede leer el chat. Cuenta en todo el chat, no solo en esta respuesta."""
+    nombre = os.path.basename(cfg["registro"])
+    try:
+        with open(transcript_path, encoding="utf-8") as f:
+            lineas = f.read().splitlines()
+    except Exception:
+        return None
+    n = 0
+    for linea in lineas:
+        try:
+            e = json.loads(linea)
+        except ValueError:
+            continue
+        contenido = (e.get("message") or {}).get("content")
+        if e.get("type") != "assistant" or not isinstance(contenido, list):
+            continue
+        for b in contenido:
+            if not (isinstance(b, dict) and b.get("type") == "tool_use"):
+                continue
+            entrada = b.get("input") or {}
+            orden = str(entrada.get("command", ""))
+            if b.get("name") in ("Edit", "Write", "NotebookEdit", "MultiEdit"):
+                ruta = str(entrada.get("file_path", ""))
+                if os.path.basename(ruta) == nombre:
+                    n = 0
+                    continue
+                try:
+                    ruta = os.path.relpath(ruta, raiz)
+                except ValueError:
+                    pass
+                ruta = ruta.replace("\\", "/")
+                if not ruta.startswith("..") and not esta_ignorada(ruta, cfg["ignorar_cambios"]):
+                    n += 1
+            elif nombre in orden or "cerrar.py" in orden:
+                n = 0
+    return n
+
+
 def cierre_ligero(cfg, archivos, verde):
     """Spec 002. Devuelve el texto de la línea automática si la tarea es pequeña, no sensible y con pruebas en verde;
     None si hay que cerrar como siempre. Función pura, probada en tests."""
@@ -155,10 +195,13 @@ def escribir_linea_auto(raiz, cfg, texto):
         f.write("%s | Claude (auto) | %s | Fast-Track\n" % (datetime.date.today().isoformat(), texto))
 
 
-def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None):
+def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None):
     """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests.
     `editados` (spec 031): archivos que el chat editó con Edit/Write; si hay, solo cuentan esos cambios de git
-    (lo que trajo `/actualizar` u otro chat no es de este chat). Sin lista, vale todo lo que git ve cambiado."""
+    (lo que trajo `/actualizar` u otro chat no es de este chat). Sin lista, vale todo lo que git ve cambiado.
+    `sin_cerrar` (spec 033, cierre por bloque): archivos editados desde el último cierre; si es menor que
+    `cierre_bloque_max_ediciones` (15) no se pide la línea todavía: se cierra por bloque, no por tarea pequeña.
+    Con `cierre_por_bloque` en false, o sin dato, se pide en cada respuesta como antes."""
     avisos = []
     del_proyecto = [c for c in cambios if not esta_ignorada(c, cfg["ignorar_cambios"])]
     if editados:
@@ -169,6 +212,9 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
         registro_tocado = registro_en_respuesta
     else:
         registro_tocado = any(c == cfg["registro"] for c in cambios)
+    por_bloque = bool(cfg.get("cierre_por_bloque", True)) and sin_cerrar is not None
+    if por_bloque and sin_cerrar < cfg.get("cierre_bloque_max_ediciones", 15):
+        del_proyecto = []  # el bloque sigue abierto: aún no toca cerrar
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
         avisos.append(t(cfg, "cierre_falta_linea",
                         ", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
@@ -210,7 +256,13 @@ def main():
                 editados = detalle_respuesta(datos["transcript_path"], RAIZ)[0]
             except Exception:
                 editados = []
-        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados)
+        sin_cerrar = None
+        if datos.get("transcript_path"):
+            try:
+                sin_cerrar = ediciones_sin_cerrar(datos["transcript_path"], cfg, RAIZ)
+            except Exception:
+                sin_cerrar = None
+        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util
             espec = importlib.util.spec_from_file_location("longitud", os.path.join(AQUI, "longitud.py"))

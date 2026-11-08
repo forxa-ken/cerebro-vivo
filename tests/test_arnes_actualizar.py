@@ -223,6 +223,14 @@ class TestHooks(Base):
         copias = os.path.join(self.proy, act.COPIAS)
         self.assertTrue(any(".claude" in c for c, _, _ in os.walk(copias)))
 
+    def test_interprete_del_venv_entre_comillas_se_respeta(self):
+        """Hallado en LoboHook (1.28.7): con `"$CLAUDE_PROJECT_DIR/venv/Scripts/python.exe"` el hook nuevo salía con `python` a secas."""
+        venv = '"$CLAUDE_PROJECT_DIR/venv/Scripts/python.exe"'
+        self.preparar(prefijo=venv)
+        self.assertEqual(act.completar_hooks(self.repo, self.proy), ["eventos_chat.py"])
+        nuevo = json.loads(leer(self.proy, ".claude/settings.json"))["hooks"]["PreToolUse"][0]["hooks"][0]["command"]
+        self.assertEqual(nuevo, venv + ' "$CLAUDE_PROJECT_DIR/.brain/guardianes/eventos_chat.py"')
+
     def test_segunda_vez_no_hace_nada(self):
         self.preparar()
         act.completar_hooks(self.repo, self.proy)

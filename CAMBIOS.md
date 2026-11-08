@@ -197,3 +197,11 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.28.7 (2026-11-08)
 - Arreglo de `hitos.py` (hallado por Modelo #61): reconocía que se había apuntado la lección (`lecciones.py`) solo si se lanzaba con Bash; con PowerShell, habitual en Windows, el aviso «hito sin lección» se repetía aunque ya estuviera apuntada. Ahora vale también PowerShell. Prueba nueva.
+
+## 1.28.8 (2026-11-08)
+- Arreglo de `actualizar_arnes.py` (hallado en LoboHook): al completar el hook de un guardián nuevo, si el proyecto usa el Python del venv entre comillas (`"$CLAUDE_PROJECT_DIR/venv/Scripts/python.exe"`), no lo reconocía y escribía `python` a secas, y el vigilante podía no arrancar. Ahora respeta ese intérprete; con `python`/`python3` todo igual. Prueba nueva.
+
+## 1.29.0 (2026-11-08)
+- **Cierre por bloque** (spec 033, propuesta 1 del informe 032): `cierre.py` ya no pide la línea de `decisions.log` en cada respuesta; la pide cuando el chat lleva 15 archivos del proyecto editados sin cerrar (`cierre_bloque_max_ediciones`) o al cerrar con traspaso. Ajustes nuevos `cierre_por_bloque` y `cierre_bloque_max_ediciones` en `guardianes.json` (`cierre_por_bloque: false` vuelve al aviso de cada respuesta). La skill `cerrar-una-tarea` (es/en) lo explica. Pruebas nuevas.
+- `medir.py --ritual` (informe 032): coste de los rituales del arnés (memoria, chat nuevo, avisos) frente al trabajo, y avisos del guardián por tipo. Textos es/en y pruebas.
+- Spec 034: análisis de fusión de skills (sin ejecutar; espera la aprobación de Darwin).

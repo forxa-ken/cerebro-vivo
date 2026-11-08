@@ -67,3 +67,11 @@ Darwin confirma «26 ok». Su confirmación no detalla si probó en Modelo 2 ni 
 ## 13 · `traspaso-in` y `traspaso-out` en Codex y Gemini (specs 010 y 011, arnés 1.9.0)
 **Fecha:** 2026-11-08
 Probado por Darwin en `F:\Modelo` (arnés 1.28.3) con capturas. Codex: `$traspaso-in salgo` escribió traspaso corto y completo; `$traspaso-in entro` en chat nuevo contó 5 viñetas y una pregunta; `$traspaso-out salgo` hizo commit local de solo `.brain/` (`b62ef7a`, 20 archivos), no subió por no haber remoto y avisó de 180 archivos sueltos. Gemini: `traspaso-out entro` contó 4 viñetas y una pregunta. Observaciones: el primer `entro` falló porque Darwin abrió el chat nuevo mientras `salgo` seguía escribiendo (5 min); hay que esperar el aviso de «Traspaso preparado». Sin la palabra, `$traspaso-in` se toma como `salgo`. La suite en el entorno restringido de Codex da errores de permisos y `git push`, no del arnés. La subida a GitHub de `salgo` no se probó (el proyecto no tiene remoto).
+
+## 17 · Soporte para Mac (spec 013, arnés 1.11.0) — SIN PROBAR
+**Fecha:** 2026-11-08
+Decisión de Darwin: quien tenía que probarlo en un Mac no lo va a hacer, así que el punto sale de «Esperando tu prueba» pero **no cuenta como probado**. El código se queda (instalador con `python3`, `instalar_kit.command`, aviso de tkinter) y ya está marcado «sin probar en un Mac real» en la spec 013, `CEREBRO_VIVO` (es/en) y `GUIA_INSTALACION`. Solo lo cubren las pruebas automáticas en Windows. Si alguien lo prueba en un Mac: `python3 -m unittest discover tests`, doble clic en `instalar_kit.command` (si no abre, `chmod +x instalar_kit.command`) y abrir Claude Code en un proyecto de prueba. El ZIP de Mac sigue en pausa.
+
+## 33 · El aviso de cierre no atribuye al chat lo que trajo `/actualizar` (spec 031, arnés 1.28.6)
+**Fecha:** 2026-11-08
+Probado por Darwin en LoboHook (de 1.25.0 a 1.28.7): tras `/actualizar` y tras reiniciar Claude Code, pidió al chat solo añadir una línea de prueba a `.brain/pendientes.md`. Al terminar, el cierre no mostró ningún aviso (Darwin: «no salió nada») y el registro pegado no contiene cuadro de «Stop hook feedback» en ese tramo. Los archivos repartidos por `/actualizar` no se atribuyeron al chat. Aparte: esa prueba destapó un fallo del actualizador con el venv entre comillas (arreglado en 1.28.8).

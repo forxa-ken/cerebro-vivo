@@ -168,3 +168,13 @@
 2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.6 (spec 031, punto 33): el aviso de cierre solo cuenta lo que el chat edito con Edit/Write; lo que trae /actualizar ya no se le atribuye; 376 pruebas en verde; punto 33 a esperando prueba | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.7: hitos.py reconoce lecciones.py lanzado con PowerShell (hallazgo de Modelo #61); prueba nueva; 377 pruebas en verde. Verificado en GitHub: commit 439b298 de Modelo-2 solo lleva 7 archivos de .brain (prueba 21 sigue esperando confirmacion de Darwin) | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #28) | Punto 21 probado por Darwin (traspaso-out salgo con remoto) y pasado a hechos | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Modelo 2 actualizado a 1.28.7 (hitos.py y test_hitos.py pisados con copia de seguridad; 14 skills de Codex en .agents intactas). Sin subir a GitHub. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Punto 17 (Mac) sale de pendientes y pasa a hechos marcado SIN PROBAR; el codigo y las notas 'sin probar' se quedan. No cambia lo que llega a los proyectos. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Arnes 1.28.8: actualizar_arnes.py respeta el Python del venv entre comillas al completar hooks (hallado en LoboHook). Prueba nueva, 378 en verde. Sin subir a GitHub. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Prueba 20 (chat nuevo solo) del primer intento sin valor: otro traspaso pendiente de un chat de prueba bloqueo el hueco; Darwin decide dejar el arnes como esta. Sigue esperando repeticion. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Punto 33 probado por Darwin en LoboHook (sin aviso de cierre tras /actualizar); pasa a hechos. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Informe 032 de medicion real (Modelo 2, LoboHook, cerebro-vivo): ritual del arnes 16-18% del coste, arranque solo 5-9%. Solo lectura, sin cambios en el arnes. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Traspaso #29 a #30 escrito (corto y completo) por chat de 224k. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.0: cierre por bloque (spec 033), medir.py --ritual, análisis de fusión de skills (spec 034); 386 pruebas en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.1: traspaso-out remite a traspaso-in (spec 034 paso 1 parcial); skills no quitadas por estar citadas en instalador, textos y pruebas | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Corrección: revertido el cambio de traspaso-out (1.29.1); fusión de skills descartada por Darwin (spec 034); arnés vuelve a 1.29.0 | Fast-Track

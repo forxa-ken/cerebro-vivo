@@ -179,7 +179,7 @@ def completar_hooks(repo, proyecto, simular=False, ahora=None):
     for entradas in hooks.values():
         for e in entradas:
             for h in (e.get("hooks") or []) if isinstance(e, dict) else []:
-                m = re.match(r'^(.*?)\s*"\$CLAUDE_PROJECT_DIR', str(h.get("command", "")))
+                m = re.match(r'^(.*?)\s*"\$CLAUDE_PROJECT_DIR/\.brain/', str(h.get("command", "")))  # el intérprete puede ir entre comillas (venv)
                 if m and m.group(1).strip():
                     prefijo = m.group(1).strip()
     anadidos = []
@@ -194,7 +194,7 @@ def completar_hooks(repo, proyecto, simular=False, ahora=None):
                 continue
             nueva = json.loads(json.dumps(entrada))
             for h in nueva.get("hooks", []):
-                h["command"] = re.sub(r'^.*?(\s*"\$CLAUDE_PROJECT_DIR)', lambda m: prefijo + m.group(1), h.get("command", ""), count=1)
+                h["command"] = re.sub(r'^.*?(\s*"\$CLAUDE_PROJECT_DIR/\.brain/)', lambda m: prefijo + m.group(1), h.get("command", ""), count=1)
             hooks.setdefault(evento, []).append(nueva)
             anadidos.append(guardian)
     if anadidos and not simular:

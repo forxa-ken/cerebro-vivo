@@ -5,7 +5,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 **Regla de cierre:** cuando Darwin prueba una tarea y confirma, en esa misma respuesta se pasa su detalle a `archive/hechos.md`, se añade su fila a `archive/hechos-indice.md` y se quita de aquí. Si la prueba falla, vuelve a «Falta programar» con una nota de qué falló.
 
 ## Falta programar (IA)
-- **4:** (opcional) medir el arnés en un proyecto real con `medir.py` durante semanas; GuildControl/GuildControlForever no sirven (no son independientes). Decide los recortes del informe 028.
+- **4:** repetir el banco T1-T3 (specs 003 y 004, 5 repeticiones por lado) con la 1.29.0 para saber el sobrecoste actual; hasta entonces los guardianes nuevos siguen congelados. Cuesta dinero: Darwin da el visto bueno. Informe 032 (medición real) hecho.
 
 - **19:** diseñar (spec aparte) cómo colaboran varias IA con responsabilidades distintas en un proyecto (caso Guild Control Forever: Claude con `.brain/`, Gemini solo traducciones con `AGENTS.md`). A decidir: qué lee/escribe cada IA, cómo no pisarse, `indices_ajenos` en `guardianes.json`. Detalle en `archive/pendientes-detalle-2026-11-08.md`.
 
@@ -23,7 +23,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 
 ## Esperando tu prueba (Darwin)
-- **33:** el aviso de cierre ya no atribuye al chat lo que trajo `/actualizar` (spec 031, arnés 1.28.6). Prueba: `/actualizar` en un proyecto con el arnés viejo y, en un chat que solo toque `.brain/`, no debe pedir línea de registro por los archivos recién repartidos.
-- **20:** chat nuevo solo (arnés 1.23.0 a 1.26.2; junta los antiguos 16 y 27). Pasos: dile al chat «En `F:\Modelo 2\.brain\guardianes\guardianes.json` pon `longitud_aviso_tokens` en 20000» (normal: 200000), reinicia Claude Code allí y habla hasta el aviso; Claude debe abrir el chat nuevo al mismo nivel, decirte su nombre y no repetir el aviso en cada mensaje. Si falla, dime qué frase dijo la IA. Al acabar, devuélvelo: «En el mismo archivo pon `longitud_aviso_tokens` en 200000».
-- **17:** soporte para Mac (spec 013, arnés 1.11.0; solo probado en Windows). Prueba en un Mac: `python3 -m unittest discover tests`, doble clic en `instalar_kit.command` y abrir Claude Code en el proyecto de prueba.
+- **20:** chat nuevo solo (arnés 1.23.0 a 1.26.2; junta los antiguos 16 y 27). **Primer intento 2026-11-08 sin valor:** Darwin había abierto aparte otro chat de prueba y su `.brain/traspaso.md` seguía sin recoger; el chat de 221k no quiso pisarlo y no abrió el chat nuevo (decisión de Darwin: se deja como está, en uso real no habrá un segundo traspaso pendiente; si hace falta consultar algo se usa un chat auxiliar). Repetir sin otros chats con traspaso pendiente. Pasos: dile al chat «En `F:\Modelo 2\.brain\guardianes\guardianes.json` pon `longitud_aviso_tokens` en 20000» (normal: 200000), reinicia Claude Code allí y habla hasta el aviso; Claude debe abrir el chat nuevo al mismo nivel, decirte su nombre y no repetir el aviso en cada mensaje. Si falla, dime qué frase dijo la IA. Al acabar, devuélvelo: «En el mismo archivo pon `longitud_aviso_tokens` en 200000».
+- **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 ## Acciones tuyas

@@ -5,6 +5,8 @@ description: Use when finishing any task in the project.
 
 # Cerrar una tarea
 
+**Se cierra por bloque** (spec 033): un tema completo con pruebas en verde, no cada cambio pequeño. El guardián no pide la línea hasta 15 archivos editados sin cerrar (`cierre_bloque_max_ediciones`). **Siempre** se cierra antes de abrir un chat nuevo, escribir un traspaso o cambiar de IA.
+
 ## Cómo (pasos)
 1. Tests en verde: `venv\Scripts\python.exe -m unittest discover tests`.
 2. Línea en `.brain/decisions.log` (o `cerrar.py`). Primero la línea y luego el commit; si la línea llega después, entra en el siguiente commit.

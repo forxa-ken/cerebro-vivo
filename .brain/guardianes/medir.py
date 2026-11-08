@@ -10,6 +10,7 @@ Uso:
   python medir.py --proyecto RUTA          # otro proyecto
   python medir.py --comparar RUTA_CON RUTA_SIN   # medias de dos proyectos lado a lado, con la diferencia en %
   python medir.py --ultimos 5
+  python medir.py --ritual                 # coste de los rituales del arnés frente al trabajo y avisos del guardián (informe 032)
   python medir.py --desglose ID            # coste mensaje a mensaje de un chat
   (--comparar solo compara chats con la misma caché: fría con fría, caliente con caliente)
   python medir.py --comparar RUTA_CON RUTA_SIN --tarea [T3]   # solo un tipo de tarea"""
@@ -218,6 +219,118 @@ def uso_de_skills(carpeta, raiz):
     return sorted(((n, veces[n], chats[n], ultima[n]) for n in nombres), key=lambda f: (-f[1], f[0]))
 
 
+# Informe 032: coste de los rituales del arnés. Se clasifica cada llamada de la IA por lo que hizo (por reglas sobre el texto
+# de sus herramientas; una llamada mixta cuenta como trabajo) y se cuentan los avisos del guardián de cierre.
+RITUAL_ORDEN = re.compile(r"cerrar\.py|lecciones\.py|arranque\.py|cierre\.py|hitos\.py|traspaso|decisions\.log|hechos|\.brain/lecciones|pendientes|\.brain/notas|\.brain/constitution|\.brain/decisions", re.I)
+MANT_ORDEN = re.compile(r"CAMBIOS\.md|manifiesto|actualizar_arnes|medir\.py|VERSION")
+APP_HERRAMIENTAS = ("mcp__ccd_turn__update_plan", "mcp__ccd_turn__wrap_up", "mcp__ccd_session__mark_chapter")
+CATEGORIAS = ("trabajo", "memoria", "chat_nuevo", "aviso", "app", "mant")
+
+
+def tipo_aviso(texto):
+    if re.search(r"Hito sin lecci|milestone without a lesson", texto, re.I):
+        return "hito"
+    if re.search(r"decisions\.log|línea de registro|cerrar\.py|Close the task", texto, re.I):
+        return "registro"
+    if re.search(r"ya pesa|chat nuevo|new chat|traspaso|handover", texto, re.I):
+        return "largo"
+    return "otros"
+
+
+def ritual_de_chat(ruta, skills_arnes):
+    """(coste por categoría, avisos por tipo, llamadas) de UN chat. Solo lectura."""
+    entradas = []
+    with open(ruta, encoding="utf-8", errors="replace") as f:
+        for linea in f:
+            try:
+                entradas.append(json.loads(linea))
+            except ValueError:
+                pass
+    llamadas, aviso_pendiente, avisos = {}, False, {}
+    for e in entradas:
+        m = e.get("message") or {}
+        if e.get("type") == "user":
+            c = m.get("content")
+            texto = c if isinstance(c, str) else " ".join(str(b.get("text", "")) for b in (c or []) if isinstance(b, dict))
+            if texto.startswith("Stop hook feedback"):
+                aviso_pendiente = True
+                tipo = tipo_aviso(texto)
+                avisos[tipo] = avisos.get(tipo, 0) + 1
+        elif e.get("type") == "assistant" and isinstance(m.get("usage"), dict):
+            clave = m.get("id") or e.get("uuid") or len(llamadas)
+            previa = llamadas.get(clave)
+            bloques = [b for b in (m.get("content") or []) if isinstance(b, dict)]
+            if previa:
+                previa["bloques"] += bloques
+                previa["uso"] = m["usage"]
+            else:
+                llamadas[clave] = {"uso": m["usage"], "bloques": bloques, "aviso": aviso_pendiente}
+                aviso_pendiente = False
+    coste_por = {c: 0.0 for c in CATEGORIAS}
+    for ll in llamadas.values():
+        u = ll["uso"]
+        cats = []
+        for b in ll["bloques"]:
+            if b.get("type") != "tool_use":
+                continue
+            nombre, entrada = b.get("name", ""), json.dumps(b.get("input", {}), ensure_ascii=False)
+            if nombre == "Skill":
+                cats.append("memoria" if str((b.get("input") or {}).get("skill", "")).split(":")[-1] in skills_arnes else "trabajo")
+            elif nombre in APP_HERRAMIENTAS:
+                cats.append("app")
+            elif nombre.startswith("mcp__ccd_session") or re.search(r"start_session|detach_session|get_session", entrada):
+                cats.append("chat_nuevo")
+            elif MANT_ORDEN.search(entrada):
+                cats.append("mant")
+            elif RITUAL_ORDEN.search(entrada):
+                cats.append("memoria")
+            else:
+                cats.append("trabajo")
+        cat = max(set(cats), key=cats.count) if cats and "trabajo" not in cats else "trabajo"
+        if ll["aviso"]:
+            cat = "aviso"
+        coste_por[cat] += coste(u.get("input_tokens", 0) or 0, u.get("cache_creation_input_tokens", 0) or 0,
+                                u.get("cache_read_input_tokens", 0) or 0, u.get("output_tokens", 0) or 0)
+    return coste_por, avisos, len(llamadas)
+
+
+def ritual_de_proyecto(carpeta, raiz):
+    """Suma de todos los chats (los de menos de 3 llamadas se descartan): (coste por categoría, avisos por tipo, chats, llamadas)."""
+    ruta_skills = os.path.join(raiz, ".claude", "skills")
+    skills = set(os.listdir(ruta_skills)) if os.path.isdir(ruta_skills) else set()
+    total, avisos, chats, llamadas = {c: 0.0 for c in CATEGORIAS}, {}, 0, 0
+    for ruta in glob.glob(os.path.join(carpeta, "*.jsonl")):
+        try:
+            por, av, n = ritual_de_chat(ruta, skills)
+        except Exception:
+            continue
+        if n < 3:
+            continue
+        chats += 1
+        llamadas += n
+        for c, v in por.items():
+            total[c] += v
+        for tipo, v in av.items():
+            avisos[tipo] = avisos.get(tipo, 0) + v
+    return total, avisos, chats, llamadas
+
+
+def imprimir_ritual(total, avisos, chats, llamadas):
+    suma = sum(total.values())
+    if not suma:
+        print(tp("medir_encontre_registros") % "")
+        return
+    print(tp("medir_ritual_cabecera") % (chats, llamadas))
+    nombres = {"trabajo": tp("medir_ritual_trabajo"), "memoria": tp("medir_ritual_memoria"), "chat_nuevo": tp("medir_ritual_chat_nuevo"),
+               "aviso": tp("medir_ritual_aviso"), "app": tp("medir_ritual_app"), "mant": tp("medir_ritual_mant")}
+    for c in CATEGORIAS:
+        print("  %-38s %5.1f %%" % (nombres[c], 100 * total[c] / suma))
+    print(tp("medir_ritual_total") % (100 * (total["memoria"] + total["chat_nuevo"] + total["aviso"]) / suma))
+    n = sum(avisos.values())
+    print(tp("medir_ritual_avisos") % (n, n / chats if chats else 0, avisos.get("hito", 0), avisos.get("registro", 0),
+                                      avisos.get("largo", 0), avisos.get("otros", 0)))
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -230,7 +343,11 @@ def main(argv=None):
     ap.add_argument("--ultimos", type=int, default=0)
     ap.add_argument("--tarea", default="", help=tp("ayuda_medir_tarea"))
     ap.add_argument("--skills", action="store_true", help=tp("ayuda_medir_skills"))
+    ap.add_argument("--ritual", action="store_true", help=tp("ayuda_medir_ritual"))
     a = ap.parse_args(argv)
+    if a.ritual:
+        imprimir_ritual(*ritual_de_proyecto(carpeta_de(a.proyecto), a.proyecto))
+        return 0
     if a.skills:
         tabla = uso_de_skills(carpeta_de(a.proyecto), a.proyecto)
         print("%-34s %6s %6s  %s" % (tp("medir_skill"), tp("medir_veces"), "Chats", tp("medir_ultima")))

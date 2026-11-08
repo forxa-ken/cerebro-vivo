@@ -116,5 +116,36 @@ class TestSkills(unittest.TestCase):
         self.assertEqual(medir.uso_de_skills(self.dir, tempfile.mkdtemp()), [])
 
 
+class TestRitual(unittest.TestCase):
+    """Informe 032: coste de rituales frente a trabajo y avisos del guardián."""
+    def llamada(self, i, herramienta, entrada, salida=100):
+        return {"type": "assistant", "message": {"id": "m%d" % i, "usage": {"input_tokens": 10, "output_tokens": salida},
+                "content": [{"type": "tool_use", "name": herramienta, "input": entrada}]}}
+
+    def test_clasifica_trabajo_memoria_chat_nuevo_y_aviso(self):
+        d = tempfile.mkdtemp()
+        proyecto = tempfile.mkdtemp()
+        os.makedirs(os.path.join(proyecto, ".claude", "skills", "traspaso-in"))
+        filas = [self.llamada(1, "Edit", {"file_path": "app.py"}),
+                 self.llamada(2, "Bash", {"command": "python .brain/guardianes/cerrar.py x"}),
+                 self.llamada(3, "mcp__ccd_session__start_session", {}),
+                 {"type": "user", "message": {"content": "Stop hook feedback: Hito sin lección apuntada"}},
+                 self.llamada(4, "Edit", {"file_path": "app.py"})]
+        with open(os.path.join(d, "a.jsonl"), "w", encoding="utf-8") as f:
+            f.write("\n".join(json.dumps(x) for x in filas))
+        total, avisos, chats, llamadas = medir.ritual_de_proyecto(d, proyecto)
+        self.assertEqual((chats, llamadas), (1, 4))
+        for c in ("trabajo", "memoria", "chat_nuevo", "aviso"):
+            self.assertGreater(total[c], 0, c)
+        self.assertEqual(avisos, {"hito": 1})
+
+    def test_descarta_chats_de_menos_de_3_llamadas_y_no_falla_sin_registros(self):
+        d = tempfile.mkdtemp()
+        with open(os.path.join(d, "a.jsonl"), "w", encoding="utf-8") as f:
+            f.write(json.dumps(self.llamada(1, "Edit", {})))
+        self.assertEqual(medir.ritual_de_proyecto(d, tempfile.mkdtemp())[2], 0)
+        medir.imprimir_ritual({c: 0.0 for c in medir.CATEGORIAS}, {}, 0, 0)
+
+
 if __name__ == "__main__":
     unittest.main()

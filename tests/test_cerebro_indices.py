@@ -150,6 +150,38 @@ class TestGuardianCierre(unittest.TestCase):
         avisos = self.cierre.evaluar(["server.py"], 1000, self.cfg, True, False, [])
         self.assertEqual(len(avisos), 1)
 
+    def test_spec033_bloque_abierto_no_pide_linea(self):
+        self.assertEqual(self.cierre.evaluar(["server.py"], 1000, self.cfg, True, False, ["server.py"], sin_cerrar=3), [])
+
+    def test_spec033_bloque_grande_pide_linea(self):
+        avisos = self.cierre.evaluar(["server.py"], 1000, self.cfg, True, False, ["server.py"], sin_cerrar=15)
+        self.assertEqual(len(avisos), 1)
+
+    def test_spec033_desactivado_pide_en_cada_respuesta(self):
+        cfg2 = dict(self.cfg, cierre_por_bloque=False)
+        self.assertEqual(len(self.cierre.evaluar(["server.py"], 1000, cfg2, True, False, ["server.py"], sin_cerrar=1)), 1)
+
+    def test_spec033_sin_dato_se_comporta_como_antes(self):
+        self.assertEqual(len(self.cierre.evaluar(["server.py"], 1000, self.cfg, True, False, ["server.py"], sin_cerrar=None)), 1)
+
+    def test_spec033_pendientes_gordo_avisa_aunque_el_bloque_siga_abierto(self):
+        avisos = self.cierre.evaluar([], self.cfg["tope_pendientes_bytes"] + 1, self.cfg, True, False, [], sin_cerrar=0)
+        self.assertEqual(len(avisos), 1)
+
+    def test_spec033_cuenta_ediciones_desde_el_ultimo_cierre(self):
+        import tempfile
+        cfg = self.cfg
+        def uso(nombre, ruta=None, cmd=None):
+            entrada = {"file_path": os.path.join(RAIZ, ruta)} if ruta else {"command": cmd}
+            return {"type": "assistant", "message": {"content": [{"type": "tool_use", "name": nombre, "input": entrada}]}}
+        filas = [uso("Edit", "a.py"), uso("Edit", "b.py"), uso("Bash", cmd="python cerrar.py x"),
+                 uso("Edit", "c.py"), uso("Write", ".brain/pendientes.md"), uso("Edit", "d.py")]
+        ruta = os.path.join(tempfile.mkdtemp(), "t.jsonl")
+        with open(ruta, "w", encoding="utf-8") as f:
+            f.write("\n".join(json.dumps(x) for x in filas))
+        self.assertEqual(self.cierre.ediciones_sin_cerrar(ruta, cfg, RAIZ), 2)  # c.py y d.py; .brain/ no cuenta
+        self.assertIsNone(self.cierre.ediciones_sin_cerrar(ruta + ".no", cfg, RAIZ))
+
     def _transcript(self, bloques):
         import json, tempfile
         ruta = os.path.join(tempfile.mkdtemp(), "t.jsonl")
