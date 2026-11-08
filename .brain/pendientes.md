@@ -14,7 +14,13 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **23:** aprender a montar otro agente de IA que verifique las pruebas y los errores de la IA principal (idea aún somera de Darwin; su objetivo es aprender a hacerlo así). Es un revisor independiente, distinto del que hizo el trabajo. Sale de su investigación en `F:\Arquitectura de desarrollo` (`biblioteca/REC-004`, `REC-005` y `REC-003`; `OBJETIVO_PROYECTO.md`). Antes de nada: explicárselo en llano y hacerlo paso a paso con él. Queda para después decidir cuándo se lanza, qué revisa, si avisa o bloquea y cuánto cuesta. Sin empezar.
 
-- **24:** investigar estas cuatro fuentes (pedido por Darwin; solo se ha mirado de qué trata cada una): [«Dynamic Harness Search: Building Multi-Agent Systems Per-Query via Prediction»](https://arxiv.org/abs/2610.04137) (Sagar y otros; ya tiene ficha en `F:\Arquitectura de desarrollo\biblioteca\REC-009_dynamic-harness-search-shift.md`) · [«The Harness Effect: How Orchestration Design Sets the Token Economics of Enterprise Agentic AI»](https://arxiv.org/abs/2607.06906) (Sayed Ali y otros) · [«Introducing Omnigent: A Meta-Harness to Combine, Control and Share Your Agents»](https://www.databricks.com/blog/introducing-omnigent-meta-harness-combine-control-and-share-your-agents) (Databricks) · [«Ingeniería de sistemas: aprovechar Codex en un mundo de agentes»](https://openai.com/es-ES/index/harness-engineering/) (OpenAI). Sin empezar.
+- **28:** idea de la investigación del punto 24 (Omnigent): guardianes con memoria dentro del chat, p. ej. avisar antes de subir a GitHub si en el chat se instaló una librería nueva. Spec antes de programar; en español e inglés. Sin empezar.
+
+- **29:** idea del punto 24 (OpenAI, «jardinero de documentación»): guardián que detecte memoria desactualizada (pendientes, hechos, specs que ya no reflejan el código) y la proponga arreglar; hoy solo se vigila el tamaño. Spec antes de programar; en español e inglés. Sin empezar.
+
+- **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
+
+- **31:** idea del punto 24 (The Harness Effect): cortar un guardián que falla repetidamente (p. ej. tras 3 fallos iguales) en vez de reintentar siempre; y que `medir.py` dé también tokens por tarea terminada. Spec antes de programar; en español e inglés. Sin empezar.
 
 
 ## Esperando tu prueba (Darwin)

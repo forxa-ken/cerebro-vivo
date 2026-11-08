@@ -143,3 +143,4 @@
 2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.0: ayuda --help de cerrar, medir y actualizar_arnes en es/en; probado en un proyecto en ingles; suite en verde | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.1: plantilla de pruebas en ingles; traduccion del arnes completa; regla nueva: todo en es/en (CLAUDE.md y memoria); suite en verde | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.2: punto 20 cerrado en codigo (traspaso se escribe una vez, es/en); pasa a Esperando tu prueba; suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Punto 24 investigado y cerrado: 4 fuentes leidas; 4 ideas nuevas anotadas en pendientes (guardianes con memoria, jardinero de memoria, avisos con solucion, cortar guardian en bucle y tokens por tarea) | Fast-Track
