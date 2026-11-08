@@ -10,7 +10,7 @@
   ".brain/biblioteca/kit-arranque/README.en.md": "1d1aeeb8fcb9be2ac86ca596384a9876e5356d5ee5eb2747c2f5e03c37839d53",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
-  ".brain/biblioteca/kit-arranque/instalar.py": "0f5a2ad8282aed769d7edf6ee5667a710d7da544ed298b4e69ec3d7e9cae6ac1",
+  ".brain/biblioteca/kit-arranque/instalar.py": "c4fdd55eba074c0b2755cc1070befd7c572d0025c0f2787d438974b624ce600a",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "cc290de2340fa57008d6d5ca99575deb4ea24fc1ddb65cec97ba663b6d756364",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f6bfc9f1b2efd77ba1984124835174c2e199cb7b19e88bd4e35e75291bf1cd7d",
@@ -36,7 +36,7 @@
   ".brain/biblioteca/kit-traduccion/i18n_motor.js": "6a588b421e4a05c6ec80566514bb3360b81b05e229dc93eff7a69b69e8394d38",
   ".brain/biblioteca/kit-traduccion/idiomas.js": "eb75510aff146b5c17fa4abf15bc20590525ff73b3844b37325012407af170e6",
   ".brain/biblioteca/kit-traduccion/paridad_idiomas.py": "95570f2bb8fe3163e0d1ced3f69e65bdc0340c1db9e9e2362e1bb3b0aab26557",
-  ".brain/guardianes/actualizar_arnes.py": "95920980b9bc29d8f9496efed468bf5d18166d18e30e0ad50a7c7c3031324f79",
+  ".brain/guardianes/actualizar_arnes.py": "b7f6bea8d0ab83464056f8124a2b527365410ea46f653d4d736cff7840ce4dca",
   ".brain/guardianes/analisis.py": "ea047f40b9213d75e7bf68b737ae0a038d28022971fb736dfd3d94d3ec36f722",
   ".brain/guardianes/archivos_gordos.py": "75c3a5a3c1eb99aed32666500b892795517cda3ca2d2fb6e9da06181df313c22",
   ".brain/guardianes/arranque.py": "a5252b98b832a4631dd7ea9d9de00328637b48dc5e997b3f9dfa4fb5269ac74d",
@@ -56,7 +56,7 @@
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "42d5a9991f3d65a9ac678c617f1bbc8ba125b529368db1ef0197acc826394c85",
   ".brain/guardianes/secretos.py": "17529d59012f5ba1a169f4b5065bd3fe4fe3cc74ec2c7de1594c6badfc012db3",
-  ".brain/guardianes/textos.py": "0da9580d619aaf00b19fefbd92532c551f2bfdb6a24279b4331520beac407ab4",
+  ".brain/guardianes/textos.py": "d946d16be623a57ae52aaf78abea5256b0415176475f1b27ebd2a6ca81340750",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -176,5 +176,5 @@
   "tests/test_cambio_de_ia.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.27.0"
+ "version": "1.27.1"
 }

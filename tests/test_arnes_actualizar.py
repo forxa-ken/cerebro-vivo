@@ -194,6 +194,73 @@ class TestSincronizar(Base):
             act.sincronizar(self.repo, self.repo)
 
 
+class TestHooks(Base):
+    """Informe 028 (3.1): el actualizador añade a .claude/settings.json los hooks de guardianes que faltan, sin tocar los que hay."""
+    def hook(self, guardian, prefijo="python", matcher=None):
+        e = {"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/%s.py"' % (prefijo, guardian), "timeout": 20}]}
+        if matcher:
+            e["matcher"] = matcher
+        return [e]
+
+    def preparar(self, prefijo="python3"):
+        for g in ("arranque", "eventos_chat"):
+            escribir(self.repo, ".brain/guardianes/%s.py" % g, "# %s\n" % g)
+        escribir(self.repo, ".claude/settings.json", json.dumps({"hooks": {"SessionStart": self.hook("arranque"),
+                                                                           "PreToolUse": self.hook("eventos_chat", matcher="Bash|PowerShell")}}))
+        propio = {"hooks": {"SessionStart": self.hook("arranque", prefijo)}, "permissions": {"deny": ["Read(./.env)"]}}
+        escribir(self.proy, ".claude/settings.json", json.dumps(propio))
+        return propio
+
+    def test_anade_el_hook_que_falta_con_el_interprete_del_proyecto_y_guarda_copia(self):
+        self.preparar()
+        self.assertEqual(act.completar_hooks(self.repo, self.proy), ["eventos_chat.py"])
+        ajustes = json.loads(leer(self.proy, ".claude/settings.json"))
+        nuevo = ajustes["hooks"]["PreToolUse"][0]
+        self.assertEqual(nuevo["matcher"], "Bash|PowerShell")
+        self.assertTrue(nuevo["hooks"][0]["command"].startswith('python3 "$CLAUDE_PROJECT_DIR'))
+        self.assertEqual(ajustes["permissions"], {"deny": ["Read(./.env)"]})
+        self.assertEqual(len(ajustes["hooks"]["SessionStart"]), 1)  # el que ya estaba no se duplica
+        copias = os.path.join(self.proy, act.COPIAS)
+        self.assertTrue(any(".claude" in c for c, _, _ in os.walk(copias)))
+
+    def test_segunda_vez_no_hace_nada(self):
+        self.preparar()
+        act.completar_hooks(self.repo, self.proy)
+        antes = leer(self.proy, ".claude/settings.json")
+        self.assertEqual(act.completar_hooks(self.repo, self.proy), [])
+        self.assertEqual(leer(self.proy, ".claude/settings.json"), antes)
+
+    def test_simular_anuncia_pero_no_escribe(self):
+        propio = self.preparar()
+        self.assertEqual(act.completar_hooks(self.repo, self.proy, simular=True), ["eventos_chat.py"])
+        self.assertEqual(json.loads(leer(self.proy, ".claude/settings.json")), propio)
+
+    def test_sin_ajustes_o_roto_no_toca_nada(self):
+        for g in ("eventos_chat",):
+            escribir(self.repo, ".brain/guardianes/%s.py" % g, "# x\n")
+        escribir(self.repo, ".claude/settings.json", json.dumps({"hooks": {"PreToolUse": self.hook("eventos_chat")}}))
+        self.assertEqual(act.completar_hooks(self.repo, self.proy), [])
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".claude", "settings.json")))
+        escribir(self.proy, ".claude/settings.json", "{esto no es json")
+        self.assertEqual(act.completar_hooks(self.repo, self.proy), [])
+        self.assertEqual(leer(self.proy, ".claude/settings.json"), "{esto no es json")
+
+    def test_sincronizar_lo_incluye_en_el_resultado_y_en_el_informe(self):
+        self.preparar()
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["hooks_nuevos"], ["eventos_chat.py"])
+        self.assertIn("eventos_chat.py", act.informe(res, False))
+
+    def test_el_hook_del_repo_y_el_del_instalador_coinciden(self):
+        """El instalador del kit y el settings.json del repo deben pedir el mismo matcher para el guardián de eventos."""
+        with open(os.path.join(RAIZ, ".claude", "settings.json"), encoding="utf-8") as f:
+            repo = json.load(f)["hooks"]["PreToolUse"][0]
+        with open(os.path.join(RAIZ, ".brain", "biblioteca", "kit-arranque", "instalar.py"), encoding="utf-8") as f:
+            codigo = f.read()
+        self.assertIn('"matcher": "%s"' % repo["matcher"], codigo)
+        self.assertEqual(repo["matcher"], "Bash|PowerShell")
+
+
 class TestPrograma(Base):
     def correr(self, *args, repo=None):
         salida = io.StringIO()

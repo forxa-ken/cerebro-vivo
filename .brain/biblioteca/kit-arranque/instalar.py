@@ -371,7 +371,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
             "SessionStart": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/arranque.py"' % hook_py, "timeout": 20}]}],
             "Stop": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/cierre.py"' % hook_py, "timeout": 20}]}],
             "UserPromptSubmit": [{"hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/notas_abiertas.py"' % hook_py, "timeout": 10}]}],
-            "PreToolUse": [{"matcher": "Bash|PowerShell|Edit|Write|MultiEdit", "hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/eventos_chat.py"' % hook_py, "timeout": 20}]}],
+            "PreToolUse": [{"matcher": "Bash|PowerShell", "hooks": [{"type": "command", "command": '%s "$CLAUDE_PROJECT_DIR/.brain/guardianes/eventos_chat.py"' % hook_py, "timeout": 20}]}],
         },
         "permissions": {"deny": ["Read(./%s)" % a for a in cfg["secretos"]["archivos_secretos"]]},
     }

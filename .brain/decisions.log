@@ -146,3 +146,4 @@
 2026-11-08 | Claude (cerebro-vivo #25) | Punto 24 investigado y cerrado: 4 fuentes leidas; 4 ideas nuevas anotadas en pendientes (guardianes con memoria, jardinero de memoria, avisos con solucion, cortar guardian en bucle y tokens por tarea) | Fast-Track
 2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.27.0: guardian eventos_chat.py (spec 027, punto 28) programado, es/en, 17 pruebas nuevas; suite en verde; pasa a Esperando tu prueba; nuevo punto 32 (npm/cargo/go) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.27.1: el actualizador anade los hooks que faltan en settings.json y el hook de eventos_chat solo vigila Bash/PowerShell (informe 028, 3.1 y 3.3); 357 pruebas en verde | Fast-Track

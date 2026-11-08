@@ -159,6 +159,54 @@ def completar_configuracion(repo, proyecto, simular=False):
     return nuevas
 
 
+def completar_hooks(repo, proyecto, simular=False, ahora=None):
+    """Punto 3.1 del informe 028: añade a `.claude/settings.json` del proyecto los hooks del arnés que le faltan (p. ej. el de un guardián
+    nuevo), tomándolos de `.claude/settings.json` del repo. Nunca quita ni cambia un hook que ya exista y respeta el intérprete
+    (`python`/`python3`/ruta del venv) que el proyecto ya usa. Si el archivo no existe o no se puede leer, no lo toca.
+    Devuelve las rutas de guardianes cuyo hook se añadió (o se añadiría)."""
+    ruta = os.path.join(proyecto, ".claude", "settings.json")
+    try:
+        with open(os.path.join(repo, ".claude", "settings.json"), encoding="utf-8") as f:
+            del_arnes = json.load(f).get("hooks") or {}
+        with open(ruta, encoding="utf-8") as f:
+            ajustes = json.load(f)
+        hooks = ajustes.get("hooks", {})
+        if not isinstance(ajustes, dict) or not isinstance(hooks, dict) or any(not isinstance(v, list) for v in hooks.values()):
+            return []
+    except Exception:
+        return []
+    prefijo = "python"
+    for entradas in hooks.values():
+        for e in entradas:
+            for h in (e.get("hooks") or []) if isinstance(e, dict) else []:
+                m = re.match(r'^(.*?)\s*"\$CLAUDE_PROJECT_DIR', str(h.get("command", "")))
+                if m and m.group(1).strip():
+                    prefijo = m.group(1).strip()
+    anadidos = []
+    for evento, entradas in del_arnes.items():
+        for entrada in entradas:
+            comandos = [h.get("command", "") for h in entrada.get("hooks", []) if isinstance(h, dict)]
+            guardian = next((m.group(1) + ".py" for m in (re.search(r"([a-z_]+)\.py", c) for c in comandos) if m), None)
+            if not guardian or not os.path.exists(os.path.join(proyecto, ".brain", "guardianes", guardian)) and not os.path.exists(os.path.join(repo, ".brain", "guardianes", guardian)):
+                continue
+            ya = any(guardian in h.get("command", "") for e in hooks.get(evento, []) if isinstance(e, dict) for h in e.get("hooks", []) if isinstance(h, dict))
+            if ya:
+                continue
+            nueva = json.loads(json.dumps(entrada))
+            for h in nueva.get("hooks", []):
+                h["command"] = re.sub(r'^.*?(\s*"\$CLAUDE_PROJECT_DIR)', lambda m: prefijo + m.group(1), h.get("command", ""), count=1)
+            hooks.setdefault(evento, []).append(nueva)
+            anadidos.append(guardian)
+    if anadidos and not simular:
+        sello = (ahora or datetime.datetime.now()).strftime("%Y%m%d-%H%M%S")
+        copia = os.path.join(proyecto, COPIAS, sello, ".claude", "settings.json")
+        os.makedirs(os.path.dirname(copia), exist_ok=True)
+        shutil.copyfile(ruta, copia)
+        ajustes["hooks"] = hooks
+        escribir_atomico(ruta, (json.dumps(ajustes, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+    return anadidos
+
+
 def completar_fichas_skills(repo, proyecto, simular=False, llegan=(), salen=()):
     """Spec 019: las skills que hay en `.claude/skills/` sin fila en `.brain/experiencia/indice.md` reciben la fila del arnés
     (una prueba lo exige). Devuelve los nombres añadidos (o que se añadirían). `llegan` y `salen`: skills que la simulación
@@ -314,7 +362,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     forzar = {f.replace("\\", "/") for f in forzar}
     res = {"version_antes": registro.get("version"), "version": manifiesto.get("version"), "nuevos": [], "actualizados": [],
            "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto),
-           "claves_escritas": {}, "fichas": [], "retirados": [], "retirados_a_mano": [], "filas_quitadas": [], "sin_aplicar": []}
+           "claves_escritas": {}, "hooks_nuevos": [], "fichas": [], "retirados": [], "retirados_a_mano": [], "filas_quitadas": [], "sin_aplicar": []}
     por_escribir = []  # (rel, destino, contenido, existia)
     for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
@@ -359,6 +407,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     res["filas_quitadas"] = filas_de_retiradas(manifiesto, proyecto, salen)
     if simular:
         res["claves_escritas"] = completar_configuracion(repo, proyecto, simular=True)
+        res["hooks_nuevos"] = completar_hooks(repo, proyecto, simular=True)
         llegan = [_skill_de(rel) for rel in res["nuevos"] if rel.startswith(".claude/") and _skill_de(rel)]
         res["fichas"] = completar_fichas_skills(repo, proyecto, simular=True, llegan=llegan, salen=salen)
         return res
@@ -382,6 +431,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg,
                                 "nivel": "completo", "sin_aplicar": res["sin_aplicar"]})
     res["claves_escritas"] = completar_configuracion(repo, proyecto)
+    res["hooks_nuevos"] = completar_hooks(repo, proyecto, ahora=ahora)
     res["fichas"] = completar_fichas_skills(repo, proyecto)
     return res
 
@@ -512,6 +562,8 @@ def informe(res, simular):
     if res.get("claves_escritas"):
         L.append(tp("actualizar_arnes_configuracion_clave_nueva") % (
             tp("actualizar_arnes_anadirian2") if simular else tp("actualizar_arnes_anadieron"), len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
+    if res.get("hooks_nuevos"):
+        L.append(tp("actualizar_arnes_hooks_nuevos") % (tp("actualizar_arnes_anadirian") if simular else tp("actualizar_arnes_anadidas"), ", ".join(res["hooks_nuevos"])))
     if res.get("fichas"):
         L.append(tp("actualizar_arnes_fichas_skills_brain") % (tp("actualizar_arnes_anadirian") if simular else tp("actualizar_arnes_anadidas"), ", ".join(res["fichas"])))
     if res.get("filas_quitadas"):
