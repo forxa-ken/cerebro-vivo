@@ -205,3 +205,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - **Cierre por bloque** (spec 033, propuesta 1 del informe 032): `cierre.py` ya no pide la línea de `decisions.log` en cada respuesta; la pide cuando el chat lleva 15 archivos del proyecto editados sin cerrar (`cierre_bloque_max_ediciones`) o al cerrar con traspaso. Ajustes nuevos `cierre_por_bloque` y `cierre_bloque_max_ediciones` en `guardianes.json` (`cierre_por_bloque: false` vuelve al aviso de cada respuesta). La skill `cerrar-una-tarea` (es/en) lo explica. Pruebas nuevas.
 - `medir.py --ritual` (informe 032): coste de los rituales del arnés (memoria, chat nuevo, avisos) frente al trabajo, y avisos del guardián por tipo. Textos es/en y pruebas.
 - Spec 034: análisis de fusión de skills (sin ejecutar; espera la aprobación de Darwin).
+
+## 1.29.1 (2026-11-09)
+- `arranque.py` guarda un registro de tiempos (`.brain/guardianes/arranque_estado.json`, ignorado por Git): cuánto tarda cada arranque (últimos 20) y, si pasa de 8 s, la pila de dónde está parado (`ultimo_lento`). Para averiguar por qué en Modelo 2 el hook se corta a los 20 s (28 cortes frente a 8 arranques correctos). No cambia lo que muestra el arranque. Prueba nueva en `test_arranque.py`.

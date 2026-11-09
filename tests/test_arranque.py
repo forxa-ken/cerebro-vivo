@@ -262,3 +262,35 @@ class NotasAntigravityTest(NotasAbiertasTest):
         comando = datos["guardia-notas"]["PreInvocation"][0]["command"]
         self.assertIn("notas_abiertas.py", comando)
 
+
+
+class TiemposArranqueTest(unittest.TestCase):
+    """Registro de tiempos del arranque (1.29.1): guarda cuánto tarda y, si se alarga, dónde está parado."""
+
+    def _modulo(self, carpeta):
+        espec = importlib.util.spec_from_file_location("arranque_tiempos", SCRIPT)
+        m = importlib.util.module_from_spec(espec)
+        espec.loader.exec_module(m)
+        m.TIEMPOS = os.path.join(carpeta, "arranque_estado.json")
+        return m
+
+    def test_vigilar_guarda_la_pila(self):
+        import threading
+        with tempfile.TemporaryDirectory() as d:
+            m = self._modulo(d)
+            m._vigilar(threading.get_ident())
+            with open(m.TIEMPOS, encoding="utf-8") as f:
+                datos = json.load(f)
+            self.assertIn("pila", datos["ultimo_lento"])
+            self.assertIn("test_vigilar_guarda_la_pila", datos["ultimo_lento"]["pila"])
+
+    def test_guardar_tiempos_conserva_lo_anterior_y_no_rompe(self):
+        with tempfile.TemporaryDirectory() as d:
+            m = self._modulo(d)
+            m._guardar_tiempos(ultimos=[{"segundos": 1}])
+            m._guardar_tiempos(ultimo_lento={"pila": "x"})
+            with open(m.TIEMPOS, encoding="utf-8") as f:
+                datos = json.load(f)
+            self.assertEqual(datos["ultimos"], [{"segundos": 1}])
+            m.TIEMPOS = os.path.join(d, "no_existe", "x.json")  # ruta imposible: no debe lanzar
+            m._guardar_tiempos(ultimos=[])

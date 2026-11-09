@@ -16,6 +16,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
@@ -341,7 +342,43 @@ def resumen(raiz, cfg):
 ORDEN_A_LA_IA = t("es", "arranque_orden")  # main() la pide en el idioma del proyecto
 
 
+TIEMPOS = os.path.join(AQUI, "arranque_estado.json")
+LENTO_SEG = 8  # pasados estos segundos se vuelca dónde está parado el arranque (el hook se corta a los 20)
+
+
+def _guardar_tiempos(**nuevo):
+    """Registro de tiempos del arranque (para ver por qué a veces pasa de 20 s). Nunca debe romper el hook."""
+    try:
+        try:
+            with open(TIEMPOS, encoding="utf-8") as f:
+                datos = json.load(f)
+        except (OSError, ValueError):
+            datos = {}
+        datos.update(nuevo)
+        with open(TIEMPOS, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=1)
+    except Exception:
+        pass
+
+
+def _vigilar(hilo_principal):
+    """Si el arranque sigue vivo pasados LENTO_SEG, guarda la pila del hilo principal (dónde está parado)."""
+    try:
+        import traceback
+        marco = sys._current_frames().get(hilo_principal)
+        pila = "".join(traceback.format_stack(marco))[-1500:] if marco else ""
+        _guardar_tiempos(ultimo_lento={"fecha": datetime.datetime.now().isoformat(timespec="seconds"),
+                                       "pila": pila})
+    except Exception:
+        pass
+
+
 def main():
+    import threading
+    inicio = time.time()
+    vigia = threading.Timer(LENTO_SEG, _vigilar, args=(threading.get_ident(),))
+    vigia.daemon = True
+    vigia.start()
     if "--manual" not in sys.argv and not sys.stdin.isatty():
         try:
             sys.stdin.read()  # el hook envía datos que no necesitamos
@@ -352,6 +389,16 @@ def main():
         texto = resumen(RAIZ, cfg)
     except Exception:
         return 0
+    finally:
+        vigia.cancel()
+        try:
+            with open(TIEMPOS, encoding="utf-8") as f:
+                ultimos = json.load(f).get("ultimos", [])
+        except (OSError, ValueError):
+            ultimos = []
+        ultimos.append({"fecha": datetime.datetime.now().isoformat(timespec="seconds"),
+                        "segundos": round(time.time() - inicio, 2)})
+        _guardar_tiempos(ultimos=ultimos[-20:])
     if not os.environ.get("CEREBRO_NO_ARCHIVAR_TRASPASO"):  # la variable la usan los tests
         archivar_traspaso(RAIZ)
         archivar_notas_chats(RAIZ)
