@@ -76,6 +76,14 @@ window.DATOS = {
     "n": "Tras leerlo se mueve a archive/traspasos/. Solo existe entre un chat y otro."
    },
    {
+    "p": "traspaso-completo.md",
+    "d": 1,
+    "q": "¿Qué pasó en el chat anterior, con todo detalle?",
+    "r": "Solo si lo pides con /memoria-traspaso",
+    "w": "traspaso-in o traspaso-out",
+    "n": "El traspaso corto (~1.500 caracteres) se lee solo; este guarda el historial entero y nunca se carga solo."
+   },
+   {
     "p": "notas-chats/",
     "d": 1,
     "q": "¿Qué hizo un chat auxiliar?",
@@ -98,6 +106,14 @@ window.DATOS = {
     "r": "Cuando toca",
     "w": "La IA, una ficha P-NNN",
     "n": "Cada hallazgo arreglado se marca."
+   },
+   {
+    "p": "lecciones/",
+    "d": 1,
+    "q": "¿Qué error ya resuelto no debo repetir?",
+    "r": "Antes de repetir un trabajo parecido; el arranque cuenta cuántas hay",
+    "w": "lecciones.py, lanzada por la IA con /leccion",
+    "n": "Un archivo por tema, con «problema | causa | regla»."
    },
    {
     "p": "referencias.md",
@@ -229,7 +245,8 @@ window.DATOS = {
     "c": "Al abrir",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Es lo primero que corre al abrir un chat (aviso SessionStart). Lee el estado real —pendientes, commits sin subir, cambios sin commitear, última línea del registro— y lo imprime, para que la IA no dependa de acordarse. Además lanza la poda, avisa de archivos gordos, secretos, librerías y versión nueva del arnés, y muestra el traspaso del chat anterior, que después archiva. Si todo está en orden, imprime una sola línea."
    },
    {
     "n": "Notas abiertas",
@@ -238,7 +255,8 @@ window.DATOS = {
     "c": "Al enviar",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Aviso UserPromptSubmit: cuando envías un mensaje, mira si hay notas nuevas de chats auxiliares en .brain/notas-chats/ que este chat aún no ha recibido y las imprime una vez. No mueve ni borra nada. Sin notas nuevas no imprime nada y no gasta tokens."
    },
    {
     "n": "Aviso de cierre",
@@ -247,7 +265,8 @@ window.DATOS = {
     "c": "Al acabar",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Aviso Stop (fin de cada respuesta). Si se tocaron archivos del proyecto y falta la línea en decisions.log, o pendientes.md pasó su tope de 8 KB, devuelve un aviso que la IA lee y corrige; avisa una sola vez por respuesta. Desde la 1.29.0 cierra por bloque de trabajo: avisa tras 15 ediciones sin cerrar. En tareas pequeñas (hasta 2 archivos, ninguno sensible) escribe él mismo la línea."
    },
    {
     "n": "Hitos y lecciones",
@@ -256,7 +275,8 @@ window.DATOS = {
     "c": "Al acabar",
     "e": "Bloquea",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "Corre dentro del aviso de cierre. Busca tres señales: un error que se resolvió, cambios en archivos que el proyecto marca como delicados, o una modificación grande (5 o más archivos propios). Si hay alguna, bloquea el cierre hasta que se apunte la lección con /leccion o se diga «ninguna» con su motivo."
    },
    {
     "n": "Longitud",
@@ -265,7 +285,8 @@ window.DATOS = {
     "c": "Al acabar",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Mide el contexto real del último mensaje de la IA (entrada + caché). Al pasar 200.000 tokens avisa de que conviene abrir un chat nuevo y deja lista la frase de traspaso; repite cada 100.000 más. Un chat largo cuesta más en cada mensaje, así que cortarlo a tiempo ahorra."
    },
    {
     "n": "Secretos",
@@ -274,7 +295,8 @@ window.DATOS = {
     "c": "Al abrir y en cada commit",
     "e": "Bloquea",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "Busca claves y tokens con patrones de alta confianza (formato real de token) y de baja (asignaciones sospechosas), y archivos secretos que deben estar ignorados por Git. Al abrir revisa el proyecto; en cada commit (hook pre-commit) revisa lo preparado y bloquea el commit si hay un secreto."
    },
    {
     "n": "Poda",
@@ -283,7 +305,8 @@ window.DATOS = {
     "c": "Al abrir",
     "e": "Actúa",
     "k": "auto",
-    "ek": "act"
+    "ek": "act",
+    "d": "Mueve a archivo/ las specs ya terminadas y las fichas de decisión «reemplazada», reescribe los enlaces de los .md que las citan y mantiene un índice de una línea por spec. Nunca borra y, ante la duda, no mueve. A mano: poda.py --ver enseña qué haría sin tocar nada."
    },
    {
     "n": "Git del traspaso",
@@ -292,7 +315,8 @@ window.DATOS = {
     "c": "En traspaso-out salgo",
     "e": "Actúa",
     "k": "auto",
-    "ek": "act"
+    "ek": "act",
+    "d": "Lo llama traspaso-out salgo. Hace commit solo de la memoria (traspaso, registro, pendientes, specs) y la sube. El código suelto no entra: lo lista para que decidas. Nunca fuerza la subida; si hay otros commits sin subir que no son de memoria, no sube y los lista. Es la única excepción a «subir a GitHub solo con tu orden»."
    },
    {
     "n": "Librerías",
@@ -301,7 +325,8 @@ window.DATOS = {
     "c": "Al abrir / a mano",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Lee requirements.txt, mira la versión instalada de cada librería y la compara con OSV.dev (vulnerabilidades conocidas) y PyPI (versión mayor nueva). Guarda el resultado y el arranque solo lee ese archivo, sin red. Solo avisa: nunca actualiza ni instala nada."
    },
    {
     "n": "Memoria del chat",
@@ -310,7 +335,8 @@ window.DATOS = {
     "c": "Antes de cada orden",
     "e": "Bloquea",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "Aviso PreToolUse (antes de cada orden de terminal o edición). Recuerda, por chat, qué librerías se instalaron y, al ver un git push, las revisa con OSV.dev: limpio → deja pasar; vulnerabilidad conocida → detiene el push y lo explica; sin red → no bloquea y lo recuerda. No depende de la IA ni de ti."
    },
    {
     "n": "Memoria de pruebas",
@@ -319,7 +345,8 @@ window.DATOS = {
     "c": "Al abrir",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Cuenta los hallazgos abiertos (casillas - [ ]) de las campañas de .brain/pruebas/ y comprueba que el índice coincide con los archivos. Solo imprime una línea si hay algo abierto o incoherente: con todo cerrado cuesta 0 tokens."
    },
    {
     "n": "Revisión de índices",
@@ -328,7 +355,8 @@ window.DATOS = {
     "c": "Al abrir / a mano",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Revisa CLAUDE.md, GEMINI.md y AGENTS.md y saca un informe de lo que parece sobrar o estar desfasado: referencias rotas, deriva entre índices, secciones largas y cercanía al tope. No modifica nada. Avisa a los 60 días de la última revisión o cuando un índice llega al 80 % de su tope."
    },
    {
     "n": "Archivos gordos",
@@ -337,7 +365,8 @@ window.DATOS = {
     "c": "Al abrir / a mano",
     "e": "Avisa",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Los índices de IA y pendientes.md tienen su tope; los demás archivos de lectura de .brain/ (referencias, constitución, architecture/, decisions/…) tienen un tope de 8 KB. Avisa al 80 % y propone /trocea. Solo lectura."
    },
    {
     "n": "Cierre rápido",
@@ -346,7 +375,8 @@ window.DATOS = {
     "c": "A mano o por la IA",
     "e": "Actúa",
     "k": "mano",
-    "ek": "act"
+    "ek": "act",
+    "d": "Añade la línea de la tarea a decisions.log con el formato correcto: python .brain/guardianes/cerrar.py --chat «Proyecto #N» «qué se hizo». Con --carril elige Fast-Track (por defecto) o SDD. Es el cierre de una línea: no obliga a tocar pendientes ni fichas salvo que corresponda."
    },
    {
     "n": "Medidor",
@@ -355,7 +385,8 @@ window.DATOS = {
     "c": "A mano",
     "e": "Solo lee",
     "k": "mano",
-    "ek": "ok"
+    "ek": "ok",
+    "d": "Solo lectura. Lee los registros de Claude Code y, por chat, saca coste ponderado, tokens nuevos, salida, arranque, mensajes tuyos y correcciones. --comparar enfrenta dos proyectos, --desglose ID da el coste mensaje a mensaje, --ritual separa cuánto del coste es ritual del arnés y cuánto es trabajo."
    },
    {
     "n": "Actualizador",
@@ -364,7 +395,8 @@ window.DATOS = {
     "c": "A mano o con /actualizar",
     "e": "Actúa",
     "k": "mano",
-    "ek": "act"
+    "ek": "act",
+    "d": "Trae a un proyecto las mejoras del arnés (guardianes, skills, manual, kits, pruebas del método) comparando las huellas del manifiesto. --simular enseña qué cambiaría sin tocar nada; guarda copia; no pisa lo modificado a mano ni toca datos ni configuración."
    },
    {
     "n": "Análisis de código",
@@ -373,7 +405,8 @@ window.DATOS = {
     "c": "Apagado aquí",
     "e": "Apagado",
     "k": "off",
-    "ek": "off"
+    "ek": "off",
+    "d": "Lee la estructura del código Python y avisa de tres cosas: SQL inseguro (consultas armadas con texto), funciones o archivos que crecen respecto a su base guardada, y reglas propias del proyecto. Apagado aquí; se activa en proyectos con código."
    },
    {
     "n": "Base de datos",
@@ -382,7 +415,38 @@ window.DATOS = {
     "c": "Apagado aquí",
     "e": "Apagado",
     "k": "off",
-    "ek": "off"
+    "ek": "off",
+    "d": "Copia consistente de SQLite antes de cambiar tablas (con rotación), revisión de salud en solo lectura y restauración solo con orden expresa. Apagado aquí; se activa en proyectos con base de datos."
+   },
+   {
+    "n": "Lecciones",
+    "f": "lecciones.py",
+    "w": "Guarda cada lección aprendida y rehace su índice.",
+    "c": "Al resolver un hito",
+    "e": "Actúa",
+    "k": "mano",
+    "ek": "act",
+    "d": "Guarda cada lección en .brain/lecciones/<tema>.md con la forma «problema | causa | regla» y rehace el índice. La lanza la IA con /leccion cuando el guardián de hitos lo pide; el arranque resume cuántas hay. Es lo que hace que un error ya resuelto no se repita."
+   },
+   {
+    "n": "Índices del cierre",
+    "f": "indices.py",
+    "w": "Evita trabajo repetido al cerrar una tarea.",
+    "c": "Dentro del cierre rápido",
+    "e": "Actúa",
+    "k": "mano",
+    "ek": "act",
+    "d": "Lo usa cerrar.py: añade a decisions/indice.md las filas de las fichas D-NNN que faltan (nunca borra ni cambia filas) y mueve un punto terminado de pendientes.md a archive/hechos.md con su fila en el índice. Devuelve los textos y quien lo llama decide si escribe: así existe la vista previa."
+   },
+   {
+    "n": "Textos en dos idiomas",
+    "f": "textos.py",
+    "w": "Guarda los mensajes de todos los guardianes en español e inglés.",
+    "c": "Siempre (lo usan los demás)",
+    "e": "Solo lee",
+    "k": "auto",
+    "ek": "ok",
+    "d": "El idioma sale del ajuste «idioma» de guardianes.json (si falta, español, así los proyectos antiguos no cambian). Los nombres de archivos y comandos siguen en español en los dos idiomas. Una prueba avisa si a un idioma le falta una clave."
    }
   ],
   "SK": [
@@ -444,12 +508,22 @@ window.DATOS = {
      "probar-guardian-en-windows",
      "explicar-a-darwin-en-llano"
     ]
+   ],
+   [
+    "Sistemas reales",
+    [
+     "seguridad-en-sistemas-reales"
+    ]
    ]
   ],
   "GL": [
    [
     "Actualizador",
     "Programa que lleva las mejoras del arnés a un proyecto, sin pisar lo tuyo."
+   ],
+   [
+    "Aprobador",
+    "Agente aparte que lee una spec y dice APROBADA o RECHAZADA con una regla fija; en el experimento VMware hacía de Darwin."
    ],
    [
     "Archivo",
@@ -528,6 +602,10 @@ window.DATOS = {
     "Lo que deja un chat auxiliar para quien le hizo el encargo."
    ],
    [
+    "ODD",
+    "Método ligero de comparación: las tareas pequeñas van directas y las grandes llevan un documento de tareas; sin guardianes."
+   ],
+   [
     "Pendientes",
     "Lista de lo que falta. Solo eso."
    ],
@@ -544,12 +622,20 @@ window.DATOS = {
     "Comprobación automática de que algo sigue funcionando."
    ],
    [
+    "Prueba de retomar",
+    "Pregunta que decide si hace falta spec: ¿otra IA puede continuar solo con el encargo y el git diff? Si sí, vía rápida."
+   ],
+   [
     "Push",
     "Enviar los commits a GitHub."
    ],
    [
     "Registro",
     "El archivo decisions.log: una línea por tarea terminada."
+   ],
+   [
+    "Reglas de seguridad",
+    "Seis reglas para proyectos que actúan sobre sistemas reales (skill seguridad-en-sistemas-reales): todo por el motor, fallar hacia lo seguro, no depender del laboratorio y más."
    ],
    [
     "Secreto",
@@ -570,6 +656,10 @@ window.DATOS = {
    [
     "Traspaso",
     "Archivo que pasa el contexto de un chat o de una IA a otra."
+   ],
+   [
+    "vcsim",
+    "Simulador de VMware (necesita Go) que se usaría para probar contra algo más real que el laboratorio en memoria. Aún no instalado."
    ],
    [
     "Versión",
@@ -772,6 +862,20 @@ window.DATOS = {
     "w": "En el chat",
     "x": "Este aviso me molesta, revisa guardianes.json",
     "d": "Los topes están en .brain/guardianes/guardianes.json."
+   },
+   {
+    "c": "Mantenimiento",
+    "t": "Saber cuánto cuesta cada chat",
+    "w": "En la terminal",
+    "x": "python .brain/guardianes/medir.py",
+    "d": "Tabla por chat: coste ponderado, tokens nuevos, salida y arranque. Solo lee, no cambia nada."
+   },
+   {
+    "c": "Mantenimiento",
+    "t": "Saber cuánto del coste es ritual del arnés",
+    "w": "En la terminal",
+    "x": "python .brain/guardianes/medir.py --ritual",
+    "d": "Separa el coste en trabajo, memoria, chat nuevo, avisos del guardián y mantenimiento del arnés."
    }
   ],
   "S": [
@@ -810,6 +914,24 @@ window.DATOS = {
      "Nunca se pisan datos ni cambios hechos a mano."
     ],
     "s": "Aquí se ve la parte de ingeniería: el método se reparte como un producto."
+   },
+   {
+    "h": "Cerebro Vivo contra ODD",
+    "b": [
+     "Cinco rondas en laboratorio: mismo encargo, dos métodos, con y sin reglas de seguridad.",
+     "Calidad: empate. Coste con reglas: ≈ 369k frente a ≈ 423k de media; 377k frente a 383k en la última ronda.",
+     "Seguridad: sin reglas fallaron los dos; con reglas, ninguno."
+    ],
+    "s": "Lo que decide la seguridad son las reglas, no el método. Muestra de 1 por casilla: es tendencia, no prueba."
+   },
+   {
+    "h": "La vía rápida: spec solo cuando hace falta",
+    "b": [
+     "Spec obligatoria si toca cuotas, pagos, licencias, despliegue, base de datos, servidores reales o reglas de seguridad.",
+     "En lo demás, prueba de retomar: si basta el encargo y el git diff, va directa.",
+     "Siempre: reglas de seguridad, registro, lección y pruebas en verde."
+    ],
+    "s": "Es la fusión de lo bueno de ODD (poco papeleo) con lo bueno de Cerebro Vivo (memoria y seguridad)."
    },
    {
     "h": "Lo he medido, también lo malo",
@@ -907,6 +1029,14 @@ window.DATOS = {
     "n": "After reading it, it is moved to archive/traspasos/. It only exists between one chat and the next."
    },
    {
+    "p": "traspaso-completo.md",
+    "d": 1,
+    "q": "What happened in the previous chat, in full detail?",
+    "r": "Only if you ask with /memoria-traspaso",
+    "w": "traspaso-in or traspaso-out",
+    "n": "The short handover (~1,500 characters) is read automatically; this one keeps the whole history and is never loaded on its own."
+   },
+   {
     "p": "notas-chats/",
     "d": 1,
     "q": "What did a helper chat do?",
@@ -929,6 +1059,14 @@ window.DATOS = {
     "r": "When it applies",
     "w": "The AI, one P-NNN record",
     "n": "Each fixed finding is marked."
+   },
+   {
+    "p": "lecciones/",
+    "d": 1,
+    "q": "Which already-solved mistake must I not repeat?",
+    "r": "Before repeating similar work; the start-up counts how many there are",
+    "w": "lecciones.py, launched by the AI with /leccion",
+    "n": "One file per topic, as \"problem | cause | rule\"."
    },
    {
     "p": "referencias.md",
@@ -1060,7 +1198,8 @@ window.DATOS = {
     "c": "On open",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "It is the first thing to run when a chat opens (SessionStart hook). It reads the real state —pending items, unpushed commits, uncommitted changes, last log line— and prints it, so the AI does not depend on remembering. It also launches the pruning, warns about heavy files, secrets, libraries and a new harness version, and shows the previous chat's handover, which it then archives. If all is in order, it prints a single line."
    },
    {
     "n": "Open notes",
@@ -1069,7 +1208,8 @@ window.DATOS = {
     "c": "On send",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "UserPromptSubmit hook: when you send a message, it checks whether there are new notes from helper chats in .brain/notas-chats/ that this chat has not received yet and prints them once. It moves and deletes nothing. With no new notes it prints nothing and spends no tokens."
    },
    {
     "n": "Closing reminder",
@@ -1078,7 +1218,8 @@ window.DATOS = {
     "c": "On finish",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "Stop hook (end of every reply). If project files were touched and the decisions.log line is missing, or pendientes.md went over its 8 KB cap, it returns a warning that the AI reads and fixes; it warns only once per reply. Since 1.29.0 it closes by block of work: it warns after 15 edits without closing. On small tasks (up to 2 files, none sensitive) it writes the line itself."
    },
    {
     "n": "Milestones and lessons",
@@ -1087,7 +1228,8 @@ window.DATOS = {
     "c": "On finish",
     "e": "Blocks",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "It runs inside the closing notice. It looks for three signals: an error that got solved, changes to files the project marks as delicate, or a large change (5 or more own files). If there is any, it blocks closing until the lesson is written with /leccion or \"none\" is stated with a reason."
    },
    {
     "n": "Length",
@@ -1096,7 +1238,8 @@ window.DATOS = {
     "c": "On finish",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "It measures the real context of the AI's last message (input + cache). Past 200,000 tokens it warns that a new chat is advisable and leaves the handover phrase ready; it repeats every further 100,000. A long chat costs more with every message, so cutting it in time saves money."
    },
    {
     "n": "Secrets",
@@ -1105,7 +1248,8 @@ window.DATOS = {
     "c": "On open and on every commit",
     "e": "Blocks",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "It looks for keys and tokens with high-confidence patterns (real token format) and low-confidence ones (suspicious assignments), and for secret files that must be ignored by Git. On opening it checks the project; on every commit (pre-commit hook) it checks what is staged and blocks the commit if there is a secret."
    },
    {
     "n": "Pruning",
@@ -1114,7 +1258,8 @@ window.DATOS = {
     "c": "On open",
     "e": "Acts",
     "k": "auto",
-    "ek": "act"
+    "ek": "act",
+    "d": "It moves finished specs and \"replaced\" decision cards to archivo/, rewrites the links in the .md files that cite them and keeps a one-line index per spec. It never deletes and, when in doubt, does not move. By hand: poda.py --ver shows what it would do without touching anything."
    },
    {
     "n": "Handover Git",
@@ -1123,7 +1268,8 @@ window.DATOS = {
     "c": "On traspaso-out salgo",
     "e": "Acts",
     "k": "auto",
-    "ek": "act"
+    "ek": "act",
+    "d": "Called by traspaso-out salgo. It commits only the memory (handover, log, pending items, specs) and pushes it. Loose code stays out: it lists it for you to decide. It never forces the push; if there are other unpushed commits that are not memory, it does not push and lists them. It is the only exception to \"push to GitHub only on your order\"."
    },
    {
     "n": "Libraries",
@@ -1132,7 +1278,8 @@ window.DATOS = {
     "c": "On open / by hand",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "It reads requirements.txt, checks the installed version of each library and compares it with OSV.dev (known vulnerabilities) and PyPI (new major version). It saves the result and the start-up only reads that file, with no network. It only warns: it never updates or installs anything."
    },
    {
     "n": "Chat memory",
@@ -1141,7 +1288,8 @@ window.DATOS = {
     "c": "Before every command",
     "e": "Blocks",
     "k": "auto",
-    "ek": "block"
+    "ek": "block",
+    "d": "PreToolUse hook (before every terminal command or edit). It remembers, per chat, which libraries were installed and, on seeing a git push, checks them with OSV.dev: clean → lets it through; known vulnerability → stops the push and explains; no network → does not block and reminds you. It depends neither on the AI nor on you."
    },
    {
     "n": "Test memory",
@@ -1150,7 +1298,8 @@ window.DATOS = {
     "c": "On open",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "It counts the open findings (- [ ] boxes) of the test campaigns in .brain/pruebas/ and checks that the index matches the files. It only prints a line if something is open or inconsistent: with everything closed it costs 0 tokens."
    },
    {
     "n": "Index review",
@@ -1159,7 +1308,8 @@ window.DATOS = {
     "c": "On open / by hand",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "It reviews CLAUDE.md, GEMINI.md and AGENTS.md and produces a report of what looks superfluous or outdated: broken references, drift between indexes, long sections and closeness to the cap. It changes nothing. It warns 60 days after the last review or when an index reaches 80 % of its cap."
    },
    {
     "n": "Large files",
@@ -1168,7 +1318,8 @@ window.DATOS = {
     "c": "On open / by hand",
     "e": "Warns",
     "k": "auto",
-    "ek": "warn"
+    "ek": "warn",
+    "d": "AI indexes and pendientes.md have their own cap; the other reading files of .brain/ (references, constitution, architecture/, decisions/…) have an 8 KB cap. It warns at 80 % and suggests /trocea. Read only."
    },
    {
     "n": "Quick close",
@@ -1177,7 +1328,8 @@ window.DATOS = {
     "c": "By hand or by the AI",
     "e": "Acts",
     "k": "mano",
-    "ek": "act"
+    "ek": "act",
+    "d": "It adds the task line to decisions.log in the right format: python .brain/guardianes/cerrar.py --chat \"Project #N\" \"what was done\". With --carril you pick Fast-Track (default) or SDD. It is the one-line close: it does not force you to touch pending items or cards unless needed."
    },
    {
     "n": "Meter",
@@ -1186,7 +1338,8 @@ window.DATOS = {
     "c": "By hand",
     "e": "Read only",
     "k": "mano",
-    "ek": "ok"
+    "ek": "ok",
+    "d": "Read only. It reads Claude Code's records and, per chat, reports weighted cost, new tokens, output, start-up, your messages and corrections. --comparar pits two projects against each other, --desglose ID gives the cost message by message, --ritual separates how much of the cost is harness ritual and how much is work."
    },
    {
     "n": "Updater",
@@ -1195,7 +1348,8 @@ window.DATOS = {
     "c": "By hand or with /actualizar",
     "e": "Acts",
     "k": "mano",
-    "ek": "act"
+    "ek": "act",
+    "d": "It brings the harness improvements (guardians, skills, manual, kits, method tests) to a project by comparing the manifest fingerprints. --simular shows what would change without touching anything; it keeps a backup; it does not overwrite what you edited by hand nor touch data or configuration."
    },
    {
     "n": "Code analysis",
@@ -1204,7 +1358,8 @@ window.DATOS = {
     "c": "Off here",
     "e": "Off",
     "k": "off",
-    "ek": "off"
+    "ek": "off",
+    "d": "It reads the structure of the Python code and warns about three things: unsafe SQL (queries built from text), functions or files that grow relative to their saved baseline, and the project's own rules. Off here; turn it on in projects with code."
    },
    {
     "n": "Database",
@@ -1213,7 +1368,38 @@ window.DATOS = {
     "c": "Off here",
     "e": "Off",
     "k": "off",
-    "ek": "off"
+    "ek": "off",
+    "d": "Consistent SQLite backup before changing tables (with rotation), read-only health check and restore only on explicit order. Off here; turn it on in projects with a database."
+   },
+   {
+    "n": "Lessons",
+    "f": "lecciones.py",
+    "w": "Stores each lesson learned and rebuilds its index.",
+    "c": "When a milestone is solved",
+    "e": "Acts",
+    "k": "mano",
+    "ek": "act",
+    "d": "It stores each lesson in .brain/lecciones/<topic>.md in the form \"problem | cause | rule\" and rebuilds the index. The AI launches it with /leccion when the milestones guardian asks; the start-up summarises how many there are. It is what stops an already-solved mistake from happening again."
+   },
+   {
+    "n": "Closing indexes",
+    "f": "indices.py",
+    "w": "Avoids repeated work when closing a task.",
+    "c": "Inside the quick close",
+    "e": "Acts",
+    "k": "mano",
+    "ek": "act",
+    "d": "Used by cerrar.py: it adds to decisions/indice.md the rows of the D-NNN cards that are missing (it never deletes or changes rows) and moves a finished item from pendientes.md to archive/hechos.md with its row in the index. It returns the texts and the caller decides whether to write: that is how the preview exists."
+   },
+   {
+    "n": "Two-language texts",
+    "f": "textos.py",
+    "w": "Holds every guardian's messages in Spanish and English.",
+    "c": "Always (the others use it)",
+    "e": "Read only",
+    "k": "auto",
+    "ek": "ok",
+    "d": "The language comes from the \"idioma\" setting in guardianes.json (if missing, Spanish, so old projects do not change). File and command names stay in Spanish in both languages. A test warns if a language lacks a key."
    }
   ],
   "SK": [
@@ -1275,9 +1461,19 @@ window.DATOS = {
      "probar-guardian-en-windows",
      "explicar-a-darwin-en-llano"
     ]
+   ],
+   [
+    "Real systems",
+    [
+     "seguridad-en-sistemas-reales"
+    ]
    ]
   ],
   "GL": [
+   [
+    "Aprobador",
+    "A separate agent that reads a spec and answers APPROVED or REJECTED under a fixed rule; in the VMware experiment it stood in for Darwin."
+   ],
    [
     "Archive",
     "Folder where finished or old work goes. It is moved there, not deleted."
@@ -1359,8 +1555,16 @@ window.DATOS = {
     "A harness that serves many projects, shared from a single source."
    ],
    [
+    "ODD",
+    "Lightweight comparison method: small tasks go straight through and large ones get a task document; no guardians."
+   ],
+   [
     "Pre-commit",
     "Git hook that runs just before a commit is saved."
+   ],
+   [
+    "Prueba de retomar",
+    "Question that decides whether a spec is needed: can another AI continue from just the request and the git diff? If so, fast track."
    ],
    [
     "Pruning",
@@ -1369,6 +1573,10 @@ window.DATOS = {
    [
     "Push",
     "Sending commits to GitHub."
+   ],
+   [
+    "Reglas de seguridad",
+    "Six rules for projects that act on real systems (skill seguridad-en-sistemas-reales): everything through the engine, fail safe, do not depend on the lab and more."
    ],
    [
     "Secret",
@@ -1401,6 +1609,10 @@ window.DATOS = {
    [
     "Updater",
     "Program that brings harness improvements into a project without overwriting your work."
+   ],
+   [
+    "vcsim",
+    "VMware simulator (needs Go) that would be used to test against something more real than the in-memory lab. Not installed yet."
    ],
    [
     "Version",
@@ -1603,6 +1815,20 @@ window.DATOS = {
     "w": "In the chat",
     "x": "This warning bothers me, check guardianes.json",
     "d": "The caps live in .brain/guardianes/guardianes.json."
+   },
+   {
+    "c": "Maintenance",
+    "t": "See what each chat costs",
+    "w": "In the terminal",
+    "x": "python .brain/guardianes/medir.py",
+    "d": "Per-chat table: weighted cost, new tokens, output and start-up. Read only, changes nothing."
+   },
+   {
+    "c": "Maintenance",
+    "t": "See how much of the cost is harness ritual",
+    "w": "In the terminal",
+    "x": "python .brain/guardianes/medir.py --ritual",
+    "d": "Splits the cost into work, memory, new chat, guardian notices and harness maintenance."
    }
   ],
   "S": [
@@ -1641,6 +1867,24 @@ window.DATOS = {
      "Data and hand-made changes are never overwritten."
     ],
     "s": "This is where the engineering shows: the method is shipped like a product."
+   },
+   {
+    "h": "Cerebro Vivo versus ODD",
+    "b": [
+     "Five lab rounds: same brief, two methods, with and without safety rules.",
+     "Quality: a tie. Cost with rules: ≈ 369k vs ≈ 423k on average; 377k vs 383k in the last round.",
+     "Safety: without rules both failed; with rules, neither."
+    ],
+    "s": "What decides safety is the rules, not the method. One sample per cell: a trend, not proof."
+   },
+   {
+    "h": "The fast track: a spec only when needed",
+    "b": [
+     "A spec is mandatory if it touches quotas, payments, licences, deployment, the database, real servers or safety rules.",
+     "For everything else, the resume test: if the request and the git diff are enough, it goes straight through.",
+     "Always: safety rules, log, lesson and green tests."
+    ],
+    "s": "It merges the good part of ODD (little paperwork) with the good part of Cerebro Vivo (memory and safety)."
    },
    {
     "h": "I measured it, the bad parts too",
