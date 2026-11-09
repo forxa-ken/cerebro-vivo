@@ -178,3 +178,5 @@
 2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.0: cierre por bloque (spec 033), medir.py --ritual, análisis de fusión de skills (spec 034); 386 pruebas en verde | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.1: traspaso-out remite a traspaso-in (spec 034 paso 1 parcial); skills no quitadas por estar citadas en instalador, textos y pruebas | Fast-Track
 2026-11-08 | Claude (cerebro-vivo #30) | Corrección: revertido el cambio de traspaso-out (1.29.1); fusión de skills descartada por Darwin (spec 034); arnés vuelve a 1.29.0 | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Punto 20 (chat nuevo solo) probado por Darwin en Modelo 2 (#62 a #63) y pasado a hechos | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track

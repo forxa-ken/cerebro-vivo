@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 20 · Chat nuevo solo (arnés 1.23.0 a 1.26.2)
+**Fecha:** 2026-11-08 · **Ref:** chat Modelo #62 a #63
+Probado por Darwin en Modelo 2 el 2026-11-08: el chat #62 recibió el aviso de chat largo a ~203k tokens (umbral normal 200000), abrió solo el chat nuevo con start_session (18 s después), lo separó con detach_session (2 s después) y el chat #63 contó el traspaso en 5 viñetas llanas con una sola pregunta final (captura de Darwin). Comprobado en los registros de Modelo 2. Umbral devuelto a 200000.
+
 ## 21 · Nada suelto ni viejo: traspaso-out salgo con remoto (spec 022, 1.20.0)
 **Fecha:** 2026-11-08 · **Ref:** archive/hechos.md
 Probado por Darwin el 2026-11-08 con Modelo #61 en un proyecto con GitHub: traspaso-out salgo hizo commit solo de la memoria (439b298, 7 archivos de .brain, verificado en GitHub), lo subio y listo el codigo suelto (prueba_suelta.py y otros) sin meterlo. El aviso de «hay una versión nueva» de /actualizar le ayuda (Darwin). Hallazgo aparte: hitos.py no reconocia lecciones.py con PowerShell (arreglado en 1.28.7).

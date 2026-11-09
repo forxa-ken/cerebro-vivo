@@ -14,3 +14,4 @@ Specs terminadas, movidas aquí por el guardián de poda (spec 048). Nada se bor
 - [020-adopta-encadena-todo](020-adopta-encadena-todo.md) — Spec 020: /adopta encadena adoptar, acortar y trocear
 - [021-actualizador-fiable](021-actualizador-fiable.md) — Spec 021: actualizador fiable
 - [025-chat-nuevo-automatico](025-chat-nuevo-automatico.md) — Spec 025: abrir el chat nuevo solo, como regla común, y /chat-nuevo para activarlo o no
+- [034-fusion-de-skills](034-fusion-de-skills.md) — Spec 034: fusión de skills (verificación y plan; sin ejecutar)
