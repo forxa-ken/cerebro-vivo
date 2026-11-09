@@ -1,12 +1,13 @@
 ---
 name: spec-antes-de-programar
-description: Use when a change touches more than 2 files or quotas, payments, licenses, deployment or the database.
+description: Use when a change touches quotas, payments, licenses, deployment, the database, real servers or security rules, or cannot be resumed from the request plus the git diff.
 ---
 
 # Spec before programming
 
 ## How (steps)
-1. Create `.brain/specs/NNN-name.md` from `_template.md`: goal, scope, out of scope, plan, verification.
+0. **Is a spec needed?** Yes if the change touches quotas, payments, licenses, deployment, the database, real servers or security rules. For everything else, **resume test**: if another AI can continue from just the request and the `git diff`, it is a small task and goes straight through Fast-Track, with the security rules, the log and the usual lesson. The number of files no longer decides.
+1. Create `.brain/specs/NNN-name.md` from `_template.md`: goal, scope, out of scope, plan, verification. **Write each rule only once** (saying it two ways causes approver rejections).
 2. Wait for Darwin's approval before programming.
 3. Everything else goes by Fast-Track: direct change, tests green and a line in `decisions.log`.
 4. On closing: a D-NNN card if there was an important decision.

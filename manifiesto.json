@@ -105,8 +105,10 @@
   ".claude/skills/revisar-indices-de-ia/SKILL.md": "4025e846a98607d507e2830d334a811f5dd00feb07e2c377eb8e469253a45c97",
   ".claude/skills/secretos-fuera-del-repo/SKILL.en.md": "c4748964eb26fc09994e5e8c7efe2cb16d3f1ad32283a7805b7673e384fa2c76",
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "477d540bd7f0ed173689c625e05de7d3188384ef79abb07971ce0b1031bbd607",
-  ".claude/skills/spec-antes-de-programar/SKILL.en.md": "1e57794c5bdb71c0743cc8eba45e6595b5627eb41aed76dd96bcee8d5457657e",
-  ".claude/skills/spec-antes-de-programar/SKILL.md": "bd61fa909351fdb103d17093ed5dbf29a046a13c958de2a06d8250216994b086",
+  ".claude/skills/seguridad-en-sistemas-reales/SKILL.en.md": "7912e665260419aea866afffc7cd569a75e3d0e3022862fc06cd31bc4dd54b85",
+  ".claude/skills/seguridad-en-sistemas-reales/SKILL.md": "15851bbd4497468f90249fd0dfe96261a163ab7f64348ef10a73ae48e7c064c3",
+  ".claude/skills/spec-antes-de-programar/SKILL.en.md": "ce192fb5885142c8abac84c37f7e299ed5afbc7b7fddd6d5dcaf1211ecf6dc06",
+  ".claude/skills/spec-antes-de-programar/SKILL.md": "05913f7c4fdf9be5556fd52f1f8e47b3fdb8e4cdba9e6774eff7465a2786ab97",
   ".claude/skills/subir-a-github/SKILL.en.md": "a72e75e808db36b08bc1ed3903eb61439f0f6f71a8ad4152e951779ecddbbf6c",
   ".claude/skills/subir-a-github/SKILL.md": "66fc0fbd14068648cf4698efd1447c99342c24a1b3fd890d20ca1d1572dba4f9",
   ".claude/skills/traspaso-in/SKILL.en.md": "dc6d37910f74823ac636c4af399114e4e8ade9c50ad4456e1325974cee89a7ae",
@@ -177,5 +179,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.29.2"
+ "version": "1.30.1"
 }

@@ -182,3 +182,17 @@
 2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #31) | Arnés 1.29.1: arranque.py guarda registro de tiempos y la pila si pasa de 8 s (cortes de 20 s en Modelo 2); informe ODD/Gentle Shell; pruebas 388 OK; sin subir | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #32) | Arnés 1.29.2: poda.py y revisar_indices.py ya no recorren vendor/outputs/dist/build/env; arranque de Modelo 2 pasa de 6-36 s a 1,3 s. Modelo 2 actualizado | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Punto 36 (resume test) y 37 (experimento CV contra ODD) anotados; creado vmware-automatizacion con el arnés 1.29.2 instalado y comprobado | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | vmware-automatizacion: commit de cimientos, ramas A y B creadas, Codex instalado como aprobador (AGENTS.md, aprobador.py) y probado con 3 specs de ejemplo | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Rama B configurada con flujo ODD (fix 6109c19), traspaso #32 a #33 escrito y chat #33 abierto y separado para llevar el experimento mientras Darwin esta fuera | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware: encargo identico en experimento/encargo.md (master 7d8424c), pasado a rama A (ff) y rama B (merge, habia divergido); chats de rama NO abiertos: la app rechaza start_session en un chat nacido de otro chat | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware: informe ronda 1 en .brain/archive/informe-experimento-vmware-ronda1-2026-11-09.md; aprobador con tope de tiempo y reintento; ronda 2 abierta (ramas exp2-*, chats ronda2-a y ronda2-b) | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware ronda 2 terminada: A 7/7 y B 7/7, coste A 481k vs B 372k; informe en .brain/archive/informe-experimento-vmware-ronda2-2026-11-09.md; causa de cuelgues (stdin) corregida | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware ronda 3 lanzada (3 ramas, modulo Redes), aclaracion del check 1 del aprobador; traspaso a #34 | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 3 terminada: medido, seguridad igual en las tres (C>B>A) e informe en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 4 lanzada: 4 ramas (A Cerebro, B ODD, C ODD+seg, D Cerebro+seg), modulo Discos, encargo en vmware-automatizacion/experimento/encargo-ronda4.md | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 4 terminada: medido, seguridad igual en las 4 (C~D > A~B) e informe en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | arnes 1.30.0: skill seguridad-en-sistemas-reales (es/en) desde las rondas 3 y 4 del experimento VMware | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | informe final del experimento VMware (rondas 1-4) con conclusiones por niveles en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #35) | ronda 5 del experimento VMware (mover disco, C y D) y cierre del punto 37 con conclusion final | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #35) | arnes 1.30.1 (via rapida) y pagina gh-pages ampliada: 21 guardianes con detalle, mapa del cerebro, coste, experimento VMware y via rapida, en es/en; sin subir | Fast-Track

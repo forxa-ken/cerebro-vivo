@@ -211,3 +211,9 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.29.2 (2026-11-09)
 - `poda.py` y `revisar_indices.py` ya no recorren `vendor`, `outputs`, `dist`, `build`, `site-packages`, `.venv` ni `env` al revisar enlaces de los .md. En Modelo 2 había ~27.000 .md (código de terceros y resultados de pruebas) y el arranque tardaba hasta 36 s (el hook corta a los 20 s). Es la causa hallada con el registro de tiempos de 1.29.1. Prueba nueva en `test_poda.py`.
+
+## 1.30.0 (2026-11-09)
+- Nueva skill `seguridad-en-sistemas-reales` (es/en): seis reglas para proyectos que actúan sobre sistemas reales (todo cambio por el motor, fallar hacia lo seguro, no depender de detalles internos del laboratorio, prueba con servidor falso mínimo, entradas raras, lista de comprobación al cerrar). Sale del experimento VMware (rondas 3 y 4; informes en `.brain/archive/`): con estas reglas Cerebro Vivo y ODD quedaron igual de seguros; sin ellas, ambos ataron el motor al laboratorio. Muestra de 1 por casilla: tendencia.
+
+## 1.30.1 (2026-11-09)
+- Skill `spec-antes-de-programar` (es/en): ya no exige spec por «más de 2 archivos». Spec obligatoria si toca cuotas, pagos, licencias, despliegue, base de datos, servidores reales o reglas de seguridad; en lo demás, «prueba de retomar» (basta el encargo y el `git diff`) y va por Fast-Track. Cada regla de una spec se escribe una sola vez. Sale del experimento VMware (rondas 1-5): el sobrecoste de Cerebro Vivo venía de spec + aprobador + rechazos en tareas pequeñas; con reglas de seguridad ambos métodos quedaron empatados en coste (≈ 369k frente a ≈ 423k de media; 377k frente a 383k en la ronda 5). Muestra de 1 por casilla: tendencia.
