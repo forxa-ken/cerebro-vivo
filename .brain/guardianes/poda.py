@@ -18,7 +18,10 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
 sys.path.insert(0, AQUI)
 from textos import tp  # noqa: E402  (spec 024: mensajes en es/en)
-IGNORAR_CARPETAS = {".git", "venv", "node_modules", "__pycache__", "scratch"}
+# Carpetas que nunca guardan documentos del propio proyecto (código de terceros, entornos, resultados
+# generados): recorrerlas tardaba ~20 s en proyectos con decenas de miles de .md (1.29.2).
+IGNORAR_CARPETAS = {".git", "venv", ".venv", "env", "node_modules", "__pycache__", "scratch",
+                    "vendor", "outputs", "dist", "build", "site-packages"}
 ENLACE = re.compile(r"\]\(([^)\s]+)\)")
 
 

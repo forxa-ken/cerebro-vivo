@@ -52,9 +52,9 @@
   ".brain/guardianes/longitud.py": "dd6f8d7b7764bcbc5e60e2bd03dbdd56c83e8111110d7bede5432427cf8686b2",
   ".brain/guardianes/medir.py": "b3f34d3d91a46c7c2e4a11d2a1895d18a92f988e58e09c5122c243c291ea86ce",
   ".brain/guardianes/notas_abiertas.py": "7a596d6060af56f39e0e952394e2242cff61bfe081b1a517d008e5beef72bb4f",
-  ".brain/guardianes/poda.py": "7e03d72ce0e15212373a5eb147141bd2036af4a5b6b12129fcc040d2a8ea924b",
+  ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
-  ".brain/guardianes/revisar_indices.py": "42d5a9991f3d65a9ac678c617f1bbc8ba125b529368db1ef0197acc826394c85",
+  ".brain/guardianes/revisar_indices.py": "dd64c5141681434089d7f29c242e4d3424ad73578c27b28a277e9134f890d43d",
   ".brain/guardianes/secretos.py": "17529d59012f5ba1a169f4b5065bd3fe4fe3cc74ec2c7de1594c6badfc012db3",
   ".brain/guardianes/textos.py": "5bfcc33bfe6b7721833ccf3470eb4307d1b15991549dfae0879fdcb0cfadb623",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
@@ -138,9 +138,9 @@
   "tests/test_longitud.py": "e47d08b6f52caf54ad623cf01f4932cb69db5bc829cb0d32d9fd7b7f052cef20",
   "tests/test_medir.py": "344f2939909456b70616333e449ba52e9b794c3cfd54e1f3da67ecbfca66debf",
   "tests/test_modo_ligero.py": "f6d4c8fba893fb30fa6a75c333e3918294f523c344248334251fc7f33b857e4f",
-  "tests/test_poda.py": "33a91761b1c9013adfa25c89aa92ecc41d2aca90a5bbc4899686c9c589bf1e79",
+  "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
-  "tests/test_revisar_indices.py": "e77393b598a2d62068c629bb486496954b4d9caf7143d4a4c1ef87c5f724a667",
+  "tests/test_revisar_indices.py": "a29caa75660399b31beee20573456537877c489014218f99fbd27be171d51f7c",
   "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980",
   "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
   "tests/test_textos.py": "76d4305fe85f9ae8d46372691d92717e29bf4a5744f5d54a0b641311bc8109f8",
@@ -177,5 +177,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.29.1"
+ "version": "1.29.2"
 }

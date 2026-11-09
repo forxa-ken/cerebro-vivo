@@ -35,7 +35,8 @@ MARCA_INI = "<!-- cerebro-vivo:inicio -->"
 MARCA_FIN = "<!-- cerebro-vivo:fin -->"
 EXTENSIONES = (".py", ".md", ".json", ".js", ".ts", ".tsx", ".html", ".css", ".bat", ".command", ".sh", ".toc", ".lua", ".xml",
                ".txt", ".yml", ".yaml", ".cfg", ".ini", ".toml", ".db", ".sql", ".log", ".csv", ".png", ".jpg", ".svg", ".tga", ".blp")
-SALTAR_CARPETAS = {".git", "node_modules", "__pycache__", "venv", ".venv", "archive"}
+SALTAR_CARPETAS = {".git", "node_modules", "__pycache__", "venv", ".venv", "archive", "env", "vendor", "outputs",
+                   "dist", "build", "site-packages"}  # 1.29.2: código de terceros y resultados, decenas de miles de archivos
 MAX_ARCHIVOS_BUSQUEDA = 30000
 # Referencias que el propio método cita aunque todavía no existan (se crean al usar el método)
 IGNORAR_POR_DEFECTO = [".brain/traspaso.md", ".brain/notas-chats*", ".brain/copias_arnes*", "*_estado.json", ".brain/archive*",

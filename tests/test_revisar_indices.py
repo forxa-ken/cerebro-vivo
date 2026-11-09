@@ -37,6 +37,14 @@ class Base(unittest.TestCase):
 
 
 class TestReferencias(Base):
+    def test_no_busca_nombres_en_vendor_ni_outputs(self):
+        """1.29.2: carpetas de terceros/resultados no entran en la búsqueda de «posible nuevo sitio»."""
+        poner(self.d, "vendor/x/raro.md", "x")
+        poner(self.d, "docs/raro2.md", "x")
+        nombres = rev._nombres_del_proyecto(self.d)
+        self.assertNotIn("raro.md", nombres)
+        self.assertIn("raro2.md", nombres)
+
     def test_ruta_rota_se_detecta_y_la_que_existe_no(self):
         poner(self.d, "CLAUDE.md", "# P\n\n## Mapa\nVer `src/viejo.py` y `src/vivo.py`.\n")
         poner(self.d, "src/vivo.py", "x = 1\n")

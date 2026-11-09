@@ -208,3 +208,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.29.1 (2026-11-09)
 - `arranque.py` guarda un registro de tiempos (`.brain/guardianes/arranque_estado.json`, ignorado por Git): cuánto tarda cada arranque (últimos 20) y, si pasa de 8 s, la pila de dónde está parado (`ultimo_lento`). Para averiguar por qué en Modelo 2 el hook se corta a los 20 s (28 cortes frente a 8 arranques correctos). No cambia lo que muestra el arranque. Prueba nueva en `test_arranque.py`.
+
+## 1.29.2 (2026-11-09)
+- `poda.py` y `revisar_indices.py` ya no recorren `vendor`, `outputs`, `dist`, `build`, `site-packages`, `.venv` ni `env` al revisar enlaces de los .md. En Modelo 2 había ~27.000 .md (código de terceros y resultados de pruebas) y el arranque tardaba hasta 36 s (el hook corta a los 20 s). Es la causa hallada con el registro de tiempos de 1.29.1. Prueba nueva en `test_poda.py`.

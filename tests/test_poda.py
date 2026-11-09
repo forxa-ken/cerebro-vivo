@@ -97,6 +97,21 @@ class TestPoda(unittest.TestCase):
         self.assertIn("enlaces rotos", error)
         self.assertEqual(leer(raiz, ".brain/specs/001-vieja.md"), original)
 
+    def test_no_recorre_codigo_de_terceros_ni_resultados(self):
+        """1.29.2: vendor/ y outputs/ (decenas de miles de .md) no se leen al podar."""
+        poda = cargar_poda()
+        raiz = self.montar()
+        for rel in ("vendor/x/leeme.md", "outputs/a/b.md", "docs/guia.md"):
+            ruta = os.path.join(raiz, rel)
+            os.makedirs(os.path.dirname(ruta), exist_ok=True)
+            with open(ruta, "w", encoding="utf-8") as f:
+                f.write("# x\n")
+        vistos = {os.path.relpath(r, raiz).replace(os.sep, "/") for r in poda.archivos_md(raiz)}
+        self.assertIn("docs/guia.md", vistos)
+        self.assertIn(".brain/specs/001-vieja.md", vistos)
+        self.assertNotIn("vendor/x/leeme.md", vistos)
+        self.assertNotIn("outputs/a/b.md", vistos)
+
 
 if __name__ == "__main__":
     unittest.main()

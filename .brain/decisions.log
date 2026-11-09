@@ -181,3 +181,4 @@
 2026-11-08 | Claude (cerebro-vivo #30) | Punto 20 (chat nuevo solo) probado por Darwin en Modelo 2 (#62 a #63) y pasado a hechos | Fast-Track
 2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #31) | Arnés 1.29.1: arranque.py guarda registro de tiempos y la pila si pasa de 8 s (cortes de 20 s en Modelo 2); informe ODD/Gentle Shell; pruebas 388 OK; sin subir | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Arnés 1.29.2: poda.py y revisar_indices.py ya no recorren vendor/outputs/dist/build/env; arranque de Modelo 2 pasa de 6-36 s a 1,3 s. Modelo 2 actualizado | Fast-Track
