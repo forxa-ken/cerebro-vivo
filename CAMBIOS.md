@@ -247,3 +247,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.35.1 (2026-11-10)
 - Arreglo de fondo del hook `pre-commit` del guardián de secretos (pendiente 38): buscaba `.brain/guardianes/secretos.py` con ruta relativa y fallaba en los worktrees (la página en `gh-pages`), donde ese script no existe. Ahora, si no lo halla en la carpeta actual, lo busca en el repo principal vía `git rev-parse --git-common-dir`; si no está en ningún sitio, bloquea con un mensaje claro. Prueba nueva con un worktree real. Un proyecto lo recibe al actualizar y ejecutar `python .brain/guardianes/secretos.py --instalar-hook`.
+
+
+## 1.35.2 (2026-11-10)
+- Fuentes: se añaden los registros de decisiones (Nygard 2011, Fowler, Microsoft, Red Hat y la guía de AWS) y el Spec Kit de GitHub (`constitution.md`) en los README (es/en) y en `CEREBRO_VIVO.md` (es/en). Solo texto.

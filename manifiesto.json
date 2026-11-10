@@ -3,8 +3,8 @@
   ".brain/biblioteca/CARTA_EJECUTORA.en.md": "9650e329039ae60833949f2e06ef6371d567c198be5124126a4847027444faba",
   ".brain/biblioteca/CARTA_EJECUTORA.md": "b05e3b9b4a25c10cfeb5301b33afcf4fd848bfccb831cc2b83b18ca81bc44145",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
-  ".brain/biblioteca/CEREBRO_VIVO.en.md": "63dc49ccd6b2aea8f6a04eccffd41405be9031db9b93859f73e6f214de4e2347",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "352025adc2de9fa9f871399aee365aa96709b24931a8660fe1da96c2dcd9a74b",
+  ".brain/biblioteca/CEREBRO_VIVO.en.md": "7a15fd8f29852dac55e7d4ab46252cfbd7617ebc20c82fbfa7cf824e63fcef8f",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "602c898c60272eaffc4bc7ecae2e11db820f92b377300353ae07c45ea5453825",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "7f26e2db21c62e1a38d570345c6e73cf1520ba1ab75ae97ce49062893f9161d7",
   ".brain/biblioteca/PLANTILLAS_FABRICA.md": "f8a60d3e92ca4df4b55e9b5fef1725a3da7cc8a4c1a38313836b7af0260e851d",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md": "d37cb2ba815351e9ea71ac938096c4e3c7ccbf93e3edaea8c8513870a7bce598",
@@ -190,5 +190,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.35.1"
+ "version": "1.35.2"
 }

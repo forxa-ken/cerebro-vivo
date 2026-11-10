@@ -11,6 +11,12 @@ Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`
 ## Sources
 - Lee, Yoonho; Nair, Roshen; Zhang, Qizheng; Lee, Kangwook; Khattab, Omar; Finn, Chelsea. *Meta-Harness: End-to-End Optimization of Model Harnesses*. arXiv:2603.28052, March 2026 (https://arxiv.org/abs/2603.28052): Stanford paper on the term "meta-harness".
 - Databricks. *Introducing Omnigent: a meta-harness to combine, control and share your agents*, June 2026 (https://www.databricks.com/blog/introducing-omnigent-meta-harness-combine-control-and-share-your-agents): orchestration layer over AI agents.
+- Nygard, Michael. *Documenting Architecture Decisions*, November 2011 (https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions): origin of architecture decision records (ADR), the basis of `decisions.log` and `decisions/`.
+- Fowler, Martin. *Architecture Decision Record* (https://www.martinfowler.com/bliki/ArchitectureDecisionRecord.html): the decision log as a set of ADRs.
+- Microsoft. *Maintain an architecture decision record (ADR)*, Azure Well-Architected Framework (https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record).
+- Red Hat. *Why you should be using architecture decision records to document your project* (https://www.redhat.com/en/blog/architecture-decision-records).
+- InfoQ. *AWS Publishes Guide to Architecture Decision Records*, June 2022 (https://www.infoq.com/news/2022/06/aws-adr-guide/): AWS guide to ADRs.
+- GitHub. *Spec Kit* (https://github.com/github/spec-kit): spec-driven development; its `constitution.md` file is the convention for project rules, as in this method.
 
 The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
 
