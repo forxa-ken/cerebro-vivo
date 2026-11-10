@@ -234,3 +234,4 @@
 2026-11-10 | Claude (cerebro-vivo #44) | Hook pre-commit de secretos arreglado para worktrees (punto 38, arnes 1.35.1); prueba nueva; sin subir | Cambio pequeño
 2026-11-10 | Claude (cerebro-vivo #44) | Punto 25 actualizado: hecho lo de fuentes y Cambio pequeno; quedan dos decisiones de Darwin; sin subir | Cambio pequeño
 2026-11-10 | Claude (cerebro-vivo #44) | Fuentes ampliadas con ADR (Nygard, Fowler, Microsoft, Red Hat, AWS) y Spec Kit (arnes 1.35.2); sin subir | Cambio pequeño
+2026-11-10 | Claude (cerebro-vivo #45) | Fuentes de constitucion: GitHub/Microsoft spec-kit (agosto 2025), spec-driven.md y blog Delimarsky; arnes 1.35.3, pagina al dia | Cambio pequeño

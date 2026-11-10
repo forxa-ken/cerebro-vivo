@@ -251,3 +251,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.35.2 (2026-11-10)
 - Fuentes: se añaden los registros de decisiones (Nygard 2011, Fowler, Microsoft, Red Hat y la guía de AWS) y el Spec Kit de GitHub (`constitution.md`) en los README (es/en) y en `CEREBRO_VIVO.md` (es/en). Solo texto.
+
+
+## 1.35.3 (2026-11-10)
+- Fuentes: la «constitución» se atribuye a GitHub (Microsoft), `github/spec-kit` (agosto de 2025, MIT); se añaden `spec-driven.md` y el anuncio de Delimarsky en el GitHub Blog (2-9-2025, no nombra la constitución). README (es/en) y `CEREBRO_VIVO.md` (es/en). Solo texto.

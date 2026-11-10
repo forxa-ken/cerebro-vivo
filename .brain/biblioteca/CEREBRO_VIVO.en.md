@@ -1,7 +1,7 @@
 # The "Cerebro Vivo" method
 
 > A working method for building a software project with an AI (Claude, Gemini or another) **without losing context between chats and while spending few tokens**. It was born in LoboHook (2026) and is written to be copied to other projects.
-> Sources consulted: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026); Nygard, Fowler, Microsoft, Red Hat and AWS on architecture decision records (ADR); GitHub, *Spec Kit* (`constitution.md`). Full list with links in the README. The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
+> Sources consulted: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026); Nygard, Fowler, Microsoft, Red Hat and AWS on architecture decision records (ADR); GitHub (Microsoft), *Spec Kit* (`github/spec-kit`, August 2025) and *Spec-Driven Development*, origin of the "constitution" (`constitution.md`); Delimarsky, Den, GitHub Blog, 2 Sep 2025. Full list with links in the README. The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
 > To use it: copy this file into the new project and tell the AI: *"Apply the Cerebro Vivo method from `CEREBRO_VIVO.md`: create the structure and work by its rules."*
 
 > Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`, `guardianes/`, `/actualizar`, `traspaso-in`). Changing them would break existing projects.

@@ -16,7 +16,9 @@ Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`
 - Microsoft. *Maintain an architecture decision record (ADR)*, Azure Well-Architected Framework (https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record).
 - Red Hat. *Why you should be using architecture decision records to document your project* (https://www.redhat.com/en/blog/architecture-decision-records).
 - InfoQ. *AWS Publishes Guide to Architecture Decision Records*, June 2022 (https://www.infoq.com/news/2022/06/aws-adr-guide/): AWS guide to ADRs.
-- GitHub. *Spec Kit* (https://github.com/github/spec-kit): spec-driven development; its `constitution.md` file is the convention for project rules, as in this method.
+- GitHub (Microsoft). *Spec Kit*, repository `github/spec-kit`, August 2025, MIT license (https://github.com/github/spec-kit): spec-driven development; origin of the "constitution" (`constitution.md`) as project rules, as in this method. Its README says to create it once per project.
+- GitHub. *Spec-Driven Development* (`spec-driven.md`) (https://github.com/github/spec-kit/blob/main/spec-driven.md): defines the constitution as a set of immutable principles, with a dated amendment process.
+- Delimarsky, Den. *Spec-driven development with AI: get started with a new open source toolkit*, GitHub Blog, 2 September 2025 (https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/): Spec Kit announcement (does not mention the constitution).
 
 The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
 

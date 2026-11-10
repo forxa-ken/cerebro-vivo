@@ -14,7 +14,9 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 - Microsoft. *Maintain an architecture decision record (ADR)*, Azure Well-Architected Framework (https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record).
 - Red Hat. *Why you should be using architecture decision records to document your project* (https://www.redhat.com/en/blog/architecture-decision-records).
 - InfoQ. *AWS Publishes Guide to Architecture Decision Records*, junio de 2022 (https://www.infoq.com/news/2022/06/aws-adr-guide/): guía de AWS sobre ADR.
-- GitHub. *Spec Kit* (https://github.com/github/spec-kit): desarrollo guiado por especificaciones; el archivo `constitution.md` es su convención para las reglas del proyecto, como en este método.
+- GitHub (Microsoft). *Spec Kit*, repositorio `github/spec-kit`, agosto de 2025, licencia MIT (https://github.com/github/spec-kit): desarrollo guiado por especificaciones; origen de la «constitución» (`constitution.md`) como reglas del proyecto, como en este método. Su README indica crearla una vez por proyecto.
+- GitHub. *Spec-Driven Development* (`spec-driven.md`) (https://github.com/github/spec-kit/blob/main/spec-driven.md): define la constitución como un conjunto de principios inmutables, con un proceso de enmiendas con fecha.
+- Delimarsky, Den. *Spec-driven development with AI: get started with a new open source toolkit*, GitHub Blog, 2 de septiembre de 2025 (https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/): anuncio del Spec Kit (no nombra la constitución).
 
 La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
 
