@@ -178,7 +178,7 @@ window.DATOS = {
     "q": "¿Sigue funcionando el método?",
     "r": "Se lanza: python -m unittest discover tests",
     "w": "El arnés",
-    "n": "Último pase: 408 pruebas, con 6 saltadas."
+    "n": "Último pase: 409 pruebas, con 6 saltadas."
    },
    {
     "p": "VERSION y manifiesto.json",
@@ -376,7 +376,7 @@ window.DATOS = {
     "e": "Actúa",
     "k": "mano",
     "ek": "act",
-    "d": "Añade la línea de la tarea a decisions.log con el formato correcto: python .brain/guardianes/cerrar.py --chat «Proyecto #N» «qué se hizo». Con --carril elige Fast-Track (por defecto) o SDD. Es el cierre de una línea: no obliga a tocar pendientes ni fichas salvo que corresponda."
+    "d": "Añade la línea de la tarea a decisions.log con el formato correcto: python .brain/guardianes/cerrar.py --chat «Proyecto #N» «qué se hizo». Con --carril elige Cambio pequeño (por defecto) o SDD. Es el cierre de una línea: no obliga a tocar pendientes ni fichas salvo que corresponda."
    },
    {
     "n": "Medidor",
@@ -599,8 +599,8 @@ window.DATOS = {
     "Diseño (spec 035) para trabajar con varias IA con papeles distintos, límites vigilados por programas y tres puertas de aprobación tuyas. Aún en construcción."
    ],
    [
-    "Fast-Track",
-    "Carril rápido, para tareas pequeñas."
+    "Cambio pequeño",
+    "Carril corto, para tareas pequeñas."
    ],
    [
     "Git",
@@ -1126,7 +1126,7 @@ window.DATOS = {
     "q": "Does the method still work?",
     "r": "Run with: python -m unittest discover tests",
     "w": "The harness",
-    "n": "Last run: 408 tests, 6 skipped."
+    "n": "Last run: 409 tests, 6 skipped."
    },
    {
     "p": "VERSION and manifiesto.json",
@@ -1324,7 +1324,7 @@ window.DATOS = {
     "e": "Acts",
     "k": "mano",
     "ek": "act",
-    "d": "It adds the task line to decisions.log in the right format: python .brain/guardianes/cerrar.py --chat \"Project #N\" \"what was done\". With --carril you pick Fast-Track (default) or SDD. It is the one-line close: it does not force you to touch pending items or cards unless needed."
+    "d": "It adds the task line to decisions.log in the right format: python .brain/guardianes/cerrar.py --chat \"Project #N\" \"what was done\". With --carril you pick Small change (default) or SDD. It is the one-line close: it does not force you to touch pending items or cards unless needed."
    },
    {
     "n": "Meter",
@@ -1539,8 +1539,8 @@ window.DATOS = {
     "Design (spec 035) for working with several AIs in distinct roles, limits watched by programs and three approval gates of yours. Still being built."
    ],
    [
-    "Fast-Track",
-    "The fast lane, for small tasks."
+    "Small change",
+    "The short lane, for small tasks."
    ],
    [
     "Git",
