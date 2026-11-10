@@ -8,8 +8,7 @@ The **"Cerebro Vivo" meta-harness**: a method for working with an AI without los
 
 Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`, `guardianes/`, `/actualizar`, `traspaso-in`); changing them would break existing projects. The content (guardian notices, skills, manual, templates) is available in English: a project with `"idioma": "en"` in `.brain/guardianes/guardianes.json` receives the English editions (`X.en.md`) in the place of `X.md`.
 
-## Acknowledgment
-Cerebro Vivo starts from the meta-harness ideas of **un autor externo** in his un proyecto externo project (`proyecto-externo`). The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
+## Sources
 
 ## What it contains
 - **Guardians** (`.brain/guardianes/`): startup, close, cerrar, pruning, meter, secrets, libraries, tests, length, analysis, database, indexes, chat notes, lessons and milestones.

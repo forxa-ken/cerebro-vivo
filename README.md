@@ -6,8 +6,7 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 
 **Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**
 
-## Reconocimiento
-Cerebro Vivo parte de las ideas de meta-arnés de **un autor externo** en su proyecto un proyecto externo (`proyecto-externo`). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
+## Fuentes
 
 ## Qué lleva
 - **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, medidor, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats.
