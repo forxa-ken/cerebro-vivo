@@ -562,6 +562,22 @@ window.DATOS = {
     "Ficha corta que guarda qué se decidió y por qué."
    ],
    [
+    "Directora",
+    "Agente principal de un proyecto (Opus): convierte tu objetivo en una spec y reparte encargos. No programa."
+   ],
+   [
+    "Ejecutora",
+    "IA que hace un encargo pequeño dentro de los archivos permitidos (Claude o Codex)."
+   ],
+   [
+    "Encargo",
+    "Tarea pequeña de la fábrica: requisito que cumple, archivos permitidos y prueba que la da por buena."
+   ],
+   [
+    "Fábrica de IA",
+    "Forma de trabajar con varias IA con papeles distintos, límites por programa y tres puertas tuyas."
+   ],
+   [
     "Fast-Track",
     "Carril rápido, para tareas pequeñas."
    ],
@@ -1505,6 +1521,22 @@ window.DATOS = {
    [
     "Entry index",
     "Short file the AI reads first: CLAUDE.md, GEMINI.md or AGENTS.md."
+   ],
+   [
+    "Director",
+    "Main agent of a project (Opus): turns your goal into a spec and hands out assignments. Does not code."
+   ],
+   [
+    "Executor",
+    "AI that does one small assignment inside the allowed files (Claude or Codex)."
+   ],
+   [
+    "Assignment",
+    "Small factory task: the requirement it meets, allowed files and the test that accepts it."
+   ],
+   [
+    "AI factory",
+    "Way of working with several AIs in distinct roles, program-enforced limits and three gates of yours."
    ],
    [
     "Fast-Track",
