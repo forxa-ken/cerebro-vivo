@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 38 | Hook pre-commit de secretos funciona en worktrees | 2026-11-10 | CAMBIOS 1.35.1 |
 | 20 | Chat nuevo solo (arnés 1.23.0 a 1.26.2) | 2026-11-08 | chat Modelo #62 a #63 |
 | 21 | Nada suelto ni viejo: traspaso-out salgo con remoto (spec 022, 1.20.0) | 2026-11-08 | archive/hechos.md |
 | 28 | Guardián con memoria del chat revisa el .venv (specs 027, 029 y 030, 1.28.5) | 2026-11-08 | archive/hechos.md |

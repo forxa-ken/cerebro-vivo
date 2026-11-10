@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 38 · Hook pre-commit de secretos funciona en worktrees
+**Fecha:** 2026-11-10 · **Ref:** CAMBIOS 1.35.1
+Arnes 1.35.1. El hook buscaba secretos.py con ruta relativa y fallaba en la carpeta de la pagina (worktree gh-pages). Ahora lo busca en el repo principal. Probado por Claude el 2026-11-10 en la pagina real: commit limpio pasa y commit con token falso se bloquea; prueba automatica con worktree real (410 pruebas).
+
 ## 20 · Chat nuevo solo (arnés 1.23.0 a 1.26.2)
 **Fecha:** 2026-11-08 · **Ref:** chat Modelo #62 a #63
 Probado por Darwin en Modelo 2 el 2026-11-08: el chat #62 recibió el aviso de chat largo a ~203k tokens (umbral normal 200000), abrió solo el chat nuevo con start_session (18 s después), lo separó con detach_session (2 s después) y el chat #63 contó el traspaso en 5 viñetas llanas con una sola pregunta final (captura de Darwin). Comprobado en los registros de Modelo 2. Umbral devuelto a 200000.
