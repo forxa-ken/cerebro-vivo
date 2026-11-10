@@ -197,3 +197,10 @@
 2026-11-09 | Claude (cerebro-vivo #35) | ronda 5 del experimento VMware (mover disco, C y D) y cierre del punto 37 con conclusion final | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #35) | arnes 1.30.1 (via rapida) y pagina gh-pages ampliada: 21 guardianes con detalle, mapa del cerebro, coste, experimento VMware y via rapida, en es/en; sin subir | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #36) | subido a GitHub por orden de Darwin: main (5c39274, arnes 1.30.1 + experimento VMware). Pagina gh-pages: commit pendiente (el guardian de secretos no corre en su carpeta)
+2026-11-09 | Claude (cerebro-vivo #36) | punto 4 (banco T1-T3 con 1.29.0) descartado por Darwin; sustituido por medir.py --ritual (punto 35); movido a archive/hechos.md
+2026-11-09 | Claude (cerebro-vivo #36) | spec 035 (fabrica de IA con directora y varias IA, punto 19) redactada en borrador tras investigar Codex, Sonnet 5.5 y el video de un autor externo; pendiente de aprobacion de Darwin
+2026-11-09 | Claude (cerebro-vivo #36) | spec 035 en marcha: proyecto de prueba F:\Proyectos Antigravity\wow-addon-chat (addon CopyChatLB, WoW Forever). Encargo 1 y 1b hechos por Codex Luna alto (~63k + ~49k tokens), revisor independiente devolvio el 1; falta prueba de Darwin en el juego y encargo 2 (R6, R8, R9)
+2026-11-09 | Claude (cerebro-vivo #37) | CopyChatLB descartado (ya existe): proyecto archivado en Wow pruebas, paso previo ¿ya existe? en spec 035 y leccion | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica: modulo iconos de clase en GuildControlForever (spec aprobada, ejecutora + revisor + correccion); sin commit, sin probar en el juego; pagina gh-pages: reconstruida la build atascada | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica cerrada con exito: modulo iconos de clase aprobado por Darwin en el juego (directora + ejecutora + revisor + correccion, sin Codex) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #37) | Spec 035 (fabrica de IA) aprobada por Darwin con los resultados de las pruebas; pendiente 19 actualizado; sin commit ni subida | Fast-Track

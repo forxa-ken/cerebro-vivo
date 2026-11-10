@@ -79,3 +79,8 @@ Decisión de Darwin: quien tenía que probarlo en un Mac no lo va a hacer, así 
 ## 33 · El aviso de cierre no atribuye al chat lo que trajo `/actualizar` (spec 031, arnés 1.28.6)
 **Fecha:** 2026-11-08
 Probado por Darwin en LoboHook (de 1.25.0 a 1.28.7): tras `/actualizar` y tras reiniciar Claude Code, pidió al chat solo añadir una línea de prueba a `.brain/pendientes.md`. Al terminar, el cierre no mostró ningún aviso (Darwin: «no salió nada») y el registro pegado no contiene cuadro de «Stop hook feedback» en ese tramo. Los archivos repartidos por `/actualizar` no se atribuyeron al chat. Aparte: esa prueba destapó un fallo del actualizador con el venv entre comillas (arreglado en 1.28.8).
+
+
+## 4 · Repetir el banco T1-T3 (specs 003 y 004) con la 1.29.0 — DESCARTADO
+**Fecha:** 2026-11-09
+Darwin decidió no repetirlo (30 chats de prueba, coste en dinero). Motivo: el informe 032 ya midió el coste con datos reales (16-28 % ritual del arnés) y el efecto de la 1.29.0 se mide gratis con `python .brain/guardianes/medir.py --ritual` (punto 35, en 2 semanas). Los guardianes nuevos pasan a decidirse según ese resultado.

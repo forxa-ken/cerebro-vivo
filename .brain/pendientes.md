@@ -5,9 +5,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 **Regla de cierre:** cuando Darwin prueba una tarea y confirma, en esa misma respuesta se pasa su detalle a `archive/hechos.md`, se añade su fila a `archive/hechos-indice.md` y se quita de aquí. Si la prueba falla, vuelve a «Falta programar» con una nota de qué falló.
 
 ## Falta programar (IA)
-- **4:** repetir el banco T1-T3 (specs 003 y 004, 5 repeticiones por lado) con la 1.29.0 para saber el sobrecoste actual; hasta entonces los guardianes nuevos siguen congelados. Cuesta dinero: Darwin da el visto bueno. Informe 032 (medición real) hecho.
-
-- **19:** diseñar (spec aparte) cómo colaboran varias IA con responsabilidades distintas en un proyecto (caso Guild Control Forever: Claude con `.brain/`, Gemini solo traducciones con `AGENTS.md`). A decidir: qué lee/escribe cada IA, cómo no pisarse, `indices_ajenos` en `guardianes.json`. Detalle en `archive/pendientes-detalle-2026-11-08.md`.
+- **19:** [spec 035 APROBADA el 2026-11-10; falta la Fase 1 (archivos y reglas de la fábrica), con visto bueno de Darwin y decidir antes las preguntas 1 y 4 de la sección 7] diseñar (spec aparte) cómo colaboran varias IA con responsabilidades distintas en un proyecto (caso Guild Control Forever: Claude con `.brain/`, Gemini solo traducciones con `AGENTS.md`). A decidir: qué lee/escribe cada IA, cómo no pisarse, `indices_ajenos` en `guardianes.json`. Detalle en `archive/pendientes-detalle-2026-11-08.md`.
 
 - **22:** automatizaciones en la nube (Jenkins o GitHub; hoy todo corre en local). Antes: explicarle a Darwin cada opción en llano y que elija. Sin empezar.
 
@@ -25,6 +23,8 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **36:** mejora (idea de ODD, informe `archive/informe-odd-gentle-shell-2026-11-09.md`): usar el «resume test» (¿se puede retomar el trabajo solo con la petición y los cambios del código?) como segundo criterio, junto al contador de 15 ediciones del cierre por bloque y a la regla de «más de 2 archivos» de `spec-antes-de-programar`. Pequeño y reversible. Hacerlo después de ver los resultados del punto 35 (`medir.py --ritual`). Spec antes; es/en. Sin empezar.
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) arreglar `test_soporte_mac` (fin de línea de Windows); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
+
+- **38:** arreglar de fondo el hook `pre-commit`: llama a `.brain/guardianes/secretos.py` con ruta relativa y falla en la carpeta de la página (`_cv_pagina`, worktree de gh-pages), donde ese script no existe. Debe buscar el guardián en la raíz del repo común (`git rev-parse --git-common-dir`). Mientras, se usa el truco de la lección (copia temporal). Spec antes si toca el instalador; es/en.
 
 ## Esperando tu prueba (Darwin)
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.

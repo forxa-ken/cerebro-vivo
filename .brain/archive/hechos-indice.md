@@ -25,3 +25,5 @@
 | 13 | `traspaso-in`/`traspaso-out` en Codex y Gemini (specs 010 y 011, 1.9.0) | 2026-11-08 | archive/hechos.md |
 | 17 | Soporte para Mac (spec 013, 1.11.0): **sin probar en un Mac real**, nadie lo va a probar | 2026-11-08 | archive/hechos.md |
 | 33 | El aviso de cierre no atribuye al chat lo que trajo `/actualizar` (spec 031, 1.28.6) | 2026-11-08 | archive/hechos.md |
+
+| 4 | Repetir el banco T1-T3 con la 1.29.0: **descartado por Darwin**, sustituido por `medir.py --ritual` (punto 35) | 2026-11-09 | archive/hechos.md |
