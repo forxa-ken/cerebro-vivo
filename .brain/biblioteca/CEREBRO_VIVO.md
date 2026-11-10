@@ -1,7 +1,16 @@
 # Método «Cerebro Vivo»
 
 > Método de trabajo para construir un proyecto de software con una IA (Claude, Gemini u otra) **sin que se pierda el contexto entre chats y gastando pocos tokens**. Nació en LoboHook (2026) y está escrito para copiarlo a otros proyectos.
-> Fuente consultada: el detalle solo se abre si hace falta.
+> Fuentes consultadas: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026). Lista completa en el README. La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
+> Para usarlo: copia este archivo al proyecto nuevo y dile a la IA: *«Aplica el método Cerebro Vivo de `CEREBRO_VIVO.md`: crea la estructura y trabaja con sus reglas.»*
+
+---
+
+## 1. La idea en una frase
+La IA **no recuerda** lo que pasó en chats anteriores. Así que la memoria del proyecto vive en **archivos**, ordenados para que la IA lea poco al empezar y solo busque el detalle cuando lo necesite. *La verdad está en el código y en estos archivos, no en la conversación.*
+
+## 2. Los cinco principios
+1. **Índice primero, detalle después.** Al empezar se lee un índice corto; el detalle solo se abre si hace falta.
 2. **Cada cosa en su sitio.** Reglas, tareas pendientes, tareas hechas, decisiones y especificaciones van en archivos distintos.
 3. **Cerrar es parte de trabajar.** Una tarea no está terminada hasta que se actualiza la memoria (registro, pendientes, índice).
 4. **Lo hecho sale de la vista.** Lo terminado se archiva con un índice; lo pendiente queda siempre corto.

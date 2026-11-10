@@ -9,6 +9,10 @@ The **"Cerebro Vivo" meta-harness**: a method for working with an AI without los
 Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`, `guardianes/`, `/actualizar`, `traspaso-in`); changing them would break existing projects. The content (guardian notices, skills, manual, templates) is available in English: a project with `"idioma": "en"` in `.brain/guardianes/guardianes.json` receives the English editions (`X.en.md`) in the place of `X.md`.
 
 ## Sources
+- Lee, Yoonho; Nair, Roshen; Zhang, Qizheng; Lee, Kangwook; Khattab, Omar; Finn, Chelsea. *Meta-Harness: End-to-End Optimization of Model Harnesses*. arXiv:2603.28052, March 2026 (https://arxiv.org/abs/2603.28052): Stanford paper on the term "meta-harness".
+- Databricks. *Introducing Omnigent: a meta-harness to combine, control and share your agents*, June 2026 (https://www.databricks.com/blog/introducing-omnigent-meta-harness-combine-control-and-share-your-agents): orchestration layer over AI agents.
+
+The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
 
 ## What it contains
 - **Guardians** (`.brain/guardianes/`): startup, close, cerrar, pruning, meter, secrets, libraries, tests, length, analysis, database, indexes, chat notes, lessons and milestones.

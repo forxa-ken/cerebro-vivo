@@ -7,6 +7,10 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 **Manual de uso para el día a día: [`MANUAL_DE_USO.md`](MANUAL_DE_USO.md).**
 
 ## Fuentes
+- Lee, Yoonho; Nair, Roshen; Zhang, Qizheng; Lee, Kangwook; Khattab, Omar; Finn, Chelsea. *Meta-Harness: End-to-End Optimization of Model Harnesses*. arXiv:2603.28052, marzo de 2026 (https://arxiv.org/abs/2603.28052): artículo de Stanford sobre el término «meta-harness».
+- Databricks. *Introducing Omnigent: a meta-harness to combine, control and share your agents*, junio de 2026 (https://www.databricks.com/blog/introducing-omnigent-meta-harness-combine-control-and-share-your-agents): capa de orquestación sobre agentes de IA.
+
+La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
 
 ## Qué lleva
 - **Guardianes** (`.brain/guardianes/`): arranque, cierre, cerrar, poda, medidor, secretos, librerías, pruebas, longitud, análisis, base de datos, índices, notas de chats.

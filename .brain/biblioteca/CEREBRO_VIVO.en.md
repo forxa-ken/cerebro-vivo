@@ -1,7 +1,18 @@
 # The "Cerebro Vivo" method
 
 > A working method for building a software project with an AI (Claude, Gemini or another) **without losing context between chats and while spending few tokens**. It was born in LoboHook (2026) and is written to be copied to other projects.
-> Source consulted: detail is opened only if needed.
+> Sources consulted: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026). Full list in the README. The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
+> To use it: copy this file into the new project and tell the AI: *"Apply the Cerebro Vivo method from `CEREBRO_VIVO.md`: create the structure and work by its rules."*
+
+> Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`, `guardianes/`, `/actualizar`, `traspaso-in`). Changing them would break existing projects.
+
+---
+
+## 1. The idea in one sentence
+The AI **does not remember** what happened in earlier chats. So the project's memory lives in **files**, ordered so that the AI reads little at the start and looks up detail only when it needs it. *The truth is in the code and in these files, not in the conversation.*
+
+## 2. The five principles
+1. **Index first, detail after.** At the start a short index is read; detail is opened only if needed.
 2. **Each thing in its place.** Rules, pending tasks, finished tasks, decisions and specifications go in different files.
 3. **Closing is part of working.** A task is not finished until the memory is updated (log, pending list, index).
 4. **What is done leaves the view.** Finished work is archived with an index; the pending list stays short.

@@ -235,3 +235,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 
 ## 1.34.1 (2026-11-10)
+
+
+## 1.34.2 (2026-11-10)
+- Fuentes: se añaden el artículo de Stanford «Meta-Harness» (arXiv:2603.28052, marzo de 2026) y Omnigent de Databricks (junio de 2026) en los README (es/en) y en `CEREBRO_VIVO.md` (es/en). Solo texto.
