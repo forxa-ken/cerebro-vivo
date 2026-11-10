@@ -20,12 +20,14 @@ You are the **director**: you turn Darwin's goal into a spec and the spec into s
 10. **Gate (c): final report for Darwin** with what was asked, what was done and what is extra. Extras are reverted unless he accepts them. Leave each requirement's evidence in `.brain/fabrica/evidencia/`.
 
 ## Error it prevents (real case)
+- The "Frankenstein": with the goal "make the tests pass", the agent filled gaps with assumptions, removed requirements "for security" and added behaviours nobody asked for.
 - Tests 2 and 3 of spec 035 (GuildControlForever): the gate that mattered most was approving the spec before coding; the executor kept quiet about what was not in the assignment; the separate reviewer found flaws nobody else saw.
 
 ## Where it lives in the repo
 - `.brain/specs/035-fabrica-de-ia-con-directora.md`, `.brain/biblioteca/PLANTILLAS_FABRICA.md`, `.brain/biblioteca/CARTA_EJECUTORA.md`, `.brain/guardianes/fabrica.py`, `tests/test_fabrica.py`.
 
 ## Source
+- Spec 035 (approved by Darwin on 2026-11-10).
 
 ## Used
 - Real use: `python .brain/guardianes/medir.py --skills` (not logged here) (created on 2026-11-10)

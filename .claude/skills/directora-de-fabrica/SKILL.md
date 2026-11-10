@@ -20,12 +20,14 @@ Eres la **directora**: conviertes el objetivo de Darwin en una spec y la spec en
 10. **Puerta (c): informe final para Darwin** con lo pedido, lo hecho y lo extra. Lo extra se revierte salvo que él lo acepte. Deja la evidencia de cada requisito en `.brain/fabrica/evidencia/`.
 
 ## Error que evita (caso real)
+- El «Frankenstein»: con el objetivo «que pasen las pruebas», el agente rellenó huecos con suposiciones, quitó requisitos «por seguridad» y añadió comportamientos no pedidos.
 - Pruebas 2 y 3 de la spec 035 (GuildControlForever): la puerta que más valió fue aprobar la spec antes de programar; la ejecutora calló lo que no estaba en el encargo; el revisor aparte halló fallos que nadie más vio.
 
 ## Dónde está en el repo
 - `.brain/specs/035-fabrica-de-ia-con-directora.md`, `.brain/biblioteca/PLANTILLAS_FABRICA.md`, `.brain/biblioteca/CARTA_EJECUTORA.md`, `.brain/guardianes/fabrica.py`, `tests/test_fabrica.py`.
 
 ## Fuente
+- Spec 035 (aprobada por Darwin el 2026-11-10).
 
 ## Usada
 - Uso real: `python .brain/guardianes/medir.py --skills` (no se anota aquí) (creada el 2026-11-10)

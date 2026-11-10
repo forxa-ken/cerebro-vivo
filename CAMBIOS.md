@@ -259,3 +259,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.35.4 (2026-11-11)
 - Punto 30: los avisos más comunes de los guardianes (análisis de código, base de datos, pruebas y secretos) dicen ahora cómo arreglar el problema, no solo qué falló. Textos es/en en `textos.py`.
+
+
+## 1.35.5 (2026-11-11)
