@@ -78,7 +78,12 @@ class TestModoLigero(unittest.TestCase):
         with open(os.path.join(d, CFG["registro"]), encoding="utf-8") as f:
             linea = f.read()
         self.assertIn("Claude (auto)", linea)
-        self.assertTrue(linea.endswith("| Fast-Track\n"))
+        self.assertTrue(linea.endswith("| Cambio pequeño\n"))
+
+    def test_carril_nuevo_y_alias_antiguo(self):
+        import cerrar
+        for c in ("Cambio pequeño", "Small change", "Fast-Track", "SDD"):
+            self.assertTrue(cerrar.linea_registro("2026-11-10", "Claude", "x #1", "hecho", c, CFG).endswith("| " + c))
 
     def test_no_repite_la_misma_linea(self):
         d = tempfile.mkdtemp()

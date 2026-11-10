@@ -86,7 +86,7 @@ tests/test_cerebro_indices.py   test de coherencia de los índices
 | Carril | Cuándo | Pasos |
 | :--- | :--- | :--- |
 | **SDD** | Toca > 2 archivos, o un área sensible (dinero, pagos, licencias, permisos, base de datos, despliegue, datos de usuarios) | Spec desde la plantilla → **aprobación del dueño** → programar → tests → cierre |
-| **Fast-Track** | Todo lo demás | Cambio → tests → cierre |
+| **Cambio pequeño** | Todo lo demás | Cambio → tests → cierre |
 
 Una spec es corta: objetivo, qué entra y qué no, archivos, cómo se prueba, riesgos, aprobación. Su valor: que el dueño frene un error **antes** de gastar tokens.
 Regla de desempate: si dudas entre carriles, es SDD.
@@ -289,7 +289,7 @@ Regla de cierre: al confirmar el dueño que probó una tarea, en esa misma respu
 ## Acciones tuyas
 ## Más adelante
 ```
-**Fila de `decisions.log`:** `AAAA-MM-DD | quién (Proyecto #N) | qué se hizo, en una frase | SDD o Fast-Track`
+**Fila de `decisions.log`:** `AAAA-MM-DD | quién (Proyecto #N) | qué se hizo, en una frase | SDD o Cambio pequeño`
 **Ficha `D-NNN-nombre.md`:** Estado · Fecha · Decidió · Área → *Por qué* → *Decisión* → *Consecuencias* → *Relacionado* (≤ 15 líneas).
 **`hechos-indice.md`:** tabla `Nº | Qué | Fecha | Ref.` (lo más reciente arriba). **`hechos.md`:** `## Nº · título` + `Fecha · Ref` + 2–4 líneas de qué se probó y qué límites quedaron.
 **Spec:** objetivo · en alcance · fuera de alcance · plan · plan de verificación · cierre (aprobada por el dueño antes de programar).
@@ -308,7 +308,7 @@ Regla de cierre: al confirmar el dueño que probó una tarea, en esa misma respu
 | Guardián | Comprobación automática de que el método se cumple |
 | Commit | Foto guardada de los cambios en el equipo; no es subirlos a internet |
 | Push | Subir esos commits a GitHub; solo con orden del dueño |
-| Fast-Track / SDD | Los dos carriles de trabajo (§6) |
+| Cambio pequeño / SDD | Los dos carriles de trabajo (§6) |
 
 ## 25. Cómo se mantiene esta carta
 - Se actualiza cuando **algo del método cambia, falla o se aprende**, no por calendario.

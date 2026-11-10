@@ -6,10 +6,10 @@ description: Use when a change touches quotas, payments, licenses, deployment, t
 # Spec before programming
 
 ## How (steps)
-0. **Is a spec needed?** Yes if the change touches quotas, payments, licenses, deployment, the database, real servers or security rules. For everything else, **resume test**: if another AI can continue from just the request and the `git diff`, it is a small task and goes straight through Fast-Track, with the security rules, the log and the usual lesson. The number of files no longer decides.
+0. **Is a spec needed?** Yes if the change touches quotas, payments, licenses, deployment, the database, real servers or security rules. For everything else, **resume test**: if another AI can continue from just the request and the `git diff`, it is a small task and goes straight through the small-change lane, with the security rules, the log and the usual lesson. The number of files no longer decides.
 1. Create `.brain/specs/NNN-name.md` from `_template.md`: goal, scope, out of scope, plan, verification. **Write each rule only once** (saying it two ways causes approver rejections).
 2. Wait for Darwin's approval before programming.
-3. Everything else goes by Fast-Track: direct change, tests green and a line in `decisions.log`.
+3. Everything else goes by the small-change lane: direct change, tests green and a line in `decisions.log`.
 4. On closing: a D-NNN card if there was an important decision.
 
 ## Error it prevents (real case)

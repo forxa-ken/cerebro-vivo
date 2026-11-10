@@ -18,4 +18,4 @@ Este archivo (`{{ARCHIVO}}`) es el índice que lee **{{IA}}**. Mismo contenido o
 
 ## Metodología (dos carriles)
 1. **SDD** — más de 2 archivos o áreas sensibles (pagos, permisos, datos de usuarios, despliegue): spec en `.brain/specs/NNN-nombre.md` desde `_template.md` y **esperar la aprobación de {{DUENO}}** antes de programar.
-2. **Fast-Track** — el resto: aplicar, pruebas en verde y una línea en `.brain/decisions.log`.
+2. **Cambio pequeño** — el resto: aplicar, pruebas en verde y una línea en `.brain/decisions.log`.

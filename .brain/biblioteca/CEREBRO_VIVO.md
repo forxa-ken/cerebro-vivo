@@ -59,7 +59,7 @@ GEMINI.md                  ← mismo índice para otra IA (si se usa más de una
 | Carril | Cuándo | Pasos |
 | :--- | :--- | :--- |
 | **SDD** (especificar primero) | Toca más de 2 archivos, o un área sensible (dinero, permisos, licencias, base de datos, despliegue) | 1) Crear spec desde `_template.md`. 2) **Esperar aprobación del dueño.** 3) Programar. 4) Tests. 5) Cerrar. |
-| **Fast-Track** | Todo lo demás | 1) Aplicar el cambio. 2) Tests en verde. 3) Cerrar. |
+| **Cambio pequeño** | Todo lo demás | 1) Aplicar el cambio. 2) Tests en verde. 3) Cerrar. |
 
 Una spec es corta: objetivo, qué entra y qué no, archivos que se tocan, cómo se prueba, riesgos. Su valor es que **el dueño aprueba antes de gastar tokens programando algo equivocado**.
 
@@ -106,7 +106,7 @@ Idea ──► [spec aprobada] ──► Falta programar ──► Implementada
 ## 8. Cómo arrancar en un proyecto nuevo
 Pega esto en el primer chat:
 
-> Aplica el método Cerebro Vivo (`CEREBRO_VIVO.md`). Crea `CLAUDE.md`, `.brain/` con `constitution.md`, `pendientes.md`, `decisions.log`, `decisions/`, `specs/`, `architecture/` y `archive/`. Mis reglas innegociables son: [escríbelas]. Comando de pruebas: [comando]. Responde en [idioma] y explica sin jerga. Trabaja con dos carriles (SDD/Fast-Track) y cierra cada tarea con el checklist.
+> Aplica el método Cerebro Vivo (`CEREBRO_VIVO.md`). Crea `CLAUDE.md`, `.brain/` con `constitution.md`, `pendientes.md`, `decisions.log`, `decisions/`, `specs/`, `architecture/` y `archive/`. Mis reglas innegociables son: [escríbelas]. Comando de pruebas: [comando]. Responde en [idioma] y explica sin jerga. Trabaja con dos carriles (SDD/Cambio pequeño) y cierra cada tarea con el checklist.
 
 **Plantillas mínimas**
 - `pendientes.md`: encabezado con la regla de cierre + secciones *Falta programar*, *Esperando tu prueba*, *Acciones tuyas*, *Más adelante*.
@@ -185,7 +185,7 @@ El punto débil del método es que depende de la disciplina de la IA. Los guardi
 - **Funciona con un dueño no técnico**, porque la comunicación obligatoria es en lenguaje llano.
 
 ### Lo que cuesta o falla
-- **Coste de mantenimiento fijo.** Cada tarea pequeña exige 3-4 escrituras de archivos al cerrar. Para un cambio de una línea es desproporcionado (por eso existe Fast-Track, pero igual hay que registrar).
+- **Coste de mantenimiento fijo.** Cada tarea pequeña exige 3-4 escrituras de archivos al cerrar. Para un cambio de una línea es desproporcionado (por eso existe el carril de cambio pequeño, pero igual hay que registrar).
 - **Depende de que la IA cumpla la disciplina.** No hay nada que obligue técnicamente; si se olvida de cerrar, la memoria se desactualiza en silencio. Prueba real: `pendientes.md` creció a 20 KB (~6.000 tokens) porque faltaba la regla de transferir lo hecho. El método falló justo donde no tenía regla.
 - **Los índices pueden quedar desfasados** (filas olvidadas, números de línea que ya no coinciden). Por eso se prefieren números de punto fijos a números de línea.
 - **La memoria crece sin límite** (en LoboHook ~400 KB tras unas 45 specs). El índice protege el arranque, pero si el índice mismo engorda, se pierde el ahorro.

@@ -357,8 +357,8 @@ def permitir(motivo, raiz=RAIZ, cfg=None):
     for c in estado.get("chats", {}).values():
         c.pop("bloqueados", None)
     guardar_estado(estado)
-    linea = "%s | Guardián (eventos del chat) | %s | Fast-Track" % (
-        datetime.date.today().isoformat(), t(cfg, "eventos_chat_registro", ", ".join(bloqueadas), motivo))
+    linea = "%s | Guardián (eventos del chat) | %s | %s" % (
+        datetime.date.today().isoformat(), t(cfg, "eventos_chat_registro", ", ".join(bloqueadas), motivo), t(cfg, "carril_corto"))
     try:
         with open(os.path.join(raiz, cfg.get("registro", ".brain/decisions.log")), "a", encoding="utf-8", newline="") as f:
             f.write(linea + "\n")

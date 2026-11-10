@@ -18,4 +18,4 @@ This file (`{{ARCHIVO}}`) is the index that **{{IA}}** reads. Same operating con
 
 ## Methodology (two lanes)
 1. **SDD** — more than 2 files or sensitive areas (payments, permissions, user data, deployment): spec in `.brain/specs/NNN-name.md` from `_template.md` and **wait for {{DUENO}}'s approval** before coding.
-2. **Fast-Track** — everything else: apply, tests green and one line in `.brain/decisions.log`.
+2. **Small change** — everything else: apply, tests green and one line in `.brain/decisions.log`.

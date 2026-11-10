@@ -239,3 +239,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.34.2 (2026-11-10)
 - Fuentes: se añaden el artículo de Stanford «Meta-Harness» (arXiv:2603.28052, marzo de 2026) y Omnigent de Databricks (junio de 2026) en los README (es/en) y en `CEREBRO_VIVO.md` (es/en). Solo texto.
+
+
+## 1.35.0 (2026-11-10)
+- El carril corto «Fast-Track» pasa a llamarse **«Cambio pequeño»** (en inglés **«Small change»**), para no coincidir con el «FTD, Fast-Track Development» de otro proyecto. Cambia en `CEREBRO_VIVO.md`, la carta, las plantillas de índice y la skill `spec-antes-de-programar` (es/en), y en los guardianes `cerrar.py`, `cierre.py` y `eventos_chat.py` (clave nueva `carril_corto` en `textos.py`). `cerrar.py --carril` sigue aceptando «Fast-Track» como alias. Las líneas viejas de `decisions.log` no se reescriben; nadie lee esa columna, así que conviven sin problema.

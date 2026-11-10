@@ -61,7 +61,7 @@ GEMINI.md                  ← same index for another AI (if more than one is us
 | Lane | When | Steps |
 | :--- | :--- | :--- |
 | **SDD** (specify first) | Touches more than 2 files, or a sensitive area (money, permissions, licenses, database, deployment) | 1) Create a spec from `_template.md`. 2) **Wait for the owner's approval.** 3) Program. 4) Tests. 5) Close. |
-| **Fast-Track** | Everything else | 1) Apply the change. 2) Tests green. 3) Close. |
+| **Small change** | Everything else | 1) Apply the change. 2) Tests green. 3) Close. |
 
 A spec is short: goal, what is in and what is out, files touched, how it is tested, risks. Its value is that **the owner approves before tokens are spent programming the wrong thing**.
 
@@ -108,7 +108,7 @@ Idea ──► [approved spec] ──► To program ──► Implemented
 ## 8. How to start in a new project
 Paste this in the first chat:
 
-> Apply the Cerebro Vivo method (`CEREBRO_VIVO.md`). Create `CLAUDE.md`, `.brain/` with `constitution.md`, `pendientes.md`, `decisions.log`, `decisions/`, `specs/`, `architecture/` and `archive/`. My non-negotiable rules are: [write them]. Test command: [command]. Reply in [language] and explain without jargon. Work with two lanes (SDD/Fast-Track) and close every task with the checklist.
+> Apply the Cerebro Vivo method (`CEREBRO_VIVO.md`). Create `CLAUDE.md`, `.brain/` with `constitution.md`, `pendientes.md`, `decisions.log`, `decisions/`, `specs/`, `architecture/` and `archive/`. My non-negotiable rules are: [write them]. Test command: [command]. Reply in [language] and explain without jargon. Work with two lanes (SDD/Small change) and close every task with the checklist.
 
 **Minimal templates**
 - `pendientes.md`: header with the closing rule + sections *To program*, *Waiting for your test*, *Your actions*, *Later*.
@@ -189,7 +189,7 @@ The method's weak point is that it depends on the AI's discipline. The guardians
 - **It works with a non-technical owner**, because the mandatory communication is in plain language.
 
 ### What costs or fails
-- **Fixed maintenance cost.** Each small task requires 3-4 file writes at close. For a one-line change that is disproportionate (that is why Fast-Track exists, but it still has to be logged).
+- **Fixed maintenance cost.** Each small task requires 3-4 file writes at close. For a one-line change that is disproportionate (that is why the small-change lane exists, but it still has to be logged).
 - **It depends on the AI keeping the discipline.** Nothing technically forces it; if it forgets to close, the memory goes stale silently. Real test: `pendientes.md` grew to 20 KB (~6,000 tokens) because the rule to move what is done was missing. The method failed exactly where it had no rule.
 - **Indexes can drift** (forgotten rows, line numbers that no longer match). That is why fixed item numbers are preferred over line numbers.
 - **Memory grows without limit** (in LoboHook ~400 KB after some 45 specs). The index protects startup, but if the index itself gets fat, the saving is lost.

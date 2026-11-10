@@ -104,6 +104,7 @@ TEXTOS = {
         "cerrar_no_se_pudo": "No se pudo: %s\n",
         "cerrar_no_cerrar": "No se pudo cerrar: %s\n",
         "cerrar_registrado": "Registrado: %s\n",
+        "carril_corto": "Cambio pequeño",
         # poda.py
         "poda_git_responde": "Git no responde",
         "poda_cambios_sin_guardar": "cambios sin guardar en ",
@@ -485,6 +486,7 @@ TEXTOS = {
         "cerrar_no_se_pudo": "Could not do it: %s\n",
         "cerrar_no_cerrar": "Could not close: %s\n",
         "cerrar_registrado": "Logged: %s\n",
+        "carril_corto": "Small change",
         "poda_git_responde": "Git does not respond",
         "poda_cambios_sin_guardar": "unsaved changes in ",
         "poda_quedarian_enlaces_rotos": "links would be broken: %s",

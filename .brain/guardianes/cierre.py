@@ -192,7 +192,7 @@ def escribir_linea_auto(raiz, cfg, texto):
     except OSError:
         pass
     with open(ruta, "a", encoding="utf-8") as f:
-        f.write("%s | Claude (auto) | %s | Fast-Track\n" % (datetime.date.today().isoformat(), texto))
+        f.write("%s | Claude (auto) | %s | %s\n" % (datetime.date.today().isoformat(), texto, t(cfg, "carril_corto")))
 
 
 def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None):

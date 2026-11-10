@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Cierre rápido de Cerebro Vivo (spec 047): añade la línea de la tarea al registro con el formato correcto.
 
-Uso:  python .brain/guardianes/cerrar.py "qué se hizo" --chat "Proyecto #40" [--quien Claude] [--carril Fast-Track|SDD]
+Uso:  python .brain/guardianes/cerrar.py "qué se hizo" --chat "Proyecto #40" [--quien Claude] [--carril "Cambio pequeño"|"Small change"|SDD]
 Cambio de una línea: basta con esta línea (sin tocar pendientes ni fichas salvo que corresponda).
 Solo librería estándar. Los ajustes (ruta del registro) salen de guardianes.json."""
 
@@ -14,7 +14,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
-CARRILES = ("Fast-Track", "SDD")
+# «Fast-Track» sigue aceptándose como alias del carril corto (registros y órdenes antiguos).
+CARRILES = ("Cambio pequeño", "Small change", "Fast-Track", "SDD")
 sys.path.insert(0, AQUI)
 from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
@@ -69,7 +70,7 @@ def main():
     ap.add_argument("texto", nargs="?", default="", help=t(cfg, "ayuda_cerrar_texto"))
     ap.add_argument("--chat", help=t(cfg, "ayuda_cerrar_chat"))
     ap.add_argument("--quien", default="Claude")
-    ap.add_argument("--carril", default="Fast-Track", choices=CARRILES)
+    ap.add_argument("--carril", default=t(cfg, "carril_corto"), choices=CARRILES)
     ap.add_argument("--fecha", default=datetime.date.today().isoformat())
     ap.add_argument("--indices", action="store_true", help=t(cfg, "ayuda_cerrar_indices"))
     ap.add_argument("--hecho", help=t(cfg, "ayuda_cerrar_hecho"))
