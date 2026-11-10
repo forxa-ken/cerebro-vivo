@@ -25,7 +25,7 @@ window.DATOS = {
     "q": "¿Qué reglas no se pueden romper?",
     "r": "Al empezar",
     "w": "Solo cambia con tu autorización",
-    "n": "Hay 9 reglas en este repositorio."
+    "n": "Hay 10 reglas en este repositorio."
    },
    {
     "p": "pendientes.md",
@@ -162,7 +162,7 @@ window.DATOS = {
     "q": "¿Qué se lanza en cada momento?",
     "r": "Lo usa Claude Code",
     "w": "El instalador",
-    "n": "Declara 3 hooks: abrir sesión, enviar mensaje y acabar respuesta."
+    "n": "Declara 4 hooks: abrir sesión, enviar mensaje, antes de cada orden y acabar respuesta."
    },
    {
     "p": "skills/",
@@ -170,7 +170,7 @@ window.DATOS = {
     "q": "¿Cómo debe actuar la IA en cada situación?",
     "r": "Solo la skill que toca",
     "w": "Viene con el arnés",
-    "n": "25 skills en este repositorio."
+    "n": "32 skills en este repositorio."
    },
    {
     "p": "tests/",
@@ -178,7 +178,7 @@ window.DATOS = {
     "q": "¿Sigue funcionando el método?",
     "r": "Se lanza: python -m unittest discover tests",
     "w": "El arnés",
-    "n": "Último pase: 289 pruebas, con 6 saltadas."
+    "n": "Último pase: 408 pruebas, con 6 saltadas."
    },
    {
     "p": "VERSION y manifiesto.json",
@@ -386,7 +386,17 @@ window.DATOS = {
     "e": "Solo lee",
     "k": "mano",
     "ek": "ok",
-    "d": "Solo lectura. Lee los registros de Claude Code y, por chat, saca coste ponderado, tokens nuevos, salida, arranque, mensajes tuyos y correcciones. --comparar enfrenta dos proyectos, --desglose ID da el coste mensaje a mensaje, --ritual separa cuánto del coste es ritual del arnés y cuánto es trabajo."
+    "d": "Solo lectura. Lee los registros de Claude Code y, por chat, saca coste ponderado, tokens nuevos, salida, arranque, mensajes tuyos y correcciones. --comparar enfrenta dos proyectos, --desglose ID da el coste mensaje a mensaje, --ritual separa cuánto del coste es ritual del arnés y cuánto es trabajo. Con --fabrica suma el gasto de las sesiones de Codex por encargo de la fábrica."
+   },
+   {
+    "n": "Fábrica de IA",
+    "f": "fabrica.py",
+    "w": "Sella la spec y la carta, comprueba el alcance de cada encargo y vigila el gasto y los topes.",
+    "c": "A mano (lo lanza la directora)",
+    "e": "Avisa",
+    "k": "mano",
+    "ek": "warn",
+    "d": "Sin IA, solo comprobaciones. Lo usa la directora entre un paso y otro; no es un hook ni vigila en vivo. Congela la spec aprobada y sella la carta, saca una foto de la carpeta de trabajo antes de que trabaje la ejecutora, comprueba que el encargo tiene su requisito y que solo se tocaron los archivos permitidos, anota el gasto de cada papel y lo compara con los topes de la carta. Si algo incumple, sale con error para parar y avisarte."
    },
    {
     "n": "Actualizador",
@@ -514,6 +524,13 @@ window.DATOS = {
     [
      "seguridad-en-sistemas-reales"
     ]
+   ],
+   [
+    "La fábrica de IA",
+    [
+     "directora-de-fabrica",
+     "revisor-independiente"
+    ]
    ]
   ],
   "GL": [
@@ -544,6 +561,10 @@ window.DATOS = {
    [
     "Carril",
     "Camino de un encargo: con spec o rápido."
+   ],
+   [
+    "Carta",
+    "Reglas del juego de una misión de la fábrica, firmadas por Darwin: qué se puede tocar, qué está prohibido y cuánto se puede gastar."
    ],
    [
     "CI/CD",
@@ -652,6 +673,10 @@ window.DATOS = {
    [
     "Reglas de seguridad",
     "Seis reglas para proyectos que actúan sobre sistemas reales (skill seguridad-en-sistemas-reales): todo por el motor, fallar hacia lo seguro, no depender del laboratorio y más."
+   ],
+   [
+    "Revisor independiente",
+    "Otra IA, en otro chat, que no hizo el trabajo y lo revisa con ojos nuevos: nadie aprueba su propio trabajo."
    ],
    [
     "Secreto",
@@ -892,80 +917,34 @@ window.DATOS = {
     "w": "En la terminal",
     "x": "python .brain/guardianes/medir.py --ritual",
     "d": "Separa el coste en trabajo, memoria, chat nuevo, avisos del guardián y mantenimiento del arnés."
-   }
-  ],
-  "S": [
-   {
-    "h": "La IA no recuerda",
-    "b": [
-     "Cada chat empieza de cero.",
-     "Lo acordado se pierde al cerrar la conversación.",
-     "En proyectos largos, eso cuesta tiempo y errores."
-    ],
-    "s": "Empieza por el problema. Cualquiera que haya usado una IA en un proyecto largo lo reconocerá."
    },
    {
-    "h": "La memoria vive en archivos",
-    "b": [
-     "Reglas, pendientes, decisiones y planes, cada uno en su sitio.",
-     "La IA lee poco al empezar y busca el detalle si hace falta.",
-     "Funciona con Claude, Gemini y Codex."
-    ],
-    "s": "La idea central es sacar la memoria del chat. La verdad está en el código y en estos archivos."
+    "c": "Fábrica de IA",
+    "t": "Dirigir una fábrica de IA",
+    "w": "En el chat",
+    "x": "/directora-de-fabrica",
+    "d": "La IA actúa de directora: escribe la spec y los encargos y te pide el visto bueno en cada puerta. Otras IA ejecutan."
    },
    {
-    "h": "Scripts que vigilan el método",
-    "b": [
-     "Hooks al abrir un chat, al enviar y al acabar cada respuesta.",
-     "Un hook pre-commit bloquea claves y tokens.",
-     "El resto, sobre todo, avisa de olvidos."
-    ],
-    "s": "Depender de la disciplina de la IA era el punto débil. Puedes poner el ejemplo de los secretos."
+    "c": "Fábrica de IA",
+    "t": "Revisar un trabajo con ojos nuevos",
+    "w": "En un chat aparte",
+    "x": "/revisor-independiente",
+    "d": "Otra IA, que no hizo el trabajo, lo revisa contra el encargo. Nadie aprueba su propio trabajo."
    },
    {
-    "h": "Un solo origen, muchos proyectos",
-    "b": [
-     "Cada cambio tiene versión, registro y huella de archivos.",
-     "Los proyectos se actualizan cuando yo decido.",
-     "Nunca se pisan datos ni cambios hechos a mano."
-    ],
-    "s": "Aquí se ve la parte de ingeniería: el método se reparte como un producto."
+    "c": "Fábrica de IA",
+    "t": "Comprobar el gasto y los topes de la fábrica",
+    "w": "En la terminal, en el proyecto",
+    "x": "python .brain/guardianes/fabrica.py topes --encargo N",
+    "d": "Compara el gasto anotado con los topes de la carta. Sale con error si alguno se pasa."
    },
    {
-    "h": "Cerebro Vivo contra ODD",
-    "b": [
-     "Cinco rondas en laboratorio: mismo encargo, dos métodos, con y sin reglas de seguridad.",
-     "Calidad: empate. Coste con reglas: ≈ 369k frente a ≈ 423k de media; 377k frente a 383k en la última ronda.",
-     "Seguridad: sin reglas fallaron los dos; con reglas, ninguno."
-    ],
-    "s": "Lo que decide la seguridad son las reglas, no el método. Muestra de 1 por casilla: es tendencia, no prueba."
-   },
-   {
-    "h": "La vía rápida: spec solo cuando hace falta",
-    "b": [
-     "Spec obligatoria si toca cuotas, pagos, licencias, despliegue, base de datos, servidores reales o reglas de seguridad.",
-     "En lo demás, prueba de retomar: si basta el encargo y el git diff, va directa.",
-     "Siempre: reglas de seguridad, registro, lección y pruebas en verde."
-    ],
-    "s": "Es la fusión de lo bueno de ODD (poco papeleo) con lo bueno de Cerebro Vivo (memoria y seguridad)."
-   },
-   {
-    "h": "Lo he medido, también lo malo",
-    "b": [
-     "Respetó lo acordado 5 de 5 veces, frente a 0 de 5.",
-     "Gasta de un 7 % a un 16 % más en tareas pequeñas.",
-     "El ahorro a largo plazo sigue sin medir."
-    ],
-    "s": "Di que la muestra es pequeña. Enseñar lo que no salió bien da más credibilidad que un resultado perfecto."
-   },
-   {
-    "h": "Lo siguiente",
-    "b": [
-     "CI/CD: lanzar las pruebas en cada subida.",
-     "Un agente revisor independiente.",
-     "Pruebas en proyectos reales de lo más reciente."
-    ],
-    "s": "Termina con lo que quieres aprender. Son planes: todavía no están hechos."
+    "c": "Fábrica de IA",
+    "t": "Medir el gasto de Codex por encargo",
+    "w": "En la terminal",
+    "x": "python .brain/guardianes/medir.py --fabrica --proyecto RUTA",
+    "d": "Suma los tokens gastados por cada sesión de Codex, agrupados por carpeta de encargo. Solo lee."
    }
   ]
  },
@@ -994,7 +973,7 @@ window.DATOS = {
     "q": "Which rules can never be broken?",
     "r": "At the start",
     "w": "Only changes with your permission",
-    "n": "There are 9 rules in this repository."
+    "n": "There are 10 rules in this repository."
    },
    {
     "p": "pendientes.md",
@@ -1131,7 +1110,7 @@ window.DATOS = {
     "q": "What runs at each moment?",
     "r": "Used by Claude Code",
     "w": "The installer",
-    "n": "Declares 3 hooks: session start, message sent and answer finished."
+    "n": "Declares 4 hooks: session start, message sent, before each command and answer finished."
    },
    {
     "p": "skills/",
@@ -1139,7 +1118,7 @@ window.DATOS = {
     "q": "How should the AI act in each situation?",
     "r": "Only the skill that applies",
     "w": "Comes with the harness",
-    "n": "25 skills in this repository."
+    "n": "32 skills in this repository."
    },
    {
     "p": "tests/",
@@ -1147,7 +1126,7 @@ window.DATOS = {
     "q": "Does the method still work?",
     "r": "Run with: python -m unittest discover tests",
     "w": "The harness",
-    "n": "Last run: 289 tests, 6 skipped."
+    "n": "Last run: 408 tests, 6 skipped."
    },
    {
     "p": "VERSION and manifiesto.json",
@@ -1355,7 +1334,17 @@ window.DATOS = {
     "e": "Read only",
     "k": "mano",
     "ek": "ok",
-    "d": "Read only. It reads Claude Code's records and, per chat, reports weighted cost, new tokens, output, start-up, your messages and corrections. --comparar pits two projects against each other, --desglose ID gives the cost message by message, --ritual separates how much of the cost is harness ritual and how much is work."
+    "d": "Read only. It reads Claude Code's records and, per chat, reports weighted cost, new tokens, output, start-up, your messages and corrections. --comparar pits two projects against each other, --desglose ID gives the cost message by message, --ritual separates how much of the cost is harness ritual and how much is work. With --fabrica it adds up Codex sessions' spend per factory assignment."
+   },
+   {
+    "n": "AI factory",
+    "f": "fabrica.py",
+    "w": "Seals the spec and the charter, checks each assignment's scope and watches spend and limits.",
+    "c": "By hand (the director runs it)",
+    "e": "Warns",
+    "k": "mano",
+    "ek": "warn",
+    "d": "No AI, only checks. The director uses it between steps; it is not a hook and does not watch live. It freezes the approved spec and seals the charter, takes a snapshot of the working folder before the executor works, checks that the assignment has its requirement and that only allowed files were touched, records each role's spend and compares it with the charter's limits. If something fails it exits with an error so work stops and you are told."
    },
    {
     "n": "Updater",
@@ -1483,6 +1472,13 @@ window.DATOS = {
     [
      "seguridad-en-sistemas-reales"
     ]
+   ],
+   [
+    "The AI factory",
+    [
+     "directora-de-fabrica",
+     "revisor-independiente"
+    ]
    ]
   ],
   "GL": [
@@ -1513,6 +1509,10 @@ window.DATOS = {
    [
     "Constitution",
     "Project rules that are not broken without permission."
+   ],
+   [
+    "Charter",
+    "The rules of the game for a factory mission, signed by Darwin: what can be touched, what is forbidden and how much can be spent."
    ],
    [
     "Decision (D-NNN)",
@@ -1621,6 +1621,10 @@ window.DATOS = {
    [
     "Spec",
     "Short plan you approve before coding."
+   ],
+   [
+    "Independent reviewer",
+    "Another AI, in another chat, that did not do the work and reviews it with fresh eyes: nobody approves their own work."
    ],
    [
     "Start-up",
@@ -1861,81 +1865,35 @@ window.DATOS = {
     "w": "In the terminal",
     "x": "python .brain/guardianes/medir.py --ritual",
     "d": "Splits the cost into work, memory, new chat, guardian notices and harness maintenance."
-   }
-  ],
-  "S": [
-   {
-    "h": "The AI does not remember",
-    "b": [
-     "Every chat starts from scratch.",
-     "What was agreed is lost when the conversation closes.",
-     "On long projects, that costs time and mistakes."
-    ],
-    "s": "Start with the problem. Anyone who has used an AI on a long project will recognise it."
    },
    {
-    "h": "Memory lives in files",
-    "b": [
-     "Rules, to-dos, decisions and plans, each in its place.",
-     "The AI reads little at the start and looks up details when needed.",
-     "Works with Claude, Gemini and Codex."
-    ],
-    "s": "The core idea is taking memory out of the chat. The truth lives in the code and in these files."
+    "c": "AI factory",
+    "t": "Direct an AI factory",
+    "w": "In the chat",
+    "x": "/directora-de-fabrica",
+    "d": "The AI acts as director: writes the spec and the assignments and asks for your approval at each gate. Other AIs execute."
    },
    {
-    "h": "Scripts that watch over the method",
-    "b": [
-     "Hooks when a chat opens, when a message is sent and when each answer ends.",
-     "A pre-commit hook blocks keys and tokens.",
-     "The rest mostly warn about what was forgotten."
-    ],
-    "s": "Relying on the AI's discipline was the weak spot. You can use secrets as the example."
+    "c": "AI factory",
+    "t": "Review work with fresh eyes",
+    "w": "In a separate chat",
+    "x": "/revisor-independiente",
+    "d": "Another AI, which did not do the work, reviews it against the assignment. Nobody approves their own work."
    },
    {
-    "h": "One source, many projects",
-    "b": [
-     "Every change has a version, a log and file fingerprints.",
-     "Projects are updated when I decide.",
-     "Data and hand-made changes are never overwritten."
-    ],
-    "s": "This is where the engineering shows: the method is shipped like a product."
+    "c": "AI factory",
+    "t": "Check the factory's spend and limits",
+    "w": "In the terminal, in the project",
+    "x": "python .brain/guardianes/fabrica.py topes --encargo N",
+    "d": "Compares the recorded spend with the charter's limits. Exits with an error if any is exceeded."
    },
    {
-    "h": "Cerebro Vivo versus ODD",
-    "b": [
-     "Five lab rounds: same brief, two methods, with and without safety rules.",
-     "Quality: a tie. Cost with rules: ≈ 369k vs ≈ 423k on average; 377k vs 383k in the last round.",
-     "Safety: without rules both failed; with rules, neither."
-    ],
-    "s": "What decides safety is the rules, not the method. One sample per cell: a trend, not proof."
-   },
-   {
-    "h": "The fast track: a spec only when needed",
-    "b": [
-     "A spec is mandatory if it touches quotas, payments, licences, deployment, the database, real servers or safety rules.",
-     "For everything else, the resume test: if the request and the git diff are enough, it goes straight through.",
-     "Always: safety rules, log, lesson and green tests."
-    ],
-    "s": "It merges the good part of ODD (little paperwork) with the good part of Cerebro Vivo (memory and safety)."
-   },
-   {
-    "h": "I measured it, the bad parts too",
-    "b": [
-     "It kept what was agreed 5 out of 5 times, versus 0 out of 5.",
-     "It costs 7 % to 16 % more on small tasks.",
-     "Long-term savings are still unmeasured."
-    ],
-    "s": "Say the sample is small. Showing what did not go well earns more trust than a perfect result."
-   },
-   {
-    "h": "What comes next",
-    "b": [
-     "CI/CD: running the tests on every push.",
-     "An independent reviewer agent.",
-     "Testing the latest pieces on real projects."
-    ],
-    "s": "End with what you want to learn. These are plans: they are not done yet."
+    "c": "AI factory",
+    "t": "Measure Codex spend per assignment",
+    "w": "In the terminal",
+    "x": "python .brain/guardianes/medir.py --fabrica --proyecto RUTA",
+    "d": "Adds up the tokens spent by each Codex session, grouped by assignment folder. Read only."
    }
   ]
  }
-}
+};

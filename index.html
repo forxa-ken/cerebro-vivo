@@ -177,11 +177,10 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
 
 <header class="top"><div class="wrap">
-  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.30.1</span></div>
+  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.34.0</span></div>
   <nav class="tabs" aria-label="Secciones" data-i18n-aria="top.aria7">
     <a href="#comprender" data-v="comprender" data-i18n="top.t1">Comprender</a>
     <a href="#usar" data-v="usar" data-i18n="top.t2">Usar</a>
-    <a href="#presentar" data-v="presentar" data-i18n="top.t3">Presentar</a>
     <a href="#cambios" data-v="cambios" data-i18n="top.t4">Cambios</a>
   </nav>
   <select class="lang" data-i18n-selector aria-label="Idioma / Language"></select>
@@ -462,14 +461,6 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
   <p class="cap" id="useEmpty" hidden data-i18n="usar.t4">No hay ninguna tarea con esa búsqueda.</p>
 </div></div>
 
-<div id="v-presentar" class="view"><div class="wrap" style="padding-block:34px 70px">
-  <div class="hero" style="padding:0 0 18px"><div class="eyebrow" data-i18n="presentar.t1">PARA CONTARLO</div><h2 data-i18n="presentar.t2">Presentación corta</h2>
-    <p class="lead" data-i18n="presentar.t3">Avanza con los botones o con las flechas del teclado.</p></div>
-  <div class="slide" id="slide" aria-live="polite"></div>
-  <div class="deckbar"><button id="prev" data-i18n="presentar.t4">Anterior</button><button id="next" data-i18n="presentar.t5">Siguiente</button><span id="count"></span></div>
-  
-  </div></div>
-
 <div id="v-cambios" class="view"><div class="wrap" style="padding-block:34px 70px">
   <div class="hero" style="padding:0 0 16px"><div class="eyebrow" data-i18n="cambios.t1">REGISTRO DE CAMBIOS</div><h2 data-i18n="cambios.t2">Qué trae cada versión</h2>
     <p class="note" data-i18n-html="cambios.h3">Se lee al momento de <a href="https://github.com/forxa-ken/cerebro-vivo/blob/main/CAMBIOS.md">CAMBIOS.md</a> en GitHub, así que siempre está al día con lo subido. La más nueva va primero.</p></div>
@@ -478,7 +469,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
   <div class="log" id="log"></div>
 </div></div>
 
-<footer><div class="wrap"><p data-i18n-html="top.h5"><strong>Reconocimiento:</strong> Cerebro Vivo parte de las ideas de meta-arnés de un autor externo en su proyecto un proyecto externo (<code>proyecto-externo</code>). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.</p><span class="src" data-i18n-html="top.h6">Basado en el repositorio cerebro-vivo, versión <span id="footV">1.30.1</span>, a 10 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</span></div></footer>
+<footer><div class="wrap"><p data-i18n-html="top.h5"><strong>Reconocimiento:</strong> Cerebro Vivo parte de las ideas de meta-arnés de un autor externo en su proyecto un proyecto externo (<code>proyecto-externo</code>). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.</p><span class="src" data-i18n-html="top.h6">Basado en el repositorio cerebro-vivo, versión <span id="footV">1.34.0</span>, a 10 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</span></div></footer>
 
 <script src="idiomas.js"></script>
 <script>try{if(!/^es\b/i.test(navigator.language||"es"))KIT_I18N.porDefecto="en"}catch(e){}</script>
@@ -487,8 +478,8 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 <script>
 const $=s=>document.querySelector(s);
 const tr=(k,n)=>{const v=window.KitI18n?KitI18n.t(k):k;return n===undefined?v:v.replace("{n}",n)};
-let LANG="es",FILES,MOM,G,SK,GL,T,S,VER="1.30.1";
-function setData(){LANG=(window.KitI18n&&KitI18n.getIdioma())||"es";const D=(window.DATOS||{})[LANG]||window.DATOS.es;({FILES,MOM,G,SK,GL,T,S}=D)}
+let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.34.0";
+function setData(){LANG=(window.KitI18n&&KitI18n.getIdioma())||"es";const D=(window.DATOS||{})[LANG]||window.DATOS.es;({FILES,MOM,G,SK,GL,T}=D)}
 
 const tree=$("#tree");let curF=3;
 function drawFile(i){curF=i;const f=FILES[i];[...tree.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
@@ -520,10 +511,6 @@ function drawT(){const q=$("#useQ").value.toLowerCase();tW.textContent="";const 
 function buildT(){uF.textContent="";uCat="";["",...new Set(T.map(t=>t.c))].forEach(c=>{const b=document.createElement("button");b.type="button";b.textContent=c||tr("ui.todo");b.dataset.c=c;b.onclick=()=>{uCat=c;drawT()};uF.append(b)});drawT()}
 $("#useQ").addEventListener("input",drawT);
 
-let si=0;function drawS(){const x=S[si],e=$("#slide");e.textContent="";const h=document.createElement("h2");h.textContent=x.h;const u=document.createElement("ul");x.b.forEach(b=>{const l=document.createElement("li");l.textContent=b;u.append(l)});e.append(h,u);$("#count").textContent=(si+1)+" "+tr("ui.de")+" "+S.length;$("#prev").disabled=si===0;$("#next").disabled=si===S.length-1}
-$("#prev").onclick=()=>{if(si>0){si--;drawS()}};$("#next").onclick=()=>{if(si<S.length-1){si++;drawS()}};
-addEventListener("keydown",e=>{if(view!=="presentar"||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight")$("#next").click();if(e.key==="ArrowLeft")$("#prev").click()});
-
 const side=$("#side");
 function buildSide(){side.textContent="";document.querySelectorAll("section.ch").forEach((s,i)=>{const a=document.createElement("a");a.href="#"+s.id;const b=document.createElement("b");b.textContent=i+1;const t=document.createElement("span");t.textContent=tr("side."+s.id);a.append(b,t);a.onclick=e=>{e.preventDefault();s.scrollIntoView()};side.append(a)})}
 
@@ -535,12 +522,12 @@ function showVer(){$("#brandV").textContent=tr("ui.arnes")+" "+VER;const f=$("#f
 function drawLog(list){logList=list;const box=$("#log");box.textContent="";const SHOW=8;list.forEach((x,i)=>{const a=document.createElement("article");a.className="ver"+(i===0?" new":"");if(i>=SHOW)a.hidden=true;const h=document.createElement("h3");h.textContent=x.v;if(x.d){const s=document.createElement("span");s.textContent=x.d;h.append(s)}if(i===0){const p=document.createElement("span");p.className="pill ok";p.textContent=tr("ui.log.nueva");h.append(p)}const u=document.createElement("ul");x.items.forEach(it=>{const li=document.createElement("li");inline(li,it);u.append(li)});a.append(h,u);box.append(a)});if(list.length>SHOW){const btn=document.createElement("button");btn.className="logmore";btn.textContent=tr("ui.log.mas",list.length-SHOW);btn.onclick=()=>{box.querySelectorAll(".ver[hidden]").forEach(e=>e.hidden=false);btn.remove()};box.append(btn)}if(list[0]){VER=list[0].v;showVer()}}
 async function loadLog(){if(logDone)return;logDone=true;try{const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),8000);let ref="main";try{const c=await fetch("https://api.github.com/repos/forxa-ken/cerebro-vivo/commits/main",{signal:ctl.signal,headers:{Accept:"application/vnd.github.sha"}});if(c.ok){const s=(await c.text()).trim();if(/^[0-9a-f]{40}$/.test(s))ref=s}}catch(_){}const r=await fetch("https://raw.githubusercontent.com/forxa-ken/cerebro-vivo/"+ref+"/CAMBIOS.md",{signal:ctl.signal});clearTimeout(tm);if(!r.ok)throw new Error(r.status);const list=parseLog(await r.text());if(!list.length)throw new Error("vacío");drawLog(list);setSt("ui.log.versiones",list.length)}catch(e){logDone=false;setSt("ui.log.error")}}
 
-function renderAll(){setData();buildFiles();buildMom();buildG();buildSK();drawGlo($("#gloQ").value);buildT();drawS();buildSide();if(logList)drawLog(logList);setSt(logSt[0],logSt[1]);showVer()}
+function renderAll(){setData();buildFiles();buildMom();buildG();buildSK();drawGlo($("#gloQ").value);buildT();buildSide();if(logList)drawLog(logList);setSt(logSt[0],logSt[1]);showVer()}
 addEventListener("kit:lang_changed",renderAll);
 renderAll();
 
 let view="comprender";
-function route(){let h=location.hash.slice(1);view=["usar","presentar","cambios"].includes(h)?h:"comprender";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});if(["usar","presentar","comprender","cambios"].includes(h))scrollTo(0,0);if(view==="cambios")loadLog()}
+function route(){let h=location.hash.slice(1);view=["usar","cambios"].includes(h)?h:"comprender";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===view)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});if(["usar","presentar","comprender","cambios"].includes(h))scrollTo(0,0);if(view==="cambios")loadLog()}
 addEventListener("hashchange",route);route();
 </script>
 
