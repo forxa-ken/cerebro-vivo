@@ -108,7 +108,40 @@ class TestHook(unittest.TestCase):
         os.makedirs(os.path.join(self.d, ".git", "hooks"), exist_ok=True)
         self.assertIn("Hook instalado", secretos.instalar_hook(self.d))
         with open(os.path.join(self.d, ".git", "hooks", "pre-commit"), encoding="utf-8") as f:
-            self.assertIn("secretos.py\" --staged", f.read())
+            contenido = f.read()
+            self.assertIn("secretos.py", contenido)
+            self.assertIn("git-common-dir", contenido)
+
+    def test_el_hook_funciona_desde_un_worktree_sin_el_guardian(self):
+        """Punto 38: en un worktree no existe .brain/; el hook debe hallar el guardián en el repo principal y bloquear."""
+        def git(cwd, *a):
+            return subprocess.run(["git"] + list(a), cwd=cwd, capture_output=True, text=True, encoding="utf-8")
+        if git(self.d, "init").returncode != 0:
+            self.skipTest("git no disponible")
+        gd = os.path.join(self.d, ".brain", "guardianes")
+        os.makedirs(gd, exist_ok=True)
+        for n in ("secretos.py", "textos.py", "guardianes.json"):
+            shutil.copy(os.path.join(RAIZ, ".brain", "guardianes", n), gd)
+        secretos.instalar_hook(self.d)
+        git(self.d, "config", "user.email", "t@t"); git(self.d, "config", "user.name", "t")
+        git(self.d, "add", "-A"); git(self.d, "commit", "--no-verify", "-m", "base")
+        wt = self.d + "_wt"
+        self.addCleanup(shutil.rmtree, wt, True)
+        if git(self.d, "worktree", "add", "-b", "pag", wt).returncode != 0:
+            self.skipTest("worktree no disponible")
+        shutil.rmtree(os.path.join(wt, ".brain"), True)
+        with open(os.path.join(wt, "x.py"), "w", encoding="utf-8") as f:
+            f.write("clave = %s\n" % FALSOS["token de GitHub"])
+        git(wt, "add", "x.py")
+        r = git(wt, "commit", "-m", "con secreto")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertNotIn("No such file", r.stderr)
+        self.assertNotIn("no encontrado", r.stderr)
+        os.remove(os.path.join(wt, "x.py")); git(wt, "rm", "--cached", "-q", "x.py")
+        with open(os.path.join(wt, "ok.txt"), "w", encoding="utf-8") as f:
+            f.write("hola\n")
+        git(wt, "add", "ok.txt")
+        self.assertEqual(git(wt, "commit", "-m", "limpio").returncode, 0)
 
     def test_apagado_no_habla(self):
         self.assertEqual(secretos.resumen(RAIZ, {"secretos_activo": False}), [])

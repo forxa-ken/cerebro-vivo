@@ -243,3 +243,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.35.0 (2026-11-10)
 - El carril corto «Fast-Track» pasa a llamarse **«Cambio pequeño»** (en inglés **«Small change»**), para no coincidir con el «FTD, Fast-Track Development» de otro proyecto. Cambia en `CEREBRO_VIVO.md`, la carta, las plantillas de índice y la skill `spec-antes-de-programar` (es/en), y en los guardianes `cerrar.py`, `cierre.py` y `eventos_chat.py` (clave nueva `carril_corto` en `textos.py`). `cerrar.py --carril` sigue aceptando «Fast-Track» como alias. Las líneas viejas de `decisions.log` no se reescriben; nadie lee esa columna, así que conviven sin problema.
+
+
+## 1.35.1 (2026-11-10)
+- Arreglo de fondo del hook `pre-commit` del guardián de secretos (pendiente 38): buscaba `.brain/guardianes/secretos.py` con ruta relativa y fallaba en los worktrees (la página en `gh-pages`), donde ese script no existe. Ahora, si no lo halla en la carpeta actual, lo busca en el repo principal vía `git rev-parse --git-common-dir`; si no está en ningún sitio, bloquea con un mensaje claro. Prueba nueva con un worktree real. Un proyecto lo recibe al actualizar y ejecutar `python .brain/guardianes/secretos.py --instalar-hook`.

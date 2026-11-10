@@ -187,7 +187,14 @@ def resumen(raiz, cfg):
 HOOK = """#!/bin/sh
 # Guardián 9 (spec 051): bloquea el commit si hay un secreto de alta confianza. Saltar a conciencia: git commit --no-verify
 PY="venv/Scripts/python.exe"; [ -x "$PY" ] || PY=python
-exec "$PY" ".brain/guardianes/secretos.py" --staged
+# El hook vive en la carpeta común de Git: en un worktree (p. ej. la página en gh-pages) no hay .brain/ aquí; se busca en el repo principal.
+G=".brain/guardianes/secretos.py"
+if [ ! -f "$G" ]; then
+  C="$(git rev-parse --git-common-dir 2>/dev/null)"
+  [ -n "$C" ] && G="$C/../.brain/guardianes/secretos.py"
+fi
+[ -f "$G" ] || { echo "Guardián de secretos no encontrado ($G). Commit bloqueado; instálalo o usa --no-verify a conciencia." >&2; exit 1; }
+exec "$PY" "$G" --staged
 """
 
 

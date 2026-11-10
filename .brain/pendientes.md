@@ -26,10 +26,9 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) arreglar `test_soporte_mac` (fin de línea de Windows); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
 
-- **38:** arreglar de fondo el hook `pre-commit`: llama a `.brain/guardianes/secretos.py` con ruta relativa y falla en la carpeta de la página (`_cv_pagina`, worktree de gh-pages), donde ese script no existe. Debe buscar el guardián en la raíz del repo común (`git rev-parse --git-common-dir`). Mientras, se usa el truco de la lección (copia temporal). Spec antes si toca el instalador; es/en.
-
 - **39:** TraductorVoz: investigar cómo separar mejor a los hablantes (hallazgo de la prueba R13, 2026-11-10). Hoy se corta solo por silencio y hay una huella por frase: dos voces seguidas caen en una frase y salen con un solo hablante. Ideas a investigar: cortar la frase cuando cambia la voz (ventanas de 1-2 s con huella), diarización neural con licencia libre, ajustar el umbral. Evidencia y audios en `F:\Proyectos\TraductorVoz-notas\evidencia-hablantes-aleman.md`. Sin empezar; entra en el informe final de R13.
 
 ## Esperando tu prueba (Darwin)
+- **38:** hook `pre-commit` de secretos arreglado en worktrees (arnés 1.35.1, 410 pruebas). Prueba: en `F:\Proyectos Antigravity\_cv_pagina` haz un cambio pequeño y `git commit` normal (sin `--no-verify`): debe pasar o bloquear solo si hay un secreto, nunca fallar por «no such file».
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 ## Acciones tuyas

@@ -60,7 +60,7 @@
   ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "dd64c5141681434089d7f29c242e4d3424ad73578c27b28a277e9134f890d43d",
-  ".brain/guardianes/secretos.py": "17529d59012f5ba1a169f4b5065bd3fe4fe3cc74ec2c7de1594c6badfc012db3",
+  ".brain/guardianes/secretos.py": "27cd57ba9418c5384fff7462c53cd7c117f652a9089047a9bf04b9a83d467f69",
   ".brain/guardianes/textos.py": "62f6ebef3983c056e217f5531da294e9c09f6e28ae9495306a2c803c191af153",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
@@ -153,7 +153,7 @@
   "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_revisar_indices.py": "a29caa75660399b31beee20573456537877c489014218f99fbd27be171d51f7c",
-  "tests/test_secretos.py": "8e862b806294dc51d011a3e11d5cc98308d406af125111cd2f7ddc50e9912980",
+  "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
   "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
   "tests/test_textos.py": "76d4305fe85f9ae8d46372691d92717e29bf4a5744f5d54a0b641311bc8109f8",
   "tests/test_traspaso_in_out.py": "c4633847c17ebcf105e7825e686b99bb9a4425baad0f18ba05d6a27fe77995e4"
@@ -190,5 +190,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.35.0"
+ "version": "1.35.1"
 }
