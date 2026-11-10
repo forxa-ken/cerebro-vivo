@@ -563,7 +563,7 @@ window.DATOS = {
    ],
    [
     "Directora",
-    "Agente principal de un proyecto (Opus): convierte tu objetivo en una spec y reparte encargos. No programa."
+    "Diseño: agente principal de un proyecto (Opus) que convierte tu objetivo en una spec y reparte encargos. No programa."
    ],
    [
     "Ejecutora",
@@ -575,7 +575,7 @@ window.DATOS = {
    ],
    [
     "Fábrica de IA",
-    "Forma de trabajar con varias IA con papeles distintos, límites por programa y tres puertas tuyas."
+    "Diseño (spec 035) para trabajar con varias IA con papeles distintos, límites vigilados por programas y tres puertas de aprobación tuyas. Aún en construcción."
    ],
    [
     "Fast-Track",
@@ -1524,7 +1524,7 @@ window.DATOS = {
    ],
    [
     "Director",
-    "Main agent of a project (Opus): turns your goal into a spec and hands out assignments. Does not code."
+    "Design: main agent of a project (Opus) that turns your goal into a spec and hands out assignments. Does not code."
    ],
    [
     "Executor",
@@ -1536,7 +1536,7 @@ window.DATOS = {
    ],
    [
     "AI factory",
-    "Way of working with several AIs in distinct roles, program-enforced limits and three gates of yours."
+    "Design (spec 035) for working with several AIs in distinct roles, limits watched by programs and three approval gates of yours. Still being built."
    ],
    [
     "Fast-Track",
