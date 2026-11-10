@@ -204,3 +204,13 @@
 2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica: modulo iconos de clase en GuildControlForever (spec aprobada, ejecutora + revisor + correccion); sin commit, sin probar en el juego; pagina gh-pages: reconstruida la build atascada | Fast-Track
 2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica cerrada con exito: modulo iconos de clase aprobado por Darwin en el juego (directora + ejecutora + revisor + correccion, sin Codex) | Fast-Track
 2026-11-10 | Claude (cerebro-vivo #37) | Spec 035 (fabrica de IA) aprobada por Darwin con los resultados de las pruebas; pendiente 19 actualizado; sin commit ni subida | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #37) | Prueba 3 de la fabrica preparada: prototipo alcance.py con 6 pruebas (.brain/fabrica/), mini-spec posicion vertical en GuildControlForever; falta aprobacion de Darwin; sin commit | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Prueba 3 de la fabrica: Codex Luna acabo, alcance.py OK, LuaJIT y 295 pruebas OK; falta que Darwin pruebe el deslizador | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Prueba 3 aprobada por Darwin en el juego (deslizador mueve el icono al instante) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Spec 035: respuestas 1 y 4 aprobadas por Darwin (directora Opus medio por proyecto, topes de Codex, reglas reducidas para Codex) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Pagina publica: capitulo 17 La fabrica de IA (es/en), glosario, fecha; subida a gh-pages (c8baa85) por orden de Darwin; comprobar_idiomas OK | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Corregido (pagina y spec 035): traspasos en Codex/Gemini ya probados por Darwin el 8-nov; prueba pendiente = aviso de ventana llena y chat nuevo de Codex | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Pagina: capitulo fabrica revisado contra codigo, spec y registros (diseno vs construido; traspasos Codex/Gemini exactos); subido a gh-pages | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Traspaso al #39 escrito; lecciones anotadas | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 1: plantillas de la fabrica (carta, roles, puertas, encargo, evidencia, huecos, carta de ejecutora) es/en; arnes 1.31.0; 390 pruebas OK; sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 2: guardian fabrica.py (congelar spec, sellar carta, alcance del encargo, gasto, topes, dos fallos) es/en; arnes 1.32.0; prototipo alcance.py archivado; 407 pruebas OK; sin subir | Fast-Track

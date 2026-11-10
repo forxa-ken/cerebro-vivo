@@ -4,5 +4,5 @@
 
 | Tema | Lecciones |
 | :--- | :---: |
-| [arnes](arnes.md) | 8 |
+| [arnes](arnes.md) | 13 |
 | [metodo](metodo.md) | 21 |

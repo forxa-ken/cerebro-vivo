@@ -24,6 +24,8 @@ INCLUIR = [
     ".brain/biblioteca/CARTA_META_ARNES.md", ".brain/biblioteca/CEREBRO_VIVO.md", ".brain/biblioteca/CEREBRO_VIVO.en.md",
     ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md", ".brain/biblioteca/PLANTILLA_TRASPASO.md",
     ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md", ".brain/biblioteca/PLANTILLA_TRASPASO.en.md",
+    ".brain/biblioteca/PLANTILLAS_FABRICA.md", ".brain/biblioteca/PLANTILLAS_FABRICA.en.md",
+    ".brain/biblioteca/CARTA_EJECUTORA.md", ".brain/biblioteca/CARTA_EJECUTORA.en.md",
     ".brain/biblioteca/kit-arranque/", ".brain/biblioteca/kit-traduccion/",
     ".brain/specs/_template.md", ".brain/specs/_template.en.md", ".brain/pruebas/_plantilla.md", ".brain/pruebas/_plantilla.en.md",
     ".claude/skills/",
@@ -34,7 +36,7 @@ EXCLUIR = ["*/__pycache__/*", "*.pyc", ".brain/biblioteca/kit-arranque/preferenc
            "tests/test_arnes_*.py", "tests/test_plugin_*.py"]  # las pruebas del propio repo del arnés no se reparten
 PRUEBAS = ["tests.test_arranque", "tests.test_cerebro_indices", "tests.test_kit_arranque", "tests.test_kit_traduccion",
            "tests.test_longitud", "tests.test_guardar_traspaso", "tests.test_librerias", "tests.test_secretos", "tests.test_poda",
-           "tests.test_pruebas", "tests.test_experiencia", "tests.test_instalar_gui", "tests.test_analisis", "tests.test_medir", "tests.test_modo_ligero", "tests.test_textos", "tests.test_lecciones", "tests.test_hitos", "tests.test_ediciones_en", "tests.test_eventos_chat"]
+           "tests.test_pruebas", "tests.test_experiencia", "tests.test_instalar_gui", "tests.test_analisis", "tests.test_medir", "tests.test_modo_ligero", "tests.test_textos", "tests.test_lecciones", "tests.test_hitos", "tests.test_ediciones_en", "tests.test_eventos_chat", "tests.test_fabrica"]
 # Retirado o renombrado antes de que el manifiesto llevara la lista (sacado del historial de Git).
 RETIRADOS_HISTORICOS = [".brain/guardianes/modo_auto.py", ".brain/guardianes/uso_tokens.py", ".claude/skills/cambio-de-ia/SKILL.md",
                         ".claude/skills/traspaso-entre-chats/SKILL.md", "tests/test_cambio_de_ia.py", "tests/test_modo_auto.py",

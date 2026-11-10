@@ -217,3 +217,9 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.30.1 (2026-11-09)
 - Skill `spec-antes-de-programar` (es/en): ya no exige spec por «más de 2 archivos». Spec obligatoria si toca cuotas, pagos, licencias, despliegue, base de datos, servidores reales o reglas de seguridad; en lo demás, «prueba de retomar» (basta el encargo y el `git diff`) y va por Fast-Track. Cada regla de una spec se escribe una sola vez. Sale del experimento VMware (rondas 1-5): el sobrecoste de Cerebro Vivo venía de spec + aprobador + rechazos en tareas pequeñas; con reglas de seguridad ambos métodos quedaron empatados en coste (≈ 369k frente a ≈ 423k de media; 377k frente a 383k en la ronda 5). Muestra de 1 por casilla: tendencia.
+
+## 1.31.0 (2026-11-10)
+- Fábrica de IA, fase 1 (spec 035): plantillas `PLANTILLAS_FABRICA.md` (carta de la fábrica con los topes aprobados, roles, tres puertas de Darwin, encargo, evidencia, huecos y propuestas) y `CARTA_EJECUTORA.md` (reglas reducidas para la IA que ejecuta un encargo), ambas es/en. Solo plantillas: los guardianes (alcance, spec congelada, topes) son la fase 2 y aún no se reparten.
+
+## 1.32.0 (2026-11-10)
+- Fábrica de IA, fase 2 (spec 035): nuevo guardián `fabrica.py` (sin IA, es/en en `textos.py`): `congelar` (huella de la spec aprobada), `sellar-carta` (la carta solo la cambia Darwin), `verificar`, `foto` y `alcance` (el encargo debe cumplir un requisito de la spec congelada y la ejecutora solo puede tocar sus archivos permitidos; rechaza sin gastar revisión), `gasto` y `topes` (tope por encargo, por misión, freno semanal de Codex y parada tras dos fallos seguidos). La carta lleva ahora líneas `clave: número` que el guardián lee. Sustituye al prototipo `alcance.py` (archivado). Prueba nueva `test_fabrica.py`. Es una herramienta que se lanza a mano, no un hook; las skills de la fase 3 y la prueba R13 con ella siguen sin hacer.
