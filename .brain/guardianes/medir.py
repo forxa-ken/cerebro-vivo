@@ -11,6 +11,7 @@ Uso:
   python medir.py --comparar RUTA_CON RUTA_SIN   # medias de dos proyectos lado a lado, con la diferencia en %
   python medir.py --ultimos 5
   python medir.py --ritual                 # coste de los rituales del arnés frente al trabajo y avisos del guardián (informe 032)
+  python medir.py --fabrica --proyecto RUTA   # gasto de Codex por encargo de la fábrica (spec 035; lee ~/.codex/sessions)
   python medir.py --desglose ID            # coste mensaje a mensaje de un chat
   (--comparar solo compara chats con la misma caché: fría con fría, caliente con caliente)
   python medir.py --comparar RUTA_CON RUTA_SIN --tarea [T3]   # solo un tipo de tarea"""
@@ -331,6 +332,58 @@ def imprimir_ritual(total, avisos, chats, llamadas):
                                       avisos.get("largo", 0), avisos.get("otros", 0)))
 
 
+def carpeta_codex():
+    return os.path.join(os.path.expanduser("~"), ".codex", "sessions")
+
+
+def gasto_codex(ruta):
+    """(cwd, tokens gastados) de UNA sesión de Codex, o None si no es de una persona (revisiones internas) o no trae cuenta.
+    Gastado = total - leído de caché: es la cifra que Codex llama «tokens used» y la que usa el tope de la fábrica."""
+    cwd, origen, ultimo = "", "", None
+    with open(ruta, encoding="utf-8", errors="replace") as f:
+        for linea in f:
+            try:
+                e = json.loads(linea)
+            except ValueError:
+                continue
+            p = e.get("payload") or {}
+            if e.get("type") == "session_meta":
+                cwd, origen = str(p.get("cwd") or ""), str(p.get("thread_source") or "")
+            elif p.get("type") == "token_count" and isinstance(p.get("info"), dict):
+                ultimo = p["info"].get("total_token_usage") or ultimo
+    if not ultimo or origen != "user":
+        return None
+    return cwd, max(0, (ultimo.get("total_tokens") or 0) - (ultimo.get("cached_input_tokens") or 0))
+
+
+def fabrica_de_proyecto(proyecto, carpeta=None):
+    """{carpeta de trabajo: [sesiones, tokens]} de las sesiones de Codex cuyo cwd empieza por la ruta del proyecto
+    (los encargos de la fábrica viven en carpetas hermanas «Proyecto-encargo-NNN»). Solo lectura."""
+    base = os.path.normcase(os.path.abspath(proyecto))
+    por = {}
+    for ruta in sorted(glob.glob(os.path.join(carpeta or carpeta_codex(), "**", "rollout-*.jsonl"), recursive=True)):
+        try:
+            r = gasto_codex(ruta)
+        except Exception:
+            continue
+        if r and os.path.normcase(os.path.abspath(r[0])).startswith(base):
+            fila = por.setdefault(r[0], [0, 0])
+            fila[0] += 1
+            fila[1] += r[1]
+    return por
+
+
+def imprimir_fabrica(por, proyecto):
+    if not por:
+        print(tp("medir_fabrica_vacio") % proyecto)
+        return
+    print("%-52s %8s %10s" % (tp("medir_fabrica_carpeta"), tp("medir_fabrica_sesiones"), tp("medir_fabrica_tokens")))
+    for cwd, (n, t) in sorted(por.items()):
+        print("%-52s %8d %10s" % (cwd[-52:], n, k(t)))
+    print(tp("medir_fabrica_total") % (sum(v[0] for v in por.values()), sum(v[1] for v in por.values())))
+    print(tp("medir_fabrica_nota"))
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -343,8 +396,12 @@ def main(argv=None):
     ap.add_argument("--ultimos", type=int, default=0)
     ap.add_argument("--tarea", default="", help=tp("ayuda_medir_tarea"))
     ap.add_argument("--skills", action="store_true", help=tp("ayuda_medir_skills"))
+    ap.add_argument("--fabrica", action="store_true", help=tp("ayuda_medir_fabrica"))
     ap.add_argument("--ritual", action="store_true", help=tp("ayuda_medir_ritual"))
     a = ap.parse_args(argv)
+    if a.fabrica:
+        imprimir_fabrica(fabrica_de_proyecto(a.proyecto), a.proyecto)
+        return 0
     if a.ritual:
         imprimir_ritual(*ritual_de_proyecto(carpeta_de(a.proyecto), a.proyecto))
         return 0

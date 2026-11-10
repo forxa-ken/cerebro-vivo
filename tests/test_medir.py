@@ -147,5 +147,25 @@ class TestRitual(unittest.TestCase):
         medir.imprimir_ritual({c: 0.0 for c in medir.CATEGORIAS}, {}, 0, 0)
 
 
+class TestMedirFabrica(unittest.TestCase):
+    def test_gasto_codex_por_carpeta(self):
+        d = tempfile.mkdtemp()
+
+        def sesion(nombre, cwd, origen, total, cache):
+            ls = [{"type": "session_meta", "payload": {"cwd": cwd, "thread_source": origen}},
+                  {"type": "event_msg", "payload": {"type": "token_count", "info": {"total_token_usage": {"total_tokens": 1, "cached_input_tokens": 0}}}},
+                  {"type": "event_msg", "payload": {"type": "token_count", "info": {"total_token_usage": {"total_tokens": total, "cached_input_tokens": cache}}}}]
+            with open(os.path.join(d, nombre), "w", encoding="utf-8") as f:
+                f.write("\n".join(json.dumps(x) for x in ls))
+        base = os.path.join(d, "Proy")
+        sesion("rollout-a.jsonl", base + "-encargo-001", "user", 1000, 600)
+        sesion("rollout-b.jsonl", base + "-encargo-001", "user", 500, 100)
+        sesion("rollout-c.jsonl", base + "-encargo-002", "guardian_review", 9999, 0)  # revisión interna: no cuenta
+        sesion("rollout-d.jsonl", os.path.join(d, "Otro"), "user", 7777, 0)  # otro proyecto: no cuenta
+        por = medir.fabrica_de_proyecto(base, d)
+        self.assertEqual(por, {base + "-encargo-001": [2, 800]})
+        self.assertEqual(medir.fabrica_de_proyecto(os.path.join(d, "Nada"), d), {})
+
+
 if __name__ == "__main__":
     unittest.main()

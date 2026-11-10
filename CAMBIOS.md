@@ -229,3 +229,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.33.1 (2026-11-10)
 - Fábrica de IA: se quita el «paso previo: ¿ya existe el producto?» de la skill `directora-de-fabrica` y de `PLANTILLAS_FABRICA` (es/en) y de la spec 035. Fue algo puntual del addon de WoW, no un paso general (aclaración de Darwin).
+
+## 1.34.0 (2026-11-10)
+- `medir.py --fabrica --proyecto RUTA` (spec 035, medidor de gasto): suma el gasto de las sesiones de Codex por carpeta de encargo leyendo `~/.codex/sessions` (tokens totales menos lo leído de caché, que es la cifra del tope de la fábrica; ignora las revisiones internas de Codex). Textos en es/en y prueba nueva en `test_medir.py`. Falta el coste de la directora por tarea (punto 31).
