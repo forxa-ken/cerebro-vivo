@@ -14,6 +14,7 @@ Rules that, in the VMware experiment (rounds 3 and 4, 2026-11-09), separated saf
 4. **Every safety rule has a test with a minimal fake server** (only `describir` and `ejecutar`, no internal attributes) proving it still demands approval.
 5. **Odd inputs** (empty names, zero, negative, text or missing sizes, repeated names) are rejected with a clear, logged error before touching anything.
 6. **Checklist before closing**, written in the result: which actions are delicate, what happens if information is missing, what happens with odd inputs, what was logged, that there are no credentials. If a point fails, fix it before closing.
+7. **Safety without changing what was asked.** No AI changes or removes a requirement "for security". If it sees a risk, it records it as a gap or proposal and asks Darwin (in an AI factory, spec 035, rule R9).
 
 ## Error it prevents (real case)
 - Round 3: one branch's engine asked the server `es_en_caliente` and, if it did not exist, **acted without approval** on a running machine. Its 29 tests missed it because they only used the lab.

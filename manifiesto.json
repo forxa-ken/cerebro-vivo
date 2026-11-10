@@ -80,6 +80,8 @@
   ".claude/skills/cerrar-una-tarea/SKILL.md": "ed85cd2214f648a4cfbdc6f7c6d738a21bf9c69011735e5bb67960906e35e839",
   ".claude/skills/chat-nuevo/SKILL.en.md": "b517714f25a713b5c4f1402b1d1f46d3b9e4904a485f42bd4ef8a1c304a8167f",
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "e37b05bd4564e0cf897f5f8e6bdd522e234156f2133eaf2ded87fd033946d94a",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "a1397b715729d93ea9c1d221845efded9276bcfa0ed55b994179d330c855b15f",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.en.md": "d104304dd2a0793cf01d96190458cd76b7b6d594cead3b551c8e88b3ec602f1c",
@@ -108,10 +110,12 @@
   ".claude/skills/resumen/SKILL.md": "e464c73fecde292cc77c02422a6f940c61b42d3a6f54d90fd71813e9f80329b7",
   ".claude/skills/revisar-indices-de-ia/SKILL.en.md": "67abe590289c1e593f8795e03e5872fbfb51fc4198cfcfcfb1df20cd8d1f9357",
   ".claude/skills/revisar-indices-de-ia/SKILL.md": "4025e846a98607d507e2830d334a811f5dd00feb07e2c377eb8e469253a45c97",
+  ".claude/skills/revisor-independiente/SKILL.en.md": "3577f331f17dcb4984a6859f109bedd6a69c37a234c1dbf1e062e2f37561e9eb",
+  ".claude/skills/revisor-independiente/SKILL.md": "6348ee360fea85bc241aa8c59aa9a87f700479c068d2164e85dc18e89f307f3b",
   ".claude/skills/secretos-fuera-del-repo/SKILL.en.md": "c4748964eb26fc09994e5e8c7efe2cb16d3f1ad32283a7805b7673e384fa2c76",
   ".claude/skills/secretos-fuera-del-repo/SKILL.md": "477d540bd7f0ed173689c625e05de7d3188384ef79abb07971ce0b1031bbd607",
-  ".claude/skills/seguridad-en-sistemas-reales/SKILL.en.md": "7912e665260419aea866afffc7cd569a75e3d0e3022862fc06cd31bc4dd54b85",
-  ".claude/skills/seguridad-en-sistemas-reales/SKILL.md": "15851bbd4497468f90249fd0dfe96261a163ab7f64348ef10a73ae48e7c064c3",
+  ".claude/skills/seguridad-en-sistemas-reales/SKILL.en.md": "a0d2ca9eea95f3c91ae730a40e9ec066a381b9e3f527bc1617ce1a2fcc76daba",
+  ".claude/skills/seguridad-en-sistemas-reales/SKILL.md": "5fc68560a676bc8f0fade43312462b83c3139ab75167f56032f0db543b3778d8",
   ".claude/skills/spec-antes-de-programar/SKILL.en.md": "ce192fb5885142c8abac84c37f7e299ed5afbc7b7fddd6d5dcaf1211ecf6dc06",
   ".claude/skills/spec-antes-de-programar/SKILL.md": "05913f7c4fdf9be5556fd52f1f8e47b3fdb8e4cdba9e6774eff7465a2786ab97",
   ".claude/skills/subir-a-github/SKILL.en.md": "a72e75e808db36b08bc1ed3903eb61439f0f6f71a8ad4152e951779ecddbbf6c",
@@ -186,5 +190,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.32.0"
+ "version": "1.33.0"
 }

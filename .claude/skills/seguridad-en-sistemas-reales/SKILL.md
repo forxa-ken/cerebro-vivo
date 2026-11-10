@@ -14,6 +14,7 @@ Reglas que, en el experimento VMware (rondas 3 y 4, 2026-11-09), separaron al c�
 4. **Cada regla de seguridad lleva una prueba con un servidor falso mínimo** (solo `describir` y `ejecutar`, sin atributos internos) que demuestre que sigue exigiendo el visto bueno.
 5. **Entradas raras** (nombres vacíos, tamaños cero, negativos, texto o ausentes, nombres repetidos) se rechazan con un error claro y anotado antes de tocar nada.
 6. **Lista de comprobación antes de cerrar**, escrita en el resultado: qué acciones son delicadas, qué pasa si falta información, qué pasa con entradas raras, qué se registró, que no hay credenciales. Si un punto falla, se corrige antes de cerrar.
+7. **Seguridad sin cambiar lo pedido.** Ninguna IA cambia ni quita un requisito «por seguridad». Si ve un riesgo, lo registra como hueco o propuesta y pregunta a Darwin (en una fábrica de IA, spec 035, regla R9).
 
 ## Error que evita (caso real)
 - Ronda 3: el motor de una rama preguntaba al servidor `es_en_caliente` y, si no existía, **actuaba sin permiso** sobre una máquina encendida. Sus 29 pruebas no lo detectaban porque solo usaban el laboratorio.

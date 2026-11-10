@@ -214,3 +214,4 @@
 2026-11-10 | Claude (cerebro-vivo #38) | Traspaso al #39 escrito; lecciones anotadas | Fast-Track
 2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 1: plantillas de la fabrica (carta, roles, puertas, encargo, evidencia, huecos, carta de ejecutora) es/en; arnes 1.31.0; 390 pruebas OK; sin subir | Fast-Track
 2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 2: guardian fabrica.py (congelar spec, sellar carta, alcance del encargo, gasto, topes, dos fallos) es/en; arnes 1.32.0; prototipo alcance.py archivado; 407 pruebas OK; sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 3: skills directora-de-fabrica y revisor-independiente (es/en) y regla 7 (R9) en seguridad-en-sistemas-reales; arnes 1.33.0; 407 pruebas OK; commit local, sin subir | Fast-Track

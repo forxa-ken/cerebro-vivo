@@ -223,3 +223,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.32.0 (2026-11-10)
 - Fábrica de IA, fase 2 (spec 035): nuevo guardián `fabrica.py` (sin IA, es/en en `textos.py`): `congelar` (huella de la spec aprobada), `sellar-carta` (la carta solo la cambia Darwin), `verificar`, `foto` y `alcance` (el encargo debe cumplir un requisito de la spec congelada y la ejecutora solo puede tocar sus archivos permitidos; rechaza sin gastar revisión), `gasto` y `topes` (tope por encargo, por misión, freno semanal de Codex y parada tras dos fallos seguidos). La carta lleva ahora líneas `clave: número` que el guardián lee. Sustituye al prototipo `alcance.py` (archivado). Prueba nueva `test_fabrica.py`. Es una herramienta que se lanza a mano, no un hook; las skills de la fase 3 y la prueba R13 con ella siguen sin hacer.
+
+## 1.33.0 (2026-11-10)
+- Fábrica de IA, fase 3 (spec 035): skills nuevas `directora-de-fabrica` y `revisor-independiente` (es/en) y regla 7 en `seguridad-en-sistemas-reales` (R9: ninguna IA cambia un requisito «por seguridad»; lo registra como hueco o propuesta y pregunta). Falta la prueba mínima R13 con todo junto.
