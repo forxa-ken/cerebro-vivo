@@ -226,3 +226,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.33.0 (2026-11-10)
 - Fábrica de IA, fase 3 (spec 035): skills nuevas `directora-de-fabrica` y `revisor-independiente` (es/en) y regla 7 en `seguridad-en-sistemas-reales` (R9: ninguna IA cambia un requisito «por seguridad»; lo registra como hueco o propuesta y pregunta). Falta la prueba mínima R13 con todo junto.
+
+## 1.33.1 (2026-11-10)
+- Fábrica de IA: se quita el «paso previo: ¿ya existe el producto?» de la skill `directora-de-fabrica` y de `PLANTILLAS_FABRICA` (es/en) y de la spec 035. Fue algo puntual del addon de WoW, no un paso general (aclaración de Darwin).

@@ -5,8 +5,8 @@
   ".brain/biblioteca/CARTA_META_ARNES.md": "0c04716792cec292bed3d571e6aa5e4c467f07687c20d9b30b9b0317c52aa7be",
   ".brain/biblioteca/CEREBRO_VIVO.en.md": "e5f8144691a8c0a846a11849b5ef2154327f8b5cdeb4a41b33c44670b6a47f7f",
   ".brain/biblioteca/CEREBRO_VIVO.md": "f54ed075f0fdf6baca0b109d975ed2cf751cf7a42c9bb39444dad2fd6827e4f5",
-  ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "c624ba928ae4fd6ced45bb2de3f56f62ddde143f0e8b57aa716fbb4986d0fae1",
-  ".brain/biblioteca/PLANTILLAS_FABRICA.md": "75a883130c0e5a842fcb57d1b309c5c77366a11969d33161436fa761a90b20b4",
+  ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "7f26e2db21c62e1a38d570345c6e73cf1520ba1ab75ae97ce49062893f9161d7",
+  ".brain/biblioteca/PLANTILLAS_FABRICA.md": "f8a60d3e92ca4df4b55e9b5fef1725a3da7cc8a4c1a38313836b7af0260e851d",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md": "d37cb2ba815351e9ea71ac938096c4e3c7ccbf93e3edaea8c8513870a7bce598",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.en.md": "ef85bebb28f62c7397a2d7700b2afd2fc97e2c6ae32e6767ed01ff81722059f9",
@@ -80,8 +80,8 @@
   ".claude/skills/cerrar-una-tarea/SKILL.md": "ed85cd2214f648a4cfbdc6f7c6d738a21bf9c69011735e5bb67960906e35e839",
   ".claude/skills/chat-nuevo/SKILL.en.md": "b517714f25a713b5c4f1402b1d1f46d3b9e4904a485f42bd4ef8a1c304a8167f",
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "e37b05bd4564e0cf897f5f8e6bdd522e234156f2133eaf2ded87fd033946d94a",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "a1397b715729d93ea9c1d221845efded9276bcfa0ed55b994179d330c855b15f",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "367d617d0cfda06c6e541c79bc1ffbe5f0d9377e9e891b8348ef4a664f2cbbd6",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "bfb9d209cd9f3cb2e6cac1df56c03af912b80c70c79d5e2997652b78f210153a",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.en.md": "d104304dd2a0793cf01d96190458cd76b7b6d594cead3b551c8e88b3ec602f1c",
@@ -190,5 +190,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.33.0"
+ "version": "1.33.1"
 }

@@ -37,7 +37,6 @@ Definir cómo trabajan varias IA a la vez en un mismo proyecto sin pisarse y sin
 - No cambiar los proyectos que ya usan el arnés (el reparto llegaría después con `VERSION`, `CAMBIOS.md` y manifiesto).
 
 ## 5. Plan de implementación (por fases; cada una con visto bueno de Darwin)
-0. **Paso previo de toda idea · ¿ya existe?** Antes de gastar una fábrica, buscar si el producto ya existe (en el juego, en el sistema o como programa hecho). Si existe, se descarta y se dice. Caso real: el addon CopyChatLB (WoW) se descartó el 2026-11-09 porque el color de clase es nativo de Blizzard y copiar chat/enlaces ya lo hacen Leatrix Plus y otros.
 1. **Fase 0 · Aprobar esta spec** y decidir las preguntas abiertas (sección 7).
 2. **Fase 1 · Archivos y reglas:** carta de la fábrica, formato de encargo y de evidencia, archivo de roles, registro de huecos y propuestas (es/en).
 3. **Fase 2 · Guardianes:** alcance del encargo, huella de la spec congelada, protección de la carta, topes y parada (textos es/en en `textos.py`).
@@ -52,7 +51,7 @@ Definir cómo trabajan varias IA a la vez en un mismo proyecto sin pisarse y sin
 - Medir gasto por papel con `medir.py`. Lo no probado se dice como no probado.
 
 ## 6b. Resultados de las pruebas hechas (2026-11-09)
-- **Prueba 1 · addon CopyChatLB (WoW):** ejecutora Codex Luna (alto), ~63k + ~49k tokens; el revisor devolvió el encargo 1 y se corrigió en 1b. No se probó en el juego: Darwin descartó el producto porque ya existía (de ahí el «paso previo ¿ya existe?»).
+- **Prueba 1 · addon CopyChatLB (WoW):** ejecutora Codex Luna (alto), ~63k + ~49k tokens; el revisor devolvió el encargo 1 y se corrigió en 1b. No se probó en el juego: Darwin descartó el producto porque ya existía (Darwin aclaró el 2026-11-10 que comprobar si el producto ya existía fue algo puntual de ese addon, no un paso de la fábrica).
 - **Prueba 2 · módulo «iconos de clase» de GuildControlForever:** directora (Opus, esta sesión) con spec aprobada por Darwin; ejecutora y revisor aparte, ambos Claude Sonnet. El revisor dio «apto con reparos» y halló 3 fallos menores (variable global suelta, icono que podía quedarse si el juego no avisa al quitar la barra) y 2 huecos de la spec (aviso de barras apagadas, prueba automática). Se devolvió a la ejecutora, se corrigió y la directora lo comprobó (sintaxis LuaJIT, 4 pruebas, sin locales nuevos de primer nivel). **Darwin lo probó en el juego y funciona**, en español e inglés. Commit local `3274e33` del addon, sin subir.
 - **Lo que enseñan:** (1) el revisor aparte sirvió de verdad: sin él esos reparos no se habrían visto; (2) la puerta humana que más valió fue aprobar la spec antes de programar (Darwin añadió ahí tamaño y opacidad); (3) la ejecutora hizo bien lo que se le pidió y calló lo que no se le pidió (aviso y pruebas), así que el encargo debe listar **todos** los puntos de la spec; (4) la directora tuvo que localizar el proyecto real y su código antes de encargar.
 - **Lo que NO se probó:** la prueba 2 no usó Codex ni los guardianes de alcance (fases 2 y 3 siguen sin programar); el alcance de archivos lo vigiló la directora a mano. No se midió el gasto con `medir.py`.

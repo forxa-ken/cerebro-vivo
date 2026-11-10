@@ -2,8 +2,6 @@
 
 Para un proyecto donde una **directora** (Opus) convierte el objetivo de Darwin en una spec, **ejecutoras** hacen encargos pequeños y un **revisor** independiente verifica. Esto son solo las plantillas: se copian a `.brain/fabrica/` del proyecto cuando Darwin decide montar una fábrica. Las hace cumplir el guardián `.brain/guardianes/fabrica.py` (fase 2); de la carta lee las líneas `clave: número`.
 
-Antes de montar nada: ¿el producto ya existe (en el juego, en el sistema o como programa hecho)? Si existe, se descarta y se le dice a Darwin.
-
 ## 1. Carta de la fábrica
 
 Archivo `.brain/fabrica/carta.md`. **Solo la escribe Darwin**; la directora la lee y no la edita (lo vigilará un guardián).

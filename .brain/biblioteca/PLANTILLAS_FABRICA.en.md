@@ -2,8 +2,6 @@
 
 For a project where a **director** (Opus) turns Darwin's goal into a spec, **executors** do small assignments and an independent **reviewer** verifies. These are only templates: they are copied to the project's `.brain/fabrica/` when Darwin decides to set up a factory. They are enforced by the guardian `.brain/guardianes/fabrica.py` (phase 2); from the charter it reads the `key: number` lines.
 
-Before setting anything up: does the product already exist (in the game, in the system or as a ready-made program)? If it does, drop the idea and tell Darwin.
-
 ## 1. Factory charter
 
 File `.brain/fabrica/carta.md`. **Only Darwin writes it**; the director reads it and does not edit it (a guardian will enforce this).
