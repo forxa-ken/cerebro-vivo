@@ -177,7 +177,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
 
 <header class="top"><div class="wrap">
-  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.35.0</span></div>
+  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.35.2</span></div>
   <nav class="tabs" aria-label="Secciones" data-i18n-aria="top.aria7">
     <a href="#comprender" data-v="comprender" data-i18n="top.t1">Comprender</a>
     <a href="#usar" data-v="usar" data-i18n="top.t2">Usar</a>
@@ -469,7 +469,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
   <div class="log" id="log"></div>
 </div></div>
 
-<footer><div class="wrap"><p data-i18n-html="top.h5"><strong>Fuentes:</strong> Lee, Yoonho et al. <em>Meta-Harness</em>, arXiv:2603.28052 (Stanford, marzo de 2026). Databricks. <em>Omnigent</em> (junio de 2026). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.</p><span class="src" data-i18n-html="top.h6">Basado en el repositorio cerebro-vivo, versión <span id="footV">1.35.0</span>, a 10 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</span></div></footer>
+<footer><div class="wrap"><p data-i18n-html="top.h5"><strong>Fuentes:</strong> Lee, Yoonho et al. <em>Meta-Harness</em>, arXiv:2603.28052 (Stanford, marzo de 2026). Databricks. <em>Omnigent</em> (junio de 2026). Nygard, Michael (2011), Fowler, Microsoft, Red Hat y AWS sobre los registros de decisiones (ADR). GitHub. <em>Spec Kit</em> (<code>constitution.md</code>). La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.</p><span class="src" data-i18n-html="top.h6">Basado en el repositorio cerebro-vivo, versión <span id="footV">1.35.2</span>, a 10 de noviembre de 2026. Fuentes: MANUAL_DE_USO.md, CEREBRO_VIVO.md, constitution.md, guardianes.json y .claude/settings.json.</span></div></footer>
 
 <script src="idiomas.js"></script>
 <script>try{if(!/^es\b/i.test(navigator.language||"es"))KIT_I18N.porDefecto="en"}catch(e){}</script>
@@ -478,7 +478,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 <script>
 const $=s=>document.querySelector(s);
 const tr=(k,n)=>{const v=window.KitI18n?KitI18n.t(k):k;return n===undefined?v:v.replace("{n}",n)};
-let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.35.0";
+let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.35.2";
 function setData(){LANG=(window.KitI18n&&KitI18n.getIdioma())||"es";const D=(window.DATOS||{})[LANG]||window.DATOS.es;({FILES,MOM,G,SK,GL,T}=D)}
 
 const tree=$("#tree");let curF=3;
