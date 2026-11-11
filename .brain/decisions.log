@@ -243,3 +243,5 @@
 2026-11-11 | Claude (cerebro-vivo #45) | Specs 036, 037 y 038 (puntos 32, 29 y 31) en borrador, a aprobar por Darwin | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #45) | Specs 036, 037 y 038 programadas (puntos 32, 29, 31): librerias npm/cargo/go, memoria desactualizada, aviso repetido apagado y tokens por tarea; arnes 1.36.0 | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #46) | Subido main a GitHub (arnes 1.36.0), commit 0d802a6; pruebas 424 OK
+2026-11-11 | Claude (cerebro-vivo #46) | Punto 39 (TraductorVoz) sacado de pendientes por orden de Darwin: ya no es de este proyecto; texto movido a archive/pendientes-detalle-2026-11-11.md. PDF del punto 40 en notas-chats (sin enviar) | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Spec 039 aprobada y programada (punto 22): workflow de GitHub Actions en Ubuntu y Windows; pruebas locales 424 OK; sin ejecutar en GitHub, sin subir | Cambio pequeño

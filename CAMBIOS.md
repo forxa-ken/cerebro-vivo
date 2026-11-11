@@ -271,3 +271,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - Spec 036 (punto 32): `librerias.py` y `eventos_chat.py` vigilan también npm (`package-lock.json`), cargo (`Cargo.lock`) y go (`go.mod`) con OSV.dev; ya no avisan de que no pueden revisarlos. La versión mayor nueva sigue siendo solo de Python.
 - Spec 038 (punto 31): `cierre.py` apaga en ese chat un aviso informativo (chat largo, hito sin lección) que sale 3 veces seguidas (`guardian_fallos_max`); el cierre nunca se apaga. `medir.py` da los tokens por tarea terminada (por chat y en `--comparar`).
 - Spec 037 (punto 29): `revisar_indices.py` detecta memoria desactualizada en `.brain/pendientes.md` y `constitution.md` (rutas, specs y fichas que ya no existen); solo avisa, con descartes y línea en el arranque.
+
+## Sin versión (2026-11-11)
+- Spec 039: `.github/workflows/pruebas.yml` lanza las pruebas en GitHub Actions (Ubuntu y Windows) en cada subida a `main` y en cada pull request. Solo de este repo; no llega a los proyectos, no cambia `VERSION` ni el manifiesto.

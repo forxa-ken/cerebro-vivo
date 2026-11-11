@@ -9,8 +9,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
   - **Prueba de ventana llena de Codex: CERRADA el 2026-11-10 por decisión de Darwin** (detalle en `archive/hechos.md`, punto 19-B). Relevo probado; aviso automático en vivo NO probado (riesgo conocido y barato: tope 200k por tanda, encargos pequeños, guardián al terminar cada tanda; vigilante en vivo solo si algún día un desbordamiento duele).
   - Sub-pendiente (2026-11-10): coste de la directora (Claude) por tarea en el medidor de la fábrica; se une al punto 31. El gasto de Codex ya lo suma `medir.py --fabrica` (1.34.0, probado con las 11 sesiones de R13: encargo 007 = 229k, igual que la anotación a mano).
 
-- **22:** automatizaciones en la nube (Jenkins o GitHub; hoy todo corre en local). Antes: explicarle a Darwin cada opción en llano y que elija. Sin empezar.
-
 - **23:** aprender a montar un agente que verifique las pruebas y errores de la IA principal (revisor independiente; idea somera de Darwin; sale de `F:\Arquitectura de desarrollo`, REC-003/004/005). Explicárselo en llano y hacerlo paso a paso con él. Sin empezar.
 
 - **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
@@ -21,11 +19,10 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) arreglar `test_soporte_mac` (fin de línea de Windows); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
 
-- **39:** TraductorVoz: investigar cómo separar mejor a los hablantes (hallazgo de la prueba R13, 2026-11-10). Hoy se corta solo por silencio y hay una huella por frase: dos voces seguidas caen en una frase y salen con un solo hablante. Ideas a investigar: cortar la frase cuando cambia la voz (ventanas de 1-2 s con huella), diarización neural con licencia libre, ajustar el umbral. Evidencia y audios en `F:\Proyectos\TraductorVoz-notas\evidencia-hablantes-aleman.md`. Sin empezar; entra en el informe final de R13.
-
 - **40:** resumen en llano, para que Darwin los lea, de los trabajos citados en «Fuentes» (README): un autor externo (un proyecto externo), Stanford (Meta-Harness), Databricks (Omnigent), ADR (Nygard, Fowler, Microsoft, Red Hat, AWS), GitHub Spec Kit (constitution.md, spec-driven.md, blog de Delimarsky) y fábrica de software (Cusumano 1991, Greenfield y Short 2004). Qué dice cada uno, qué tomamos y qué es propio. Sin empezar; no es código.
 
 ## Esperando tu prueba (Darwin)
+- **22:** pruebas en GitHub Actions (spec 039, `.github/workflows/pruebas.yml`, sin subir). Sin ejecutar aún en GitHub: al subir `main`, mirar la pestaña Actions del repo; pueden salir pruebas rojas en Ubuntu o Windows por diferencias de entorno, y se arreglan o se omiten con motivo.
 - **29:** memoria desactualizada (spec 037, arnés 1.36.0, sin subir): `revisar_indices.py` avisa de rutas, specs y fichas citadas en `pendientes.md` y `constitution.md` que ya no existen. Prueba: `python .brain/guardianes/revisar_indices.py` y mirar si los avisos son reales. Hoy da uno real: la constitución cita `.brain/lecciones/metodo.md`, que ya no existe (las lecciones se trocearon en `metodo-*.md`); corregirlo es decisión de Darwin.
 - **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0, sin subir): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
 - **32:** npm, cargo y go en `librerias.py` y `eventos_chat.py` (spec 036, arnés 1.36.0, sin subir). Probado solo con respuestas simuladas; falta una prueba real con un proyecto que tenga `package-lock.json`, `Cargo.lock` o `go.mod`.

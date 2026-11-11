@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Fuentes de Cerebro Vivo en llano</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;line-height:1.45;color:#222;margin:0}
+h1{font-size:20pt;margin:0 0 4pt}h2{font-size:14pt;margin:18pt 0 4pt;border-bottom:1px solid #999;padding-bottom:2pt}
+.sub{color:#555;margin-bottom:12pt}
+.t{font-weight:bold}
+.box{background:#f3f3f3;padding:6pt 10pt;margin:6pt 0;border-left:3px solid #888}
+.aviso{background:#fff6dd;padding:6pt 10pt;border-left:3px solid #d9a400;margin:10pt 0}
+h2,.box{page-break-inside:avoid}
+</style></head><body>
+<h1>De dónde viene Cerebro Vivo</h1>
+<div class="sub">Punto 40 · resumen en llano de la bibliografía («Fuentes» del README) · 11 de noviembre de 2026</div>
+
+<div class="aviso"><b>Cómo leerlo.</b> Para cada fuente: qué dice, qué tomamos y qué es propio. Las fuentes de 2026 (Stanford, Databricks) las resumo a partir de sus títulos y de lo que ya se anotó en el proyecto al investigarlas, no de haberlas releído enteras para este documento. Las de ADR, Spec Kit y fábrica de software son ideas muy establecidas y ahí estoy más seguro.</div>
+
+
+<h2>2. Stanford — Meta-Harness (arXiv 2603.28052, marzo de 2026)</h2>
+<p><span class="t">Qué dice:</span> un artículo académico (Lee, Nair, Zhang, Lee, Khattab y Finn) sobre optimizar de punta a punta el «arnés», es decir, el código que rodea a un modelo de IA y decide qué guarda, qué recupera y qué le muestra.</p>
+<div class="box"><span class="t">Qué tomamos:</span> el término «meta-harness», que es público y anterior (30 de marzo de 2026). Por eso no hace falta cambiar esa palabra. <span class="t">Qué es propio:</span> todo lo demás; nosotros no optimizamos nada automáticamente.</div>
+
+<h2>3. Databricks — Omnigent (junio de 2026)</h2>
+<p><span class="t">Qué dice:</span> una capa que se pone encima de varios agentes de IA para combinarlos, controlarlos y compartirlos. Propone «políticas con estado», que recuerdan lo ocurrido antes en la sesión. Ejemplo de su texto: tras descargar un paquete, pedir aprobación humana antes de hacer <code>git push</code>.</p>
+<div class="box"><span class="t">Qué tomamos:</span> la idea de que un guardián recuerde lo que pasó antes (spec 027, «guardián con memoria»). <span class="t">Qué es propio:</span> el código y los textos; la spec dice que no se copió nada.</div>
+
+<h2>4. Registros de decisiones (ADR)</h2>
+<p><span class="t">Fuentes:</span> Michael Nygard (2011, el origen), Martin Fowler, Microsoft (Azure), Red Hat y la guía de AWS.</p>
+<p><span class="t">Qué dicen:</span> cada decisión importante de arquitectura se anota en un documento corto: qué se decidió, por qué y qué consecuencias tiene. Así, quien llegue después no tiene que adivinar.</p>
+<div class="box"><span class="t">Qué tomamos:</span> la práctica entera: de ahí salen <code>decisions.log</code> y la carpeta <code>decisions/</code>. «Decisión» es un estándar desde 2011, por eso no se renombra. <span class="t">Qué es propio:</span> la línea de registro al cerrar cada tarea y los guardianes que la exigen.</div>
+
+<h2>5. GitHub Spec Kit (Microsoft, agosto de 2025, licencia MIT)</h2>
+<p><span class="t">Qué dice:</span> un conjunto de herramientas para trabajar «guiado por especificaciones»: primero se escribe qué se quiere y la IA lo programa después. Incluye una <code>constitution.md</code>: reglas del proyecto que casi nunca cambian. Su documento <code>spec-driven.md</code> la describe como principios inmutables, con un proceso de enmiendas con fecha. El blog de Den Delimarsky (septiembre de 2025) anuncia el kit, pero no habla de la constitución.</p>
+<div class="box"><span class="t">Qué tomamos:</span> la idea de la «constitución» y de escribir la spec antes de programar. Su origen es anterior (agosto de 2025). <span class="t">Qué es propio:</span> las specs numeradas del repo, el manual y las reglas concretas.</div>
+
+<h2>6. Fábrica de software</h2>
+<p><span class="t">Cusumano (1991), «Japan's Software Factories»:</span> cuenta cómo Hitachi, Toshiba, NEC y Fujitsu organizaron el software como una fábrica, con procesos repetibles y reutilización. Es el origen del término.</p>
+<p><span class="t">Greenfield y Short (2004), «Software Factories»:</span> la versión de Microsoft: montar aplicaciones con patrones, modelos, marcos y herramientas.</p>
+<div class="box"><span class="t">Qué tomamos:</span> el concepto de «fábrica», que es universal; por eso no se renombra. <span class="t">Qué es propio:</span> la directora de fábrica con varias IA que ejecutan y otra que revisa (spec 035).</div>
+
+<h2>En una frase</h2>
+<p>Las ideas generales (meta-arnés, decisiones, constitución, fábrica) vienen de trabajos públicos y están citadas. Lo que Cerebro Vivo aporta por su cuenta es la implementación y, sobre todo, la continuidad entre chats: traspasos, guardianes y memoria en archivos.</p>
+</body></html>
