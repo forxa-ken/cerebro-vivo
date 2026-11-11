@@ -95,3 +95,7 @@ Prueba hecha en TraductorVoz (encargo 007, pruebas de 9 módulos). Codex paró s
 esultado-prueba-B.md` y `archive/diario-fabrica-r13.md`.
 
 **Decisión final de Darwin (2026-11-10, chat #43):** el tope de 200.000 queda como **riesgo aceptado, protegido por el diseño del encargo y no por medición en vivo**. Codex no tiene contador de tokens ni ganchos (lo confirmó él mismo: decide a ojo), así que ninguna carta puede hacer que pare al llegar al tope. Lo que lo cubre: encargos pequeños, un punto de control dentro del encargo, y el guardián `fabrica.py` que cuenta el gasto al terminar cada tanda; el peor caso visto fue pasarse ~38.000 tokens. El cambio de chat lo hace la directora, no Codex. Un vigilante en vivo solo se construye si algún día un desbordamiento cuesta caro.
+
+## 41 · `/fabrica` y Codex por `codex exec` (spec 040, arnés 1.37.0 a 1.37.4) — PROBADO
+**Fecha:** 2026-11-11 (chat #47)
+Darwin lo probó en GuildControlForever y TraductorVoz con el arnés 1.37.4: el modo fábrica se recuerda entre chats y arranca la directora; la directora lanza Codex con `codex exec` sin pedir permiso en cada encargo y solo para al segundo fallo seguido o si salta un tope. Spec 040; arnés 1.37.0 a 1.37.4.

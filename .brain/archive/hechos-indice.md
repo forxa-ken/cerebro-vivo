@@ -30,3 +30,5 @@
 | 4 | Repetir el banco T1-T3 con la 1.29.0: **descartado por Darwin**, sustituido por `medir.py --ritual` (punto 35) | 2026-11-09 | archive/hechos.md |
 
 | 19-B | Prueba de Codex con ventana llena y relevo (relevo probado; aviso en vivo no probado, riesgo conocido) | 2026-11-10 | archive/hechos.md |
+
+| 41 | `/fabrica` y Codex por `codex exec` (probado en GuildControlForever y TraductorVoz) | 2026-11-11 | archive/hechos.md |
