@@ -274,3 +274,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## Sin versión (2026-11-11)
 - Spec 039: `.github/workflows/pruebas.yml` lanza las pruebas en GitHub Actions (Ubuntu y Windows) en cada subida a `main` y en cada pull request. Solo de este repo; no llega a los proyectos, no cambia `VERSION` ni el manifiesto.
+
+## 1.36.1 (2026-11-11)
+- Arreglo: el hook `pre-commit` de secretos se instalaba sin permiso de ejecución, así que en Linux y Mac git lo ignoraba y no bloqueaba los secretos. Lo encontró la primera ejecución en GitHub Actions (spec 039).

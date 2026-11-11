@@ -206,6 +206,10 @@ def instalar_hook(raiz):
                 return tp("secretos_existe_otro_hook")
     with open(ruta, "w", encoding="utf-8", newline="\n") as f:
         f.write(HOOK)
+    try:
+        os.chmod(ruta, 0o755)  # sin permiso de ejecucion, git ignora el hook en Linux y Mac
+    except OSError:
+        pass
     return tp("secretos_hook_instalado") % os.path.relpath(ruta, raiz)
 
 
