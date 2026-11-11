@@ -118,5 +118,47 @@ class TestResumen(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(RAIZ, a["requisitos"])))
 
 
+class TestOtrosEcosistemas(unittest.TestCase):
+    """Spec 036: npm, cargo y go desde su archivo de bloqueo."""
+
+    def proyecto(self):
+        d = tempfile.mkdtemp()
+        with open(os.path.join(d, "package-lock.json"), "w", encoding="utf-8") as f:
+            f.write('{"packages": {"": {"name": "x"}, "node_modules/left-pad": {"version": "1.3.0"}, "node_modules/a/node_modules/@s/b": {"version": "2.0.0"}}}')
+        with open(os.path.join(d, "Cargo.lock"), "w", encoding="utf-8") as f:
+            f.write('[[package]]\nname = "mio"\nversion = "0.8.0"\nsource = "registry+x"\n\n[[package]]\nname = "local"\nversion = "0.1.0"\n')
+        with open(os.path.join(d, "go.mod"), "w", encoding="utf-8") as f:
+            f.write("module m\nrequire (\n	github.com/a/b v1.2.3 // indirect\n	golang.org/x/net v0.1.0\n)\nrequire github.com/c/d v2.0.0\n")
+        return d
+
+    def test_lectores_de_los_archivos_de_bloqueo(self):
+        d = self.proyecto()
+        self.assertEqual(lib.versiones_del_proyecto(d, "npm"), {"left-pad": "1.3.0", "@s/b": "2.0.0"})
+        self.assertEqual(lib.versiones_del_proyecto(d, "cargo"), {"mio": "0.8.0"})  # el paquete local no cuenta
+        self.assertEqual(lib.versiones_del_proyecto(d, "go"), {"github.com/a/b": "1.2.3", "golang.org/x/net": "0.1.0", "github.com/c/d": "2.0.0"})
+        self.assertEqual(lib.versiones_del_proyecto(tempfile.mkdtemp(), "npm"), {})
+
+    def test_consulta_con_el_ecosistema_de_osv_de_cada_uno(self):
+        d = self.proyecto()
+        vistos = []
+
+        def http(url, datos=None, timeout=7):
+            if url == lib.OSV_LOTE:
+                vistos.extend((q["package"]["ecosystem"], q["package"]["name"]) for q in datos["queries"])
+                return {"results": [{"vulns": [{"id": "GHSA-x"}]} if q["package"]["name"] == "mio" else {} for q in datos["queries"]]}
+            return {"summary": "fallo de prueba", "affected": []}
+        est = lib.chequear(d, dict(A, requisitos="no-hay.txt"), http)
+        self.assertIn(("npm", "left-pad"), vistos)
+        self.assertIn(("crates.io", "mio"), vistos)
+        self.assertIn(("Go", "golang.org/x/net"), vistos)
+        mio = next(p for p in est["paquetes"] if p["nombre"] == "mio")
+        self.assertEqual((mio["eco"], len(mio["vulns"])), ("cargo", 1))
+        self.assertTrue(all(p["ultima"] == "" for p in est["paquetes"]))  # PyPI solo para Python
+
+    def test_proyecto_sin_ningun_archivo_calla(self):
+        self.assertFalse(lib.hay_que_vigilar(tempfile.mkdtemp(), A))
+        self.assertTrue(lib.hay_que_vigilar(self.proyecto(), dict(A, requisitos="no-hay.txt")))
+
+
 if __name__ == "__main__":
     unittest.main()

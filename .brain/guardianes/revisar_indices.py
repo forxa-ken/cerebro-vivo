@@ -251,6 +251,65 @@ def hallazgos_duplicados(raiz, indice, texto):
 
 
 # ---------- estado: descartes y última revisión ----------
+DOCUMENTOS_DE_MEMORIA = ("pendientes.md", "constitution.md")  # dentro de `.brain/`; lo que un chat nuevo lee y se fía
+
+
+def _spec_existe(brain, numero):
+    for carpeta in ("specs", os.path.join("specs", "archivo"), os.path.join("archive", "specs")):
+        d = os.path.join(brain, carpeta)
+        if os.path.isdir(d) and any(n.startswith(numero) for n in os.listdir(d)):
+            return True
+    return False
+
+
+def _ficha_existe(brain, codigo):
+    for carpeta in ("decisions", os.path.join("decisions", "archivo"), os.path.join("archive", "decisions")):
+        d = os.path.join(brain, carpeta)
+        if os.path.isdir(d) and any(n.startswith(codigo) for n in os.listdir(d)):
+            return True
+    return False
+
+
+def hallazgos_memoria(raiz, a):
+    """Spec 037: memoria que dice algo que ya no es verdad. Solo lee. Mira `pendientes.md` y `constitution.md`:
+    rutas citadas que no existen (desde la raíz del proyecto o desde `.brain/`), «spec NNN» sin su archivo y fichas D-NNN
+    sin su archivo. Solo los casos claros (una ruta con carpeta o extensión conocida, un número exacto)."""
+    brain = os.path.join(raiz, ".brain")
+    res = []
+    for nombre in DOCUMENTOS_DE_MEMORIA:
+        ruta_doc = os.path.join(brain, nombre)
+        if not os.path.isfile(ruta_doc):
+            continue
+        texto = leer(ruta_doc)
+        lineas = texto.splitlines()
+        indice = ".brain/" + nombre
+        vistos = set()
+
+        def apuntar(clave, detalle, n):
+            if clave not in vistos:
+                vistos.add(clave)
+                res.append({"tipo": "memoria_desactualizada", "indice": indice, "seccion": _seccion_de(texto, n), "detalle": detalle,
+                            "clave": "memoria_desactualizada|%s|%s" % (indice, clave), "nivel": "roto", "posible_nuevo_sitio": []})
+        for ruta, n in referencias(texto):
+            contexto = lineas[n - 1] if n <= len(lineas) else ""
+            if _ignorada(ruta, a["ignorar"]) or ruta.startswith("../") or PALABRAS_EJEMPLO.search(contexto) or ruta.endswith("/"):
+                continue
+            if "/" not in ruta:
+                continue  # un nombre suelto es ambiguo: aquí solo rutas con carpeta
+            if not any(os.path.exists(os.path.normpath(os.path.join(base, ruta))) for base in (raiz, brain, os.path.dirname(ruta_doc))):
+                apuntar(ruta, tp("revisar_indices_memoria_ruta") % (indice, ruta, n), n)
+        for n, linea in enumerate(lineas, 1):
+            if PALABRAS_EJEMPLO.search(linea):
+                continue
+            for numero in re.findall(r"\b[Ss]pec(?:s)? (\d{3})\b", linea):
+                if not _spec_existe(brain, numero):
+                    apuntar("spec " + numero, tp("revisar_indices_memoria_spec") % (indice, numero, n), n)
+            for codigo in re.findall(r"\b(D-\d{3})\b", linea):
+                if not _ficha_existe(brain, codigo):
+                    apuntar(codigo, tp("revisar_indices_memoria_ficha") % (indice, codigo, n), n)
+    return res
+
+
 def leer_estado(raiz):
     try:
         with open(os.path.join(raiz, ".brain", "guardianes", ESTADO), encoding="utf-8") as f:
@@ -296,6 +355,7 @@ def analizar(raiz, cfg, hoy=None):
         hallazgos += hallazgos_referencias(raiz, nombre, propio, a)
         hallazgos += hallazgos_peso_y_fechas(nombre, texto, a, hoy)
         hallazgos += hallazgos_duplicados(raiz, nombre, texto)
+    hallazgos += hallazgos_memoria(raiz, a)  # spec 037
     estado = leer_estado(raiz)
     descartadas = {d["clave"] for d in estado["descartes"]}
     utiles = [h for h in hallazgos if h["clave"] not in descartadas]
@@ -311,7 +371,8 @@ def formatear(informe, cfg):
     if not informe["indices"]:
         lineas.append(tp("revisar_indices_indices_revisar"))
     nombres = {"referencia_rota": tp("revisar_indices_referencias_rotas"), "deriva": tp("revisar_indices_deriva_entre_indices"), "seccion_pesada": tp("revisar_indices_secciones_pesadas"),
-               "fecha_vieja": tp("revisar_indices_fechas_viejas"), "duplicado": tp("revisar_indices_esta_brain")}
+               "fecha_vieja": tp("revisar_indices_fechas_viejas"), "duplicado": tp("revisar_indices_esta_brain"),
+               "memoria_desactualizada": tp("revisar_indices_memoria_titulo")}
     for tipo, titulo in nombres.items():
         grupo = [h for h in informe["hallazgos"] if h["tipo"] == tipo]
         if grupo:
@@ -345,6 +406,9 @@ def resumen(raiz, cfg, hoy=None):
         rotas += sum(1 for h in hallazgos_referencias(raiz, n, sin_bloque_del_kit(t), a) if h["nivel"] == "roto" and h["clave"] not in descartadas)
     if rotas:
         motivos.append(tp("revisar_indices_referencia_rota") % rotas)
+    viejas = sum(1 for h in hallazgos_memoria(raiz, a) if h["clave"] not in descartadas)  # spec 037
+    if viejas:
+        motivos.append(tp("revisar_indices_memoria_resumen") % viejas)
     ultima = leer_estado(raiz).get("ultima_revision", "")
     if ultima:
         try:

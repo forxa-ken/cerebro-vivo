@@ -98,6 +98,23 @@ class TestGuardian(Base):
         self.assertIn("npm:left-pad", texto)
         self.assertEqual(self.orden("git push"), (0, ""))
 
+    def test_npm_se_revisa_con_la_version_del_archivo_de_bloqueo(self):  # spec 036
+        with open(os.path.join(self.dir, "package-lock.json"), "w", encoding="utf-8") as f:
+            f.write('{"packages": {"node_modules/left-pad": {"version": "1.3.0"}}}')
+        self.orden("npm install left-pad")
+        codigo, texto = self.orden("git push", http=red(vulnerables=("left-pad",)))
+        self.assertEqual(codigo, 2)
+        self.assertIn("npm:left-pad", texto)
+
+    def test_cargo_y_go_limpios_dejan_pasar_en_silencio(self):  # spec 036
+        with open(os.path.join(self.dir, "Cargo.lock"), "w", encoding="utf-8") as f:
+            f.write('[[package]]\nname = "serde"\nversion = "1.0.0"\nsource = "registry+x"\n')
+        with open(os.path.join(self.dir, "go.mod"), "w", encoding="utf-8") as f:
+            f.write("module m\nrequire github.com/a/b v1.2.3\n")
+        self.orden("cargo add serde")
+        self.orden("go get github.com/a/b")
+        self.assertEqual(self.orden("git push"), (0, ""))
+
     def test_bloqueo_apagado_solo_avisa(self):
         self.orden("pip install viejo")
         codigo, texto = self.orden("git push", cfg=dict(CFG, eventos_chat_bloquear=False), http=red(vulnerables=("viejo",)))

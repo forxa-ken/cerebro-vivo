@@ -6,7 +6,7 @@ Se ejecuta como hook `PreToolUse` de Claude Code (antes de cada orden de termina
 qué librerías se instalaron (`pip install`, `npm install`…) y, al ver `git push`, hace él mismo la revisión de las
 nuevas con `librerias.py` (OSV.dev): limpio → deja pasar sin molestar; vulnerabilidad conocida → detiene el `git push`
 (exit 2) y lo explica; sin red → no bloquea y lo recuerda en el siguiente `git push`. No depende de la IA ni de Darwin.
-Solo revisa Python (PyPI): de npm, cargo o go avisa una vez de que no pudo revisarlo.
+Revisa Python (PyPI), npm, cargo y go (spec 036; lee la versión del archivo de bloqueo del proyecto); de otros avisa una vez.
 Para seguir tras un bloqueo, con el visto bueno de Darwin: `python eventos_chat.py permitir "motivo"` (queda en el registro).
 Estado en `eventos_chat_estado.json` (ignorado por Git). Ante cualquier fallo propio deja pasar. Solo librería estándar.
 Ajustes: guardianes.json (`eventos_chat_activo`, `eventos_chat_comandos`, `eventos_chat_bloquear`, `eventos_chat_sin_red_bloquear`)."""
@@ -208,6 +208,7 @@ def del_chat(estado, sesion):
     chat = chats.pop(sesion, None) or {}
     chats[sesion] = chat  # el último usado va al final
     chat.setdefault("pendientes", [])   # [nombre] de PyPI instalados y sin revisar
+    chat.setdefault("pendientes_eco", [])  # ["npm:nombre", "cargo:nombre", "go:módulo"] instalados y sin revisar (spec 036)
     chat.setdefault("otros", [])        # ["eco:nombre"] que no se pueden revisar solos
     chat.setdefault("avisados_otros", [])
     return chat
@@ -228,6 +229,11 @@ def recordar(chat, comando, raiz, cfg):
                 if n not in chat["pendientes"]:
                     chat["pendientes"].append(n)
             chat.setdefault("versiones", {}).update(versiones_fijadas(comando, cfg))
+        elif eco in librerias.ECO_OSV:
+            for n in nombres:
+                clave = "%s:%s" % (eco, n)
+                if clave not in chat["pendientes_eco"]:
+                    chat["pendientes_eco"].append(clave)
         else:
             for n in nombres:
                 clave = "%s:%s" % (eco, n)
@@ -287,41 +293,54 @@ def revisar_push(estado, chat, cfg, raiz, http=None):
         avisos.append(tp("eventos_chat_no_revisable") % ", ".join(nuevos_otros))
         chat["avisados_otros"] += nuevos_otros
     nombres = [n for n in chat["pendientes"]]
-    if not nombres:
+    if not nombres and not chat["pendientes_eco"]:
         return 0, " ".join(avisos)
-    pedidos = versiones_a_revisar(nombres, chat, raiz)
-    sin_version = [n for n in nombres if n not in {p for p, _ in pedidos}]
+    pedidos = versiones_a_revisar(nombres, chat, raiz) if nombres else []
+    sin_version = [n for n in nombres if n not in {p[0] for p in pedidos}]
+    for clave in list(chat["pendientes_eco"]):  # spec 036: la versión sale del archivo de bloqueo del proyecto
+        eco, n = clave.split(":", 1)
+        v = librerias.versiones_del_proyecto(raiz, eco, a).get(n)
+        if v:
+            pedidos.append((n, v, eco))
+        else:
+            sin_version.append(clave)
     if sin_version:  # spec 029: no dejar pasar en silencio lo que no se pudo mirar (antes ocultaba los .venv)
         avisos.append(tp("eventos_chat_sin_version") % ", ".join(sin_version))
         chat["pendientes"] = [n for n in chat["pendientes"] if n not in sin_version]  # se avisa una vez
+        chat["pendientes_eco"] = [n for n in chat["pendientes_eco"] if n not in sin_version]
     if not pedidos:
         chat["pendientes"] = []
+        chat["pendientes_eco"] = []
         return 0, " ".join(avisos)
     est = librerias.consultar(pedidos, a, http, con_pypi=False)
     if est is None:
         if cfg.get("eventos_chat_sin_red_bloquear", False):
-            return 2, " ".join(avisos + [tp("eventos_chat_sin_red_bloqueo") % ", ".join(n for n, _ in pedidos)])
-        return 0, " ".join(avisos + [tp("eventos_chat_sin_red") % ", ".join(n for n, _ in pedidos)])
+            return 2, " ".join(avisos + [tp("eventos_chat_sin_red_bloqueo") % ", ".join(p[0] for p in pedidos)])
+        return 0, " ".join(avisos + [tp("eventos_chat_sin_red") % ", ".join(p[0] for p in pedidos)])
     permitidos = _permitidos(estado)
     ignorados = {i.get("id") for i in a.get("ignorar", [])}
     problemas, limpios = [], []
     for p in est["paquetes"]:
         vulns = [v for v in p["vulns"] if v["id"] not in ignorados]
-        clave = "%s==%s" % (p["nombre"], p["version"])
+        etiqueta = "%s:%s" % (p["eco"], p["nombre"]) if p.get("eco") else p["nombre"]  # npm:x, cargo:x, go:x; Python sin prefijo
+        clave = "%s==%s" % (etiqueta, p["version"])
         if vulns and clave not in permitidos:
             fix = next((v["corregida"] for v in vulns if v.get("corregida")), "")
-            problemas.append(tp("eventos_chat_vuln_linea") % (p["nombre"], p["version"], len(vulns),
+            problemas.append(tp("eventos_chat_vuln_linea") % (etiqueta, p["version"], len(vulns),
                                                               tp("eventos_chat_corregida") % fix if fix else ""))
         else:
-            limpios.append(p["nombre"])
+            limpios.append(etiqueta)
     if problemas:
-        chat["bloqueados"] = [p["nombre"] + "==" + p["version"] for p in est["paquetes"]
-                              if any(v["id"] not in ignorados for v in p["vulns"]) and "%s==%s" % (p["nombre"], p["version"]) not in permitidos]
+        chat["bloqueados"] = [("%s:%s" % (p["eco"], p["nombre"]) if p.get("eco") else p["nombre"]) + "==" + p["version"] for p in est["paquetes"]
+                              if any(v["id"] not in ignorados for v in p["vulns"])
+                              and ("%s:%s==%s" % (p["eco"], p["nombre"], p["version"]) if p.get("eco") else "%s==%s" % (p["nombre"], p["version"])) not in permitidos]
         chat["pendientes"] = [n for n in chat["pendientes"] if n not in limpios]
+        chat["pendientes_eco"] = [n for n in chat["pendientes_eco"] if n not in limpios]
         if not cfg.get("eventos_chat_bloquear", True):
             return 0, " ".join(avisos + [tp("eventos_chat_aviso_vuln") % "; ".join(problemas)])
         return 2, " ".join(avisos + [tp("eventos_chat_bloqueo") % "; ".join(problemas)])
     chat["pendientes"] = []
+    chat["pendientes_eco"] = []
     chat.pop("bloqueados", None)
     return 0, " ".join(avisos)
 

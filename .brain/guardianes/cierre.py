@@ -223,6 +223,46 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
     return avisos
 
 
+ESTADO_REPETIDOS = os.path.join(AQUI, "cierre_estado.json")
+MAX_CHATS_REPETIDOS = 20
+
+
+def filtrar_repetido(estado, sesion, clave, hay_aviso, maximo):
+    """Spec 038 (1A): un aviso informativo que sale `maximo` veces seguidas en el mismo chat se apaga en ese chat.
+    Función pura sobre `estado` ({sesion: {clave: contador | -1}}). Devuelve 'mostrar', 'callar' o 'apagar'
+    (esta vez se muestra y se avisa de que se apaga). Si el aviso no sale en una respuesta, el contador vuelve a 0."""
+    chat = estado.setdefault(sesion, {})
+    if chat.get(clave) == -1:
+        return "callar"
+    if not hay_aviso:
+        chat[clave] = 0
+        return "mostrar"
+    chat[clave] = chat.get(clave, 0) + 1
+    if maximo > 0 and chat[clave] >= maximo:
+        chat[clave] = -1
+        return "apagar"
+    return "mostrar"
+
+
+def _estado_repetidos():
+    try:
+        with open(ESTADO_REPETIDOS, encoding="utf-8") as f:
+            d = json.load(f)
+        return d if isinstance(d, dict) else {}
+    except Exception:
+        return {}
+
+
+def _guardar_repetidos(estado):
+    for viejo in list(estado)[:-MAX_CHATS_REPETIDOS]:
+        del estado[viejo]
+    try:
+        with open(ESTADO_REPETIDOS, "w", encoding="utf-8") as f:
+            json.dump(estado, f)
+    except OSError:
+        pass
+
+
 def main():
     try:
         datos = json.load(sys.stdin)
@@ -263,6 +303,7 @@ def main():
             except Exception:
                 sin_cerrar = None
         avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar)
+        informativos = {"longitud": [], "hitos": []}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util
             espec = importlib.util.spec_from_file_location("longitud", os.path.join(AQUI, "longitud.py"))
@@ -270,16 +311,29 @@ def main():
             espec.loader.exec_module(longitud)
             largo = longitud.aviso(datos.get("transcript_path"), cfg)
             if largo:
-                avisos.append(largo)
+                informativos["longitud"].append(largo)
         except Exception:
             pass
         try:  # spec 026: hito (error resuelto, archivo delicado, cambio grande) sin lección apuntada, y traspaso corto
             espec = importlib.util.spec_from_file_location("hitos", os.path.join(AQUI, "hitos.py"))
             hitos = importlib.util.module_from_spec(espec)
             espec.loader.exec_module(hitos)
-            avisos += hitos.avisos(datos.get("transcript_path"), cfg, RAIZ)
+            informativos["hitos"] += hitos.avisos(datos.get("transcript_path"), cfg, RAIZ)
         except Exception:
             pass
+        try:  # spec 038: el cierre (línea de registro, tope de pendientes) nunca se apaga; estos dos sí si se repiten
+            estado = _estado_repetidos()
+            sesion = str(datos.get("session_id") or "sin-sesion")
+            for clave, lista in informativos.items():
+                accion = filtrar_repetido(estado, sesion, clave, bool(lista), cfg.get("guardian_fallos_max", 3))
+                if accion != "callar":
+                    avisos += lista
+                if accion == "apagar":
+                    avisos.append(t(cfg, "cierre_aviso_apagado", clave, cfg.get("guardian_fallos_max", 3)))
+            _guardar_repetidos(estado)
+        except Exception:
+            for lista in informativos.values():
+                avisos += lista
     except Exception:
         return 0  # un guardián nunca debe romper el trabajo
     if avisos:

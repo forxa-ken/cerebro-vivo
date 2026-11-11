@@ -1,6 +1,6 @@
 # Spec 038: cortar un guardián que falla repetido y medir tokens por tarea terminada (punto 31)
 
-- **Estado:** borrador (2026-11-11), a aprobar por Darwin antes de programar
+- **Estado:** aprobada por Darwin el 2026-11-11 y programada en 1.36.0. 1A se aplica a los avisos informativos de `cierre.py` (chat largo y hito sin lección); el aviso de la línea de registro y del tope de `pendientes.md` nunca se apagan; se reactivan en el chat siguiente. 1B cuenta los cierres que la IA escribió en el chat (la línea automática del hook Stop no sale en el registro del chat).
 - **Origen:** idea del punto 24 (The Harness Effect). Dos mejoras separadas, programables por separado.
 
 ## 1. En alcance

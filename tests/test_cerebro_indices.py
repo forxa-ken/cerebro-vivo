@@ -103,6 +103,33 @@ class TestIndicesCerebro(unittest.TestCase):
         self.assertEqual(malas, [], "Entradas recientes de decisions.log sin fecha al inicio")
 
 
+class TestAvisoRepetido(unittest.TestCase):
+    """Spec 038 (1A): un aviso informativo que se repite sin atenderse se apaga en ese chat."""
+
+    def setUp(self):
+        self.f = cargar_cierre().filtrar_repetido
+
+    def test_a_la_tercera_se_apaga_y_luego_calla(self):
+        e = {}
+        self.assertEqual([self.f(e, "s", "hitos", True, 3) for _ in range(3)], ["mostrar", "mostrar", "apagar"])
+        self.assertEqual(self.f(e, "s", "hitos", True, 3), "callar")
+
+    def test_si_un_dia_no_sale_el_contador_vuelve_a_cero(self):
+        e = {}
+        self.f(e, "s", "hitos", True, 3)
+        self.f(e, "s", "hitos", True, 3)
+        self.assertEqual(self.f(e, "s", "hitos", False, 3), "mostrar")
+        self.assertEqual(self.f(e, "s", "hitos", True, 3), "mostrar")
+
+    def test_cada_chat_y_cada_aviso_cuentan_aparte_y_cero_desactiva(self):
+        e = {}
+        for _ in range(3):
+            self.f(e, "s1", "hitos", True, 3)
+        self.assertEqual(self.f(e, "s2", "hitos", True, 3), "mostrar")
+        self.assertEqual(self.f(e, "s1", "longitud", True, 3), "mostrar")
+        self.assertEqual([self.f({}, "s", "x", True, 0) for _ in range(5)], ["mostrar"] * 5)
+
+
 class TestGuardianCierre(unittest.TestCase):
 
     def setUp(self):

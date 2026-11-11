@@ -130,8 +130,45 @@ def coste(ent, esc, lec, sal):
     return ent * PESOS["entrada"] + esc * PESOS["escritura"] + lec * PESOS["lectura"] + sal * PESOS["salida"]
 
 
+def cierres_de_chat(ruta):
+    """Spec 038: tareas terminadas que se ven en el chat = veces que la IA escribió en `decisions.log` (Edit/Write) o lanzó
+    `cerrar.py`. La línea automática del hook Stop (modo ligero) no sale en el registro del chat y no se cuenta."""
+    vistos = set()
+    try:
+        with open(ruta, encoding="utf-8", errors="replace") as f:
+            for linea in f:
+                try:
+                    e = json.loads(linea)
+                except ValueError:
+                    continue
+                contenido = (e.get("message") or {}).get("content")
+                if e.get("type") != "assistant" or not isinstance(contenido, list):
+                    continue
+                for b in contenido:
+                    if not isinstance(b, dict) or b.get("type") != "tool_use":
+                        continue
+                    entrada = b.get("input") or {}
+                    cierra = ("cerrar.py" in str(entrada.get("command", "")) if b.get("name") in ("Bash", "PowerShell")
+                              else os.path.basename(str(entrada.get("file_path", ""))) == "decisions.log")
+                    if cierra:
+                        vistos.add(b.get("id") or len(vistos))
+    except OSError:
+        pass
+    return len(vistos)
+
+
+def por_tarea(chats):
+    """(tokens nuevos + salida por tarea terminada, tareas, chats con alguna tarea) de una lista de chats; None si no hay tareas."""
+    tareas = sum(c.get("cierres", 0) for c in chats)
+    if not tareas:
+        return None
+    con = [c for c in chats if c.get("cierres", 0)]
+    return sum(c["nuevos"] + c["salida"] for c in con) / tareas, tareas, len(con)
+
+
 def medir_chat(ruta):
     d = leer_chat(ruta)
+    d["cierres"] = cierres_de_chat(ruta)
     msgs = mensajes_ia(ruta)
     d["coste"] = sum(coste(*m[:4]) for m in msgs)
     d["frio"] = bool(msgs) and msgs[0][2] < FRIO_LECTURA_MAX
@@ -172,6 +209,9 @@ def comparar(con, sin, igualar=True):
         dif = "%+.0f%%" % ((a - b) / b * 100) if b else "-"
         print("%-14s %12.1f %12.1f %10s" % (nombre, a, b, dif))
     print(tp("medir_chats_medidos_arnes") % (len(con), len(sin)))
+    a, b = por_tarea(con), por_tarea(sin)
+    if a and b:
+        print(tp("medir_por_tarea_comparar") % (k(a[0]), a[1], k(b[0]), b[1]))
 
 
 def skills_usadas(ruta):
@@ -440,6 +480,9 @@ def main(argv=None):
     print(tp("medir_chat_media_coste")
           % (k(media(chats, "coste")), k(media(chats, "nuevos")), k(media(chats, "salida")), k(media(chats, "arranque")),
              media(chats, "turnos"), media(chats, "correcciones")))
+    pt = por_tarea(chats)
+    if pt:
+        print(tp("medir_por_tarea") % (k(pt[0]), pt[1], pt[2]))
     return 0
 
 

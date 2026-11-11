@@ -1,12 +1,12 @@
 ---
 name: vigilar-librerias
-description: Use when adding, updating or auditing a Python library.
+description: Use when adding, updating or auditing a library (Python, npm, cargo or go).
 ---
 
 # Watch libraries
 
 ## How (steps)
-1. Run `librerias.py` by hand every 7 days (it queries OSV.dev and PyPI with a timeout).
+1. Run `librerias.py` by hand every 7 days (it queries OSV.dev and PyPI with a timeout). It reads `requirements.txt` and, if present, `package-lock.json` (npm), `Cargo.lock` (cargo) and `go.mod` (go); the newer-major check is Python only.
 2. Startup only reads the result and warns if it is 10 days old or more.
 3. It only warns: it never updates or installs by itself; false alarms go to the `ignorar` list with a reason.
 4. Detail in `architecture/librerias.md`.

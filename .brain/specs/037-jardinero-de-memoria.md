@@ -1,6 +1,6 @@
 # Spec 037: detectar memoria desactualizada dentro de la higiene de `.brain/` (punto 29)
 
-- **Estado:** borrador (2026-11-11), a aprobar por Darwin antes de programar
+- **Estado:** aprobada por Darwin el 2026-11-11 (opción A) y programada en 1.36.0. Quedó fuera lo de «documentos sin tocar hace N días»: es demasiado ambiguo para no dar falsos avisos; hoy mira `pendientes.md` y `constitution.md`.
 - **Origen:** idea del punto 24 (OpenAI, «jardinero de documentación») y informe 028: no es un guardián nuevo, sino la sexta pieza de la higiene de memoria, que hoy está repartida en `poda.py`, `archivos_gordos.py`, `revisar_indices.py`, `indices.py` y las skills `trocea`/`acorta`.
 
 ## 1. Decisión pendiente de Darwin

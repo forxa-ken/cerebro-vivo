@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 """Guardián 10 de Cerebro Vivo · vigilancia de librerías (spec 052).
 
-Lee `requirements.txt`, mira la versión instalada de cada librería y consulta dos bases públicas y gratuitas:
-  1. OSV.dev: vulnerabilidades conocidas de esa versión.
-  2. PyPI: si hay una versión mayor más nueva (p. ej. 2.x → 3.x).
+Lee `requirements.txt` (Python) y, si existen, `package-lock.json` (npm), `Cargo.lock` (cargo) y `go.mod` (go; spec 036),
+mira la versión de cada librería y consulta dos bases públicas y gratuitas:
+  1. OSV.dev: vulnerabilidades conocidas de esa versión (ecosistemas PyPI, npm, crates.io y Go).
+  2. PyPI: si hay una versión mayor más nueva (p. ej. 2.x → 3.x); solo para Python.
 Guarda el resultado en `librerias_estado.json`; el resumen de arranque SOLO lee ese archivo (sin red).
 Modos: sin argumentos = chequear y guardar (hacerlo cada semana, con el Python del venv) · --ver = detalle.
 Solo avisa: nunca actualiza ni instala nada. Solo librería estándar. Si falla la red, calla y conserva el estado
@@ -26,6 +27,10 @@ OSV_LOTE = "https://api.osv.dev/v1/querybatch"
 OSV_VULN = "https://api.osv.dev/v1/vulns/"
 PYPI = "https://pypi.org/pypi/%s/json"
 MAX_DETALLES = 5
+MAX_PAQUETES = 500  # tope de consultas por chequeo (los archivos de bloqueo pueden traer miles)
+# Spec 036: ecosistema del guardián → nombre que usa OSV.dev, y archivo de versiones fijadas de cada uno
+ECO_OSV = {"pypi": "PyPI", "npm": "npm", "cargo": "crates.io", "go": "Go"}
+ARCHIVO_ECO = {"npm": "package-lock.json", "cargo": "Cargo.lock", "go": "go.mod"}
 
 
 def cargar_config():
@@ -64,6 +69,72 @@ def leer_requisitos(ruta):
     return res
 
 
+def leer_npm(ruta):
+    """{nombre: versión} de un package-lock.json (formatos v1, v2 y v3)."""
+    with open(ruta, encoding="utf-8") as f:
+        datos = json.load(f)
+    res = {}
+    for clave, info in (datos.get("packages") or {}).items():
+        if clave and isinstance(info, dict) and info.get("version") and not info.get("link"):
+            res[clave.split("node_modules/")[-1]] = info["version"]
+    if not res:  # formato v1
+        for nombre, info in (datos.get("dependencies") or {}).items():
+            if isinstance(info, dict) and info.get("version"):
+                res[nombre] = info["version"]
+    return res
+
+
+def leer_cargo(ruta):
+    """{nombre: versión} de un Cargo.lock; se saltan los paquetes locales (sin `source`)."""
+    res = {}
+    with open(ruta, encoding="utf-8") as f:
+        texto = f.read()
+    for bloque in texto.split("[[package]]")[1:]:
+        n = re.search(r'^name\s*=\s*"([^"]+)"', bloque, re.M)
+        v = re.search(r'^version\s*=\s*"([^"]+)"', bloque, re.M)
+        if n and v and re.search(r"^source\s*=", bloque, re.M):
+            res[n.group(1)] = v.group(1)
+    return res
+
+
+def leer_go(ruta):
+    """{módulo: versión} de las líneas `require` de un go.mod (sin la «v» inicial)."""
+    res, dentro = {}, False
+    with open(ruta, encoding="utf-8") as f:
+        for linea in f:
+            linea = linea.split("//")[0].strip()
+            if linea.startswith("require ("):
+                dentro = True
+                continue
+            if dentro and linea == ")":
+                dentro = False
+                continue
+            m = re.match(r"(?:require\s+)?(\S+)\s+v([0-9][^\s]*)$", linea) if (dentro or linea.startswith("require ")) else None
+            if m:
+                res[m.group(1)] = m.group(2)
+    return res
+
+
+LECTORES = {"npm": leer_npm, "cargo": leer_cargo, "go": leer_go}
+
+
+def versiones_del_proyecto(raiz, eco, a=None):
+    """{nombre: versión} fijadas en el archivo de bloqueo del ecosistema (npm, cargo o go), o {} si no hay o falla."""
+    try:
+        ruta = os.path.join(raiz, ((a or {}).get("archivos") or {}).get(eco, ARCHIVO_ECO[eco]))
+        return LECTORES[eco](ruta) if os.path.isfile(ruta) else {}
+    except Exception:
+        return {}
+
+
+def hay_que_vigilar(raiz, a):
+    """True si el proyecto tiene algún archivo que vigilar (requirements.txt o un archivo de bloqueo de npm, cargo o go)."""
+    if os.path.exists(os.path.join(raiz, a.get("requisitos", "requirements.txt"))):
+        return True
+    return any(os.path.isfile(os.path.join(raiz, ((a.get("archivos") or {}).get(e, f)))) for e, f in ARCHIVO_ECO.items()
+               if e in a.get("ecosistemas", list(ARCHIVO_ECO)))
+
+
 def version_instalada(nombre, minima):
     try:
         from importlib.metadata import version
@@ -83,26 +154,35 @@ def _corregida(detalle):
 
 def chequear(raiz, a, http=None):
     """Consulta OSV y PyPI. Devuelve el estado nuevo o None si no se pudo (entonces no se toca el anterior)."""
-    pedidos = [(n, version_instalada(n, m)) for n, m in leer_requisitos(os.path.join(raiz, a.get("requisitos", "requirements.txt")))]
-    return consultar([(n, v) for n, v in pedidos if v], a, http)
+    ruta = os.path.join(raiz, a.get("requisitos", "requirements.txt"))
+    pedidos = []
+    if os.path.exists(ruta):
+        pedidos = [(n, version_instalada(n, m)) for n, m in leer_requisitos(ruta)]
+    pedidos = [(n, v) for n, v in pedidos if v]
+    for eco in ARCHIVO_ECO:  # spec 036: npm, cargo y go desde su archivo de bloqueo
+        if eco in a.get("ecosistemas", list(ARCHIVO_ECO)):
+            pedidos += [(n, v, eco) for n, v in sorted(versiones_del_proyecto(raiz, eco, a).items())]
+    return consultar(pedidos[:MAX_PAQUETES], a, http)
 
 
 def consultar(pedidos, a, http=None, con_pypi=True):
-    """Consulta OSV (y PyPI si `con_pypi`) para una lista [(nombre, versión)]. Devuelve el estado o None si no se pudo.
+    """Consulta OSV (y PyPI si `con_pypi`) para una lista [(nombre, versión)] o [(nombre, versión, ecosistema)]
+    (ecosistema: pypi, npm, cargo o go; por defecto pypi). Devuelve el estado o None si no se pudo.
     Spec 027: el guardián de eventos del chat lo usa con `con_pypi=False` para revisar solo lo recién instalado."""
     http = http or http_json
     timeout = a.get("timeout", 7)
     if not pedidos:
         return None
+    pedidos = [(p + ("pypi",))[:3] for p in pedidos]
     try:
-        osv = http(OSV_LOTE, {"queries": [{"package": {"name": n, "ecosystem": "PyPI"}, "version": v} for n, v in pedidos]}, timeout)
+        osv = http(OSV_LOTE, {"queries": [{"package": {"name": n, "ecosystem": ECO_OSV.get(e, "PyPI")}, "version": v} for n, v, e in pedidos]}, timeout)
         resultados = osv["results"]
         if len(resultados) != len(pedidos):
             return None
     except Exception:
         return None
     paquetes = []
-    for (nombre, ver), res in zip(pedidos, resultados):
+    for (nombre, ver, eco), res in zip(pedidos, resultados):
         vulns = []
         for v in (res.get("vulns") or [])[:MAX_DETALLES]:
             try:
@@ -111,13 +191,16 @@ def consultar(pedidos, a, http=None, con_pypi=True):
                 d = {}
             vulns.append({"id": v["id"], "resumen": (d.get("summary") or "")[:100], "corregida": _corregida(d)})
         ultima = ""
-        if con_pypi:
+        if con_pypi and eco == "pypi":
             try:
                 ultima = http(PYPI % nombre, None, timeout)["info"]["version"]
             except Exception:
                 pass
         mayor = bool(ultima) and _version(ultima)[0] > _version(ver)[0]
-        paquetes.append({"nombre": nombre, "version": ver, "ultima": ultima, "mayor": mayor, "vulns": vulns})
+        paquete = {"nombre": nombre, "version": ver, "ultima": ultima, "mayor": mayor, "vulns": vulns}
+        if eco != "pypi":
+            paquete["eco"] = eco
+        paquetes.append(paquete)
     return {"fecha": datetime.date.today().isoformat(), "paquetes": paquetes}
 
 
@@ -146,8 +229,8 @@ def leer_estado():
 def resumen(raiz, cfg, hoy=None):
     """Línea para el resumen de arranque. Solo lee el estado guardado (sin red). Calla si está apagado o falla."""
     a = ajustes(cfg)
-    if not a["activo"] or not os.path.exists(os.path.join(raiz, a.get("requisitos", "requirements.txt"))):
-        return []  # apagado, o proyecto sin requirements.txt (p. ej. no es de Python): no hay nada que vigilar
+    if not a["activo"] or not hay_que_vigilar(raiz, a):
+        return []  # apagado, o proyecto sin requirements.txt ni archivos de bloqueo de npm, cargo o go: no hay nada que vigilar
     try:
         estado = leer_estado()
         if not estado:

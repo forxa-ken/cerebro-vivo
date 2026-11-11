@@ -13,13 +13,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **23:** aprender a montar un agente que verifique las pruebas y errores de la IA principal (revisor independiente; idea somera de Darwin; sale de `F:\Arquitectura de desarrollo`, REC-003/004/005). Explicárselo en llano y hacerlo paso a paso con él. Sin empezar.
 
-- **32:** ampliar `librerias.py` y el guardián `eventos_chat.py` a npm, cargo y go (OSV.dev los cubre; hoy solo avisa). Spec antes; es/en.
-
-- **29:** idea del punto 24 (OpenAI): guardián que detecte memoria desactualizada. Informe 028: hacerlo dentro de la fusión de higiene de memoria, no como guardián nuevo. Spec antes; es/en.
-
 - **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
-
-- **31:** idea del punto 24 (The Harness Effect): cortar un guardián que falla repetidamente y que `medir.py` dé tokens por tarea terminada. Spec antes; es/en.
 
 - **25:** distancia con un proyecto externo. HECHO el 2026-11-10 (arnés 1.34.1, 1.34.2 y 1.35.0): un autor externo, Stanford (Meta-Harness) y Databricks (Omnigent) como «Fuentes» en README, manual y página; «Fast-Track» pasó a «Cambio pequeño» / «Small change». Investigado en Internet: constitución, decisión y registro de decisiones son términos estándar del sector (Spec Kit, ADR), no de un autor externo; pendiente no existe en un proyecto externo; meta-arnés es ya un término público. Fuentes ampliadas (1.35.2) con ADR (Nygard, Fowler, Microsoft, Red Hat, AWS) y Spec Kit, para cubrir decisión y constitución sin renombrar. Cerrado el 2026-11-11 (1.35.3): Darwin decide no renombrar nada (meta-arnés, pendiente, constitución y decisión se quedan) y la bibliografía de constitución (GitHub Spec Kit, spec-driven.md, blog de Delimarsky) queda publicada; la lista de autores está completa y, si aparece otro, Darwin lo dirá.
 
@@ -32,5 +26,9 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **40:** resumen en llano, para que Darwin los lea, de los trabajos citados en «Fuentes» (README): un autor externo (un proyecto externo), Stanford (Meta-Harness), Databricks (Omnigent), ADR (Nygard, Fowler, Microsoft, Red Hat, AWS), GitHub Spec Kit (constitution.md, spec-driven.md, blog de Delimarsky) y fábrica de software (Cusumano 1991, Greenfield y Short 2004). Qué dice cada uno, qué tomamos y qué es propio. Sin empezar; no es código.
 
 ## Esperando tu prueba (Darwin)
+- **29:** memoria desactualizada (spec 037, arnés 1.36.0, sin subir): `revisar_indices.py` avisa de rutas, specs y fichas citadas en `pendientes.md` y `constitution.md` que ya no existen. Prueba: `python .brain/guardianes/revisar_indices.py` y mirar si los avisos son reales. Hoy da uno real: la constitución cita `.brain/lecciones/metodo.md`, que ya no existe (las lecciones se trocearon en `metodo-*.md`); corregirlo es decisión de Darwin.
+- **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0, sin subir): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
+- **32:** npm, cargo y go en `librerias.py` y `eventos_chat.py` (spec 036, arnés 1.36.0, sin subir). Probado solo con respuestas simuladas; falta una prueba real con un proyecto que tenga `package-lock.json`, `Cargo.lock` o `go.mod`.
+
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 ## Acciones tuyas

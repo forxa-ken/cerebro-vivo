@@ -1,11 +1,11 @@
 # Spec 036: `librerias.py` y `eventos_chat.py` también para npm, cargo y go (punto 32)
 
-- **Estado:** borrador (2026-11-11), a aprobar por Darwin antes de programar
+- **Estado:** aprobada por Darwin el 2026-11-11 y programada en 1.36.0 (ajustes opcionales `ecosistemas` y `archivos` dentro del bloque `librerias` de `guardianes.json`; por defecto los cuatro ecosistemas)
 - **Origen:** hoy `librerias.py` solo lee `requirements.txt` y consulta OSV.dev con el ecosistema `PyPI`; `eventos_chat.py` reconoce `npm install`, `cargo add` y `go get`, pero de esos tres solo avisa una vez de que no pudo revisarlos. OSV.dev cubre los tres ecosistemas con la misma API.
 
 ## 1. En alcance
 - [ ] `librerias.py`: leer, además de `requirements.txt`, las versiones fijadas de `package-lock.json` (npm), `Cargo.lock` (cargo) y `go.sum`/`go.mod` (go) si existen; consultar OSV con los ecosistemas `npm`, `crates.io` y `Go`.
-- [ ] Versión mayor nueva: solo PyPI por ahora; npm (registry.npmjs.org) y crates.io solo si hay prueba sencilla; Go queda sin ese chequeo (se dice en el resumen).
+- [x] Versión mayor nueva: solo PyPI; npm, cargo y Go quedan sin ese chequeo (decidido al programar).
 - [ ] `eventos_chat.py`: tras `npm install`, `cargo add` o `go get`, revisar lo recién instalado con OSV igual que con pip (limpio: pasa; vulnerabilidad: detiene el `git push`), y quitar el aviso de «no pude revisarlo» para esos tres.
 - [ ] Ajustes en `guardianes.json` (claves nuevas que se proponen, no se pisan): ecosistemas activos y archivos a leer.
 - [ ] Proyecto sin ninguno de esos archivos: calla, como hoy.

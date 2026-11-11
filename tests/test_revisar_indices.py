@@ -226,5 +226,43 @@ class TestEnElRepo(unittest.TestCase):
         self.assertTrue(os.path.isfile(os.path.join(RAIZ, ".claude", "skills", "revisar-indices-de-ia", "SKILL.md")))
 
 
+class TestMemoriaDesactualizada(unittest.TestCase):
+    """Spec 037: lo que `.brain/` dice y ya no existe (solo lee, solo los casos claros)."""
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.d, True)
+        poner(self.d, ".brain/specs/035-fabrica.md", "x")
+        poner(self.d, ".brain/specs/archivo/034-vieja.md", "x")
+        poner(self.d, ".brain/decisions/D-012-algo.md", "x")
+        poner(self.d, ".brain/archive/hechos.md", "x")
+        os.makedirs(os.path.join(self.d, ".brain", "guardianes"), exist_ok=True)
+        self.a = rev.ajustes(CFG)
+
+    def hallazgos(self, pendientes):
+        poner(self.d, ".brain/pendientes.md", pendientes)
+        return [h["detalle"] for h in rev.hallazgos_memoria(self.d, self.a)]
+
+    def test_lo_que_existe_no_da_aviso(self):
+        self.assertEqual(self.hallazgos("- spec 035 y spec 034 en `.brain/specs/035-fabrica.md`, ver `archive/hechos.md` y D-012\n"), [])
+
+    def test_ruta_spec_y_ficha_que_faltan_se_avisan(self):
+        h = self.hallazgos("- mira `.brain/nada/falta.md`\n- spec 999\n- D-777\n")
+        self.assertEqual(len(h), 3)
+        self.assertTrue(any("falta.md" in x for x in h) and any("999" in x for x in h) and any("D-777" in x for x in h))
+
+    def test_ejemplos_nombres_sueltos_y_lineas_historicas_no_cuentan(self):
+        self.assertEqual(self.hallazgos("- p. ej. `.brain/nada/ejemplo.md`\n- `suelto.md`\n- spec 999 se borró\n"), [])
+
+    def test_aparece_en_el_informe_y_se_puede_descartar(self):
+        poner(self.d, "CLAUDE.md", "# x\n")
+        poner(self.d, ".brain/pendientes.md", "- spec 999\n")
+        inf = rev.analizar(self.d, CFG, HOY)
+        h = [x for x in inf["hallazgos"] if x["tipo"] == "memoria_desactualizada"]
+        self.assertEqual(len(h), 1)
+        rev.descartar(self.d, h[0]["clave"], "prueba")
+        self.assertFalse([x for x in rev.analizar(self.d, CFG, HOY)["hallazgos"] if x["tipo"] == "memoria_desactualizada"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -167,5 +167,38 @@ class TestMedirFabrica(unittest.TestCase):
         self.assertEqual(medir.fabrica_de_proyecto(os.path.join(d, "Nada"), d), {})
 
 
+class TestPorTarea(unittest.TestCase):
+    """Spec 038 (1B): tokens por tarea terminada (cierres escritos por la IA en el chat)."""
+
+    def chat(self, bloques):
+        d = tempfile.mkdtemp()
+        ruta = os.path.join(d, "x.jsonl")
+        lineas = [{"type": "user", "timestamp": "2026-11-01T10:00:00Z", "message": {"content": "Haz X"}}]
+        for i, b in enumerate(bloques):
+            lineas.append({"type": "assistant", "uuid": "u%d" % i, "message": {"id": "m%d" % i, "content": [b], "usage": {
+                "input_tokens": 10, "cache_creation_input_tokens": 100, "cache_read_input_tokens": 1000, "output_tokens": 50}}})
+        with open(ruta, "w", encoding="utf-8") as f:
+            f.write(chr(10).join(json.dumps(x) for x in lineas))
+        return ruta
+
+    def test_cuenta_registro_y_cerrar_py_pero_no_otras_ediciones(self):
+        ruta = self.chat([
+            {"type": "tool_use", "id": "a", "name": "Edit", "input": {"file_path": "F:/p/.brain/decisions.log"}},
+            {"type": "tool_use", "id": "b", "name": "Bash", "input": {"command": "python .brain/guardianes/cerrar.py --chat x y"}},
+            {"type": "tool_use", "id": "c", "name": "Edit", "input": {"file_path": "F:/p/otro.py"}},
+            {"type": "tool_use", "id": "b", "name": "Bash", "input": {"command": "python .brain/guardianes/cerrar.py --chat x y"}}])
+        self.assertEqual(medir.cierres_de_chat(ruta), 2)  # el mismo id repetido no suma dos veces
+        d = medir.medir_chat(ruta)
+        self.assertEqual(d["cierres"], 2)
+        tokens, tareas, chats = medir.por_tarea([d])
+        self.assertEqual((tareas, chats), (2, 1))
+        self.assertEqual(tokens, (d["nuevos"] + d["salida"]) / 2)
+
+    def test_sin_cierres_no_hay_dato(self):
+        d = medir.medir_chat(self.chat([{"type": "tool_use", "id": "a", "name": "Read", "input": {"file_path": "x"}}]))
+        self.assertEqual(d["cierres"], 0)
+        self.assertIsNone(medir.por_tarea([d]))
+
+
 if __name__ == "__main__":
     unittest.main()
