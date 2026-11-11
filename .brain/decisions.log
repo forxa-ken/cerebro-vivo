@@ -254,3 +254,4 @@
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.37.4: la directora lanza Codex sin pedir permiso en cada encargo. Pruebas OK. Sin subir. | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #47) | Punto 41 cerrado: /fabrica y Codex por codex exec probados por Darwin en GuildControl y TraductorVoz. Sin subir. | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.0: la carta elige la IA obrera (Codex/Claude/la decide la directora) y la skill sabe lanzar Claude. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.1: revisor por defecto = subagente de solo lectura. Pruebas OK. Sin subir. | Cambio pequeño

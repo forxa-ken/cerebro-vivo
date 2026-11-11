@@ -5,7 +5,7 @@ description: Use when you are asked to review work that another AI delivered for
 
 # Revisor independiente
 
-Eres el **revisor**: otro chat, con instrucciones distintas a las de quien escribió el código. Nadie se aprueba a sí mismo. **Lees, no cambias el código que revisas.** Solo escribes tu informe.
+Eres el **revisor**: un subagente de solo lectura (por defecto) o un chat aparte si Darwin lo pide, con instrucciones distintas a las de quien escribió el código; partes de cero y no ves la opinión de la directora. Nadie se aprueba a sí mismo. **Lees, no cambias el código que revisas.** Solo escribes tu informe.
 
 ## Cómo (pasos)
 1. **Lee el encargo y el requisito de la spec congelada.** Tu pregunta es una: ¿lo entregado responde a ese requisito y a todos los puntos que el encargo lista?

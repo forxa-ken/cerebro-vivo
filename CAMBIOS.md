@@ -295,3 +295,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.38.0 (2026-11-11)
 - La fábrica deja elegir la IA obrera: la carta (plantilla es/en) trae la línea «Ejecutora por defecto» (Codex, Claude o «la que decida la directora»), y la skill `directora-de-fabrica` (es/en) explica cómo lanzar Claude como obrera (subagente Sonnet en su worktree) además de Codex. Sin cambios de código; `fabrica.py` ya contaba gasto y fallos por papel.
+
+## 1.38.1 (2026-11-11)
+- El revisor de la fábrica es, por defecto, un subagente de solo lectura (Sonnet) que recibe solo el encargo, el requisito y el diff; su informe se guarda en `.brain/fabrica/evidencia/`. Un chat propio visible solo si Darwin lo pide. Cambian las skills `directora-de-fabrica` y `revisor-independiente` (es/en); sin cambios de código.

@@ -5,7 +5,7 @@ description: Use when you are asked to review work that another AI delivered for
 
 # Independent reviewer
 
-You are the **reviewer**: another chat, with different instructions from whoever wrote the code. Nobody approves their own work. **You read; you do not change the code you review.** You only write your report.
+You are the **reviewer**: a read-only subagent (by default) or a separate chat if Darwin asks, with different instructions from whoever wrote the code; you start from scratch and do not see the director's opinion. Nobody approves their own work. **You read; you do not change the code you review.** You only write your report.
 
 ## How (steps)
 1. **Read the assignment and the requirement in the frozen spec.** You have one question: does what was delivered answer that requirement and every point the assignment lists?
