@@ -302,3 +302,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.39.0 (2026-11-11)
 - Skill nueva `revisor-de-consumo` (es/en): subagente de solo lectura que, al terminar un módulo o la misión de una fábrica, busca gasto de recursos de más (CPU, memoria, disco, red, batería) y mide cuando puede. La directora decide: lo que incumple el presupuesto de la spec vuelve a la ejecutora como encargo de arreglo; lo demás va a propuestas y se pregunta a Darwin.
 - La plantilla de la spec y la skill `directora-de-fabrica` piden ahora un **presupuesto de recursos** en la spec («sin presupuesto» si no importa). Sin cambios de código.
+
+## 1.39.1 (2026-11-11)
+- `/fabrica si` abre el chat de la directora con Opus y esfuerzo medio, y lo llama «directora #N» (la cuenta N se lleva en `.brain/fabrica/directora_n.txt`). Comprueba después con `get_session` que quedó así y lo corrige si el chat que lo abrió no era Opus. Solo cambia la skill `fabrica` (es/en).

@@ -84,8 +84,8 @@
   ".claude/skills/directora-de-fabrica/SKILL.md": "84d3d5fb046b2e2390805a61630287037a2f68ba42c053e64b9fd1c59410284e",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
-  ".claude/skills/fabrica/SKILL.en.md": "abdacd58836667532b00e27f5f6f292a635cd5ba87d54609ecee9bec74b9346c",
-  ".claude/skills/fabrica/SKILL.md": "f5f61f82365c9f4850b33f3ffc7c8465518f595893a9001376c45f3050033425",
+  ".claude/skills/fabrica/SKILL.en.md": "e6b065faeafbf2b92a80e7d660034abde2a3e106b09aeddb5b145aa15d433edb",
+  ".claude/skills/fabrica/SKILL.md": "75050024b832c5a9465b96fed7e6830eb6efc4f335f69a8599e24208a97b4a39",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.en.md": "d104304dd2a0793cf01d96190458cd76b7b6d594cead3b551c8e88b3ec602f1c",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.md": "58f0e306bdcb0e6c34e10ef0db29237c9e13aa1c4a8f67fa23baf343cffd444e",
   ".claude/skills/implementada-no-es-hecha/SKILL.en.md": "ae1a18c3325c367c8219800e8b1d8128217622ce807e7b9159b5b94ca285182e",
@@ -194,5 +194,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.39.0"
+ "version": "1.39.1"
 }

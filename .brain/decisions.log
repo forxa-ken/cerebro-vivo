@@ -256,3 +256,4 @@
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.0: la carta elige la IA obrera (Codex/Claude/la decide la directora) y la skill sabe lanzar Claude. Pruebas OK. Sin subir. | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.1: revisor por defecto = subagente de solo lectura. Pruebas OK. Sin subir. | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.39.0: skill revisor-de-consumo (es/en) y presupuesto de recursos en la spec. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.39.1: directora nueva con Opus medio y nombre directora #N. Pruebas OK. Sin subir. | Cambio pequeño
