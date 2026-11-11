@@ -280,3 +280,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.37.0 (2026-11-11)
 - Nuevo `/fabrica si|no|estado` (spec 040): interruptor del modo fábrica, **recordado entre chats** (`modo_fabrica` en `guardianes.json`). Con `si`, el arranque de cada chat dice «MODO FÁBRICA ACTIVADO» y la IA actúa como directora; con `no`, modo normal. Apagado por defecto; los proyectos con `.brain/fabrica/` de antes no cambian. Nueva skill `fabrica` (es/en), `fabrica.py modo`, textos es/en y pruebas.
+
+## 1.37.1 (2026-11-11)
+- `/fabrica si` abre solo el chat de la directora: escribe el traspaso, abre un chat limpio con `start_session` (Opus, sin pedir permiso) y lo separa con `detach_session`. Antes solo escribía el traspaso y Darwin tenía que abrir el chat a mano. Solo cambia la skill (es/en); sin cambios de código.

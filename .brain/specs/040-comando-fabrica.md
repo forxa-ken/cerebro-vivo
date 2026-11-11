@@ -1,6 +1,6 @@
 # Spec 040: comando `/fabrica si|no|estado` (modo fábrica persistente)
 
-- **Estado:** aprobada por Darwin el 2026-11-11 y programada en 1.37.0 (sin subir).
+- **Estado:** aprobada por Darwin el 2026-11-11 y programada en 1.37.0; refinada en 1.37.1: `si` abre solo el chat de la directora (petición de Darwin tras probarlo en TraductorVoz).
 - **Origen:** Darwin no quiere que el modo fábrica dependa de acordarse en cada chat: «el sentido de la fábrica es el trabajo autónomo de la IA; si hay que intervenir en todos los chats, no se hace nada». Quiere poder usar el proyecto de las dos maneras (fábrica o normal), con un comando, y que el modo **se quede** entre chats.
 
 ## 1. En alcance
