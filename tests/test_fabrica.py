@@ -193,6 +193,15 @@ class ModoFabricaTest(unittest.TestCase):
         self.assertEqual(codigo, 1)
         self.assertIn("modo si|no|estado", lineas[0])
 
+    def test_topes_no_falla_con_consola_cp1252(self):
+        """Consola de Windows (cp1252): el emoji del mensaje no debe romper el guardián."""
+        import os
+        import sys
+        env = dict(os.environ, PYTHONIOENCODING="cp1252")
+        r = subprocess.run([sys.executable, str(RAIZ / ".brain" / "guardianes" / "fabrica.py"), "--raiz", str(self.raiz), "topes"],
+                           capture_output=True, env=env)
+        self.assertEqual(r.returncode, 0, r.stderr.decode("utf-8", "replace"))
+
     def test_estado_dice_si_falta_la_carta(self):
         self.f.modo("si")
         self.assertIn("sin escribir", self.f.modo("estado")[1][1])

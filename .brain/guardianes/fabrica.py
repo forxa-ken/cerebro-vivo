@@ -263,6 +263,11 @@ class Fabrica:
 
 
 def main(argv=None):
+    for s in (sys.stdout, sys.stderr):  # consolas de Windows (cp1252) no aguantan emojis ni acentos
+        try:
+            s.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--raiz", default=str(Path(AQUI).parents[1]), help="raíz del proyecto (por defecto, la de este guardián)")
     sub = ap.add_subparsers(dest="orden", required=True)

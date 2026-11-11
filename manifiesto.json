@@ -48,7 +48,7 @@
   ".brain/guardianes/cerrar.py": "3c5e366a5128939b7d7d20558b4bc26f9f6f3e65901ea59c3e8c5b9017a5151a",
   ".brain/guardianes/cierre.py": "5546ec51346d54cc57781d44760ed18ff6a1b2a81408adc3e58943dccb65d1fe",
   ".brain/guardianes/eventos_chat.py": "e1d2a7d784c85200c219791aa42e11f8ce453bfb99c366e20c5ae8d76f35c3f1",
-  ".brain/guardianes/fabrica.py": "f9d7cfda3bdcbfc29cd01cbb89a4d898d9af3a72e02cee4e12b71d04d1517600",
+  ".brain/guardianes/fabrica.py": "c10529d11f792ecf5981e87d50720e969663ec76ff5be324aad00fe9ed615229",
   ".brain/guardianes/guardar_traspaso.py": "4ce4359519f95863711aad34f074360bb902f1efc8c4c2f9f4cfd277e312eb0f",
   ".brain/guardianes/hitos.py": "c038dfd302868237a50fd21e96ac6d2e1c795727b0117686527affdae4f6197c",
   ".brain/guardianes/indices.py": "2b4ec3b5c18004a826b6a0a845a72362474e8ab3d8d00f62db3d4dadfe62c96c",
@@ -141,7 +141,7 @@
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
-  "tests/test_fabrica.py": "ad75ccc3f3b1fe973301634af1098155ec0a91f00ab658af0e4c204e4ce45760",
+  "tests/test_fabrica.py": "306fd6937ae047d2e5102f70cac99c92ab7c595c0a68ddfeb2db2aeb40f5565b",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hitos.py": "aa54e448773ebe9ce4180a46fb2c9ab217d696ca865d8b3f0be51cf38fe9be66",
   "tests/test_instalar_gui.py": "be24832e32e66834c041bf9653359d1e1bf27afd3168df2ef637af894c5e1f86",
@@ -192,5 +192,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.37.1"
+ "version": "1.37.2"
 }

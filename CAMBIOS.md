@@ -283,3 +283,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.37.1 (2026-11-11)
 - `/fabrica si` abre solo el chat de la directora: escribe el traspaso, abre un chat limpio con `start_session` (Opus, sin pedir permiso) y lo separa con `detach_session`. Antes solo escribía el traspaso y Darwin tenía que abrir el chat a mano. Solo cambia la skill (es/en); sin cambios de código.
+
+## 1.37.2 (2026-11-11)
+- Arreglo: `fabrica.py` ya no se rompe en consolas de Windows (cp1252) por el emoji de sus mensajes (lo halló la directora de TraductorVoz con `topes`). Con prueba.
