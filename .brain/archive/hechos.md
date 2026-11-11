@@ -99,3 +99,7 @@ esultado-prueba-B.md` y `archive/diario-fabrica-r13.md`.
 ## 41 · `/fabrica` y Codex por `codex exec` (spec 040, arnés 1.37.0 a 1.37.4) — PROBADO
 **Fecha:** 2026-11-11 (chat #47)
 Darwin lo probó en GuildControlForever y TraductorVoz con el arnés 1.37.4: el modo fábrica se recuerda entre chats y arranca la directora; la directora lanza Codex con `codex exec` sin pedir permiso en cada encargo y solo para al segundo fallo seguido o si salta un tope. Spec 040; arnés 1.37.0 a 1.37.4.
+
+## 40 · Resumen en llano de los trabajos citados en «Fuentes» — CERRADO sin escribirlo
+**Fecha:** 2026-11-12 (chat #47)
+Darwin ordenó cerrar el punto. No se escribió el resumen (un autor externo, Stanford, Meta-Harness, Databricks, ADR, GitHub Spec Kit, fábrica de software). Los enlaces siguen en la sección «Fuentes» del README para quien quiera leerlos. Texto original del punto: resumen en llano, para que Darwin los lea, de los trabajos citados en «Fuentes» (README): un autor externo (un proyecto externo), Stanford (Meta-Harness), Databricks (Omnigent), ADR (Nygard, Fowler, Microsoft, Red Hat, AWS), GitHub Spec Kit (constitution.md, spec-driven.md, blog de Delimarsky) y fábrica de software (Cusumano 1991, Greenfield y Short 2004). Qué dice cada uno, qué tomamos y qué es propio. Sin empezar; no es código.

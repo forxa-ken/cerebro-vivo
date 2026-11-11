@@ -32,3 +32,5 @@
 | 19-B | Prueba de Codex con ventana llena y relevo (relevo probado; aviso en vivo no probado, riesgo conocido) | 2026-11-10 | archive/hechos.md |
 
 | 41 | `/fabrica` y Codex por `codex exec` (probado en GuildControlForever y TraductorVoz) | 2026-11-11 | archive/hechos.md |
+
+| 40 | Resumen en llano de las «Fuentes» (cerrado sin escribirlo, por orden de Darwin) | 2026-11-12 | archive/hechos.md |
