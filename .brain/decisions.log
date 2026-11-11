@@ -251,3 +251,4 @@
 2026-11-11 | Claude (cerebro-vivo #46) | Refinado /fabrica si (arnes 1.37.1): abre solo el chat de la directora (traspaso + start_session + detach_session), tras la prueba real de Darwin en TraductorVoz; solo skill es/en; 429 pruebas OK; commit local, sin subir | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #46) | Arreglo 1.37.2: fabrica.py ya no falla con consola cp1252 (emoji), hallado por la directora de TraductorVoz; con prueba; 430 pruebas OK; commit local, sin subir | Cambio pequeño
 2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.37.3: skill directora-de-fabrica (es/en) con el paso de lanzar Codex por codex exec. 430 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.37.4: la directora lanza Codex sin pedir permiso en cada encargo. Pruebas OK. Sin subir. | Cambio pequeño
