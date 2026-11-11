@@ -291,4 +291,4 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 - La skill `directora-de-fabrica` (es/en) añade el paso de lanzar a la ejecutora Codex por comando (`codex exec -s workspace-write -C carpeta`, entrada cerrada, tope 900 s, foto con `--repo` de esa carpeta, pruebas corridas por la directora, permiso de Darwin en cada lanzamiento, y si falla, texto para pegar a mano). Solo cambia la skill; sin cambios de código.
 
 ## 1.37.4 (2026-11-11)
-- La skill `directora-de-fabrica` (es/en) ya no pide permiso a Darwin en cada lanzamiento de Codex: la directora lanza sola y solo para si salta un tope, van dos fallos seguidos o pasa algo imprevisto. Las puertas (a) y (c) siguen siendo de Darwin. Solo cambia la skill.
+- La skill `directora-de-fabrica` (es/en) ya no pide permiso a Darwin en cada lanzamiento de Codex: la directora lanza sola y solo para si salta un tope, van dos fallos seguidos o pasa algo imprevisto. Un solo fallo tampoco se pregunta (se anota con `--fallo` y se relanza); solo el segundo seguido. Las puertas (a) y (c) siguen siendo de Darwin. Solo cambia la skill.
