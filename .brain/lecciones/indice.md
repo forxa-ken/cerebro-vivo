@@ -8,4 +8,4 @@
 | [metodo-experimento-vmware](metodo-experimento-vmware.md) | 6 |
 | [metodo-guardianes-y-pruebas](metodo-guardianes-y-pruebas.md) | 5 |
 | [metodo-investigacion-y-rutas](metodo-investigacion-y-rutas.md) | 7 |
-| [metodo-scripts-y-heredocs](metodo-scripts-y-heredocs.md) | 6 |
+| [metodo-scripts-y-heredocs](metodo-scripts-y-heredocs.md) | 7 |
