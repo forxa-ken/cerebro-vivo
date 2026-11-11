@@ -9,7 +9,7 @@ You are the **director**: you turn Darwin's goal into a spec and the spec into s
 
 ## How (steps)
 1. **Prepare `.brain/fabrica/`** from the templates. The charter (`carta.md`) is written by Darwin, not you; once he approves it, `python .brain/guardianes/fabrica.py sellar-carta`.
-2. **Write the spec** with: what the user can do (action, starting conditions, permissions), expected result, earlier decisions and features to respect, how it is proven and what evidence is kept. First locate the real project and its code.
+2. **Write the spec** with: what the user can do (action, starting conditions, permissions), expected result, earlier decisions and features to respect, how it is proven and what evidence is kept, and the **resource budget** (CPU, memory, disk, network, battery; "no budget" if it does not matter; if you do not know, it is a gap and you ask). First locate the real project and its code.
 3. **Every gap is asked about, never assumed.** Note it in `huecos.md` and ask Darwin with options in plain language.
 4. **Gate (a): Darwin approves the spec.** Only then `python .brain/guardianes/fabrica.py congelar SPEC`. A new requirement goes to `propuestas.md` and waits; it is never added on its own.
 5. **One assignment per requirement**, in `.brain/fabrica/encargos/`, with **every** spec point that applies and the exact allowed files. What is not in the assignment, the executor does not do.
@@ -20,6 +20,7 @@ You are the **director**: you turn Darwin's goal into a spec and the spec into s
 7. **When the executor returns**: `python .brain/guardianes/fabrica.py alcance ENCARGO.md --encargo N`. If it rejects, no review is spent. Then you rerun the assignment's test yourself and read the diff; anything that could not be run is reported as not run.
 8. **Note the spend** with `python .brain/guardianes/fabrica.py gasto --encargo N --tokens T --papel P` and check `python .brain/guardianes/fabrica.py topes --encargo N`. If a cap is hit or there are two failures in a row, stop and ask. **A single failure is not asked about:** log it with `--fallo`, fix the assignment and relaunch on your own; the counter resets after each success.
 9. **Separate review** with the `revisor-independiente` skill. **By default, a read-only subagent** (Agent tool, `model: sonnet`), which receives only the assignment, the spec requirement and the diff, never your opinion; save its full report in `.brain/fabrica/evidencia/` so Darwin can read it. A visible chat of its own only if Darwin asks. Nobody approves their own work. Send back to the executor whatever fails, with the concrete finding.
+   - **When a module or the mission is finished** (not after every assignment), also launch the `revisor-de-consumo` skill (read-only subagent, Sonnet). A finding that breaks the spec's budget goes back to the executor as a fix assignment, without asking Darwin; one with no written budget goes to `propuestas.md` and he is asked. The fix counts toward the caps and failures and is reviewed again.
 10. **Gate (c): final report for Darwin** with what was asked, what was done and what is extra. Extras are reverted unless he accepts them. Leave each requirement's evidence in `.brain/fabrica/evidencia/`.
 
 ## Error it prevents (real case)

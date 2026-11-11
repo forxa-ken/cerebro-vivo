@@ -39,7 +39,7 @@ File `.brain/fabrica/roles.md`: who does what and who owns each file. Someone el
 
 ## 3. Darwin's three gates
 
-1. **The spec**, before anything is launched. It must have: what the user can do (action, starting conditions, permissions), expected result, which earlier decisions and features must be respected, how it is proven and what evidence is kept.
+1. **The spec**, before anything is launched. It must have: what the user can do (action, starting conditions, permissions), expected result, which earlier decisions and features must be respected, how it is proven and what evidence is kept, and the **resource budget** (CPU, memory, disk, network, battery: how much it may spend; if it does not matter, write "no budget").
 2. **Each gap** in the spec: it is recorded and asked about; nobody fills it with an assumption.
 3. **The final report**: what was asked, what was done and what is extra. Extras are reverted unless Darwin accepts them.
 

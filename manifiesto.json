@@ -5,8 +5,8 @@
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
   ".brain/biblioteca/CEREBRO_VIVO.en.md": "f19f7017c294e409a0bb7d5efa9e83ab9c6859519cf5b401a6a82a6eb1233fe8",
   ".brain/biblioteca/CEREBRO_VIVO.md": "ff816ca3419482a546a168acf34699380b6092272361639e6f7491aa50bbd65a",
-  ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "7ef4233033348725cdce73c62732103a030478fb9dcc867318478549d6c486f4",
-  ".brain/biblioteca/PLANTILLAS_FABRICA.md": "9dbb310c9c34ff06a73f16029c4f21cfc8db0eaa08d429cf53f3e82448894874",
+  ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "f82b3f87acb91332e2d30743e32279578ac35dab443ab7fd8996c1ec03626205",
+  ".brain/biblioteca/PLANTILLAS_FABRICA.md": "caca18703b74f6df7df12dbb92a0420e3fbb0ca9e2b1d6dd7504d8ee4e2c5ec5",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.en.md": "d37cb2ba815351e9ea71ac938096c4e3c7ccbf93e3edaea8c8513870a7bce598",
   ".brain/biblioteca/PLANTILLA_NOTA_CHAT.md": "be545e2d7ed9396a9d168955919f0559b3b97cd89f293097ceadbb239e21b64f",
   ".brain/biblioteca/PLANTILLA_TRASPASO.en.md": "ef85bebb28f62c7397a2d7700b2afd2fc97e2c6ae32e6767ed01ff81722059f9",
@@ -80,8 +80,8 @@
   ".claude/skills/cerrar-una-tarea/SKILL.md": "ed85cd2214f648a4cfbdc6f7c6d738a21bf9c69011735e5bb67960906e35e839",
   ".claude/skills/chat-nuevo/SKILL.en.md": "b517714f25a713b5c4f1402b1d1f46d3b9e4904a485f42bd4ef8a1c304a8167f",
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "456cb42ecfb5e6dfc2244250ea6c101054b5cdb6c3422f252ace03e7d3c92ac4",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "0ad474ef700117dec08521863a334e8ad45cb0d34121ab7f2e5095d2112ef42a",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "70e8c0c681a73f894165ccb97a38c7794cbf5ecb50915f6e81131c051152aea8",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "84d3d5fb046b2e2390805a61630287037a2f68ba42c053e64b9fd1c59410284e",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "abdacd58836667532b00e27f5f6f292a635cd5ba87d54609ecee9bec74b9346c",
@@ -112,6 +112,8 @@
   ".claude/skills/resumen/SKILL.md": "e464c73fecde292cc77c02422a6f940c61b42d3a6f54d90fd71813e9f80329b7",
   ".claude/skills/revisar-indices-de-ia/SKILL.en.md": "67abe590289c1e593f8795e03e5872fbfb51fc4198cfcfcfb1df20cd8d1f9357",
   ".claude/skills/revisar-indices-de-ia/SKILL.md": "4025e846a98607d507e2830d334a811f5dd00feb07e2c377eb8e469253a45c97",
+  ".claude/skills/revisor-de-consumo/SKILL.en.md": "0ba030f8c4fcbf5128367d104b4a98e56b2ff4aa5b45bfeb4fe5876953b09b3e",
+  ".claude/skills/revisor-de-consumo/SKILL.md": "0898487bf866536afff852f77a06562977e748a5e6b24297e77f8fdf5af6e4ce",
   ".claude/skills/revisor-independiente/SKILL.en.md": "cc3583e1447ee13b2b809946e469bb29208d73bc64903767332446526272cf9a",
   ".claude/skills/revisor-independiente/SKILL.md": "d0f6a7b1cf041b05af32d8c38f4e6654f99757a8589f9abd772207b7e2742aa3",
   ".claude/skills/secretos-fuera-del-repo/SKILL.en.md": "c4748964eb26fc09994e5e8c7efe2cb16d3f1ad32283a7805b7673e384fa2c76",
@@ -192,5 +194,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.38.1"
+ "version": "1.39.0"
 }

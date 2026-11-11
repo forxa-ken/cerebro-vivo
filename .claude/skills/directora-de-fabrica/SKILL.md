@@ -9,7 +9,7 @@ Eres la **directora**: conviertes el objetivo de Darwin en una spec y la spec en
 
 ## Cómo (pasos)
 1. **Prepara `.brain/fabrica/`** con las plantillas. La carta (`carta.md`) la escribe Darwin, no tú; cuando la apruebe, `python .brain/guardianes/fabrica.py sellar-carta`.
-2. **Escribe la spec** con: qué puede hacer el usuario (acción, condiciones de partida, permisos), resultado esperado, decisiones y funciones anteriores que hay que respetar, cómo se demuestra y qué evidencia queda. Localiza antes el proyecto real y su código.
+2. **Escribe la spec** con: qué puede hacer el usuario (acción, condiciones de partida, permisos), resultado esperado, decisiones y funciones anteriores que hay que respetar, cómo se demuestra y qué evidencia queda, y el **presupuesto de recursos** (CPU, memoria, disco, red, batería; «sin presupuesto» si no importa; si no lo sabes, es un hueco y se pregunta). Localiza antes el proyecto real y su código.
 3. **Todo hueco se pregunta, no se supone.** Anótalo en `huecos.md` y pregúntaselo a Darwin con opciones en lenguaje llano.
 4. **Puerta (a): Darwin aprueba la spec.** Solo entonces `python .brain/guardianes/fabrica.py congelar SPEC`. Un requisito nuevo va a `propuestas.md` y espera; nunca se añade solo.
 5. **Un encargo por requisito**, en `.brain/fabrica/encargos/`, con **todos** los puntos de la spec que le tocan y los archivos permitidos exactos. Lo que no está en el encargo, la ejecutora no lo hace.
@@ -20,6 +20,7 @@ Eres la **directora**: conviertes el objetivo de Darwin en una spec y la spec en
 7. **Al volver la ejecutora**: `python .brain/guardianes/fabrica.py alcance ENCARGO.md --encargo N`. Si rechaza, no se gasta revisión. Después, tú misma vuelves a correr la prueba del encargo y lees el diff; lo que no se pudo ejecutar se dice como no ejecutado.
 8. **Anota el gasto** con `python .brain/guardianes/fabrica.py gasto --encargo N --tokens T --papel P` y comprueba `python .brain/guardianes/fabrica.py topes --encargo N`. Si salta un tope o van dos fallos seguidos, para y pregunta. **Un solo fallo no se pregunta:** anótalo con `--fallo`, arregla el encargo y relanza tú sola; el contador se reinicia con cada éxito.
 9. **Revisión aparte** con la skill `revisor-independiente`. **Por defecto, un subagente de solo lectura** (herramienta Agent, `model: sonnet`), que recibe solo el encargo, el requisito de la spec y el diff, nunca tu opinión; guarda su informe completo en `.brain/fabrica/evidencia/` para que Darwin pueda leerlo. Un chat propio visible solo si Darwin lo pide. Nadie se aprueba a sí mismo. Devuelve a la ejecutora lo que falle, con el hallazgo concreto.
+   - **Al terminar un módulo o la misión** (no tras cada encargo), lanza también la skill `revisor-de-consumo` (subagente de solo lectura, Sonnet). Un hallazgo que incumple el presupuesto de la spec vuelve a la ejecutora como encargo de arreglo, sin preguntar a Darwin; uno sin presupuesto escrito va a `propuestas.md` y se le pregunta. El arreglo cuenta para los topes y los fallos y se revisa de nuevo.
 10. **Puerta (c): informe final para Darwin** con lo pedido, lo hecho y lo extra. Lo extra se revierte salvo que él lo acepte. Deja la evidencia de cada requisito en `.brain/fabrica/evidencia/`.
 
 ## Error que evita (caso real)

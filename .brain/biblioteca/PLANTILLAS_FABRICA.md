@@ -39,7 +39,7 @@ Archivo `.brain/fabrica/roles.md`: quién hace qué y quién es dueño de cada a
 
 ## 3. Las tres puertas de Darwin
 
-1. **La spec**, antes de lanzar nada. Debe tener: qué puede hacer el usuario (acción, condiciones de partida, permisos), resultado esperado, qué decisiones y funciones anteriores hay que respetar, cómo se demuestra y qué evidencia queda guardada.
+1. **La spec**, antes de lanzar nada. Debe tener: qué puede hacer el usuario (acción, condiciones de partida, permisos), resultado esperado, qué decisiones y funciones anteriores hay que respetar, cómo se demuestra y qué evidencia queda guardada, y el **presupuesto de recursos** (CPU, memoria, disco, red, batería: cuánto puede gastar; si no importa, se escribe «sin presupuesto»).
 2. **Cada hueco** de la spec: se registra y se pregunta; nadie lo rellena con una suposición.
 3. **El informe final**: lo pedido, lo hecho y lo extra. Lo extra se revierte salvo que Darwin lo acepte.
 
