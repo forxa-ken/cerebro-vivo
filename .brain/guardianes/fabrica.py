@@ -69,6 +69,30 @@ class Fabrica:
     def t(self, clave, *args):
         return t(self.cfg, clave, *args)
 
+    # --- modo fábrica: interruptor persistente por proyecto (spec 040) --------------------------
+    def modo(self, orden):
+        orden = (orden or "estado").strip().lower()
+        ruta = str(self.raiz / ".brain" / "guardianes" / "guardianes.json")
+        cfg = _json(ruta, {})
+        os.makedirs(os.path.dirname(ruta), exist_ok=True)
+        if orden in ("si", "sí", "on", "yes", "activar", "activa"):
+            cfg["modo_fabrica"] = True
+            self.estado.mkdir(parents=True, exist_ok=True)
+            (self.dir / "encargos").mkdir(parents=True, exist_ok=True)
+        elif orden in ("no", "off", "desactivar", "desactiva"):
+            cfg["modo_fabrica"] = False
+        elif orden != "estado":
+            return 1, [self.t("fabrica_modo_uso")]
+        if orden != "estado":
+            with open(ruta + ".tmp", "w", encoding="utf-8", newline="\n") as f:
+                f.write(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n")
+            os.replace(ruta + ".tmp", ruta)
+        activo = bool(cfg.get("modo_fabrica"))
+        lineas = [self.t("fabrica_modo_si" if activo else "fabrica_modo_no")]
+        if activo:
+            lineas.append(self.t("fabrica_modo_carta_ok" if self.carta.is_file() else "fabrica_modo_falta"))
+        return 0, lineas
+
     # --- huellas: spec congelada y carta sellada -------------------------------------------------
     def _huellas(self):
         return _json(self.estado / "huellas.json", {})
@@ -245,6 +269,7 @@ def main(argv=None):
     s = sub.add_parser("congelar"); s.add_argument("spec"); s.add_argument("--reemplazar", action="store_true")
     s = sub.add_parser("sellar-carta"); s.add_argument("--reemplazar", action="store_true")
     sub.add_parser("verificar")
+    s = sub.add_parser("modo"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("foto"); s.add_argument("--repo", default=None); s.add_argument("--encargo", required=True)
     s = sub.add_parser("alcance"); s.add_argument("encargo_md"); s.add_argument("--repo", default=None); s.add_argument("--encargo", required=True)
     s = sub.add_parser("gasto"); s.add_argument("--encargo", required=True); s.add_argument("--tokens", type=int, required=True)
@@ -258,6 +283,8 @@ def main(argv=None):
         codigo, lineas = f.congelar(a.spec, a.reemplazar)
     elif a.orden == "sellar-carta":
         codigo, lineas = f.sellar_carta(a.reemplazar)
+    elif a.orden == "modo":
+        codigo, lineas = f.modo(a.palabra)
     elif a.orden == "verificar":
         codigo, lineas = f.verificar()
     elif a.orden == "foto":

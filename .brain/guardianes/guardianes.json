@@ -29,6 +29,7 @@
   "alerta_contexto_tokens": 300000,
   "longitud_activa": true,
   "chat_nuevo_auto": true,
+  "modo_fabrica": false,
   "lecciones_activas": true,
   "lecciones_vigiladas": {},
   "hitos_max_archivos": 5,

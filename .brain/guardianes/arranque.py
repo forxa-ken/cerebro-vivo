@@ -208,6 +208,8 @@ def texto_sin_commitear(sucios, lengua=None):
 
 def resumen(raiz, cfg):
     lineas = [t(cfg, "arranque_titulo")]
+    if cfg.get("modo_fabrica"):  # spec 040: el modo fábrica se recuerda entre chats
+        lineas.append(t(cfg, "arranque_modo_fabrica"))
     try:
         ruta_p = os.path.join(raiz, cfg["pendientes"])
         with open(ruta_p, encoding="utf-8") as f:

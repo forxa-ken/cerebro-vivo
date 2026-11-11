@@ -35,4 +35,5 @@
 | [memoria-traspaso](../../.claude/skills/memoria-traspaso/SKILL.md) | typing /memoria-traspaso or the full detail of the previous chat is needed | Método | cerebro-vivo 1.24.0 |
 | [seguridad-en-sistemas-reales](../../.claude/skills/seguridad-en-sistemas-reales/SKILL.md) | the project will act on real servers, infrastructure or data, or when writing the engine/safety rules of such a project | Método | cerebro-vivo 1.30.0 |
 | [directora-de-fabrica](../../.claude/skills/directora-de-fabrica/SKILL.md) | Darwin asks you to direct a factory of AIs (you write the spec and the assignments, other AIs execute and review), or a project has .brain/fabrica/ | Método | cerebro-vivo 1.33.0 |
+| [fabrica](../../.claude/skills/fabrica/SKILL.md) | Darwin types /fabrica (si, no or estado) or asks to turn on or off the factory mode of the project | Método | cerebro-vivo 1.37.0 |
 | [revisor-independiente](../../.claude/skills/revisor-independiente/SKILL.md) | you are asked to review work that another AI delivered for a factory assignment, or any delivery you did not write yourself | Método | cerebro-vivo 1.33.0 |

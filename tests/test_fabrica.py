@@ -155,5 +155,61 @@ class FabricaTest(unittest.TestCase):
         self.assertEqual(fabrica.Fabrica.leer_encargo(self.encargo), ("R1", ["a.lua", "b.lua"]))
 
 
+class ModoFabricaTest(unittest.TestCase):
+    """Spec 040: interruptor persistente `modo_fabrica` y su aviso en el arranque."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.raiz = Path(self.tmp.name)
+        self.f = fabrica.Fabrica(self.raiz, {"idioma": "es"})
+        self.cfg = self.raiz / ".brain" / "guardianes" / "guardianes.json"
+
+    def _valor(self):
+        import json
+        return json.loads(self.cfg.read_text(encoding="utf-8")).get("modo_fabrica")
+
+    def test_activa_apaga_y_persiste(self):
+        self.assertEqual(self.f.modo("si")[0], 0)
+        self.assertTrue(self._valor())
+        self.assertTrue((self.raiz / ".brain" / "fabrica" / "encargos").is_dir())
+        # otra instancia (otro chat) lo sigue viendo activo
+        self.assertIn("ACTIVADO", fabrica.Fabrica(self.raiz, {"idioma": "es"}).modo("estado")[1][0])
+        self.f.modo("no")
+        self.assertFalse(self._valor())
+
+    def test_si_no_pisa_lo_existente_ni_no_borra(self):
+        carta = self.raiz / ".brain" / "fabrica" / "carta.md"
+        carta.parent.mkdir(parents=True)
+        carta.write_text("mi carta", encoding="utf-8")
+        self.f.modo("si")
+        self.f.modo("no")
+        self.assertEqual(carta.read_text(encoding="utf-8"), "mi carta")
+
+    def test_estado_no_escribe_y_palabra_mala_da_uso(self):
+        self.assertEqual(self.f.modo("estado")[0], 0)
+        self.assertFalse(self.cfg.exists())
+        codigo, lineas = self.f.modo("quizas")
+        self.assertEqual(codigo, 1)
+        self.assertIn("modo si|no|estado", lineas[0])
+
+    def test_estado_dice_si_falta_la_carta(self):
+        self.f.modo("si")
+        self.assertIn("sin escribir", self.f.modo("estado")[1][1])
+
+    def test_arranque_avisa_solo_con_el_modo_activo(self):
+        e = importlib.util.spec_from_file_location("arranque_g", RAIZ / ".brain" / "guardianes" / "arranque.py")
+        arranque = importlib.util.module_from_spec(e)
+        e.loader.exec_module(arranque)
+        base = {"idioma": "es", "pendientes": ".brain/pendientes.md", "registro": ".brain/decisions.log",
+                "tope_pendientes_bytes": 8192}
+        (self.raiz / ".brain").mkdir(exist_ok=True)
+        (self.raiz / ".brain" / "pendientes.md").write_text("", encoding="utf-8")
+        apagado = arranque.resumen(str(self.raiz), dict(base))
+        encendido = arranque.resumen(str(self.raiz), dict(base, modo_fabrica=True))
+        self.assertNotIn("MODO FÁBRICA", apagado)
+        self.assertIn("MODO FÁBRICA ACTIVADO", encendido)
+
+
 if __name__ == "__main__":
     unittest.main()

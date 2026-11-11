@@ -277,3 +277,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.36.1 (2026-11-11)
 - Arreglo: el hook `pre-commit` de secretos se instalaba sin permiso de ejecución, así que en Linux y Mac git lo ignoraba y no bloqueaba los secretos. Lo encontró la primera ejecución en GitHub Actions (spec 039).
+
+## 1.37.0 (2026-11-11)
+- Nuevo `/fabrica si|no|estado` (spec 040): interruptor del modo fábrica, **recordado entre chats** (`modo_fabrica` en `guardianes.json`). Con `si`, el arranque de cada chat dice «MODO FÁBRICA ACTIVADO» y la IA actúa como directora; con `no`, modo normal. Apagado por defecto; los proyectos con `.brain/fabrica/` de antes no cambian. Nueva skill `fabrica` (es/en), `fabrica.py modo`, textos es/en y pruebas.
