@@ -262,3 +262,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 
 ## 1.35.5 (2026-11-11)
+
+
+## 1.35.6 (2026-11-11)
+- Fuentes: «fábrica» se cubre con bibliografía: Cusumano, *Japan's Software Factories* (Oxford University Press, 1991) y Greenfield y Short, *Software Factories* (Wiley, 2004). README (es/en), `CEREBRO_VIVO.md` (es/en) y pie de la página. Solo texto; sin renombrar nada.

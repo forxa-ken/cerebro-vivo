@@ -19,6 +19,8 @@ Note: file, folder and command names stay in Spanish on purpose (`pendientes.md`
 - GitHub (Microsoft). *Spec Kit*, repository `github/spec-kit`, August 2025, MIT license (https://github.com/github/spec-kit): spec-driven development; origin of the "constitution" (`constitution.md`) as project rules, as in this method. Its README says to create it once per project.
 - GitHub. *Spec-Driven Development* (`spec-driven.md`) (https://github.com/github/spec-kit/blob/main/spec-driven.md): defines the constitution as a set of immutable principles, with a dated amendment process.
 - Delimarsky, Den. *Spec-driven development with AI: get started with a new open source toolkit*, GitHub Blog, 2 September 2025 (https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/): Spec Kit announcement (does not mention the constitution).
+- Cusumano, Michael A. *Japan's Software Factories: A Challenge to U.S. Management*, Oxford University Press, 1991 (https://academic.oup.com/book/52424): origin of the term "software factory" (Hitachi, Toshiba, NEC, Fujitsu).
+- Greenfield, Jack; Short, Keith. *Software Factories: Assembling Applications with Patterns, Models, Frameworks and Tools*, Wiley, 2004 (https://softwarefactories.com/TheBook.html): Microsoft's "software factory".
 
 The implementation is our own, centered on collaborative work between AI agents and persistence of context between chats.
 

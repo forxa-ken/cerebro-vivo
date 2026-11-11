@@ -1,7 +1,7 @@
 # Método «Cerebro Vivo»
 
 > Método de trabajo para construir un proyecto de software con una IA (Claude, Gemini u otra) **sin que se pierda el contexto entre chats y gastando pocos tokens**. Nació en LoboHook (2026) y está escrito para copiarlo a otros proyectos.
-> Fuentes consultadas: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026); Nygard, Fowler, Microsoft, Red Hat y AWS sobre los registros de decisiones (ADR); GitHub (Microsoft), *Spec Kit* (`github/spec-kit`, agosto de 2025) y *Spec-Driven Development*, origen de la «constitución» (`constitution.md`); Delimarsky, Den, GitHub Blog, 2-9-2025. Lista completa con enlaces en el README. La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
+> Fuentes consultadas: Lee, Yoonho et al., *Meta-Harness* (arXiv:2603.28052, Stanford, 2026); Databricks, *Omnigent* (2026); Nygard, Fowler, Microsoft, Red Hat y AWS sobre los registros de decisiones (ADR); GitHub (Microsoft), *Spec Kit* (`github/spec-kit`, agosto de 2025) y *Spec-Driven Development*, origen de la «constitución» (`constitution.md`); Delimarsky, Den, GitHub Blog, 2-9-2025; Cusumano, Michael A., *Japan's Software Factories* (1991) y Greenfield y Short, *Software Factories* (2004), sobre la «fábrica de software». Lista completa con enlaces en el README. La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
 > Para usarlo: copia este archivo al proyecto nuevo y dile a la IA: *«Aplica el método Cerebro Vivo de `CEREBRO_VIVO.md`: crea la estructura y trabaja con sus reglas.»*
 
 ---

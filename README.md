@@ -17,6 +17,8 @@ El **meta-arnés «Cerebro Vivo»**: un método para trabajar con una IA sin per
 - GitHub (Microsoft). *Spec Kit*, repositorio `github/spec-kit`, agosto de 2025, licencia MIT (https://github.com/github/spec-kit): desarrollo guiado por especificaciones; origen de la «constitución» (`constitution.md`) como reglas del proyecto, como en este método. Su README indica crearla una vez por proyecto.
 - GitHub. *Spec-Driven Development* (`spec-driven.md`) (https://github.com/github/spec-kit/blob/main/spec-driven.md): define la constitución como un conjunto de principios inmutables, con un proceso de enmiendas con fecha.
 - Delimarsky, Den. *Spec-driven development with AI: get started with a new open source toolkit*, GitHub Blog, 2 de septiembre de 2025 (https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/): anuncio del Spec Kit (no nombra la constitución).
+- Cusumano, Michael A. *Japan's Software Factories: A Challenge to U.S. Management*, Oxford University Press, 1991 (https://academic.oup.com/book/52424): origen del término «fábrica de software» (Hitachi, Toshiba, NEC, Fujitsu).
+- Greenfield, Jack; Short, Keith. *Software Factories: Assembling Applications with Patterns, Models, Frameworks and Tools*, Wiley, 2004 (https://softwarefactories.com/TheBook.html): la «fábrica de software» de Microsoft.
 
 La implementación es propia, centrada en el trabajo colaborativo entre agentes de IA y la persistencia del contexto entre chats.
 
