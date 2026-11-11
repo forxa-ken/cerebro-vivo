@@ -292,3 +292,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.37.4 (2026-11-11)
 - La skill `directora-de-fabrica` (es/en) ya no pide permiso a Darwin en cada lanzamiento de Codex: la directora lanza sola y solo para si salta un tope, van dos fallos seguidos o pasa algo imprevisto. Un solo fallo tampoco se pregunta (se anota con `--fallo` y se relanza); solo el segundo seguido. Las puertas (a) y (c) siguen siendo de Darwin. Solo cambia la skill.
+
+## 1.38.0 (2026-11-11)
+- La fábrica deja elegir la IA obrera: la carta (plantilla es/en) trae la línea «Ejecutora por defecto» (Codex, Claude o «la que decida la directora»), y la skill `directora-de-fabrica` (es/en) explica cómo lanzar Claude como obrera (subagente Sonnet en su worktree) además de Codex. Sin cambios de código; `fabrica.py` ya contaba gasto y fallos por papel.

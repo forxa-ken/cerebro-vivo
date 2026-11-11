@@ -19,6 +19,7 @@ File `.brain/fabrica/carta.md`. **Only Darwin writes it**; the director reads it
 - tope_mision_tokens: 1000000
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
+- Default executor: <Codex | Claude | whichever the director decides>. You choose it; with "whichever the director decides" she picks per assignment and tells you which she used. For a specific assignment you can ask for another one in the chat.
 - Director: Opus, medium effort, one per project. Detailed reading of results: Sonnet, medium effort
 ```
 
