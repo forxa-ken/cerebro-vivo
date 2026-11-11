@@ -80,8 +80,8 @@
   ".claude/skills/cerrar-una-tarea/SKILL.md": "ed85cd2214f648a4cfbdc6f7c6d738a21bf9c69011735e5bb67960906e35e839",
   ".claude/skills/chat-nuevo/SKILL.en.md": "b517714f25a713b5c4f1402b1d1f46d3b9e4904a485f42bd4ef8a1c304a8167f",
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "3fcc4734f518ae5ddcd1c02640b50ed2dcaa3263ab5708c316f9940acea6d05c",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "a8c3190aae1cdcc661326bd5db31dcbea08a0b9c9c407282b306f68d7c20b81d",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "8dcc7866e009e51c4ac76483172eecf688167312cb692b1ecd67cadeb7815900",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "6ead17f48edc1427ebb69d283542d1bbef385f69a68fb808bfeae98782e30905",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "abdacd58836667532b00e27f5f6f292a635cd5ba87d54609ecee9bec74b9346c",
@@ -192,5 +192,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.37.2"
+ "version": "1.37.3"
 }
