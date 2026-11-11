@@ -29,6 +29,8 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **39:** TraductorVoz: investigar cómo separar mejor a los hablantes (hallazgo de la prueba R13, 2026-11-10). Hoy se corta solo por silencio y hay una huella por frase: dos voces seguidas caen en una frase y salen con un solo hablante. Ideas a investigar: cortar la frase cuando cambia la voz (ventanas de 1-2 s con huella), diarización neural con licencia libre, ajustar el umbral. Evidencia y audios en `F:\Proyectos\TraductorVoz-notas\evidencia-hablantes-aleman.md`. Sin empezar; entra en el informe final de R13.
 
+- **40:** resumen en llano, para que Darwin los lea, de los trabajos citados en «Fuentes» (README): un autor externo (un proyecto externo), Stanford (Meta-Harness), Databricks (Omnigent), ADR (Nygard, Fowler, Microsoft, Red Hat, AWS), GitHub Spec Kit (constitution.md, spec-driven.md, blog de Delimarsky) y fábrica de software (Cusumano 1991, Greenfield y Short 2004). Qué dice cada uno, qué tomamos y qué es propio. Sin empezar; no es código.
+
 ## Esperando tu prueba (Darwin)
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 ## Acciones tuyas
