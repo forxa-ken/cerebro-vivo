@@ -301,19 +301,5 @@ class AvisoDeCierre(unittest.TestCase):
         self.assertEqual(cfg["auditor_externo"], "general-y-spec")
 
 
-class Reparto(unittest.TestCase):
-    def test_plantilla_e_informe_existen_en_los_dos_idiomas(self):
-        for n in ("PLANTILLA_INFORME_REVISION.md", "PLANTILLA_INFORME_REVISION.en.md"):
-            self.assertTrue(os.path.isfile(os.path.join(RAIZ, ".brain", "biblioteca", n)), n)
-
-    def test_plantilla_va_en_el_manifiesto(self):
-        with open(os.path.join(RAIZ, "generar_manifiesto.py"), encoding="utf-8") as f:
-            self.assertIn("PLANTILLA_INFORME_REVISION.en.md", f.read())
-
-    def test_la_skill_esta_en_los_dos_idiomas(self):
-        for n in ("SKILL.md", "SKILL.en.md"):
-            self.assertTrue(os.path.isfile(os.path.join(RAIZ, ".claude", "skills", "auditor", n)), n)
-
-
 if __name__ == "__main__":
     unittest.main()

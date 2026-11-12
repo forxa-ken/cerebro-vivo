@@ -335,3 +335,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.44.3 (2026-11-12)
 - El aviso del auditor de cierre ahora pasa por el apagado de avisos repetidos (spec 038): si sale 3 veces seguidas en el mismo chat sin cambiar nada, se avisa de que se apaga y no se repite en ese chat (`evaluar(..., auditor_aparte=lista)`; `main` lo trata como informativo). Probado con el hook `Stop` real en un repo temporal: avisa 3 veces y calla.
+
+## 1.44.4 (2026-11-12)
+- Corrección de raíz: 4 pruebas del método (3 de `test_auditor.py`, 1 de `test_colabora.py`) comprobaban las ediciones en inglés y `generar_manifiesto.py`, que solo existen en el repo del arnés, y fallaban en los proyectos que las recibían (visto al actualizar LoboHook a la 1.44.3). Se mudan a `tests/test_arnes_reparto.py`, que no se reparte, con una prueba que vigila que siga sin repartirse. El actualizador quita de los proyectos lo que ya no llega. No cambia nada de lo que hace el arnés.
+- Nuevo en la plantilla de constitución de los proyectos (es y en): regla 12, «un parche se llama parche» (pedido por Darwin).

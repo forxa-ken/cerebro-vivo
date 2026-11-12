@@ -283,3 +283,8 @@
 2026-11-12 | Claude (cerebro-vivo #51) | Corregidos los hallazgos del auditor (1.44.1 y 1.44.2) y relanzados Sonnet+Codex: 499 pruebas OK; commit local, sin subir | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #51) | Aviso del auditor con apagado si se repite (1.44.3), probado con el hook Stop real; 500 pruebas | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #51) | Pagina publica al dia con el arnes 1.44.3 (capitulo nuevo, 25 guardianes, 37 skills, comandos, glosario) y subida a gh-pages por orden de Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Subido main a GitHub (6 commits, hasta 9a103de, arnes 1.44.3, 500 pruebas OK, secretos limpio). Punto 23 ya estaba en Esperando tu prueba. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.4: 4 pruebas del metodo (3 auditor, 1 colabora) se saltan fuera del repo del arnes; falla vista al actualizar LoboHook. 500 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.4 corregido de raiz (sustituye la linea anterior, que decia 'se saltan'): las 4 pruebas se mudaron a tests/test_arnes_reparto.py, que no se reparte, con prueba que vigila que no entre al manifiesto; sin pruebas saltadas ni 4 en rojo en proyectos (simulado sin manifiesto.json, no probado en LoboHook). 501 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Constitucion regla 11: un parche se llama parche (pedido por Darwin); solo en la constitucion de este repo, no en la plantilla de los proyectos. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Regla 12 'un parche se llama parche' en la plantilla de constitucion es/en, dentro de la 1.44.4 (aun sin repartir). 501 pruebas OK. Sin subir. | Cambio pequeño

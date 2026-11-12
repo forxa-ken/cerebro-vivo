@@ -131,11 +131,6 @@ class IndicesAjenosTest(unittest.TestCase):
 
 
 class PlantillaYTextosTest(unittest.TestCase):
-    def test_plantilla_y_skill_existen_en_los_dos_idiomas(self):
-        for rel in (".brain/biblioteca/IAS_COLABORATIVAS.md", ".brain/biblioteca/IAS_COLABORATIVAS.en.md",
-                    ".claude/skills/colabora/SKILL.md", ".claude/skills/colabora/SKILL.en.md"):
-            self.assertTrue(os.path.isfile(os.path.join(RAIZ, *rel.split("/"))), rel)
-
     def test_los_textos_estan_en_los_dos_idiomas(self):
         textos = cargar("textos_c", [".brain", "guardianes", "textos.py"])
         for clave in ("colabora_si", "colabora_no", "colabora_uso", "colabora_falta_plantilla", "colabora_falta_archivo",

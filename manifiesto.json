@@ -24,8 +24,8 @@
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
   ".brain/biblioteca/kit-arranque/instalar.py": "0e1deac685d1a9fd24621b114a739861f85a9570f903d74147c85d5f9d8de69c",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
-  ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "d7e6f0b56cd57ab61e02810fbb03f617eb31c6a66b04a0ec091356002ba6544f",
-  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "d64e71f1495d8b34b4db1af757408171c4245e898cb4efe1c8421dea9f52f9a3",
+  ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "ae08b139c70261b465643e0fcb087572fa924feb9d48b2e6ca69538f0a347b6c",
+  ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f07c33e32ea6057ae4ac707e6d47c55560f4d8278f524d822509d34214f62fd3",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.en.md": "6b64301e7af75e029d78281db9b8c7ac8da56f6b2e7a3ed3726e5e24e62b4561",
   ".brain/biblioteca/kit-arranque/plantillas/decisions_indice.md": "df9000589bbda86fc111e4d312558fbca18be0c48993cc1d963a272c253080c3",
   ".brain/biblioteca/kit-arranque/plantillas/hechos.en.md": "11a61e5d01fb444feae54dbb0070e690263e4fe51481d231503bf96e3500ae07",
@@ -156,9 +156,9 @@
   "tests/test_analisis.py": "25c22d1298a713beb90a3c01f94b19e2c28622ae39bf2d7463caf4ce72c73a7e",
   "tests/test_archivos_gordos.py": "fe9e4eaf36ef6812bd68d98799a612466999cc0560b551d5ea3991bbceaddf65",
   "tests/test_arranque.py": "d200ba2eea7c114deb74d633de6b733fc294910717574aa19935dfb44997ac2d",
-  "tests/test_auditor.py": "1a474c3cf5522c51b81d28bcfe96e0d9579edad4782e6ef39f6df664e136aef4",
+  "tests/test_auditor.py": "e37b9fad52506424e8782078d9903f06965b63171e4ede68ae7bad4ecac0db77",
   "tests/test_cerebro_indices.py": "f0845fc6cb7cedf5719ba6bed65b886bab408845cc5714ed72163d003fab9a04",
-  "tests/test_colabora.py": "289815dd74dee9edfb740af9d136a7858151c19d3cc74204b314a304be31310f",
+  "tests/test_colabora.py": "6cd9a0b5c067a6c4d07a8d3f4a2bcd03dedc0b1036eb977ccb070f6a425abe7f",
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
@@ -215,5 +215,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.44.3"
+ "version": "1.44.4"
 }
