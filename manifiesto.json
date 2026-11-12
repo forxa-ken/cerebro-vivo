@@ -3,8 +3,8 @@
   ".brain/biblioteca/CARTA_EJECUTORA.en.md": "8c53fb631b7f92e7ec54cbbc6e8ea53955f8fb2f595aeb691c7f19f8b73a4b4d",
   ".brain/biblioteca/CARTA_EJECUTORA.md": "a010c374f85afa5eef5a9a391387813759504e3edfd1c906d2053c84d029f78a",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
-  ".brain/biblioteca/CEREBRO_VIVO.en.md": "f19f7017c294e409a0bb7d5efa9e83ab9c6859519cf5b401a6a82a6eb1233fe8",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "ff816ca3419482a546a168acf34699380b6092272361639e6f7491aa50bbd65a",
+  ".brain/biblioteca/CEREBRO_VIVO.en.md": "84a14ff17cc9b8cd206b7ce7d15dfa47d6b49535d32b80ccd6949fc0106a1ad6",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "a051b09efcd1093fc75ac9b29d935253aa934f5a9e1c33d771fd41f568a38dbc",
   ".brain/biblioteca/IAS_COLABORATIVAS.en.md": "b72323ce665238d67622130bd54ed7c5ebde3871d8d73c47a30ff6f7f5d6d54a",
   ".brain/biblioteca/IAS_COLABORATIVAS.md": "af323712ee73b8e181348f9b28be4817e096cc30f4ade55f58283b8f36f8cb66",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "f82b3f87acb91332e2d30743e32279578ac35dab443ab7fd8996c1ec03626205",
@@ -215,5 +215,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.44.6"
+ "version": "1.44.7"
 }

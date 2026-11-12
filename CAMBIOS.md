@@ -345,3 +345,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.44.6 (2026-11-12)
 - El chat nuevo de la directora de fábrica se separa solo del chat que lo abrió: paso 0 en la skill `directora-de-fabrica` y frase añadida al encargo con que `/fabrica si` abre ese chat (es y en). Antes solo lo separaba el chat de fuera, y si la app lo rechazaba quedaba colgado. Sin probar con una directora real.
+
+## 1.44.7 (2026-11-12)
+- Limpieza de fuentes por orden de Darwin: quitada una fuente externa de las Fuentes (README es/en, cabecera de CEREBRO_VIVO es/en y pie de la página pública) y de los registros, notas y cambios; el historial de git se reescribió sin esas menciones. Solo texto.
