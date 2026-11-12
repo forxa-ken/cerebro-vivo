@@ -279,3 +279,7 @@
 2026-11-12 | Claude (cerebro-vivo #50) | Spec 044 reescrita con el reparto de ejecutores (Codex+Sonnet en general y cierre de spec, Sonnet solo en cierres rutinarios; Opus no) y los resultados de las dos rondas; sigue pendiente de aprobacion de Darwin | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #50) | Spec 044 aprobada y programada (arnes 1.44.0): auditor.py, skill /auditor es/en, plantilla de informe, aviso en cierre.py, 23 pruebas nuevas; suite 478 en verde; sin probar con la IA en un trabajo real ni subir a GitHub | Cambio pequeño
 2026-11-12 | Guardián (poda automática) | Poda de memoria: archivadas 2 specs/fichas terminadas (spec 048) | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Primera prueba real del auditor sobre la 044 (Sonnet + Codex): 14 hallazgos casi sin solaparse, sin corregir; informe en archive/informe-auditor-sobre-044-2026-11-12.md; traspaso escrito para el #51 | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Corregidos los hallazgos del auditor (1.44.1 y 1.44.2) y relanzados Sonnet+Codex: 499 pruebas OK; commit local, sin subir | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Aviso del auditor con apagado si se repite (1.44.3), probado con el hook Stop real; 500 pruebas | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Pagina publica al dia con el arnes 1.44.3 (capitulo nuevo, 25 guardianes, 37 skills, comandos, glosario) y subida a gh-pages por orden de Darwin | Cambio pequeño
