@@ -7,6 +7,8 @@ description: Use when finishing any task in the project.
 
 **Se cierra por bloque** (spec 033): un tema completo con pruebas en verde, no cada cambio pequeño. El guardián no pide la línea hasta 15 archivos editados sin cerrar (`cierre_bloque_max_ediciones`). **Siempre** se cierra antes de abrir un chat nuevo, escribir un traspaso o cambiar de IA.
 
+**Prueba de retomar** (spec 041): antes del tope de 15, si otra IA que solo viera la petición y el `git diff` no podría retomar el trabajo (hay una decisión, una causa descubierta, un paso pendiente o algo que Darwin debe probar que solo está en la conversación), se cierra ya con su línea en `decisions.log`.
+
 ## Cómo (pasos)
 1. Tests en verde: `venv\Scripts\python.exe -m unittest discover tests`.
 2. Línea en `.brain/decisions.log` (o `cerrar.py`). Primero la línea y luego el commit; si la línea llega después, entra en el siguiente commit.

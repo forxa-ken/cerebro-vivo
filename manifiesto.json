@@ -61,7 +61,7 @@
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "492c574e021c721b6308799770bb157935029cd4c0cc513d4bd34e71ab75fc5c",
+  ".brain/guardianes/textos.py": "8732930417e5a6321df4e7a85ddabed17ba66ddedf2f1a40e6c58c1eb176dfb7",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -76,8 +76,8 @@
   ".claude/skills/adoptar-indice-existente/SKILL.md": "8ecd8f70beba40bbe6b68f55d88a00bdc5fb0cae9bcf02dfb25c75a55892d062",
   ".claude/skills/cero-dependencias/SKILL.en.md": "fc1537d255cf17a031838d806a01829eaf5139dcd5c5997f8331ec6b3171690f",
   ".claude/skills/cero-dependencias/SKILL.md": "3b156934fbda7647c5d2c71cebe532b4109d48d8fc68291edd1772390cc15198",
-  ".claude/skills/cerrar-una-tarea/SKILL.en.md": "2d5e3296b911b7dbf2100c05e1c3cf482ffb999aa6a81d1a99274b058d3ac2d1",
-  ".claude/skills/cerrar-una-tarea/SKILL.md": "ed85cd2214f648a4cfbdc6f7c6d738a21bf9c69011735e5bb67960906e35e839",
+  ".claude/skills/cerrar-una-tarea/SKILL.en.md": "86309ecc8c20309ea4c32d28772670646f15a996b21a5d7b114c6977c39d31f2",
+  ".claude/skills/cerrar-una-tarea/SKILL.md": "4d14f26ad6daef5af740e3d42475b46e6291d0a0289f555518160fb791655614",
   ".claude/skills/chat-nuevo/SKILL.en.md": "b517714f25a713b5c4f1402b1d1f46d3b9e4904a485f42bd4ef8a1c304a8167f",
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
   ".claude/skills/directora-de-fabrica/SKILL.en.md": "70e8c0c681a73f894165ccb97a38c7794cbf5ecb50915f6e81131c051152aea8",
@@ -194,5 +194,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.40.2"
+ "version": "1.41.0"
 }

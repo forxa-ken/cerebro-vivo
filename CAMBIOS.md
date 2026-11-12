@@ -314,3 +314,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.40.2 (2026-11-12)
 - Punto 37 (b): `test_soporte_mac` ya no falla en los proyectos. Comprobaba que `instalar_kit.command` tuviera fin de línea Unix, pero en un proyecto Git de Windows lo baja con CRLF. Ahora solo se comprueba en el repo del arnés (donde existe `manifiesto.json` y `.gitattributes` lo fija en LF) y fuera se salta. Probado simulando un proyecto con el archivo en CRLF.
+
+## 1.41.0 (2026-11-12)
+- Punto 36 (spec 041): la **prueba de retomar** pasa a ser segundo criterio del cierre por bloque. Antes del tope de 15 ediciones, si otra IA no podria seguir solo con la peticion y el `git diff` (hay una decision, una causa o un paso pendiente solo en la conversacion), se cierra ya. Regla en la skill `cerrar-una-tarea` (es/en) y una frase en el aviso del guardian de cierre (es/en). El guardian no juzga: el contador de 15 sigue de red de seguridad. Se mide con `medir.py --ritual`.

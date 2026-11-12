@@ -10,7 +10,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **23:** aprender a montar un agente que verifique las pruebas y errores de la IA principal (revisor independiente; idea somera de Darwin; sale de `F:\Arquitectura de desarrollo`, REC-003/004/005). Explicárselo en llano y hacerlo paso a paso con él. Sin empezar.
 
-- **36:** mejora (idea de ODD, informe `archive/informe-odd-gentle-shell-2026-11-09.md`): usar el «resume test» (¿se puede retomar el trabajo solo con la petición y los cambios del código?) como segundo criterio, junto al contador de 15 ediciones del cierre por bloque y a la regla de «más de 2 archivos» de `spec-antes-de-programar`. Pequeño y reversible. Hacerlo después de ver los resultados del punto 35 (`medir.py --ritual`). Spec antes; es/en. Sin empezar.
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) HECHO el 2026-11-12 (arnés 1.40.2: `test_soporte_mac` se salta fuera del repo del arnés, donde Git de Windows convierte el fin de línea); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
 
@@ -20,4 +19,5 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0, sin subir): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
 
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
+- **36:** prueba de retomar en el cierre (spec 041, arnés 1.41.0, sin subir): regla nueva en la skill `cerrar-una-tarea` y una frase en el aviso del guardián. Prueba: en un chat de trabajo, comprueba que la IA cierra antes de 15 ediciones cuando hay una decisión que solo está en la conversación. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas, junto al 35.
 ## Acciones tuyas

@@ -265,3 +265,4 @@
 2026-11-12 | Claude (cerebro-vivo #48) | Punto 22 probado por Darwin: GitHub Actions en verde (Ubuntu y Windows, commit b855a76); leccion del traspaso ya archivado
 2026-11-12 | Claude (cerebro-vivo #48) | /trocea: lecciones/arnes.md (19 lecciones) dividido en 4 temas (traspaso, fabrica, pruebas, heredocs); original en archive/troceado
 2026-11-12 | Claude (cerebro-vivo #48) | Punto 32 cerrado: prueba real contra OSV.dev con proyecto de juguete detecta npm, cargo y go; web actualizada (gh-pages 40d38c5); 2 lecciones
+2026-11-12 | Claude (cerebro-vivo #48) | Arnes 1.41.0: punto 36 (spec 041) prueba de retomar como segundo criterio del cierre; 431 pruebas OK; sin subir

@@ -35,7 +35,8 @@ TEXTOS = {
         "cierre_titulo": "🐺 Cerebro Vivo · antes de dar la tarea por terminada:",
         "cierre_falta_linea": ("Hay cambios en el proyecto (%s) y falta la línea en %s. "
                                "Cierra la tarea (solo con las pruebas en verde): línea en el registro, pendientes al día y, "
-                               "si hubo una decisión importante, su ficha D-NNN."),
+                               "si hubo una decisión importante, su ficha D-NNN. "
+                               "Prueba de retomar: si otra IA no podría seguir solo con la petición y el git diff, no esperes al tope."),
         "cierre_tope_pendientes": ("%s pesa %d bytes y el tope es %d. Pasa lo ya probado a archive/hechos.md "
                                    "(y su fila al índice) y deja aquí solo lo que falta."),
         "cierre_aviso_apagado": "El aviso «%s» ya salió %d veces seguidas sin que cambiara nada; no se repite más en este chat (en el chat siguiente vuelve).",
@@ -437,7 +438,8 @@ TEXTOS = {
         "cierre_titulo": "🐺 Cerebro Vivo · before calling the task finished:",
         "cierre_falta_linea": ("There are changes in the project (%s) and the line in %s is missing. "
                                "Close the task (only with tests green): line in the log, pending list up to date and, "
-                               "if there was an important decision, its D-NNN record."),
+                               "if there was an important decision, its D-NNN record. "
+                               "Resume test: if another AI could not continue from just the request and the git diff, do not wait for the cap."),
         "cierre_tope_pendientes": ("%s weighs %d bytes and the cap is %d. Move what is already tested to archive/hechos.md "
                                    "(and its row to the index) and leave here only what is missing."),
         "cierre_aviso_apagado": "The warning \"%s\" has appeared %d times in a row with nothing changing; it will not repeat in this chat (it comes back in the next one).",

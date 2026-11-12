@@ -7,6 +7,8 @@ description: Use when finishing any task in the project.
 
 **Close by block** (spec 033): a finished topic with tests green, not every small change. The guardian does not ask for the line until 15 files are edited without closing (`cierre_bloque_max_ediciones`). **Always** close before opening a new chat, writing a handover or switching AI.
 
+**Resume test** (spec 041): before the cap of 15, if another AI that saw only the request and the `git diff` could not pick the work up (there is a decision, a cause found, a pending step or something Darwin must test that lives only in the conversation), close now with its line in `decisions.log`.
+
 ## How (steps)
 1. Tests green: `venv\Scripts\python.exe -m unittest discover tests`.
 2. A line in `.brain/decisions.log` (or `cerrar.py`). The line first and then the commit; if the line arrives later, it goes into the next commit.
