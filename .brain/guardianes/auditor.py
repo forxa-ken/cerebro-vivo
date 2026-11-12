@@ -28,7 +28,7 @@ SI = ("si", "sí", "on", "yes", "true", "1", "verdadero", "activar", "activa")
 NO = ("no", "off", "false", "0", "falso", "desactivar", "desactiva")
 EXT_DOCS = (".md", ".txt", ".log", ".rst")
 NOMBRES_DOCS = ("readme", "license", "licence", "notice", "changelog", "cambios", "authors", "contributing")
-SEGURO = re.compile(r"^[A-Za-z0-9._:/-]{1,64}$")
+SEGURO = re.compile(r"^[A-Za-z0-9._:/][A-Za-z0-9._:/-]{0,63}$")  # sin «-» delante: no puede pasar por opción
 
 
 def _cfg(raiz):
@@ -40,7 +40,7 @@ def _cfg(raiz):
     try:
         with open(ruta, "rb") as f:
             cfg = json.loads(f.read().decode("utf-8-sig"))
-    except (OSError, ValueError):
+    except Exception:  # OSError, JSON roto, RecursionError por anidado enorme…
         return ruta, {}, False
     return (ruta, cfg, True) if isinstance(cfg, dict) else (ruta, {}, False)
 
@@ -128,9 +128,10 @@ def modo(raiz, aspecto, orden):
         _guardar(ruta, cfg)
     elif aspecto not in ("externo", "cierre", "estado"):
         return 1, [t(cfg, "auditor_uso")]
-    lineas = [t(cfg, "auditor_cierre_si" if cierre_activo(cfg) else "auditor_cierre_no"),
+    lineas = [] if legible else [t(cfg, "auditor_config_ilegible", ruta)]  # estado: avisa de que lo mostrado es el defecto
+    lineas += [t(cfg, "auditor_cierre_si" if cierre_activo(cfg) else "auditor_cierre_no"),
               t(cfg, CLAVE_EXTERNO[valor_externo(cfg)]),
-              t(cfg, "auditor_modelos", cfg.get("auditor_modelo", "sonnet"),
+              t(cfg, "auditor_modelos", _seguro(cfg.get("auditor_modelo"), "sonnet"),
                 _seguro(cfg.get("auditor_modelo_externo"), "gpt-6-sol"), _seguro(cfg.get("auditor_esfuerzo"), "medium"))]
     return 0, lineas
 
@@ -139,7 +140,9 @@ def hay_codigo(archivos, cfg):
     """True si entre los archivos hay código o configuración (no solo documentos). Tolera ajustes mal escritos
     (tipos raros) y no cuenta README/LICENSE/CHANGELOG sin extensión como código."""
     docs = cfg.get("auditor_ignorar_extensiones", EXT_DOCS)
-    docs = tuple(str(x).lower() for x in docs) if isinstance(docs, (list, tuple)) and docs else EXT_DOCS
+    if isinstance(docs, (list, tuple)):  # «» casaría con todo y «md» con «.cmd»: se descartan vacíos y se exige el punto
+        docs = tuple("." + str(x).strip().lower().lstrip(".") for x in docs if str(x).strip().lstrip("."))
+    docs = docs if isinstance(docs, tuple) and docs else EXT_DOCS
 
     def es_codigo(a):
         a = str(a).replace("\\", "/").lower()

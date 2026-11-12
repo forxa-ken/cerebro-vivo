@@ -133,6 +133,18 @@ class Ajustes(unittest.TestCase):
         self.assertEqual(d["otro"], 7)
         self.assertIs(d["auditor_cierre"], False)
 
+    def test_json_anidado_enorme_no_da_traceback(self):
+        with open(self.ruta, "w", encoding="utf-8") as f:
+            f.write("[" * 100000)
+        self.assertEqual(auditor.modo(self.p, "cierre", "no")[0], 1)
+
+    def test_estado_con_json_roto_avisa_de_que_son_valores_por_defecto(self):
+        with open(self.ruta, "w", encoding="utf-8") as f:
+            f.write("{roto")
+        cod, lineas = auditor.modo(self.p, "estado", "estado")
+        self.assertEqual(cod, 0)
+        self.assertIn("guardianes.json", lineas[0])
+
     def test_sin_archivo_se_crea(self):
         os.remove(self.ruta)
         self.assertEqual(auditor.modo(self.p, "cierre", "no")[0], 0)
@@ -154,6 +166,18 @@ class ComandoSeguro(unittest.TestCase):
         self.assertEqual(args[args.index("-m") + 1], "gpt-6-sol")
         self.assertIn("model_reasoning_effort=medium", args)
         self.assertEqual(args[-1], "-")
+
+    def test_valor_que_parece_una_opcion_vuelve_al_defecto(self):
+        for malo in ("-s", "--help", "-m"):
+            self.assertEqual(auditor._seguro(malo, "gpt-6-sol"), "gpt-6-sol", malo)
+        args = auditor.comando_codex({"auditor_modelo_externo": "-s"}, "linux")
+        self.assertEqual(args[args.index("-m") + 1], "gpt-6-sol")
+
+    def test_extensiones_vacias_o_sin_punto_no_apagan_el_aviso(self):
+        self.assertTrue(auditor.hay_codigo(["server.py"], {"auditor_ignorar_extensiones": [""]}))
+        self.assertTrue(auditor.hay_codigo(["a.cmd"], {"auditor_ignorar_extensiones": ["md"]}))
+        self.assertFalse(auditor.hay_codigo(["a.md"], {"auditor_ignorar_extensiones": ["md"]}))
+        self.assertFalse(auditor.hay_codigo(["a.md"], {"auditor_ignorar_extensiones": ["", "MD"]}))
 
     def test_valor_normal_se_respeta(self):
         self.assertEqual(auditor._seguro("gpt-6-sol", "x"), "gpt-6-sol")
