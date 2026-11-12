@@ -212,18 +212,21 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
         registro_tocado = registro_en_respuesta
     else:
         registro_tocado = any(c == cfg["registro"] for c in cambios)
+    candidatos = del_proyecto  # el auditor mira esto aunque el bloque siga abierto (spec 044)
     por_bloque = bool(cfg.get("cierre_por_bloque", True)) and sin_cerrar is not None
     if por_bloque and sin_cerrar < cfg.get("cierre_bloque_max_ediciones", 15):
         del_proyecto = []  # el bloque sigue abierto: aún no toca cerrar
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
         avisos.append(t(cfg, "cierre_falta_linea",
                         ", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
-    if del_proyecto and cfg.get("auditor_cierre", False):  # spec 044: solo avisa; no lanza nada por sí mismo
+    if candidatos and hubo_ediciones is not False:  # spec 044: solo avisa; no lanza nada; un fallo aquí no tumba el cierre
         try:
-            from auditor import hay_codigo
-            if hay_codigo(del_proyecto, cfg):
+            from auditor import cierre_activo, hay_codigo, sensible, valor_externo
+            if cierre_activo(cfg) and hay_codigo(candidatos, cfg):
                 avisos.append(t(cfg, "cierre_auditor"))
-        except ImportError:
+                if valor_externo(cfg) == "general-y-spec" and sensible(candidatos, cfg):
+                    avisos.append(t(cfg, "cierre_auditor_sensible"))
+        except Exception:
             pass
     if tam_pendientes is not None and tam_pendientes > cfg["tope_pendientes_bytes"]:
         avisos.append(t(cfg, "cierre_tope_pendientes", cfg["pendientes"], tam_pendientes, cfg["tope_pendientes_bytes"]))

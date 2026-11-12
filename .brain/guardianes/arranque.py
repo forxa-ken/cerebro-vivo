@@ -212,8 +212,12 @@ def resumen(raiz, cfg):
         lineas.append(t(cfg, "arranque_modo_fabrica"))
     if cfg.get("modo_colaborativo"):  # spec 042: el modo colaborativo se recuerda entre chats
         lineas.append(t(cfg, "arranque_modo_colaborativo"))
-    if str(cfg.get("auditor_externo", "general-y-spec")) in ("siempre", "no"):  # spec 044: ajuste no habitual del auditor
-        lineas.append(t(cfg, "arranque_auditor_externo", cfg.get("auditor_externo")))
+    try:  # spec 044: ajuste no habitual del auditor (valor normalizado igual que en auditor.py)
+        from auditor import valor_externo
+        if valor_externo(cfg) in ("siempre", "no"):
+            lineas.append(t(cfg, "arranque_auditor_externo", valor_externo(cfg)))
+    except Exception:
+        pass
     try:  # spec 043: commits de proyectos hermanos sin portar (silencio si no hay hermanos o no son accesibles)
         import hermanos
         lineas.extend(hermanos.lineas_arranque(raiz, cfg))

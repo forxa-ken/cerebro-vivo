@@ -107,7 +107,7 @@ class TestIdioma(unittest.TestCase):
 
 class TestGuardianesEnIngles(unittest.TestCase):
     EN = {"idioma": "en", "registro": ".brain/decisions.log", "pendientes": ".brain/pendientes.md", "tope_pendientes_bytes": 10,
-          "ignorar_cambios": [".brain/*"]}
+          "ignorar_cambios": [".brain/*"], "auditor_cierre": False}  # sin el aviso del auditor (verdadero por defecto)
 
     def test_cierre(self):
         cierre = cargar("cierre")
