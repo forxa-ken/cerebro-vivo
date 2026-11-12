@@ -339,3 +339,9 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.44.4 (2026-11-12)
 - Corrección de raíz: 4 pruebas del método (3 de `test_auditor.py`, 1 de `test_colabora.py`) comprobaban las ediciones en inglés y `generar_manifiesto.py`, que solo existen en el repo del arnés, y fallaban en los proyectos que las recibían (visto al actualizar LoboHook a la 1.44.3). Se mudan a `tests/test_arnes_reparto.py`, que no se reparte, con una prueba que vigila que siga sin repartirse. El actualizador quita de los proyectos lo que ya no llega. No cambia nada de lo que hace el arnés.
 - Nuevo en la plantilla de constitución de los proyectos (es y en): regla 12, «un parche se llama parche» (pedido por Darwin).
+
+## 1.44.5 (2026-11-12)
+- La directora de fábrica lanza a Codex con `-m gpt-6-luna -c model_reasoning_effort=max` y tope de 1800 s (antes: el modelo y esfuerzo del `config.toml` de Codex, 900 s). Pedido por Darwin; en la skill `directora-de-fabrica`, es y en. Sin probar en un encargo real con esfuerzo máximo.
+
+## 1.44.6 (2026-11-12)
+- El chat nuevo de la directora de fábrica se separa solo del chat que lo abrió: paso 0 en la skill `directora-de-fabrica` y frase añadida al encargo con que `/fabrica si` abre ese chat (es y en). Antes solo lo separaba el chat de fuera, y si la app lo rechazaba quedaba colgado. Sin probar con una directora real.
