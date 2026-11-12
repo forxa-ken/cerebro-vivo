@@ -332,3 +332,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.44.2 (2026-11-12)
 - Segunda auditoría (Sonnet + Codex) sobre la 1.44.1: confirman corregidos los hallazgos anteriores y hallan fallos menores, ya arreglados: una lista de extensiones vacía (`[""]`) o sin punto (`"md"`) apagaba el aviso de cierre; un modelo o esfuerzo que parece una opción (`-s`) entraba en el comando de Codex; un JSON anidado enorme daba traceback; `/auditor estado` con el archivo roto no avisaba de que mostraba valores por defecto; `auditor_modelo` sin sanear. **Sin cambiar (decidido):** el aviso puede repetirse en cada respuesta con ediciones (no pasa por el apagado de la spec 038) y, con ediciones hechas por terminal, cuenta todos los cambios de git; `sensible` casa por subcadena.
+
+## 1.44.3 (2026-11-12)
+- El aviso del auditor de cierre ahora pasa por el apagado de avisos repetidos (spec 038): si sale 3 veces seguidas en el mismo chat sin cambiar nada, se avisa de que se apaga y no se repite en ese chat (`evaluar(..., auditor_aparte=lista)`; `main` lo trata como informativo). Probado con el hook `Stop` real en un repo temporal: avisa 3 veces y calla.

@@ -42,7 +42,7 @@ Evidencia: `archive/informe-prueba-auditor-2026-11-12.md` y `archive/prueba-audi
 
 ### Decisiones de la 1.44.1 (tras la auditoría del auditor sobre sí mismo)
 - El aviso de cierre **no mira `.brain/*` ni `.claude/*`** (están en `ignorar_cambios`): es intencionado en un proyecto cliente, donde son la memoria y el arnés, no su código. En este repo (el arnés) eso deja sordo el aviso para guardianes y skills: allí se lanza `/auditor` a mano.
-- El aviso mira los cambios aunque el cierre por bloques siga abierto (<15 ediciones), pero no avisa si esa respuesta no editó nada. Puede repetirse en respuestas seguidas con ediciones; **no probado** cuánto molesta.
+- El aviso mira los cambios aunque el cierre por bloques siga abierto (<15 ediciones), pero no avisa si esa respuesta no editó nada. Desde la 1.44.3 pasa por el apagado de avisos repetidos (spec 038): tras 3 respuestas seguidas con el aviso, se apaga en ese chat (probado de extremo a extremo con el hook `Stop` en un repo temporal).
 - `auditor_cierre` es verdadero por defecto en todos los sitios (`auditor.cierre_activo`); acepta «false»/«no»/«0».
 - `guardianes.json` ilegible (JSON roto, raíz que no es objeto): `/auditor cierre|externo` **no escribe** y lo dice; con BOM se lee bien.
 - `auditor_modelo_externo` y `auditor_esfuerzo` solo admiten letras, cifras y `. _ : / -` (entran en una línea de comandos); si no, vale el por defecto.

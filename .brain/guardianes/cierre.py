@@ -195,13 +195,15 @@ def escribir_linea_auto(raiz, cfg, texto):
         f.write("%s | Claude (auto) | %s | %s\n" % (datetime.date.today().isoformat(), texto, t(cfg, "carril_corto")))
 
 
-def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None):
+def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None, auditor_aparte=None):
     """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests.
     `editados` (spec 031): archivos que el chat editó con Edit/Write; si hay, solo cuentan esos cambios de git
     (lo que trajo `/actualizar` u otro chat no es de este chat). Sin lista, vale todo lo que git ve cambiado.
     `sin_cerrar` (spec 033, cierre por bloque): archivos editados desde el último cierre; si es menor que
     `cierre_bloque_max_ediciones` (15) no se pide la línea todavía: se cierra por bloque, no por tarea pequeña.
-    Con `cierre_por_bloque` en false, o sin dato, se pide en cada respuesta como antes."""
+    Con `cierre_por_bloque` en false, o sin dato, se pide en cada respuesta como antes.
+    `auditor_aparte` (spec 044, 1.44.3): si se pasa una lista, los avisos del auditor van a ella y no a `avisos`
+    (así `main` puede apagarlos si se repiten sin atenderse, spec 038)."""
     avisos = []
     del_proyecto = [c for c in cambios if not esta_ignorada(c, cfg["ignorar_cambios"])]
     if editados:
@@ -223,9 +225,10 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
         try:
             from auditor import cierre_activo, hay_codigo, sensible, valor_externo
             if cierre_activo(cfg) and hay_codigo(candidatos, cfg):
-                avisos.append(t(cfg, "cierre_auditor"))
+                destino = avisos if auditor_aparte is None else auditor_aparte
+                destino.append(t(cfg, "cierre_auditor"))
                 if valor_externo(cfg) == "general-y-spec" and sensible(candidatos, cfg):
-                    avisos.append(t(cfg, "cierre_auditor_sensible"))
+                    destino.append(t(cfg, "cierre_auditor_sensible"))
         except Exception:
             pass
     if tam_pendientes is not None and tam_pendientes > cfg["tope_pendientes_bytes"]:
@@ -312,8 +315,9 @@ def main():
                 sin_cerrar = ediciones_sin_cerrar(datos["transcript_path"], cfg, RAIZ)
             except Exception:
                 sin_cerrar = None
-        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar)
-        informativos = {"longitud": [], "hitos": []}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
+        aviso_auditor = []
+        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar, aviso_auditor)
+        informativos = {"longitud": [], "hitos": [], "auditor": aviso_auditor}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util
             espec = importlib.util.spec_from_file_location("longitud", os.path.join(AQUI, "longitud.py"))

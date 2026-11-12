@@ -263,6 +263,12 @@ class AvisoDeCierre(unittest.TestCase):
         self.assertTrue(any("auditor" in a.lower() for a in av), av)
         self.assertFalse(any("registro" in a.lower() and "auditor" not in a.lower() for a in av), av)
 
+    def test_auditor_aparte_recibe_el_aviso_y_avisos_no(self):
+        aparte = []
+        av = cierre.evaluar(["server.py"], 1000, self.cfg, True, True, ["server.py"], None, aparte)
+        self.assertFalse(any("auditor" in a.lower() for a in av), av)
+        self.assertTrue(any("auditor" in a.lower() for a in aparte), aparte)
+
     def test_no_avisa_si_esta_respuesta_no_edito_nada(self):
         av = cierre.evaluar(["server.py"], 1000, self.cfg, False, True, None, sin_cerrar=None)
         self.assertFalse(any("auditor" in a.lower() for a in av), av)
