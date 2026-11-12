@@ -413,7 +413,34 @@ def fabrica_de_proyecto(proyecto, carpeta=None):
     return por
 
 
-def imprimir_fabrica(por, proyecto):
+def directora_de_proyecto(proyecto, carpeta=None):
+    """Chats de la directora (Claude) de la fábrica: los del proyecto cuyo primer mensaje habla de «directora».
+    Gasto = tokens nuevos + salida, sin contar lo leído de caché. Solo lectura."""
+    chats = []
+    for ruta in sorted(glob.glob(os.path.join(carpeta or carpeta_de(proyecto), "*.jsonl"))):
+        try:
+            c = leer_chat(ruta)
+        except Exception:
+            continue
+        if "directora" in c["titulo"].lower() or "director" in c["titulo"].lower():
+            chats.append(c)
+    return chats
+
+
+def imprimir_directora(chats):
+    if not chats:
+        print(tp("medir_directora_vacia"))
+        return
+    print()
+    print("%-10s %-11s %10s" % (tp("medir_directora_chat"), tp("medir_directora_fecha"), tp("medir_fabrica_tokens")))
+    for c in chats:
+        print("%-10s %-11s %10s" % (c["id"], c["fecha"], k(c["nuevos"] + c["salida"])))
+    print(tp("medir_directora_total") % (len(chats), sum(c["nuevos"] + c["salida"] for c in chats)))
+
+
+def imprimir_fabrica(por, proyecto, directora=None):
+    if directora is not None:
+        imprimir_directora(directora)
     if not por:
         print(tp("medir_fabrica_vacio") % proyecto)
         return
@@ -440,7 +467,7 @@ def main(argv=None):
     ap.add_argument("--ritual", action="store_true", help=tp("ayuda_medir_ritual"))
     a = ap.parse_args(argv)
     if a.fabrica:
-        imprimir_fabrica(fabrica_de_proyecto(a.proyecto), a.proyecto)
+        imprimir_fabrica(fabrica_de_proyecto(a.proyecto), a.proyecto, directora_de_proyecto(a.proyecto))
         return 0
     if a.ritual:
         imprimir_ritual(*ritual_de_proyecto(carpeta_de(a.proyecto), a.proyecto))

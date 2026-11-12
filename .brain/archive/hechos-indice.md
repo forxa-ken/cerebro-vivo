@@ -34,3 +34,5 @@
 | 41 | `/fabrica` y Codex por `codex exec` (probado en GuildControlForever y TraductorVoz) | 2026-11-11 | archive/hechos.md |
 
 | 40 | Resumen en llano de las «Fuentes» (cerrado sin escribirlo, por orden de Darwin) | 2026-11-12 | archive/hechos.md |
+
+| 25 | Distancia con un proyecto externo: fuentes citadas, sin renombrar nada | 2026-11-12 | archive/hechos.md |

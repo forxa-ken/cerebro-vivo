@@ -305,3 +305,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.39.1 (2026-11-11)
 - `/fabrica si` abre el chat de la directora con Opus y esfuerzo medio, y lo llama «directora #N» (la cuenta N se lleva en `.brain/fabrica/directora_n.txt`). Comprueba después con `get_session` que quedó así y lo corrige si el chat que lo abrió no era Opus. Solo cambia la skill `fabrica` (es/en).
+
+## 1.40.0 (2026-11-12)
+- `medir.py --fabrica` enseña ahora también el gasto de la directora (Claude): sus chats del proyecto con tokens nuevos + salida (sin caché), además del gasto de Codex por encargo. Probado con TraductorVoz (1 chat de directora, 241k; Codex 18 sesiones, 994k). No cuenta los subagentes de Claude (obrera o revisor), que no tienen registro propio. Con prueba y textos es/en.

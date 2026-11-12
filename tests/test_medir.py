@@ -166,6 +166,22 @@ class TestMedirFabrica(unittest.TestCase):
         self.assertEqual(por, {base + "-encargo-001": [2, 800]})
         self.assertEqual(medir.fabrica_de_proyecto(os.path.join(d, "Nada"), d), {})
 
+    def test_gasto_de_la_directora(self):
+        d = tempfile.mkdtemp()
+
+        def chat(nombre, primer_mensaje, nuevos, salida):
+            ls = [{"type": "user", "timestamp": "2026-11-11T10:00:00Z", "message": {"content": primer_mensaje}},
+                  {"type": "assistant", "message": {"id": "m1", "usage": {"input_tokens": nuevos, "output_tokens": salida,
+                                                                        "cache_read_input_tokens": 99999}}}]
+            with open(os.path.join(d, nombre), "w", encoding="utf-8") as f:
+                f.write(chr(10).join(json.dumps(x) for x in ls))
+        chat("a.jsonl", "eres la directora de fábrica: leer el traspaso", 1000, 500)
+        chat("b.jsonl", "arregla el guardián de textos", 7000, 7000)  # chat normal: no cuenta
+        cs = medir.directora_de_proyecto("X", d)
+        self.assertEqual(len(cs), 1)
+        self.assertEqual(cs[0]["nuevos"] + cs[0]["salida"], 1500)  # la caché no cuenta
+        self.assertEqual(medir.directora_de_proyecto("X", os.path.join(d, "nada")), [])
+
 
 class TestPorTarea(unittest.TestCase):
     """Spec 038 (1B): tokens por tarea terminada (cierres escritos por la IA en el chat)."""

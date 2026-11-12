@@ -55,13 +55,13 @@
   ".brain/guardianes/lecciones.py": "a1408d32ce542f1b4a1521d0d560636168b4c0045b0b1a070f204392f11d70d5",
   ".brain/guardianes/librerias.py": "4096837642b0de7e501f5515cd77ec7417bb06f4fbbc38c6aea1ed2ef09f89a8",
   ".brain/guardianes/longitud.py": "dd6f8d7b7764bcbc5e60e2bd03dbdd56c83e8111110d7bede5432427cf8686b2",
-  ".brain/guardianes/medir.py": "ec9ce3e5d582d570210304ba6303f4ac3321c76d7aa1a230ff9a152aa6cbdc29",
+  ".brain/guardianes/medir.py": "74316eb6505303bb83b0e39e48bbabc63f7585f09acf674b9500763ab1e16df2",
   ".brain/guardianes/notas_abiertas.py": "7a596d6060af56f39e0e952394e2242cff61bfe081b1a517d008e5beef72bb4f",
   ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "563a826ab2dda73de2e16e7ec32b0da9143ed2dd43a8fdefe3ef8b08f2fa8cdf",
+  ".brain/guardianes/textos.py": "fc98b53c7f65aeb0887884b6278b1f7b97d65308980c7f56a86ab4dde7d82cdf",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -152,7 +152,7 @@
   "tests/test_lecciones.py": "24ccf3b207d58ea1b95142a1f23b6ea10ac7723bbd0fc25fe2b9765799fe46c7",
   "tests/test_librerias.py": "287f2786577a7b4629015e6580ba787628452e16dff16e300f383d251d702de4",
   "tests/test_longitud.py": "e47d08b6f52caf54ad623cf01f4932cb69db5bc829cb0d32d9fd7b7f052cef20",
-  "tests/test_medir.py": "0d5e237741a5986bbe59bd256bdac8053fe473807f298d22eb2301ec975cd668",
+  "tests/test_medir.py": "e6cb2e7c66d848c52593c783db1862ca2ce2b39b8c1b5466f617ad1a26a4c2d8",
   "tests/test_modo_ligero.py": "d55e941a9b191252d897d2731ff7dede1ba39640aeef07673884d7eed09d1f06",
   "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
@@ -194,5 +194,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.39.1"
+ "version": "1.40.0"
 }
