@@ -218,6 +218,13 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
         avisos.append(t(cfg, "cierre_falta_linea",
                         ", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
+    if del_proyecto and cfg.get("auditor_cierre", False):  # spec 044: solo avisa; no lanza nada por sí mismo
+        try:
+            from auditor import hay_codigo
+            if hay_codigo(del_proyecto, cfg):
+                avisos.append(t(cfg, "cierre_auditor"))
+        except ImportError:
+            pass
     if tam_pendientes is not None and tam_pendientes > cfg["tope_pendientes_bytes"]:
         avisos.append(t(cfg, "cierre_tope_pendientes", cfg["pendientes"], tam_pendientes, cfg["tope_pendientes_bytes"]))
     return avisos

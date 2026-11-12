@@ -4,6 +4,7 @@
 
 | Skill | Cuándo usarla | Área | Fuente |
 | :--- | :--- | :--- | :--- |
+| [auditor](../../.claude/skills/auditor/SKILL.md) | Darwin types /auditor (general, cierre, externo or estado), asks for an audit of quality, resource use and security, or the closing warns "lanza el auditor" | Método | cerebro-vivo 1.44.0 |
 | [cero-dependencias](../../.claude/skills/cero-dependencias/SKILL.md) | you must generate Excel, PDF, GIF or similar files and want to avoid installing libraries | Método | cerebro-vivo 1.0.0 |
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
 | [explicar-a-darwin-en-llano](../../.claude/skills/explicar-a-darwin-en-llano/SKILL.md) | explaining something technical to Darwin, the project owner | Método | cerebro-vivo 1.0.0 |

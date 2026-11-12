@@ -3,6 +3,8 @@
 Specs terminadas, movidas aquí por el guardián de poda (spec 048). Nada se borra.
 
 - [003-coste-real-del-arranque](003-coste-real-del-arranque.md) — Spec 003: Medir el coste real (con caché) y recortar el arranque
+- [004-prueba-del-indice](004-prueba-del-indice.md) — Spec 004: ¿Ayudan los índices? (prueba pequeña, solo lectura)
+- [005-quitar-herramientas-poco-utiles](005-quitar-herramientas-poco-utiles.md) — # 1. Objetivo
 - [006-skills-resumen-pendiente-prompt](006-skills-resumen-pendiente-prompt.md) — Spec 006: Separar /resumen, /pendiente y /prompt-inicial
 - [007-objetivo-y-skills-codex](007-objetivo-y-skills-codex.md) — Spec 007: objetivo.md y skills para Codex en el instalador (pendientes 6 y 7)
 - [008-migrar-proyectos-empezados](008-migrar-proyectos-empezados.md) — Spec 008: migración del objetivo en proyectos ya instalados

@@ -134,7 +134,7 @@ class TestGuardianCierre(unittest.TestCase):
 
     def setUp(self):
         self.cierre = cargar_cierre()
-        self.cfg = cfg()
+        self.cfg = dict(cfg(), auditor_cierre=False)  # spec 044: el aviso del auditor se prueba en test_auditor.py
 
     def test_codigo_sin_registro_avisa(self):
         avisos = self.cierre.evaluar(["server.py"], 1000, self.cfg)
