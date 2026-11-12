@@ -92,6 +92,14 @@ window.DATOS = {
     "n": "Solo aparece cuando hace falta."
    },
    {
+    "p": "colaboracion.md",
+    "d": 1,
+    "q": "¿Qué IA hace qué en este proyecto?",
+    "r": "Cuando el modo colaborativo está encendido; los índices la apuntan",
+    "w": "colabora.py, desde la plantilla IAS_COLABORATIVAS",
+    "n": "Solo existe si has usado /colabora si. Al apagarlo se conserva."
+   },
+   {
     "p": "archive/",
     "d": 1,
     "q": "¿Se hizo esto? ¿Cuándo?",
@@ -246,7 +254,7 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn",
-    "d": "Es lo primero que corre al abrir un chat (aviso SessionStart). Lee el estado real —pendientes, commits sin subir, cambios sin commitear, última línea del registro— y lo imprime, para que la IA no dependa de acordarse. Además lanza la poda, avisa de archivos gordos, secretos, librerías y versión nueva del arnés, y muestra el traspaso del chat anterior, que después archiva. Si todo está en orden, imprime una sola línea."
+    "d": "Es lo primero que corre al abrir un chat (aviso SessionStart). Lee el estado real —pendientes, commits sin subir, cambios sin commitear, última línea del registro— y lo imprime, para que la IA no dependa de acordarse. Además lanza la poda, avisa de archivos gordos, secretos, librerías, memoria desactualizada y versión nueva del arnés, y muestra el traspaso del chat anterior, que después archiva. Recuerda entre chats los interruptores que estén encendidos: modo fábrica, modo colaborativo y un auditor externo con ajuste no habitual. Si hay proyectos hermanos, dice «N commits de X sin portar». Si todo está en orden, imprime una sola línea."
    },
    {
     "n": "Notas abiertas",
@@ -266,7 +274,7 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn",
-    "d": "Aviso Stop (fin de cada respuesta). Si se tocaron archivos del proyecto y falta la línea en decisions.log, o pendientes.md pasó su tope de 8 KB, devuelve un aviso que la IA lee y corrige; avisa una sola vez por respuesta. Desde la 1.29.0 cierra por bloque de trabajo: avisa tras 15 ediciones sin cerrar. En tareas pequeñas (hasta 2 archivos, ninguno sensible) escribe él mismo la línea."
+    "d": "Aviso Stop (fin de cada respuesta). Si se tocaron archivos del proyecto y falta la línea en decisions.log, o pendientes.md pasó su tope de 8 KB, devuelve un aviso que la IA lee y corrige; avisa una sola vez por respuesta. Cierra por bloque de trabajo: avisa tras 15 ediciones sin cerrar, o antes si la tarea no pasa la prueba de retomar (otra IA no podría seguir solo con la petición y el git diff). En tareas pequeñas (hasta 2 archivos, ninguno sensible) escribe él mismo la línea. Desde la 1.44 también avisa «lanza el auditor» cuando hubo cambios de código o configuración (no si solo se tocaron documentos o la memoria). Los avisos que solo informan (chat largo, hito sin lección, auditor) se apagan en ese chat si salen 3 veces seguidas sin cambiar nada; el aviso de la línea del registro nunca se apaga."
    },
    {
     "n": "Hitos y lecciones",
@@ -356,7 +364,7 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn",
-    "d": "Revisa CLAUDE.md, GEMINI.md y AGENTS.md y saca un informe de lo que parece sobrar o estar desfasado: referencias rotas, deriva entre índices, secciones largas y cercanía al tope. No modifica nada. Avisa a los 60 días de la última revisión o cuando un índice llega al 80 % de su tope."
+    "d": "Revisa CLAUDE.md, GEMINI.md y AGENTS.md y saca un informe de lo que parece sobrar o estar desfasado: referencias rotas, deriva entre índices, secciones largas y cercanía al tope. Desde la 1.36 también detecta memoria desactualizada en pendientes.md y constitution.md (rutas, specs y fichas que ya no existen). No modifica nada. Avisa a los 60 días de la última revisión o cuando un índice llega al 80 % de su tope; los descartes que le dices se recuerdan."
    },
    {
     "n": "Archivos gordos",
@@ -386,17 +394,47 @@ window.DATOS = {
     "e": "Solo lee",
     "k": "mano",
     "ek": "ok",
-    "d": "Solo lectura. Lee los registros de Claude Code y, por chat, saca coste ponderado, tokens nuevos, salida, arranque, mensajes tuyos y correcciones. --comparar enfrenta dos proyectos, --desglose ID da el coste mensaje a mensaje, --ritual separa cuánto del coste es ritual del arnés y cuánto es trabajo. Con --fabrica suma el gasto de las sesiones de Codex por encargo de la fábrica."
+    "d": "Solo lectura. Lee los registros de Claude Code y, por chat, saca coste ponderado, tokens nuevos, salida, arranque, mensajes tuyos y correcciones, y los tokens por tarea terminada. --comparar enfrenta dos proyectos, --desglose ID da el coste mensaje a mensaje, --ritual separa cuánto del coste es ritual del arnés y cuánto es trabajo (y mide la prueba de retomar). Con --fabrica suma el gasto de la directora (sus chats, sin caché) y el de las sesiones de Codex por encargo de la fábrica; no cuenta los subagentes de Claude, que no tienen registro propio."
    },
    {
     "n": "Fábrica de IA",
     "f": "fabrica.py",
-    "w": "Sella la spec y la carta, comprueba el alcance de cada encargo y vigila el gasto y los topes.",
+    "w": "Sella la spec y la carta, comprueba el alcance de cada encargo, vigila el gasto y recuerda el modo fábrica.",
     "c": "A mano (lo lanza la directora)",
     "e": "Avisa",
     "k": "mano",
     "ek": "warn",
-    "d": "Sin IA, solo comprobaciones. Lo usa la directora entre un paso y otro; no es un hook ni vigila en vivo. Congela la spec aprobada y sella la carta, saca una foto de la carpeta de trabajo antes de que trabaje la ejecutora, comprueba que el encargo tiene su requisito y que solo se tocaron los archivos permitidos, anota el gasto de cada papel y lo compara con los topes de la carta. Si algo incumple, sale con error para parar y avisarte."
+    "d": "Sin IA, solo comprobaciones. Lo usa la directora entre un paso y otro; no es un hook ni vigila en vivo. Congela la spec aprobada y sella la carta, saca una foto de la carpeta de trabajo antes de que trabaje la ejecutora, comprueba que el encargo tiene su requisito y que solo se tocaron los archivos permitidos, anota el gasto de cada papel y lo compara con los topes de la carta. Con «fabrica.py modo si|no|estado» (o /fabrica) enciende el modo fábrica, que se recuerda entre chats. Si algo incumple, sale con error para parar y avisarte."
+   },
+   {
+    "n": "Auditor",
+    "f": "auditor.py",
+    "w": "Dice quién audita (interno y/o IA externa), da el comando de Codex y guarda los ajustes. No lanza ninguna IA.",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Spec 044 (1.44). Busca fallos de calidad, consumo y seguridad y solo avisa: nunca cambia código ni bloquea el cierre. Este guardián no audita: guarda los ajustes en guardianes.json (auditor_cierre, auditor_externo, modelos y esfuerzo) y responde a «quien general|cierre|spec» con quién debe auditar (siempre el interno; la IA externa Codex en revisión general y cierre de spec, y en cierres rutinarios solo con auditor_externo en «siempre»; con «no», nunca). «codex» imprime el comando de Codex en solo lectura (en Windows con windows.sandbox=\"unelevated\", o Codex no puede ejecutar python). Si guardianes.json está roto no lo pisa, y los valores que entran en el comando se validan. Lo lanza la IA con la skill /auditor; cierre.py solo recuerda hacerlo.",
+    "c": "A mano",
+    "e": "Solo lee"
+   },
+   {
+    "n": "Modo colaborativo",
+    "f": "colabora.py",
+    "w": "Enciende o apaga el trabajo de varias IA con papeles distintos en un proyecto.",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Spec 042 (1.42). «colabora.py si» enciende modo_colaborativo, crea .brain/colaboracion.md desde la plantilla IAS_COLABORATIVAS (quién hace qué: Claude, Codex, Gemini) y pone una sola línea que remite a ese archivo en CLAUDE.md, AGENTS.md y GEMINI.md (salvo los que figuren en indices_ajenos). «no» lo apaga y quita esas líneas, pero conserva colaboracion.md. «estado» solo muestra cómo está. El arranque lo recuerda entre chats. No abre ningún chat.",
+    "c": "A mano",
+    "e": "Solo lee"
+   },
+   {
+    "n": "Proyectos hermanos",
+    "f": "hermanos.py",
+    "w": "Dice cuántos commits de un proyecto hermano faltan por portar a este.",
+    "k": "auto",
+    "ek": "warn",
+    "d": "Spec 043 (1.43). Solo lectura. Con proyectos_hermanos en guardianes.json (nombre, ruta, rama y archivo_portar) compara los commits del hermano con el archivo de portar de este proyecto (secciones «Último portado», «Pendiente» y «Hecho») y el arranque avisa «N commits de X sin portar». No hace fetch ni cambia nada; si el hermano no es accesible, calla (solo el comando manual lo dice). Sin hermanos configurados, no dice nada.",
+    "c": "Al abrir / a mano",
+    "e": "Avisa"
    },
    {
     "n": "Actualizador",
@@ -529,7 +567,17 @@ window.DATOS = {
     "La fábrica de IA",
     [
      "directora-de-fabrica",
-     "revisor-independiente"
+     "revisor-independiente",
+     "fabrica",
+     "revisor-de-consumo"
+    ]
+   ],
+   [
+    "Auditar y trabajar en equipo",
+    [
+     "auditor",
+     "colabora",
+     "hermanos"
     ]
    ]
   ],
@@ -555,8 +603,16 @@ window.DATOS = {
     "Resumen automático del estado del proyecto al abrir un chat."
    ],
    [
+    "Auditor",
+    "IA que intenta demostrar que un trabajo falla (calidad, consumo, seguridad) y entrega un informe. Solo avisa: no cambia nada ni bloquea. Hay uno interno (Sonnet) y, si toca, uno externo (Codex)."
+   ],
+   [
     "Bloquear",
     "Impedir una acción, como un commit con una clave. Es más fuerte que avisar."
+   ],
+   [
+    "Cambio pequeño",
+    "Carril corto, para tareas pequeñas."
    ],
    [
     "Carril",
@@ -588,19 +644,19 @@ window.DATOS = {
    ],
    [
     "Ejecutora",
-    "IA que hace un encargo pequeño dentro de los archivos permitidos (Claude o Codex)."
+    "IA que hace un encargo pequeño dentro de los archivos permitidos (Claude, Codex o Gemini)."
    ],
    [
     "Encargo",
     "Tarea pequeña de la fábrica: requisito que cumple, archivos permitidos y prueba que la da por buena."
    ],
    [
-    "Fábrica de IA",
-    "Diseño (spec 035) para trabajar con varias IA con papeles distintos, límites vigilados por programas y tres puertas de aprobación tuyas. Aún en construcción."
+    "Fallos plantados",
+    "Prueba del auditor: se esconden fallos conocidos en un código de juguete y se cuenta cuántos encuentra cada auditor."
    ],
    [
-    "Cambio pequeño",
-    "Carril corto, para tareas pequeñas."
+    "Fábrica de IA",
+    "Diseño (spec 035), ya construido (1.31 a 1.44): trabajar con varias IA con papeles distintos, límites vigilados por programas y tres puertas de aprobación tuyas. Se enciende con /fabrica si."
    ],
    [
     "Git",
@@ -615,16 +671,16 @@ window.DATOS = {
     "Orden que se lanza sola cuando pasa algo, como abrir un chat."
    ],
    [
-    "Índice de entrada",
-    "Archivo corto que lee la IA primero: CLAUDE.md, GEMINI.md o AGENTS.md."
-   ],
-   [
     "Manifiesto",
     "Lista de los archivos del arnés con su huella, para saber si cambiaron."
    ],
    [
     "Meta-arnés",
     "Arnés que sirve para muchos proyectos, repartido desde un solo origen."
+   ],
+   [
+    "Modo colaborativo",
+    "Interruptor (/colabora) para que varias IA trabajen en el mismo proyecto con papeles distintos, según .brain/colaboracion.md."
    ],
    [
     "Modo ligero",
@@ -653,6 +709,10 @@ window.DATOS = {
    [
     "Pre-commit",
     "Hook de Git que se lanza justo antes de guardar un commit."
+   ],
+   [
+    "Proyectos hermanos",
+    "Proyectos que salen del mismo origen con otra variante. El arnés avisa de los commits del hermano que faltan por portar."
    ],
    [
     "Prueba (test)",
@@ -691,6 +751,10 @@ window.DATOS = {
     "Plan corto que apruebas antes de programar."
    ],
    [
+    "Subagente",
+    "IA que lanza otra IA para una tarea acotada y recibe solo su informe. Se usa de revisor y de auditor interno, siempre de solo lectura."
+   ],
+   [
     "Token",
     "Unidad con la que se mide y se cobra lo que la IA lee y escribe."
    ],
@@ -705,6 +769,10 @@ window.DATOS = {
    [
     "Versión",
     "Número del arnés. Sube con cada cambio repartido."
+   ],
+   [
+    "Índice de entrada",
+    "Archivo corto que lee la IA primero: CLAUDE.md, GEMINI.md o AGENTS.md."
    ]
   ],
   "T": [
@@ -945,6 +1013,90 @@ window.DATOS = {
     "w": "En la terminal",
     "x": "python .brain/guardianes/medir.py --fabrica --proyecto RUTA",
     "d": "Suma los tokens gastados por cada sesión de Codex, agrupados por carpeta de encargo. Solo lee."
+   },
+   {
+    "c": "Fábrica de IA",
+    "t": "Encender el modo fábrica",
+    "w": "En el chat",
+    "x": "/fabrica si",
+    "d": "La IA pasa a ser directora: no programa, escribe la spec y reparte encargos. Abre sola un chat nuevo con Opus en esfuerzo medio. Se recuerda entre chats."
+   },
+   {
+    "c": "Fábrica de IA",
+    "t": "Apagar el modo fábrica / ver cómo está",
+    "w": "En el chat",
+    "x": "/fabrica no",
+    "d": "Vuelve al modo normal. Con /fabrica estado solo te dice cómo está."
+   },
+   {
+    "c": "Fábrica de IA",
+    "t": "Revisar el consumo de un módulo",
+    "w": "En el chat",
+    "x": "/revisor-de-consumo",
+    "d": "Un subagente de solo lectura busca gasto de CPU, memoria, disco o red de más al terminar un módulo de la fábrica."
+   },
+   {
+    "c": "Varias IA",
+    "t": "Encender el trabajo de varias IA en un proyecto",
+    "w": "En el chat",
+    "x": "/colabora si",
+    "d": "Crea .brain/colaboracion.md (quién hace qué: Claude, Codex, Gemini) y una línea que lo apunta en los índices de cada IA. Se recuerda entre chats."
+   },
+   {
+    "c": "Varias IA",
+    "t": "Apagarlo / ver cómo está",
+    "w": "En el chat",
+    "x": "/colabora no",
+    "d": "Lo apaga y quita las líneas; colaboracion.md se conserva. Con /colabora estado solo lo muestra."
+   },
+   {
+    "c": "Varias IA",
+    "t": "Saber qué falta por portar de un proyecto hermano",
+    "w": "En la terminal",
+    "x": "python .brain/guardianes/hermanos.py",
+    "d": "Solo lectura: lista los commits del hermano que aún no están en tu archivo de portar. El arranque ya lo avisa solo."
+   },
+   {
+    "c": "Varias IA",
+    "t": "Preparar o adoptar el archivo de portar",
+    "w": "En el chat",
+    "x": "/hermanos",
+    "d": "Te guía para configurar proyectos_hermanos y crear el archivo de portar desde la plantilla."
+   },
+   {
+    "c": "Auditar",
+    "t": "Auditar todo el proyecto (o una carpeta)",
+    "w": "En el chat",
+    "x": "/auditor general",
+    "d": "Dos auditores independientes —uno interno y Codex— buscan fallos de calidad, consumo y seguridad y entregan un informe único. Solo avisa; no cambia nada."
+   },
+   {
+    "c": "Auditar",
+    "t": "Auditar lo cambiado en esta tarea",
+    "w": "En el chat",
+    "x": "/auditor cierre",
+    "d": "Lo mismo, pero solo sobre lo que cambió. Lo usa la IA cuando el cierre dice «lanza el auditor»."
+   },
+   {
+    "c": "Auditar",
+    "t": "Encender o apagar el aviso de cierre",
+    "w": "En el chat",
+    "x": "/auditor cierre no",
+    "d": "Con «si» vuelve a avisar tras cambios de código o configuración. Con «estado» solo lo muestra."
+   },
+   {
+    "c": "Auditar",
+    "t": "Elegir cuándo entra la IA externa (Codex)",
+    "w": "En el chat",
+    "x": "/auditor externo general-y-spec",
+    "d": "Valores: general-y-spec (por defecto), siempre (también en cierres rutinarios, más gasto) y no (nunca se llama a una IA externa)."
+   },
+   {
+    "c": "Auditar",
+    "t": "Ver quién audita y el comando de Codex",
+    "w": "En la terminal",
+    "x": "python .brain/guardianes/auditor.py quien general",
+    "d": "Dice «interno + externo» o solo «interno». Con «codex» en lugar de «quien…» imprime el comando exacto de Codex en solo lectura."
    }
   ]
  },
@@ -1038,6 +1190,14 @@ window.DATOS = {
     "r": "When there is a new note; you are told automatically",
     "w": "The chat that received the request",
     "n": "It only appears when needed."
+   },
+   {
+    "p": "colaboracion.md",
+    "d": 1,
+    "q": "Which AI does what in this project?",
+    "r": "When collaborative mode is on; the indexes point to it",
+    "w": "colabora.py, from the IAS_COLABORATIVAS template",
+    "n": "It only exists if you have used /colabora si. Turning it off keeps it."
    },
    {
     "p": "archive/",
@@ -1194,7 +1354,7 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn",
-    "d": "It is the first thing to run when a chat opens (SessionStart hook). It reads the real state —pending items, unpushed commits, uncommitted changes, last log line— and prints it, so the AI does not depend on remembering. It also launches the pruning, warns about heavy files, secrets, libraries and a new harness version, and shows the previous chat's handover, which it then archives. If all is in order, it prints a single line."
+    "d": "It is the first thing that runs when a chat opens (SessionStart hook). It reads the real state —pending items, unpushed commits, uncommitted changes, last log line— and prints it, so the AI does not depend on remembering. It also runs the pruning, warns about big files, secrets, libraries, outdated memory and a new harness version, and shows the previous chat's handover, which it then archives. It reminds you, across chats, of any switch that is on: factory mode, collaborative mode and an external auditor with a non-default setting. If there are sibling projects, it says \"N commits from X not ported\". If everything is fine it prints a single line."
    },
    {
     "n": "Open notes",
@@ -1214,7 +1374,7 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn",
-    "d": "Stop hook (end of every reply). If project files were touched and the decisions.log line is missing, or pendientes.md went over its 8 KB cap, it returns a warning that the AI reads and fixes; it warns only once per reply. Since 1.29.0 it closes by block of work: it warns after 15 edits without closing. On small tasks (up to 2 files, none sensitive) it writes the line itself."
+    "d": "Stop hook (end of every reply). If project files were touched and the line in decisions.log is missing, or pendientes.md went over its 8 KB cap, it returns a warning that the AI reads and fixes; it warns once per reply. It closes by block of work: it warns after 15 edits without closing, or earlier if the task fails the resume test (another AI could not continue from the request and the git diff alone). In small tasks (up to 2 files, none sensitive) it writes the line itself. Since 1.44 it also warns \"launch the auditor\" when code or configuration changed (not if only documents or memory were touched). Warnings that only inform (long chat, milestone without a lesson, auditor) switch themselves off in that chat if they appear 3 times in a row with nothing changing; the log-line warning never switches off."
    },
    {
     "n": "Milestones and lessons",
@@ -1304,7 +1464,7 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn",
-    "d": "It reviews CLAUDE.md, GEMINI.md and AGENTS.md and produces a report of what looks superfluous or outdated: broken references, drift between indexes, long sections and closeness to the cap. It changes nothing. It warns 60 days after the last review or when an index reaches 80 % of its cap."
+    "d": "It reviews CLAUDE.md, GEMINI.md and AGENTS.md and produces a report of what seems superfluous or out of date: broken references, drift between indexes, long sections and closeness to the cap. Since 1.36 it also detects outdated memory in pendientes.md and constitution.md (paths, specs and cards that no longer exist). It changes nothing. It warns 60 days after the last review or when an index reaches 80 % of its cap; the dismissals you give are remembered."
    },
    {
     "n": "Large files",
@@ -1334,17 +1494,47 @@ window.DATOS = {
     "e": "Read only",
     "k": "mano",
     "ek": "ok",
-    "d": "Read only. It reads Claude Code's records and, per chat, reports weighted cost, new tokens, output, start-up, your messages and corrections. --comparar pits two projects against each other, --desglose ID gives the cost message by message, --ritual separates how much of the cost is harness ritual and how much is work. With --fabrica it adds up Codex sessions' spend per factory assignment."
+    "d": "Read-only. It reads the Claude Code logs and, per chat, gives weighted cost, new tokens, output, startup, your messages and corrections, and tokens per finished task. --comparar compares two projects, --desglose ID gives the cost message by message, --ritual separates how much of the cost is harness ritual and how much is work (and measures the resume test). With --fabrica it adds up the director's spending (her chats, without cache) and that of the Codex sessions per factory assignment; it does not count Claude subagents, which have no log of their own."
    },
    {
     "n": "AI factory",
     "f": "fabrica.py",
-    "w": "Seals the spec and the charter, checks each assignment's scope and watches spend and limits.",
+    "w": "Seals the spec and charter, checks each assignment's scope, watches spending and remembers factory mode.",
     "c": "By hand (the director runs it)",
     "e": "Warns",
     "k": "mano",
     "ek": "warn",
-    "d": "No AI, only checks. The director uses it between steps; it is not a hook and does not watch live. It freezes the approved spec and seals the charter, takes a snapshot of the working folder before the executor works, checks that the assignment has its requirement and that only allowed files were touched, records each role's spend and compares it with the charter's limits. If something fails it exits with an error so work stops and you are told."
+    "d": "No AI, only checks. The director uses it between steps; it is not a hook and does not watch live. It freezes the approved spec and seals the charter, takes a snapshot of the working folder before the executor works, checks that the assignment has its requirement and that only allowed files were touched, records each role's spending and compares it with the charter's caps. With \"fabrica.py modo si|no|estado\" (or /fabrica) it turns factory mode on, which is remembered across chats. If something is breached, it exits with an error to stop and warn you."
+   },
+   {
+    "n": "Auditor",
+    "f": "auditor.py",
+    "w": "Says who audits (internal and/or external AI), gives the Codex command and stores the settings. It launches no AI.",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Spec 044 (1.44). It looks for quality, resource-use and security flaws and only warns: it never changes code or blocks closing. This guardian does not audit: it stores the settings in guardianes.json (auditor_cierre, auditor_externo, models and effort) and answers \"quien general|cierre|spec\" with who must audit (always the internal one; the external AI Codex in general review and spec closing, and in routine closings only with auditor_externo on \"siempre\"; with \"no\", never). \"codex\" prints the Codex command in read-only mode (on Windows with windows.sandbox=\"unelevated\", or Codex cannot run python). If guardianes.json is broken it does not overwrite it, and the values that go into the command are validated. The AI launches it with the /auditor skill; cierre.py only reminds it to.",
+    "c": "By hand",
+    "e": "Read only"
+   },
+   {
+    "n": "Collaborative mode",
+    "f": "colabora.py",
+    "w": "Turns on or off several AIs working with different roles in one project.",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Spec 042 (1.42). \"colabora.py si\" turns on modo_colaborativo, creates .brain/colaboracion.md from the IAS_COLABORATIVAS template (who does what: Claude, Codex, Gemini) and puts a single line pointing to that file in CLAUDE.md, AGENTS.md and GEMINI.md (except those listed in indices_ajenos). \"no\" turns it off and removes those lines but keeps colaboracion.md. \"estado\" just shows how it is. The startup reminds you across chats. It opens no chat.",
+    "c": "By hand",
+    "e": "Read only"
+   },
+   {
+    "n": "Sibling projects",
+    "f": "hermanos.py",
+    "w": "Says how many commits of a sibling project are still to be ported to this one.",
+    "k": "auto",
+    "ek": "warn",
+    "d": "Spec 043 (1.43). Read-only. With proyectos_hermanos in guardianes.json (nombre, ruta, rama and archivo_portar) it compares the sibling's commits with this project's port file (sections \"Last ported\", \"Pending\" and \"Done\") and the startup warns \"N commits from X not ported\". It does no fetch and changes nothing; if the sibling is not reachable it stays silent (only the manual command says so). With no siblings configured, it says nothing.",
+    "c": "On open / by hand",
+    "e": "Warns"
    },
    {
     "n": "Updater",
@@ -1477,11 +1667,25 @@ window.DATOS = {
     "The AI factory",
     [
      "directora-de-fabrica",
-     "revisor-independiente"
+     "revisor-independiente",
+     "fabrica",
+     "revisor-de-consumo"
+    ]
+   ],
+   [
+    "Audit and teamwork",
+    [
+     "auditor",
+     "colabora",
+     "hermanos"
     ]
    ]
   ],
   "GL": [
+   [
+    "AI factory",
+    "Design (spec 035), now built (1.31 to 1.44): working with several AIs with different roles, limits watched by programs and three approval gates of yours. Turned on with /fabrica si."
+   ],
    [
     "Aprobador",
     "A separate agent that reads a spec and answers APPROVED or REJECTED under a fixed rule; in the VMware experiment it stood in for Darwin."
@@ -1491,8 +1695,20 @@ window.DATOS = {
     "Folder where finished or old work goes. It is moved there, not deleted."
    ],
    [
+    "Assignment",
+    "Small factory task: the requirement it meets, allowed files and the test that accepts it."
+   ],
+   [
+    "Auditor",
+    "An AI that tries to prove that a piece of work fails (quality, resource use, security) and hands in a report. It only warns: it changes nothing and blocks nothing. There is an internal one (Sonnet) and, when needed, an external one (Codex)."
+   ],
+   [
     "Block",
     "To stop an action, such as a commit with a key. Stronger than warning."
+   ],
+   [
+    "Charter",
+    "The rules of the game for a factory mission, signed by Darwin: what can be touched, what is forbidden and how much can be spent."
    ],
    [
     "Chat note",
@@ -1503,6 +1719,10 @@ window.DATOS = {
     "Automation that runs tests and deployments on every push. We do not have it yet."
    ],
    [
+    "Collaborative mode",
+    "A switch (/colabora) for several AIs to work on the same project with different roles, as set in .brain/colaboracion.md."
+   ],
+   [
     "Commit",
     "A snapshot of changes saved in the Git history. It is only local until it is pushed."
    ],
@@ -1511,36 +1731,20 @@ window.DATOS = {
     "Project rules that are not broken without permission."
    ],
    [
-    "Charter",
-    "The rules of the game for a factory mission, signed by Darwin: what can be touched, what is forbidden and how much can be spent."
-   ],
-   [
     "Decision (D-NNN)",
     "Short record that keeps what was decided and why."
-   ],
-   [
-    "Entry index",
-    "Short file the AI reads first: CLAUDE.md, GEMINI.md or AGENTS.md."
    ],
    [
     "Director",
     "Design: main agent of a project (Opus) that turns your goal into a spec and hands out assignments. Does not code."
    ],
    [
+    "Entry index",
+    "Short file the AI reads first: CLAUDE.md, GEMINI.md or AGENTS.md."
+   ],
+   [
     "Executor",
-    "AI that does one small assignment inside the allowed files (Claude or Codex)."
-   ],
-   [
-    "Assignment",
-    "Small factory task: the requirement it meets, allowed files and the test that accepts it."
-   ],
-   [
-    "AI factory",
-    "Design (spec 035) for working with several AIs in distinct roles, limits watched by programs and three approval gates of yours. Still being built."
-   ],
-   [
-    "Small change",
-    "The short lane, for small tasks."
+    "An AI that does a small assignment inside the allowed files (Claude, Codex or Gemini)."
    ],
    [
     "Git",
@@ -1561,6 +1765,10 @@ window.DATOS = {
    [
     "Hook",
     "A command that runs on its own when something happens, such as opening a chat."
+   ],
+   [
+    "Independent reviewer",
+    "Another AI, in another chat, that did not do the work and reviews it with fresh eyes: nobody approves their own work."
    ],
    [
     "Lane",
@@ -1591,6 +1799,10 @@ window.DATOS = {
     "Lightweight comparison method: small tasks go straight through and large ones get a task document; no guardians."
    ],
    [
+    "Planted flaws",
+    "An auditor test: known flaws are hidden in toy code and each auditor is scored on how many it finds."
+   ],
+   [
     "Pre-commit",
     "Git hook that runs just before a commit is saved."
    ],
@@ -1615,20 +1827,28 @@ window.DATOS = {
     "A key or token that must never enter the repository."
    ],
    [
+    "Sibling projects",
+    "Projects that come from the same origin with a different variant. The harness warns about the sibling's commits still to be ported."
+   ],
+   [
     "Skill",
     "Instruction card for a specific situation."
+   ],
+   [
+    "Small change",
+    "The short lane, for small tasks."
    ],
    [
     "Spec",
     "Short plan you approve before coding."
    ],
    [
-    "Independent reviewer",
-    "Another AI, in another chat, that did not do the work and reviews it with fresh eyes: nobody approves their own work."
-   ],
-   [
     "Start-up",
     "Automatic summary of the project state when a chat opens."
+   ],
+   [
+    "Subagent",
+    "An AI that launches another AI for a narrow task and receives only its report. Used as reviewer and as internal auditor, always read-only."
    ],
    [
     "Test",
@@ -1893,6 +2113,90 @@ window.DATOS = {
     "w": "In the terminal",
     "x": "python .brain/guardianes/medir.py --fabrica --proyecto RUTA",
     "d": "Adds up the tokens spent by each Codex session, grouped by assignment folder. Read only."
+   },
+   {
+    "c": "AI factory",
+    "t": "Turn factory mode on",
+    "w": "In the chat",
+    "x": "/fabrica si",
+    "d": "The AI becomes the director: it does not code, it writes the spec and hands out assignments. It opens a new chat by itself with Opus at medium effort. Remembered across chats."
+   },
+   {
+    "c": "AI factory",
+    "t": "Turn factory mode off / see its state",
+    "w": "In the chat",
+    "x": "/fabrica no",
+    "d": "Back to normal mode. /fabrica estado only tells you how it is."
+   },
+   {
+    "c": "AI factory",
+    "t": "Review a module's resource use",
+    "w": "In the chat",
+    "x": "/revisor-de-consumo",
+    "d": "A read-only subagent looks for extra CPU, memory, disk or network use when a factory module is finished."
+   },
+   {
+    "c": "Several AIs",
+    "t": "Turn on several AIs working in a project",
+    "w": "In the chat",
+    "x": "/colabora si",
+    "d": "Creates .brain/colaboracion.md (who does what: Claude, Codex, Gemini) and a line pointing to it in each AI's index. Remembered across chats."
+   },
+   {
+    "c": "Several AIs",
+    "t": "Turn it off / see its state",
+    "w": "In the chat",
+    "x": "/colabora no",
+    "d": "Turns it off and removes the lines; colaboracion.md is kept. /colabora estado only shows it."
+   },
+   {
+    "c": "Several AIs",
+    "t": "See what is left to port from a sibling project",
+    "w": "In the terminal",
+    "x": "python .brain/guardianes/hermanos.py",
+    "d": "Read-only: lists the sibling's commits not yet in your port file. The startup already warns you by itself."
+   },
+   {
+    "c": "Several AIs",
+    "t": "Set up or adopt the port file",
+    "w": "In the chat",
+    "x": "/hermanos",
+    "d": "Guides you to configure proyectos_hermanos and create the port file from the template."
+   },
+   {
+    "c": "Audit",
+    "t": "Audit the whole project (or a folder)",
+    "w": "In the chat",
+    "x": "/auditor general",
+    "d": "Two independent auditors —an internal one and Codex— look for quality, resource-use and security flaws and hand in a single report. It only warns; it changes nothing."
+   },
+   {
+    "c": "Audit",
+    "t": "Audit what changed in this task",
+    "w": "In the chat",
+    "x": "/auditor cierre",
+    "d": "The same, but only on what changed. The AI uses it when the closing says \"launch the auditor\"."
+   },
+   {
+    "c": "Audit",
+    "t": "Turn the closing warning on or off",
+    "w": "In the chat",
+    "x": "/auditor cierre no",
+    "d": "With \"si\" it warns again after code or configuration changes. \"estado\" only shows it."
+   },
+   {
+    "c": "Audit",
+    "t": "Choose when the external AI (Codex) joins",
+    "w": "In the chat",
+    "x": "/auditor externo general-y-spec",
+    "d": "Values: general-y-spec (default), siempre (also in routine closings, more cost) and no (no external AI is ever called)."
+   },
+   {
+    "c": "Audit",
+    "t": "See who audits and the Codex command",
+    "w": "In the terminal",
+    "x": "python .brain/guardianes/auditor.py quien general",
+    "d": "Says \"interno + externo\" or just \"interno\". With \"codex\" instead of \"quien…\" it prints the exact read-only Codex command."
    }
   ]
  }
