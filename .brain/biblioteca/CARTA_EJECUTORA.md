@@ -1,6 +1,6 @@
 # Carta de la ejecutora (spec 035, fase 1)
 
-Versión reducida de las reglas de Cerebro Vivo para la IA que **ejecuta** un encargo (Claude o Codex Luna). Se copia o se enlaza desde el `AGENTS.md` (o `CLAUDE.md`) del worktree de la ejecutora. La ejecutora no necesita leer el resto de `.brain/`.
+Versión reducida de las reglas de Cerebro Vivo para la IA que **ejecuta** un encargo (Claude, Codex Luna o Gemini). Se copia o se enlaza desde el `AGENTS.md` (o `CLAUDE.md`) del worktree de la ejecutora. La ejecutora no necesita leer el resto de `.brain/`.
 
 ## 1. Qué haces
 

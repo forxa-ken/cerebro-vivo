@@ -475,6 +475,15 @@ INDICES_ENTRADA = ("CLAUDE.md", "GEMINI.md", "AGENTS.md")
 LINEA_OBJETIVO = "* **Objetivo del proyecto (leer primero):** [`.brain/architecture/objetivo.md`](.brain/architecture/objetivo.md)."
 
 
+def indices_ajenos(proyecto):
+    """Spec 042 (R12): nombres de índices que `guardianes.json` del proyecto marca como ajenos (no se tocan)."""
+    try:
+        datos = json.loads(leer_bytes(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")).decode("utf-8")).get("indices_ajenos", [])
+    except (OSError, ValueError, AttributeError):
+        return set()
+    return {str(x) for x in datos} if isinstance(datos, list) else set()
+
+
 def migrar_objetivo(proyecto, simular=False, ahora=None):
     """Spec 008: en un proyecto ya instalado crea `objetivo.md`, lo enlaza en los índices de entrada y añade la regla a la constitución.
     Idempotente; no pisa nada (solo añade) y guarda copia de lo que modifica. Devuelve {'creados', 'modificados', 'avisos'}."""
@@ -491,9 +500,10 @@ def migrar_objetivo(proyecto, simular=False, ahora=None):
             cambios.append((OBJETIVO, texto))
         else:
             res["avisos"].append(tp("actualizar_arnes_falta_plantilla_objetivo"))
+    ajenos = indices_ajenos(proyecto)  # spec 042 (R12): índices que su dueño no quiere tocados
     for nombre in INDICES_ENTRADA:
         ruta = os.path.join(proyecto, nombre)
-        if not os.path.isfile(ruta):
+        if not os.path.isfile(ruta) or nombre in ajenos:
             continue
         texto = leer_bytes(ruta).decode("utf-8")
         if "architecture/objetivo.md" in texto:

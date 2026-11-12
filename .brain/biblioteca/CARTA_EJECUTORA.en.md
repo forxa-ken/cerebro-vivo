@@ -1,6 +1,6 @@
 # Executor charter (spec 035, phase 1)
 
-A reduced version of the Cerebro Vivo rules for the AI that **executes** an assignment (Claude or Codex Luna). It is copied or linked from the `AGENTS.md` (or `CLAUDE.md`) of the executor's worktree. The executor does not need to read the rest of `.brain/`.
+A reduced version of the Cerebro Vivo rules for the AI that **executes** an assignment (Claude, Codex Luna or Gemini). It is copied or linked from the `AGENTS.md` (or `CLAUDE.md`) of the executor's worktree. The executor does not need to read the rest of `.brain/`.
 
 ## 1. What you do
 

@@ -25,7 +25,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "lecciones", "hitos", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "eventos_chat", "fabrica", "actualizar_arnes"]
+GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "lecciones", "hitos", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "archivos_gordos", "eventos_chat", "fabrica", "colabora", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -271,6 +271,16 @@ def repo_del_arnes(cfg):
     return repo if repo and os.path.exists(os.path.join(repo, "manifiesto.json")) else None
 
 
+def indices_ajenos(destino):
+    """Spec 042 (R12): nombres de índices (CLAUDE.md, AGENTS.md, GEMINI.md) que `guardianes.json` del proyecto marca como ajenos."""
+    try:
+        with open(os.path.join(destino, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+            datos = json.load(f).get("indices_ajenos", [])
+    except (OSError, ValueError, AttributeError):
+        return set()
+    return {str(x) for x in datos} if isinstance(datos, list) else set()
+
+
 def comprobar_arnes(ias):
     """Spec 021: con el manifiesto desfasado, parar antes de escribir nada en vez de quedarse a medias."""
     repo = repo_del_arnes(configuracion(ias))
@@ -309,8 +319,12 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
 
     todos = [IAS[i][0] for i in ias]
     adoptados = []
+    ajenos = indices_ajenos(destino)  # spec 042 (R12): índices que su dueño no quiere tocados
     for i in ias:
         archivo, ia = IAS[i]
+        if archivo in ajenos and os.path.exists(os.path.join(destino, archivo)):
+            hechos["avisos"].append("%s está en indices_ajenos de guardianes.json: no se ha tocado." % archivo)
+            continue
         texto = leer(edicion(os.path.join(PLANTILLAS, "indice_ia.md")))
         texto = texto.replace("{{BLOQUE_IA}}", bloque_ia(ia, nivel, py, en)).replace("{{MAPA}}", mapa_en(nivel) if en else mapa(nivel))
         texto = texto.replace("{{IA}}", ia).replace("{{ARCHIVO}}", archivo)

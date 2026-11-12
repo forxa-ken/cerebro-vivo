@@ -30,6 +30,7 @@
 | [traspaso-out](../../.claude/skills/traspaso-out/SKILL.md) | Darwin types traspaso-out (salgo or entro) or says he is switching AI (Claude, Gemini, Codex) | Método | cerebro-vivo 1.9.0 |
 | [version](../../.claude/skills/version/SKILL.md) | Darwin types /version or asks which version of the arnés (Cerebro Vivo) this project has | Método | cerebro-vivo 1.21.0 |
 | [chat-nuevo](../../.claude/skills/chat-nuevo/SKILL.md) | Darwin types /chat-nuevo (si, no or estado) or asks to turn on or off that the AI opens the new chat by itself | Método | cerebro-vivo 1.23.0 |
+| [colabora](../../.claude/skills/colabora/SKILL.md) | Darwin types /colabora (si, no or estado) or asks to turn on or off the collaborative mode of the project (several AIs with different roles) | Método | cerebro-vivo 1.42.0 |
 | [vigilar-librerias](../../.claude/skills/vigilar-librerias/SKILL.md) | adding, updating or auditing a Python library | Método | cerebro-vivo 1.0.0 |
 | [leccion](../../.claude/skills/leccion/SKILL.md) | typing /leccion or the hitos guardian blocks closing a task until a lesson is noted | Método | cerebro-vivo 1.24.0 |
 | [memoria-traspaso](../../.claude/skills/memoria-traspaso/SKILL.md) | typing /memoria-traspaso or the full detail of the previous chat is needed | Método | cerebro-vivo 1.24.0 |
