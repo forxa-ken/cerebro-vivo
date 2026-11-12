@@ -308,3 +308,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.40.0 (2026-11-12)
 - `medir.py --fabrica` enseña ahora también el gasto de la directora (Claude): sus chats del proyecto con tokens nuevos + salida (sin caché), además del gasto de Codex por encargo. Probado con TraductorVoz (1 chat de directora, 241k; Codex 18 sesiones, 994k). No cuenta los subagentes de Claude (obrera o revisor), que no tienen registro propio. Con prueba y textos es/en.
+
+## 1.40.1 (2026-11-12)
+- Punto 30: 18 avisos de los guardianes (fábrica, base de datos, traspaso e índices) dicen ahora **cómo arreglarlo**, no solo qué falló (por ejemplo, «vuelve a congelarla con `fabrica.py congelar SPEC`» o «para y pregunta a Darwin antes de relanzar»). Solo se añaden frases al final; el texto anterior no cambia. En español e inglés.

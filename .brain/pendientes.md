@@ -10,13 +10,12 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **23:** aprender a montar un agente que verifique las pruebas y errores de la IA principal (revisor independiente; idea somera de Darwin; sale de `F:\Arquitectura de desarrollo`, REC-003/004/005). Explicárselo en llano y hacerlo paso a paso con él. Sin empezar.
 
-- **30:** idea del punto 24 (OpenAI): que los avisos de los guardianes digan cómo arreglar el problema, no solo qué falló; revisar los de `textos.py` en es/en. Sin empezar.
-
 - **36:** mejora (idea de ODD, informe `archive/informe-odd-gentle-shell-2026-11-09.md`): usar el «resume test» (¿se puede retomar el trabajo solo con la petición y los cambios del código?) como segundo criterio, junto al contador de 15 ediciones del cierre por bloque y a la regla de «más de 2 archivos» de `spec-antes-de-programar`. Pequeño y reversible. Hacerlo después de ver los resultados del punto 35 (`medir.py --ritual`). Spec antes; es/en. Sin empezar.
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) arreglar `test_soporte_mac` (fin de línea de Windows); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
 
 ## Esperando tu prueba (Darwin)
+- **30:** avisos de los guardianes con el cómo arreglarlo (arnés 1.40.1, sin subir). 18 avisos de la fábrica, base de datos, traspaso e índices añaden una frase final con la solución. Prueba: provoca uno, por ejemplo `python .brain/guardianes/fabrica.py alcance` sin foto previa, y comprueba que el aviso dice qué comando lanzar.
 - **22:** pruebas en GitHub Actions (spec 039, `.github/workflows/pruebas.yml`, sin subir). Sin ejecutar aún en GitHub: al subir `main`, mirar la pestaña Actions del repo; pueden salir pruebas rojas en Ubuntu o Windows por diferencias de entorno, y se arreglan o se omiten con motivo.
 - **29:** memoria desactualizada (spec 037, arnés 1.36.0, sin subir): `revisar_indices.py` avisa de rutas, specs y fichas citadas en `pendientes.md` y `constitution.md` que ya no existen. Prueba: `python .brain/guardianes/revisar_indices.py` y mirar si los avisos son reales. Hoy da uno real: la constitución cita `.brain/lecciones/metodo.md`, que ya no existe (las lecciones se trocearon en `metodo-*.md`); corregirlo es decisión de Darwin.
 - **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0, sin subir): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
