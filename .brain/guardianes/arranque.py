@@ -212,6 +212,11 @@ def resumen(raiz, cfg):
         lineas.append(t(cfg, "arranque_modo_fabrica"))
     if cfg.get("modo_colaborativo"):  # spec 042: el modo colaborativo se recuerda entre chats
         lineas.append(t(cfg, "arranque_modo_colaborativo"))
+    try:  # spec 043: commits de proyectos hermanos sin portar (silencio si no hay hermanos o no son accesibles)
+        import hermanos
+        lineas.extend(hermanos.lineas_arranque(raiz, cfg))
+    except Exception:
+        pass
     try:
         ruta_p = os.path.join(raiz, cfg["pendientes"])
         with open(ruta_p, encoding="utf-8") as f:

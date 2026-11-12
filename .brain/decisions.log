@@ -267,3 +267,5 @@
 2026-11-12 | Claude (cerebro-vivo #48) | Punto 32 cerrado: prueba real contra OSV.dev con proyecto de juguete detecta npm, cargo y go; web actualizada (gh-pages 40d38c5); 2 lecciones
 2026-11-12 | Claude (cerebro-vivo #48) | Arnes 1.41.0: punto 36 (spec 041) prueba de retomar como segundo criterio del cierre; 431 pruebas OK; sin subir
 2026-11-12 | Claude (cerebro-vivo #48) | Arnes 1.42.0: spec 042 programada (/colabora, indices_ajenos, Gemini obrera sin probar); spec 043 aprobada, sin programar; 444 pruebas OK; sin subir
+2026-11-12 | Claude (cerebro-vivo #49) | Subida a GitHub de la 1.42.0 (commits 31b9a14 y 2362673, pruebas 444 en verde); el punto de prueba de la 042 pasa de 38 a 42 porque el 38 ya era un hecho | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #49) | Arnes 1.43.0: spec 043 programada (hermanos.py, proyectos_hermanos, plantillas PORTAR y HALLAZGOS, skill hermanos es/en, 11 pruebas con repos de juguete); arreglo: IAS_COLABORATIVAS no se repartia; 455 pruebas en verde, sin subir | Cambio pequeño

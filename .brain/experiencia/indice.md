@@ -8,6 +8,7 @@
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
 | [explicar-a-darwin-en-llano](../../.claude/skills/explicar-a-darwin-en-llano/SKILL.md) | explaining something technical to Darwin, the project owner | Método | cerebro-vivo 1.0.0 |
 | [guardian-avisa-o-bloquea](../../.claude/skills/guardian-avisa-o-bloquea/SKILL.md) | creating an automatic check (guardian) for the Cerebro Vivo method | Método | cerebro-vivo 1.0.0 |
+| [hermanos](../../.claude/skills/hermanos/SKILL.md) | the project has sibling projects (same origin, different variant), the arranque says "N commits de X sin portar", or Darwin asks to set up or adopt a "portar" file | Método | cerebro-vivo 1.43.0 |
 | [implementada-no-es-hecha](../../.claude/skills/implementada-no-es-hecha/SKILL.md) | about to call a task finished or done | Método | cerebro-vivo 1.0.0 |
 | [licencia-antes-de-usar](../../.claude/skills/licencia-antes-de-usar/SKILL.md) | adopting a free service, voice, font, model or library in something commercial | Método | cerebro-vivo 1.0.0 |
 | [actualizar](../../.claude/skills/actualizar/SKILL.md) | typing /actualizar or the arranque says there is a new arnés version available | Método | cerebro-vivo 1.17.0 |

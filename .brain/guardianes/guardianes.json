@@ -32,6 +32,7 @@
   "modo_fabrica": false,
   "modo_colaborativo": false,
   "indices_ajenos": [],
+  "proyectos_hermanos": [],
   "lecciones_activas": true,
   "lecciones_vigiladas": {},
   "hitos_max_archivos": 5,

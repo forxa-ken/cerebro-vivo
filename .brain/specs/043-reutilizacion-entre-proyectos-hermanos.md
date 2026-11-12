@@ -1,6 +1,6 @@
 # Spec 043: reutilización entre proyectos hermanos (genérica, va en el arnés)
 
-- **Estado:** aprobada por Darwin el 2026-11-12; sin programar (se hace después de la 042)
+- **Estado:** aprobada por Darwin el 2026-11-12; programada el 2026-11-12 en el arnés 1.43.0 (pruebas con repos de juguete en verde; la prueba real a mano sigue pendiente de Darwin)
 - **Fecha:** 2026-11-12
 - **Origen:** Darwin tiene proyectos que comparten trabajo (el caso que lo motivó: dos versiones de un mismo addon, una para cada edición del juego). Hoy lo que se hace en uno y falta en el otro se anota a mano en un archivo de «portar» de cada proyecto (commit, qué cambia, qué adaptar, qué no portar). Funciona, pero depende de que alguien se acuerde: uno de esos archivos lleva semanas sin tocarse y dice «Pendiente: (nada)». Además solo cubre commits, no lo descubierto.
 - **Es del arnés, no de esos dos proyectos:** cualquier proyecto de Darwin con uno o más «hermanos» (mismo origen, distinta variante) puede activarlo. **Nada de lo que se reparte nombra proyectos concretos**; los ejemplos de esta spec no pasan a los archivos del kit (lo vigila `tests/test_arnes_repo.py`).
