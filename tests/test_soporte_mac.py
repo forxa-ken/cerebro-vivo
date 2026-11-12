@@ -27,16 +27,19 @@ class TestSoporteMac(unittest.TestCase):
             self.assertEqual(instalar.python_del_proyecto(vacio), ("python", "python"))  # Windows no cambia
 
     def test_instalador_de_mac_existe_con_fin_de_linea_unix_y_va_en_el_manifiesto(self):
+        ruta_manifiesto = os.path.join(RAIZ, "manifiesto.json")
+        if not os.path.isfile(ruta_manifiesto):
+            # Solo el repo del arnés es la fuente del instalador. En un proyecto, Git de Windows puede haberlo
+            # pasado a fin de línea CRLF al bajarlo y eso no es un fallo del método (punto 37-b).
+            self.skipTest("solo se comprueba en el repo del arnés")
         ruta = os.path.join(RAIZ, "instalar_kit.command")
         with open(ruta, "rb") as f:
             datos = f.read()
         self.assertTrue(datos.startswith(b"#!/bin/sh"))
         self.assertNotIn(b"\r\n", datos)
         self.assertIn(b"instalar_gui.py", datos)
-        ruta_manifiesto = os.path.join(RAIZ, "manifiesto.json")
-        if os.path.isfile(ruta_manifiesto):  # solo existe en el repo del arnés
-            with open(ruta_manifiesto, encoding="utf-8") as f:
-                self.assertIn("instalar_kit.command", f.read())
+        with open(ruta_manifiesto, encoding="utf-8") as f:
+            self.assertIn("instalar_kit.command", f.read())
 
 
 if __name__ == "__main__":

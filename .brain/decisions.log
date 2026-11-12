@@ -260,3 +260,4 @@
 2026-11-12 | Claude (cerebro-vivo #47) | Punto 40 cerrado por orden de Darwin (resumen de Fuentes no escrito). Sin subir. | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.0: medir.py --fabrica enseña el gasto de la directora (punto 19); cerrado el punto 25. 431 pruebas OK. Sin subir. | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.1: punto 30, 18 avisos de guardianes dicen cómo arreglarlo (es/en). 431 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.2: punto 37-b, test_soporte_mac se salta fuera del repo del arnés (CRLF de Windows). Pruebas OK. Sin subir. | Cambio pequeño

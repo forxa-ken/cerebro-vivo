@@ -311,3 +311,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.40.1 (2026-11-12)
 - Punto 30: 18 avisos de los guardianes (fábrica, base de datos, traspaso e índices) dicen ahora **cómo arreglarlo**, no solo qué falló (por ejemplo, «vuelve a congelarla con `fabrica.py congelar SPEC`» o «para y pregunta a Darwin antes de relanzar»). Solo se añaden frases al final; el texto anterior no cambia. En español e inglés.
+
+## 1.40.2 (2026-11-12)
+- Punto 37 (b): `test_soporte_mac` ya no falla en los proyectos. Comprobaba que `instalar_kit.command` tuviera fin de línea Unix, pero en un proyecto Git de Windows lo baja con CRLF. Ahora solo se comprueba en el repo del arnés (donde existe `manifiesto.json` y `.gitattributes` lo fija en LF) y fuera se salta. Probado simulando un proyecto con el archivo en CRLF.

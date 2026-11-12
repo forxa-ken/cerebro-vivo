@@ -158,7 +158,7 @@
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_revisar_indices.py": "c6f8fac28641edb21eaa1c0d14cc46565d85fe0347d48595b98b3afd5f593a6b",
   "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
-  "tests/test_soporte_mac.py": "be29fedce696460a7797d62cf7fb1f880333c75b3ff906bed36ff839d4112f72",
+  "tests/test_soporte_mac.py": "3c56379484b70a7dd2d6604ad9a0238ca2e911459ee5aaa33a43e095a794f0d5",
   "tests/test_textos.py": "76d4305fe85f9ae8d46372691d92717e29bf4a5744f5d54a0b641311bc8109f8",
   "tests/test_traspaso_in_out.py": "c4633847c17ebcf105e7825e686b99bb9a4425baad0f18ba05d6a27fe77995e4"
  },
@@ -194,5 +194,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.40.1"
+ "version": "1.40.2"
 }
