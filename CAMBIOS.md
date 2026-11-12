@@ -348,3 +348,9 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.44.7 (2026-11-12)
 - Limpieza de fuentes por orden de Darwin: quitada una fuente externa de las Fuentes (README es/en, cabecera de CEREBRO_VIVO es/en y pie de la página pública) y de los registros, notas y cambios; el historial de git se reescribió sin esas menciones. Solo texto.
+
+## 1.45.0 (2026-11-12)
+- Nuevo `/diapositivas` (spec 045, punto 49): convierte un tema (`resumen`, `version`, `traspaso`, `auditoria`) o un documento entero (`doc NOMBRE`) en una presentación `.html` autocontenida que se abre en el navegador, sin instalar nada y sin conexión; flechas, `o` para ver todas, Ctrl+P para PDF. Script `diapositivas.py` (también `--buscar NOMBRE` y `--comprobar ORIGINAL DIAPOSITIVAS`), skill es/en, plantilla es/en y textos es/en. En modo documento: índice, una diapositiva por sección y partes enlazadas pasadas 20. El HTML del `.md` se escapa, solo hay enlaces http(s) o relativos y una política impide cargar nada de internet. Los `.html` no se suben a Git. Sin probar con Darwin en un trabajo real.
+
+## 1.46.0 (2026-11-12)
+- Diagramas en `/diapositivas` (spec 046, fase 1): un bloque ```` ```mermaid ```` con `flowchart` (LR, RL, TB, TD, BT; cajas, rombos, flechas con etiqueta, punteadas y gruesas) o `sequenceDiagram` (participantes, mensajes, notas, autonumber) se dibuja como SVG dentro del `.html`, sin internet ni librerías (`diagramas.py`, nuevo). Si no se puede dibujar (tipo no soportado, línea rota o demasiado grande) queda como texto y el script avisa en es/en. Skill, plantilla y manual al día; `test_diagramas.py`. Sin probar por Darwin; clases, estados, tarta, ER y Gantt quedan para fases posteriores.

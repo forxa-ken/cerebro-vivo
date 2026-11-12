@@ -27,7 +27,7 @@ INCLUIR = [
     ".brain/biblioteca/PLANTILLAS_FABRICA.md", ".brain/biblioteca/PLANTILLAS_FABRICA.en.md",
     ".brain/biblioteca/CARTA_EJECUTORA.md", ".brain/biblioteca/CARTA_EJECUTORA.en.md",
     ".brain/biblioteca/IAS_COLABORATIVAS.md", ".brain/biblioteca/IAS_COLABORATIVAS.en.md",
-    ".brain/biblioteca/PLANTILLA_PORTAR.md", ".brain/biblioteca/PLANTILLA_PORTAR.en.md", ".brain/biblioteca/PLANTILLA_HALLAZGOS.md", ".brain/biblioteca/PLANTILLA_HALLAZGOS.en.md", ".brain/biblioteca/PLANTILLA_INFORME_REVISION.md", ".brain/biblioteca/PLANTILLA_INFORME_REVISION.en.md",
+    ".brain/biblioteca/PLANTILLA_PORTAR.md", ".brain/biblioteca/PLANTILLA_PORTAR.en.md", ".brain/biblioteca/PLANTILLA_HALLAZGOS.md", ".brain/biblioteca/PLANTILLA_HALLAZGOS.en.md", ".brain/biblioteca/PLANTILLA_INFORME_REVISION.md", ".brain/biblioteca/PLANTILLA_INFORME_REVISION.en.md", ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.md", ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.en.md",
     ".brain/biblioteca/kit-arranque/", ".brain/biblioteca/kit-traduccion/",
     ".brain/specs/_template.md", ".brain/specs/_template.en.md", ".brain/pruebas/_plantilla.md", ".brain/pruebas/_plantilla.en.md",
     ".claude/skills/",

@@ -7,6 +7,7 @@
 | [auditor](../../.claude/skills/auditor/SKILL.md) | Darwin types /auditor (general, cierre, externo or estado), asks for an audit of quality, resource use and security, or the closing warns "lanza el auditor" | Método | cerebro-vivo 1.44.0 |
 | [cero-dependencias](../../.claude/skills/cero-dependencias/SKILL.md) | you must generate Excel, PDF, GIF or similar files and want to avoid installing libraries | Método | cerebro-vivo 1.0.0 |
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
+| [diapositivas](../../.claude/skills/diapositivas/SKILL.md) | Darwin types /diapositivas (with or without a topic or a document name) or asks to explain something as slides or a presentation | Método | cerebro-vivo 1.45.0 |
 | [explicar-a-darwin-en-llano](../../.claude/skills/explicar-a-darwin-en-llano/SKILL.md) | explaining something technical to Darwin, the project owner | Método | cerebro-vivo 1.0.0 |
 | [guardian-avisa-o-bloquea](../../.claude/skills/guardian-avisa-o-bloquea/SKILL.md) | creating an automatic check (guardian) for the Cerebro Vivo method | Método | cerebro-vivo 1.0.0 |
 | [hermanos](../../.claude/skills/hermanos/SKILL.md) | the project has sibling projects (same origin, different variant), the arranque says "N commits de X sin portar", or Darwin asks to set up or adopt a "portar" file | Método | cerebro-vivo 1.43.0 |
