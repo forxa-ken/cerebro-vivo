@@ -326,7 +326,7 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn",
-    "d": "Lee requirements.txt, mira la versión instalada de cada librería y la compara con OSV.dev (vulnerabilidades conocidas) y PyPI (versión mayor nueva). Guarda el resultado y el arranque solo lee ese archivo, sin red. Solo avisa: nunca actualiza ni instala nada."
+    "d": "Lee la lista de librerías del proyecto y la compara con OSV.dev, una base pública de vulnerabilidades conocidas. Entiende cuatro mundos: Python (requirements.txt), JavaScript con npm (package-lock.json), Rust con cargo (Cargo.lock) y Go (go.mod). Esos archivos fijan la versión exacta de cada librería, así que el aviso es preciso: «lodash 4.17.15 tiene 5 vulnerabilidades, corregidas en 4.17.21». Solo para Python mira además si hay una versión mayor nueva en PyPI. Si el proyecto no tiene ninguno de esos archivos, calla. Guarda el resultado y el arranque solo lo lee, sin red. Si falla internet, conserva el resultado anterior y no bloquea nada. Solo avisa: nunca actualiza ni instala nada. Probado de verdad contra OSV.dev con un proyecto de juguete: detectó las tres librerías vulnerables (npm, cargo y Go)."
    },
    {
     "n": "Memoria del chat",
@@ -336,7 +336,7 @@ window.DATOS = {
     "e": "Bloquea",
     "k": "auto",
     "ek": "block",
-    "d": "Aviso PreToolUse (antes de cada orden de terminal o edición). Recuerda, por chat, qué librerías se instalaron y, al ver un git push, las revisa con OSV.dev: limpio → deja pasar; vulnerabilidad conocida → detiene el push y lo explica; sin red → no bloquea y lo recuerda. No depende de la IA ni de ti."
+    "d": "Aviso PreToolUse (antes de cada orden de terminal o edición). Recuerda, por chat, qué librerías se instalaron (con pip, npm, cargo o go) y, al ver un git push, las revisa con OSV.dev: limpio → deja pasar; vulnerabilidad conocida → detiene el push y lo explica; sin red → no bloquea y lo recuerda. No depende de la IA ni de ti."
    },
    {
     "n": "Memoria de pruebas",
@@ -1274,7 +1274,7 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn",
-    "d": "It reads requirements.txt, checks the installed version of each library and compares it with OSV.dev (known vulnerabilities) and PyPI (new major version). It saves the result and the start-up only reads that file, with no network. It only warns: it never updates or installs anything."
+    "d": "It reads the project's list of libraries and compares it with OSV.dev, a public database of known vulnerabilities. It understands four ecosystems: Python (requirements.txt), JavaScript with npm (package-lock.json), Rust with cargo (Cargo.lock) and Go (go.mod). Those files pin the exact version of each library, so the warning is precise: «lodash 4.17.15 has 5 vulnerabilities, fixed in 4.17.21». For Python only, it also checks PyPI for a new major version. If the project has none of those files, it stays silent. It saves the result and the start-up only reads it, with no network. If the internet fails, it keeps the previous result and blocks nothing. It only warns: it never updates or installs anything. Tested for real against OSV.dev with a toy project: it detected all three vulnerable libraries (npm, cargo and Go)."
    },
    {
     "n": "Chat memory",
@@ -1284,7 +1284,7 @@ window.DATOS = {
     "e": "Blocks",
     "k": "auto",
     "ek": "block",
-    "d": "PreToolUse hook (before every terminal command or edit). It remembers, per chat, which libraries were installed and, on seeing a git push, checks them with OSV.dev: clean → lets it through; known vulnerability → stops the push and explains; no network → does not block and reminds you. It depends neither on the AI nor on you."
+    "d": "PreToolUse hook (before every terminal command or edit). It remembers, per chat, which libraries were installed (with pip, npm, cargo or go) and, on seeing a git push, checks them with OSV.dev: clean → lets it through; known vulnerability → stops the push and explains; no network → does not block and reminds you. It depends neither on the AI nor on you."
    },
    {
     "n": "Test memory",
