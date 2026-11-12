@@ -1,5 +1,5 @@
 {
-  "ultima_revision": "2026-11-08",
+  "ultima_revision": "2026-11-13",
   "descartes": [
     {
       "clave": "referencia_rota|CLAUDE.md|actualizar_arnes.py",
@@ -20,6 +20,11 @@
       "clave": "referencia_rota|CLAUDE.md|.en.md",
       "motivo": "es un sufijo de nombre de archivo, no un archivo",
       "fecha": "2026-11-08"
+    },
+    {
+      "clave": "memoria_desactualizada|.brain/pendientes.md|.brain/colaboracion.md",
+      "motivo": "Se crea al ejecutar /colabora si en un proyecto; pendiente 42 la cita como resultado de la prueba, no existe en este repo a proposito",
+      "fecha": "2026-11-13"
     }
   ]
 }

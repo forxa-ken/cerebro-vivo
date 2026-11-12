@@ -296,3 +296,4 @@
 2026-11-12 | Claude (cerebro-vivo #16) | Spec 046 v2 (borrador): diagramas completos en /diapositivas con subconjunto Mermaid, en 5 fases; esperando aprobación de Darwin | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #16) | Spec 047 (borrador): vídeo de las diapositivas reutilizando la técnica del Estudio de video de LoboHook; esperando aprobación de Darwin | Cambio pequeño
 2026-11-12 | Claude (cerebro-vivo #16) | Arnés 1.46.0: diagramas Mermaid (flowchart y sequenceDiagram) como SVG en /diapositivas (spec 046 fase 1); diagramas.py nuevo, textos es/en, skill, plantilla, manual, pruebas; sin probar por Darwin | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Limpieza: indices revisados (1 aviso falso descartado: colaboracion.md se crea con /colabora), archivo de lecciones al 82% del tope, no hace falta trocear | Cambio pequeño
