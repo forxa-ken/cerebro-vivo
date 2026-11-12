@@ -4,7 +4,7 @@
 
 | Tema | Lecciones |
 | :--- | :---: |
-| [arnes](arnes.md) | 18 |
+| [arnes](arnes.md) | 19 |
 | [metodo-experimento-vmware](metodo-experimento-vmware.md) | 6 |
 | [metodo-guardianes-y-pruebas](metodo-guardianes-y-pruebas.md) | 9 |
 | [metodo-investigacion-y-rutas](metodo-investigacion-y-rutas.md) | 7 |
