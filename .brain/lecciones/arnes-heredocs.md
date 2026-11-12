@@ -1,0 +1,7 @@
+# Lecciones: arnes-heredocs
+
+Formato: problema → causa → regla. Las escribe `lecciones.py` en el momento del hito (spec 026).
+
+- **Dos veces un test quedó con SyntaxError y un heredoc con comillas rompió el comando** → escribí código con \n dentro de un heredoc de Python en bash: la \n se convirtió en salto de línea real; y armé una clave de textos al vuelo (tp('x_' + c)) que la prueba de paridad no admite → **Los bloques con \n o muchas comillas se escriben con Write/Edit (o un .py en el scratchpad), y las claves de textos.py se citan completas y literales en el código** (2026-11-08)
+- **Un script de Python largo pasado por heredoc en Bash fallo con 'unexpected EOF'** → el heredoc llevaba comillas y caracteres que el shell no analizo bien, y nada se ejecuto → **para scripts largos o con muchas comillas, escribirlos con la herramienta Write en el scratchpad y ejecutarlos despues; no usar heredoc** (2026-11-10)
+- **Un script de Python pasado por heredoc en Windows fallo con SyntaxError (unicodeescape) por una ruta C:\Users dentro de un texto normal, y el resto de la orden siguio ejecutandose como si nada** → barra invertida en cadena no cruda y comandos encadenados sin parar al primer fallo → **para editar textos usar la herramienta Edit, o cadenas crudas; en cadenas de comandos usar && para que un fallo detenga la cadena y comprobar que el cambio se aplico antes de congelar o commitear** (2026-11-10)

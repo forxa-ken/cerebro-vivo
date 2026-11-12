@@ -1,0 +1,9 @@
+# Lecciones: arnes-traspaso-y-arranque
+
+Formato: problema → causa → regla. Las escribe `lecciones.py` en el momento del hito (spec 026).
+
+- **El arranque de Modelo 2 tardaba 6-36 s y el hook cortaba a los 20 s** → dos guardianes (poda.py y revisar_indices.py) recorrían todo el árbol, ~27.000 .md de vendor/ y outputs/; arreglar solo el primero dejó 6 s y hizo falta perfilar con cProfile para hallar el segundo → **al acelerar un arranque, perfilar el arranque entero (cProfile) y medir tras cada arreglo; todo recorrido de carpetas de un guardián debe saltar vendor, outputs, dist, build y entornos** (2026-11-09)
+- **Al entrar con traspaso-in intenté leer .brain/traspaso.md y no existía** → el hook de arranque ya lo había archivado en archive/traspasos y el resumen venía en el contexto del arranque → **al entrar, usar primero el resumen del arranque y, si hace falta el texto, leer el último de .brain/archive/traspasos/ en vez de .brain/traspaso.md** (2026-11-09)
+- **Al hacer traspaso-in entro, leer .brain/traspaso.md falló** → el hook de arranque ya había archivado el traspaso en .brain/archive/traspasos/ → **si traspaso.md no existe, leer el último de archive/traspasos y el contexto del arranque; no darlo por perdido** (2026-11-10)
+- **Leer .brain/traspaso.md en un chat nuevo dio archivo inexistente** → el hook de arranque ya lo había archivado en archive/traspasos → **en traspaso-in entro usar el texto que muestra el arranque o el último archivo de archive/traspasos, no la ruta original** (2026-11-11)
+- **Al entrar por traspaso-in, leer .brain/traspaso.md dio 'no existe'** → el hook de arranque ya lo archivó solo en .brain/archive/traspasos/ y el resumen llegó en el contexto de inicio → **si traspaso.md no está, usar el resumen del arranque o el último archivo de archive/traspasos/; no dar el traspaso por perdido** (2026-11-12)
