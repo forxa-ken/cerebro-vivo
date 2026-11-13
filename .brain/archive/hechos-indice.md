@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 31 | Guardian que se repite y tokens por tarea (spec 038) | 2026-11-13 |  |
 | 19 | Fábrica de IA, varias IA con papeles y proyectos hermanos: programación terminada (specs 035, 042, 043; 1.32.0 a 1.43.0) | 2026-11-12 | archive/hechos.md |
 | 38 | Hook pre-commit de secretos funciona en worktrees | 2026-11-10 | CAMBIOS 1.35.1 |
 | 20 | Chat nuevo solo (arnés 1.23.0 a 1.26.2) | 2026-11-08 | chat Modelo #62 a #63 |

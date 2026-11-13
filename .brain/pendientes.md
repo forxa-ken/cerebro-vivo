@@ -21,7 +21,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 - **30:** avisos de los guardianes con el cómo arreglarlo (arnés 1.40.1). 18 avisos de la fábrica, base de datos, traspaso e índices añaden una frase final con la solución. Prueba: provoca uno, lanza `python .brain/guardianes/fabrica.py verificar` (sin spec congelada) y comprueba que el aviso dice qué comando lanzar (`fabrica.py congelar SPEC`).
-- **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
 
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 - **36:** prueba de retomar en el cierre (spec 041, arnés 1.41.0): regla nueva en la skill `cerrar-una-tarea` y una frase en el aviso del guardián. Prueba: en un chat de trabajo, comprueba que la IA cierra antes de 15 ediciones cuando hay una decisión que solo está en la conversación. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas, junto al 35.

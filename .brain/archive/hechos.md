@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 31 · Guardian que se repite y tokens por tarea (spec 038)
+**Fecha:** 2026-11-13 · **Ref:** 
+Probado por Darwin: medir.py --ultimos 3 muestra la tabla y Por tarea terminada
+
 ## 38 · Hook pre-commit de secretos funciona en worktrees
 **Fecha:** 2026-11-10 · **Ref:** CAMBIOS 1.35.1
 Arnes 1.35.1. El hook buscaba secretos.py con ruta relativa y fallaba en la carpeta de la pagina (worktree gh-pages). Ahora lo busca en el repo principal. Probado por Claude el 2026-11-10 en la pagina real: commit limpio pasa y commit con token falso se bloquea; prueba automatica con worktree real (410 pruebas).
