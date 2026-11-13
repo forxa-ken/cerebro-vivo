@@ -20,7 +20,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **53:** (viene del cierre del 49; subir solo con orden de Darwin) cuando se cierren los puntos 44 a 48, añadir a Karpathy, Andrej, *LLM Wiki* (gist, 4-4-2026) a las «Fuentes» del pie de la página pública (`top.h5` de `idiomas.js` es/en y `index.html`, rama `gh-pages`) y poner la versión actual del arnés.
 
 ## Esperando tu prueba (Darwin)
-- **30:** avisos de los guardianes con el cómo arreglarlo (arnés 1.40.1). 18 avisos de la fábrica, base de datos, traspaso e índices añaden una frase final con la solución. Prueba: provoca uno, lanza `python .brain/guardianes/fabrica.py verificar` (sin spec congelada) y comprueba que el aviso dice qué comando lanzar (`fabrica.py congelar SPEC`).
 
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.
 - **36:** prueba de retomar en el cierre (spec 041, arnés 1.41.0): regla nueva en la skill `cerrar-una-tarea` y una frase en el aviso del guardián. Prueba: en un chat de trabajo, comprueba que la IA cierra antes de 15 ediciones cuando hay una decisión que solo está en la conversación. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas, junto al 35.
