@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 35 | Cierre por bloque (spec 033, arnes 1.29.0) | 2026-11-13 |  |
 | 30 | Avisos de los guardianes con el como arreglarlo (arnes 1.40.1) | 2026-11-13 |  |
 | 31 | Guardian que se repite y tokens por tarea (spec 038) | 2026-11-13 |  |
 | 19 | Fábrica de IA, varias IA con papeles y proyectos hermanos: programación terminada (specs 035, 042, 043; 1.32.0 a 1.43.0) | 2026-11-12 | archive/hechos.md |
