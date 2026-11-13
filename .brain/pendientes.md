@@ -21,7 +21,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 - **30:** avisos de los guardianes con el cómo arreglarlo (arnés 1.40.1). 18 avisos de la fábrica, base de datos, traspaso e índices añaden una frase final con la solución. Prueba: provoca uno, por ejemplo `python .brain/guardianes/fabrica.py alcance` sin foto previa, y comprueba que el aviso dice qué comando lanzar.
-- **29:** memoria desactualizada (spec 037, arnés 1.36.0): `revisar_indices.py` avisa de rutas, specs y fichas citadas en `pendientes.md` y `constitution.md` que ya no existen. Prueba: `python .brain/guardianes/revisar_indices.py` y mirar si los avisos son reales. Comprobado 2026-11-12: da «Sin hallazgos»; la constitución ya cita `metodo-scripts-y-heredocs.md`, que existe.
 - **31:** guardián que se repite y tokens por tarea (spec 038, arnés 1.36.0): `cierre.py` apaga en el chat un aviso informativo que sale 3 veces seguidas; `medir.py` muestra «Por tarea terminada». Prueba: `python .brain/guardianes/medir.py --ultimos 3` y ver en un chat largo que el aviso de hito no se repite sin fin.
 
 - **35:** cierre por bloque (spec 033, arnés 1.29.0): el guardián ya no pide la línea de registro hasta 15 archivos editados sin cerrar. Prueba: trabaja en un chat de cerebro-vivo con varias tareas pequeñas y comprueba que no salta el aviso en cada una; al final del bloque, pídele a la IA que cierre. Si falla, dime qué aviso salió. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas.

@@ -122,3 +122,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 49 · `/diapositivas`: presentaciones para humanos (spec 045, arnés 1.45.0 a 1.46.2) — PROBADO
 
 26-11-13 (arnés 1.45.0 a 1.46.2): Darwin la probó con un resumen del proyecto y con la carta del meta-arnés en modo documento (el script preguntó cuál de las dos cartas; salieron 26 secciones en 29 diapositivas, en 2 partes) y confirma. En la prueba se corrigieron un índice renumerado y se añadieron las subviñetas (1.46.2). Comprobado también por la IA en capturas de Edge; **sin probar `Ctrl+P` a PDF por la IA, ni en oscuro, ni en Mac**. Que el resumen sea fiel al original lo juzga Darwin.
+
+## 29 · Memoria desactualizada: `revisar_indices.py` avisa de rutas rotas (spec 037, arnés 1.36.0) — PROBADO
+
+26-11-13: Darwin lanzó `python .brain/guardianes/revisar_indices.py` y confirma. Salida: «Sin hallazgos» (CLAUDE.md al 75 % de su tope, 5 avisos descartados, última revisión 2026-11-13). **Límite:** no se vio ningún aviso real, así que la detección de rutas rotas solo está comprobada por las pruebas automáticas (el aviso de `colaboracion.md` era un falso positivo y se descartó).
