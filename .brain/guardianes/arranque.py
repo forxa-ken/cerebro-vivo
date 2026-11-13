@@ -313,6 +313,14 @@ def resumen(raiz, cfg):
         lineas += revisar.resumen(raiz, cfg)
     except Exception:
         pass
+    try:  # spec 048: contenido de .brain (huérfanas, afirmaciones desfasadas, contradicciones); línea solo si hay hallazgos
+        import importlib.util
+        espec = importlib.util.spec_from_file_location("revisar_contenido", os.path.join(AQUI, "revisar_contenido.py"))
+        contenido = importlib.util.module_from_spec(espec)
+        espec.loader.exec_module(contenido)
+        lineas += contenido.resumen(raiz, cfg)
+    except Exception:
+        pass
     try:  # spec 018: archivos de .brain/ que pasan de su tope (línea solo si hace falta trocearlos)
         import importlib.util
         espec = importlib.util.spec_from_file_location("archivos_gordos", os.path.join(AQUI, "archivos_gordos.py"))

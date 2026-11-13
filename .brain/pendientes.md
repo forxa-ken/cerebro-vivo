@@ -10,7 +10,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **37:** experimento VMware CERRADO (rondas 1-5, informes en `.brain/archive/informe-*vmware*`). Conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Falta: (a) repetir la prueba de seguridad contra `vcsim`/`pyvmomi` (necesita el sí de Darwin para instalar Go); (b) HECHO el 2026-11-12 (arnés 1.40.2: `test_soporte_mac` se salta fuera del repo del arnés, donde Git de Windows convierte el fin de línea); (c) revisar la regla «vcsim» de `AGENTS.md` del aprobador.
 
-- **44:** (idea del gist «LLM Wiki» de Karpathy, 2026-11-12; prioridad media) revisión de contenido de `.brain/`: un guardián que **avise, sin bloquear**, de contradicciones entre documentos, afirmaciones que ya no son ciertas y páginas que nadie enlaza. Hoy solo se revisan tamaño y referencias rotas. Textos en es/en. Primero spec.
 - **46:** (idea del gist) búsqueda local sobre `.brain/` en Python sin dependencias. Dejar para cuando la memoria crezca más (hoy ~55 lecciones más specs y decisiones).
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
@@ -18,6 +17,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 
-- **45:** respuestas guardadas (arnés 1.49.0, skill `/guardar-respuesta`). Prueba: mira `.brain/respuestas/indice.md` (ya hay una respuesta de ejemplo) y pídeme en un chat «guarda esta respuesta» sobre algo útil que te haya explicado; debe salir un archivo nuevo en `.brain/respuestas/` con su fuente y una fila en el índice. Si repites el mismo título el mismo día, no debe pisarla. **Sin probar por Darwin.**
+- **44:** revisión de contenido de `.brain/` (spec 048, arnés 1.50.0, skill `/revisar-contenido`). Prueba: lanza `python .brain/guardianes/revisar_contenido.py` (hoy debe salir 4 specs huérfanas: 011, 012, 032 y 039) y pídeme «revisa el contenido»: debo buscar, lanzar otra IA a refutar y enseñarte los hallazgos antes de tocar nada. **Sin probar por Darwin.**
 
 ## Acciones tuyas

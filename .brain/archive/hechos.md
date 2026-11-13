@@ -162,3 +162,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 43 · Proyectos hermanos (spec 043, arnés 1.43.0) — PROBADO
 
 26-11-13: Retail configurado para mirar a Forever (`proyectos_hermanos` en su `guardianes.json` y `.brain/portar-forever.md` con «Último portado» `51514c8`). El guardián y el aviso del arranque dan 35 commits de Forever sin portar, reales. Darwin confirma («43 probado»). **Límite:** esos 35 aún no se han repasado (algunos, como el del arnés, serán «no aplica»); la dirección habitual es Forever → Retail.
+
+## 45 · Respuestas guardadas (arnés 1.49.0, `/guardar-respuesta`) — PROBADO
+
+26-11-13: se guardó una respuesta real con título y fuente (`.brain/respuestas/`) y el índice se rehízo solo; 564 pruebas OK. Darwin confirma («45 probado»). **Límite:** el disparo automático de la skill con «guarda esta respuesta» no se vio en directo.

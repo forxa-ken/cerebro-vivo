@@ -27,6 +27,7 @@
 | [quitar-codigo-antiguo-con-test](../../.claude/skills/quitar-codigo-antiguo-con-test/SKILL.md) | removing an old function, window or feature | Método | cerebro-vivo 1.0.0 |
 | [resumen](../../.claude/skills/resumen/SKILL.md) | Darwin types /resumen or asks where the project stands | Método | cerebro-vivo 1.4.2 |
 | [revisar-indices-de-ia](../../.claude/skills/revisar-indices-de-ia/SKILL.md) | an AI index (CLAUDE.md, GEMINI.md, AGENTS.md) is near its cap, has broken references or is overdue for review | Método | cerebro-vivo 1.14.0 |
+| [revisar-contenido](../../.claude/skills/revisar-contenido/SKILL.md) | Darwin says "revisa el contenido" or "revisa la memoria", or the arranque warns of findings in the content of .brain/ (orphan pages, outdated statements, possible contradictions) | Método | cerebro-vivo 1.50.0 |
 | [secretos-fuera-del-repo](../../.claude/skills/secretos-fuera-del-repo/SKILL.md) | adding a key, token, webhook URL or personal data file, or before any git push | Método | cerebro-vivo 1.0.0 |
 | [spec-antes-de-programar](../../.claude/skills/spec-antes-de-programar/SKILL.md) | a change touches more than 2 files or quotas, payments, licenses, deployment or the database | Método | cerebro-vivo 1.0.0 |
 | [subir-a-github](../../.claude/skills/subir-a-github/SKILL.md) | Darwin orders to push or upload the project to GitHub, or says "sube" | Método | cerebro-vivo 1.20.0 |

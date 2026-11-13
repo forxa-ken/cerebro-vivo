@@ -319,3 +319,8 @@
 2026-11-13 | pendiente | Claude (cerebro-vivo #19) | Pendiente 47 confirmado por Darwin y pasado a hechos | Cambio pequeño
 2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.49.0: pendiente 45, respuestas guardadas (respuestas.py y skill guardar-respuesta es/en; 564 pruebas en verde) | Cambio pequeño
 2026-11-13 | memoria | Claude (cerebro-vivo #19) | Traspaso del chat 19 al 20 escrito; leccion de claves literales en textos.py | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Pendiente 45 (respuestas guardadas) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Spec 048 (revision de contenido de .brain, pendiente 44) escrita en borrador | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Spec 048: la refutacion la hace otra IA sin el contexto de la primera (decision de Darwin) | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Arnes 1.50.0: revision de contenido de .brain (spec 048, pendiente 44) programada, 582 pruebas OK, falta prueba de Darwin | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Leccion de 1.50.0 anotada; manual CEREBRO_VIVO es/en ya describe revisar_contenido; auditor de cierre no lanzado | Cambio pequeño
