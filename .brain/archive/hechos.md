@@ -118,3 +118,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 50 · Diagramas en `/diapositivas` (spec 046 fase 1, arnés 1.46.0 y 1.46.1) — PROBADO
 
 26-11-13 (arnés 1.46.0 y 1.46.1, spec 046 fase 1): diagramas Mermaid (`flowchart` y `sequenceDiagram`) dibujados como SVG dentro de `/diapositivas`, sin internet. Darwin los probó con el ejemplo y confirma: «bien, un poco básicos pero de momento sirven». Comprobado además por la IA en capturas (claro y 600 px); **sin probar en oscuro ni en Mac**. Los otros tipos (clases, estados, tarta, ER, Gantt: fases 2 a 5) y el vídeo (spec 047) siguen aparcados hasta que Darwin los pida.
+
+## 49 · `/diapositivas`: presentaciones para humanos (spec 045, arnés 1.45.0 a 1.46.2) — PROBADO
+
+26-11-13 (arnés 1.45.0 a 1.46.2): Darwin la probó con un resumen del proyecto y con la carta del meta-arnés en modo documento (el script preguntó cuál de las dos cartas; salieron 26 secciones en 29 diapositivas, en 2 partes) y confirma. En la prueba se corrigieron un índice renumerado y se añadieron las subviñetas (1.46.2). Comprobado también por la IA en capturas de Edge; **sin probar `Ctrl+P` a PDF por la IA, ni en oscuro, ni en Mac**. Que el resumen sea fiel al original lo juzga Darwin.

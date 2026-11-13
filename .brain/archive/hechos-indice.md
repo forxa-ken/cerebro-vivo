@@ -39,3 +39,5 @@
 | 25 | Distancia con un proyecto externo: fuentes citadas, sin renombrar nada | 2026-11-12 | archive/hechos.md |
 
 | 50 | Diagramas en `/diapositivas` (spec 046 fase 1, 1.46.0 y 1.46.1): probados por Darwin, «básicos pero sirven» | 2026-11-13 | archive/hechos.md |
+
+| 49 | `/diapositivas` (spec 045, 1.45.0 a 1.46.2): probada por Darwin con un resumen y la carta en modo documento | 2026-11-13 | archive/hechos.md |
