@@ -9,8 +9,8 @@
   ".brain/biblioteca/IAS_COLABORATIVAS.md": "af323712ee73b8e181348f9b28be4817e096cc30f4ade55f58283b8f36f8cb66",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "f82b3f87acb91332e2d30743e32279578ac35dab443ab7fd8996c1ec03626205",
   ".brain/biblioteca/PLANTILLAS_FABRICA.md": "caca18703b74f6df7df12dbb92a0420e3fbb0ca9e2b1d6dd7504d8ee4e2c5ec5",
-  ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.en.md": "1f44e20f62aac5ab7ff7e77a8785b7ed3984ab68fcdc562875604b24c9a258ea",
-  ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.md": "1c402d52c35a617809fdb2a57a9e956f2228b769c038b42666dfb6aa6a24e284",
+  ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.en.md": "9ead01d92a6834a746c2e55385a124fa3620c7dff8f37cbd0d7b7a5474778147",
+  ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.md": "a3cd1a160a56d59f90d14527fa5d0528de040cd7359156256d53f10c084a776d",
   ".brain/biblioteca/PLANTILLA_HALLAZGOS.en.md": "749ac6ab60700fd4464df152456b6dd4d6e25a2e0c9619b9b8ee003f39f6b632",
   ".brain/biblioteca/PLANTILLA_HALLAZGOS.md": "4e72b1921a1815651090b1b59206c9dd5f6c72281475d2ab7bf2ac60b695608b",
   ".brain/biblioteca/PLANTILLA_INFORME_REVISION.en.md": "e2dc1bd7397617099134c8bf5e203925b5615950aca4ad292473d07ef2c3e6b3",
@@ -60,7 +60,7 @@
   ".brain/guardianes/cierre.py": "6afdefad7e2c42625ec6d6a5b38cc010e7df7947420e699ee152a00cc0f6cf92",
   ".brain/guardianes/colabora.py": "7cdd425cfe250de135ae44ecb6899a4b451526be61a0496c597f320d93811bd5",
   ".brain/guardianes/diagramas.py": "787ac96805c29a15cca22b4a18043b5961371e6b76f8eb247b3ad1803ace376b",
-  ".brain/guardianes/diapositivas.py": "727baf78feb022512dcbd03900a143c0e1576dc94bed7f67d0e89857262d843e",
+  ".brain/guardianes/diapositivas.py": "415afda3d778fdc8d4e680b1f348fe23435d03e460014b5f36026fc84eed777a",
   ".brain/guardianes/eventos_chat.py": "e1d2a7d784c85200c219791aa42e11f8ce453bfb99c366e20c5ae8d76f35c3f1",
   ".brain/guardianes/fabrica.py": "c10529d11f792ecf5981e87d50720e969663ec76ff5be324aad00fe9ed615229",
   ".brain/guardianes/guardar_traspaso.py": "4ce4359519f95863711aad34f074360bb902f1efc8c4c2f9f4cfd277e312eb0f",
@@ -99,8 +99,8 @@
   ".claude/skills/chat-nuevo/SKILL.md": "8d6d09a66b4d5f6a9705a4e594f58fdcd0887344207cede3c7e3a1dd57b3fb3b",
   ".claude/skills/colabora/SKILL.en.md": "f715b01718aa8ae50bc4df80772050b6ace57186773c1675aef2b6303f432aa8",
   ".claude/skills/colabora/SKILL.md": "a757c3724225c8695e9c8ab660b0837d3edbb0bcbd36b59c141025d34e34621c",
-  ".claude/skills/diapositivas/SKILL.en.md": "cd6f174cbbcca762db843613055dd75d10d182b6b8a63d9aa300dc65f78b3773",
-  ".claude/skills/diapositivas/SKILL.md": "d26ffce77cf2212741d1162510fecc84f762dbffd7330e9cef48541e6d879e82",
+  ".claude/skills/diapositivas/SKILL.en.md": "5b22c9965f3052519276fed6c6aa80fdbd9f808cd3cdd32b4c3456f69a1707d0",
+  ".claude/skills/diapositivas/SKILL.md": "e6872facdb732420224f996ce98ed4b3670d374dd2680cd6a8fd299ba8885243",
   ".claude/skills/directora-de-fabrica/SKILL.en.md": "6abee5a71ef91526a695526d81e8a06c756cf5086ee7c5bd278761d142219f0a",
   ".claude/skills/directora-de-fabrica/SKILL.md": "43cf11d2364b695a810c2c0455b0027437c2572b974a183ca376140e316c7acd",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
@@ -166,7 +166,7 @@
   "tests/test_cerebro_indices.py": "f0845fc6cb7cedf5719ba6bed65b886bab408845cc5714ed72163d003fab9a04",
   "tests/test_colabora.py": "6cd9a0b5c067a6c4d07a8d3f4a2bcd03dedc0b1036eb977ccb070f6a425abe7f",
   "tests/test_diagramas.py": "eb53251c9ddbaad2228a07135706d3eb3122c0c09999e99076feff6bcf1b2f13",
-  "tests/test_diapositivas.py": "c36da0a141eb26d3a83eb517ca330eb75da3b6b9814b9abb9deb563037483ef7",
+  "tests/test_diapositivas.py": "c66032948066710f240aae6c270e5a1fad651efeb517a26358f010acc25cd1fa",
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
@@ -223,5 +223,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.46.1"
+ "version": "1.46.2"
 }

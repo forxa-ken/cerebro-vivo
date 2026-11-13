@@ -357,3 +357,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.1 (2026-11-13)
 - `diagramas.py`: los dibujos anchos (secuencia) ya no se agrandan hasta un texto mucho mayor que el de las cajas; el SVG lleva un `max-width` de 1,2 veces su ancho.
+
+## 1.46.2 (2026-11-13)
+- `/diapositivas`: subviñetas. Una línea de lista con más sangría (2 espacios) cuelga de la anterior, hasta 3 niveles; antes se aplanaban. Con 3 pruebas nuevas, plantilla es/en y skill es/en al día.

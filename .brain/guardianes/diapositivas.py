@@ -99,6 +99,36 @@ def _celdas(linea):
     return [c.strip() for c in linea.strip().strip("|").split("|")]
 
 
+_ITEM = re.compile(r"^(\s*)([-*]|\d+[.)])\s+(.*)$")
+
+
+def _lista(lineas, i, nivel=0):
+    """Lista con subviñetas: una línea con más sangría que la anterior cuelga de ella (hasta 3 niveles)."""
+    primera = _ITEM.match(lineas[i].expandtabs(4))
+    sangria = len(primera.group(1))
+    ordenada = primera.group(2)[0].isdigit()
+    items = []
+    n = len(lineas)
+    while i < n:
+        m = _ITEM.match(lineas[i].expandtabs(4))
+        if not m or len(m.group(1)) < sangria:
+            break
+        if len(m.group(1)) > sangria:
+            if not items or nivel >= 2:  # sangría suelta o demasiado profunda: se trata como un elemento más
+                items.append([m.group(3), ""])
+                i += 1
+                continue
+            sub, i = _lista(lineas, i, nivel + 1)
+            items[-1][1] += sub
+            continue
+        if m.group(2)[0].isdigit() != ordenada:
+            break
+        items.append([m.group(3), ""])
+        i += 1
+    etiqueta = "ol" if ordenada else "ul"
+    return "<%s>%s</%s>" % (etiqueta, "".join("<li>%s%s</li>" % (inline(t), s) for t, s in items), etiqueta), i
+
+
 def bloques(texto):
     """HTML de una diapositiva. Los comentarios <!-- ... --> se quitan (sirven para notas al autor)."""
     texto = re.sub(r"<!--.*?-->", "", texto, flags=re.S)
@@ -128,13 +158,8 @@ def bloques(texto):
             out.append("<h%d>%s</h%d>" % (nivel, inline(s[nivel:].strip()), nivel))
             i += 1
         elif re.match(r"^[-*]\s+", s) or re.match(r"^\d+[.)]\s+", s):
-            ordenada = bool(re.match(r"^\d+[.)]\s+", s))
-            items = []
-            while i < n and (re.match(r"^\s*[-*]\s+", lineas[i]) if not ordenada else re.match(r"^\s*\d+[.)]\s+", lineas[i])):
-                items.append("<li>%s</li>" % inline(re.sub(r"^\s*(?:[-*]|\d+[.)])\s+", "", lineas[i])))
-                i += 1
-            etiqueta = "ol" if ordenada else "ul"
-            out.append("<%s>%s</%s>" % (etiqueta, "".join(items), etiqueta))
+            html_lista, i = _lista(lineas, i)
+            out.append(html_lista)
         elif s.startswith(">"):
             cita = []
             while i < n and lineas[i].strip().startswith(">"):
@@ -173,7 +198,7 @@ body{font-size:clamp(16px,2.7vmin,34px);line-height:1.45;overflow:hidden}
 .d{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vmin 9vw 9vmin;overflow:auto}
 .d.on{display:flex}
 h1{font-size:2.1em;margin:0 0 .4em;line-height:1.15}h2{font-size:1.55em;margin:0 0 .5em;line-height:1.2}h3{font-size:1.15em;margin:0 0 .4em;color:var(--suave)}
-p,ul,ol,blockquote,table,pre{margin:.35em 0}ul,ol{padding-left:1.3em}li{margin:.28em 0}
+p,ul,ol,blockquote,table,pre{margin:.35em 0}ul,ol{padding-left:1.3em}li{margin:.28em 0}li>ul,li>ol{margin:.1em 0;font-size:.92em}
 code{background:var(--caja);padding:.08em .35em;border-radius:.3em;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
 pre{background:var(--caja);padding:.7em 1em;border-radius:.5em;overflow:auto}pre code{background:none;padding:0}
 blockquote{border-left:.25em solid var(--acento);padding:.1em 0 .1em .8em;color:var(--suave)}

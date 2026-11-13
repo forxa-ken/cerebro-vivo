@@ -22,6 +22,7 @@ Who it is for and its date (YYYY-MM-DD).
 - Change 1, in one short plain sentence.
 - Change 2.
 - Change 3.
+  - A sub-bullet: two spaces of indentation (up to 3 levels).
 
 ---
 

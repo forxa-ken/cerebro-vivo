@@ -22,6 +22,7 @@ Para quién es y de qué fecha (AAAA-MM-DD).
 - Cambio 1, en una frase corta y en llano.
 - Cambio 2.
 - Cambio 3.
+  - Una subviñeta: dos espacios de sangría (hasta 3 niveles).
 
 ---
 

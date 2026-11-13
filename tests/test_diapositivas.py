@@ -54,6 +54,19 @@ class Parser(unittest.TestCase):
                          "<td>2</td>", "<blockquote>cita</blockquote>"):
             self.assertIn(esperado, h)
 
+    def test_subvinetas_por_sangria(self):
+        h = d.bloques("- a\n  - a1\n  - a2\n    - a2x\n- b")
+        self.assertEqual(h, "<ul><li>a<ul><li>a1</li><li>a2<ul><li>a2x</li></ul></li></ul></li><li>b</li></ul>")
+
+    def test_lista_plana_y_cambio_de_tipo_siguen_igual(self):
+        self.assertEqual(d.bloques("- a\n- b"), "<ul><li>a</li><li>b</li></ul>")
+        self.assertEqual(d.bloques("- a\n1. b"), "<ul><li>a</li></ul>\n<ol><li>b</li></ol>")
+
+    def test_sangria_suelta_o_muy_profunda_no_rompe(self):
+        h = d.bloques("  - a\n- b\n          - c")
+        self.assertIn("<li>a</li>", h)
+        self.assertIn("c", h)
+
     def test_el_html_del_md_se_escapa(self):
         h = d.bloques("# <script>alert(1)</script>\n\n<img src=x onerror=alert(1)>\n\n```\n<b>x</b>\n```")
         self.assertNotIn("<script>", h)
