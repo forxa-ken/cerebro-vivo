@@ -170,7 +170,7 @@
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
-  "tests/test_fabrica.py": "306fd6937ae047d2e5102f70cac99c92ab7c595c0a68ddfeb2db2aeb40f5565b",
+  "tests/test_fabrica.py": "591cc5c191eb05829ff362a4861269eba7f619489c9136cfff8338157a73eb52",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hermanos.py": "6ad7017262e7a0014168489c50ad682d3fdb067b2c48aa9b5747480ffe809238",
   "tests/test_hitos.py": "aa54e448773ebe9ce4180a46fb2c9ab217d696ca865d8b3f0be51cf38fe9be66",
