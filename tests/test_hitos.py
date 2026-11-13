@@ -67,6 +67,27 @@ class TestHitos(unittest.TestCase):
         ev = [u1, resultado(i1, "Traceback", True), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
         self.assertEqual(len(self.avisos(ev)), 1)
 
+    def test_leer_codigo_con_la_palabra_error_no_es_un_fallo(self):
+        i1, u1 = uso("Read", {"file_path": self.ruta("x.py")})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Read", {"file_path": self.ruta("x.py")})
+        ev = [u1, resultado(i1, "def hito_error(): raise ValueError  # Error aqui"), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
+        self.assertEqual(self.avisos(ev), [])
+
+    def test_consola_que_imprime_la_palabra_error_sin_fallar_no_cuenta(self):
+        i1, u1 = uso("Bash", {"command": "grep -n error x.py"})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Bash", {"command": "grep -n error x.py"})
+        ev = [u1, resultado(i1, "3: manejo de error"), u2, resultado(i2, "ok"), u3, resultado(i3, "3: manejo de error")]
+        self.assertEqual(self.avisos(ev), [])
+
+    def test_fallo_real_de_consola_sigue_contando(self):
+        i1, u1 = uso("Bash", {"command": "python x.py"})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Bash", {"command": "python x.py"})
+        ev = [u1, resultado(i1, "Traceback (most recent call last):\n  ...\nValueError: mal"), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
+        self.assertEqual(len(self.avisos(ev)), 1)
+
     def test_error_sin_resolver_no_avisa(self):
         i1, u1 = uso("Bash", {"command": "python x.py"})
         self.assertEqual(self.avisos([u1, resultado(i1, "Traceback", True)]), [])

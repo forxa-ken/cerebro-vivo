@@ -22,7 +22,8 @@ sys.path.insert(0, AQUI)
 from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
 EDITORES = ("Edit", "Write", "NotebookEdit", "MultiEdit")
-FALLO = re.compile(r"Traceback|Error|FAILED|\d+ failed|No such file|not found|denied|timed? ?out|Exit code [1-9]|SyntaxError", re.I)
+# Marcas precisas de fallo en la salida de una consola. Sin la palabra suelta «error»: aparece al leer o buscar código (1.46.5).
+FALLO = re.compile(r"Traceback \(most recent|\bFAILED\b|\d+ failed|No such file or directory|command not found|Permission denied|Exit code [1-9]|\w*Error:", re.I)
 
 
 def ajustes(cfg):
@@ -102,7 +103,8 @@ def analizar(ruta_registro, cfg, raiz=RAIZ):
                         nombre = pendientes.pop(b.get("tool_use_id"), None)
                         if not nombre:
                             continue
-                        mal = bool(b.get("is_error")) or bool(FALLO.search(texto_resultado(b)[:2000]))
+                        consola = nombre.split()[0] in ("Bash", "PowerShell")  # el texto solo se mira en consola; Read, Grep, Edit… solo cuentan si la herramienta falla
+                        mal = bool(b.get("is_error")) or (consola and bool(FALLO.search(texto_resultado(b)[:2000])))
                         if mal:
                             fallidas[nombre] = True
                             arreglando.pop(nombre, None)

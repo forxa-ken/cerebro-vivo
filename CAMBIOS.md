@@ -368,3 +368,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.4 (2026-11-13)
 - `hitos.py`: un error solo cuenta como «resuelto» si vuelve a funcionar el mismo comando o script que falló (antes bastaba cualquier comando de consola). Recorta el aviso de hito sin lección, que era el 62 % de los avisos del guardián. Con 2 pruebas nuevas. Sin probar por Darwin.
+
+
+## 1.46.5 (2026-11-13)
+- `hitos.py`: el aviso de hito sin lección ya no cuenta como fallo la palabra «error» suelta, que salía al leer o buscar código. Solo mira marcas precisas (`Traceback`, `Exit code`, `FAILED`, `...Error:`) y solo en consola; en `Read`, `Grep` o `Edit` cuenta únicamente si la herramienta falla de verdad. Con 3 pruebas nuevas. Sin probar por Darwin.

@@ -306,3 +306,4 @@
 2026-11-13 | Claude (cerebro-vivo #18) | pendiente 30: ejemplo de prueba corregido (fabrica.py verificar) | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.3: fabrica.py alcance avisa en llano si el encargo no existe (con prueba) | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.4: hitos.py solo cuenta error resuelto si vuelve a funcionar el mismo comando (opcion 2 elegida por Darwin; con 2 pruebas) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.5: hitos.py solo cuenta fallos con marcas precisas y solo en consola (3 pruebas) | Cambio pequeño
