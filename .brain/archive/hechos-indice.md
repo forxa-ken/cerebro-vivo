@@ -49,3 +49,4 @@
 | 49 | `/diapositivas` (spec 045, 1.45.0 a 1.46.2): probada por Darwin con un resumen y la carta en modo documento | 2026-11-13 | archive/hechos.md |
 
 | 29 | Memoria desactualizada: `revisar_indices.py` (spec 037, 1.36.0): probado, sin avisos reales vistos | 2026-11-13 | archive/hechos.md |
+| 43 | Proyectos hermanos (spec 043, arnés 1.43.0): probado por Darwin con Guild Control Retail y Forever | 2026-11-13 | archive/hechos.md |

@@ -309,3 +309,5 @@
 2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.5: hitos.py solo cuenta fallos con marcas precisas y solo en consola (3 pruebas) | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #18) | decision hablada con Darwin: pendiente 36 abierto hasta 2026-11-27 (opcion A); medicion a mano ese dia porque la tarea programada fue bloqueada por el sistema | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.6: Gemini retirada como ejecutora de la fabrica (decision de Darwin: Google cerro el comando personal y no quiere pagar); pendiente 54 eliminado | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 probado con proyectos reales: hermanos configurado en Retail mirando a Forever (portar-forever.md, ultimo portado 51514c8); el aviso sale: 35 commits sin portar. Solo se tocaron guardianes.json y .brain/portar-forever.md de Retail | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 confirmado por Darwin y pasado a hechos | Cambio pequeño

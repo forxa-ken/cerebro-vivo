@@ -150,3 +150,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 29 · Memoria desactualizada: `revisar_indices.py` avisa de rutas rotas (spec 037, arnés 1.36.0) — PROBADO
 
 26-11-13: Darwin lanzó `python .brain/guardianes/revisar_indices.py` y confirma. Salida: «Sin hallazgos» (CLAUDE.md al 75 % de su tope, 5 avisos descartados, última revisión 2026-11-13). **Límite:** no se vio ningún aviso real, así que la detección de rutas rotas solo está comprobada por las pruebas automáticas (el aviso de `colaboracion.md` era un falso positivo y se descartó).
+
+## 43 · Proyectos hermanos (spec 043, arnés 1.43.0) — PROBADO
+
+26-11-13: Retail configurado para mirar a Forever (`proyectos_hermanos` en su `guardianes.json` y `.brain/portar-forever.md` con «Último portado» `51514c8`). El guardián y el aviso del arranque dan 35 commits de Forever sin portar, reales. Darwin confirma («43 probado»). **Límite:** esos 35 aún no se han repasado (algunos, como el del arnés, serán «no aplica»); la dirección habitual es Forever → Retail.

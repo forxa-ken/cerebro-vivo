@@ -21,6 +21,5 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 
-- **43:** proyectos hermanos (spec 043, arnés 1.43.0). Prueba: en un proyecto con hermano, pon `proyectos_hermanos` en su `guardianes.json` (nombre, ruta, rama, archivo_portar), crea el archivo de portar con la plantilla `PLANTILLA_PORTAR.md` (skill `hermanos`) y lanza `python .brain/guardianes/hermanos.py`: los commits que salen deben ser reales (solo lectura, **sin probar con proyectos reales**).
 
 ## Acciones tuyas
