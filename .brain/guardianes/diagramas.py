@@ -58,8 +58,9 @@ def _svg(ancho, alto, cuerpo):
     mid = "dg-f%d" % _CONTADOR[0]
     marcador = ('<defs><marker id="%s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">'
                 '<path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>' % mid)
-    return ('<svg class="dg" viewBox="0 0 %.0f %.0f" xmlns="http://www.w3.org/2000/svg" role="img">%s%s</svg>'
-            % (ancho, alto, marcador, cuerpo.replace("url(#dg-f)", "url(#%s)" % mid)))
+    # max-width: un dibujo ancho (secuencia) no se agranda hasta tener un texto mucho mayor que el de uno alto (cajas).
+    return ('<svg class="dg" viewBox="0 0 %.0f %.0f" style="max-width:%.0fpx" xmlns="http://www.w3.org/2000/svg" role="img">%s%s</svg>'
+            % (ancho, alto, ancho * 1.2, marcador, cuerpo.replace("url(#dg-f)", "url(#%s)" % mid)))
 
 
 # ---------------------------------------------------------------- flowchart

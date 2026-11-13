@@ -354,3 +354,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.0 (2026-11-12)
 - Diagramas en `/diapositivas` (spec 046, fase 1): un bloque ```` ```mermaid ```` con `flowchart` (LR, RL, TB, TD, BT; cajas, rombos, flechas con etiqueta, punteadas y gruesas) o `sequenceDiagram` (participantes, mensajes, notas, autonumber) se dibuja como SVG dentro del `.html`, sin internet ni librerías (`diagramas.py`, nuevo). Si no se puede dibujar (tipo no soportado, línea rota o demasiado grande) queda como texto y el script avisa en es/en. Skill, plantilla y manual al día; `test_diagramas.py`. Sin probar por Darwin; clases, estados, tarta, ER y Gantt quedan para fases posteriores.
+
+## 1.46.1 (2026-11-13)
+- `diagramas.py`: los dibujos anchos (secuencia) ya no se agrandan hasta un texto mucho mayor que el de las cajas; el SVG lleva un `max-width` de 1,2 veces su ancho.

@@ -59,7 +59,7 @@
   ".brain/guardianes/cerrar.py": "3c5e366a5128939b7d7d20558b4bc26f9f6f3e65901ea59c3e8c5b9017a5151a",
   ".brain/guardianes/cierre.py": "6afdefad7e2c42625ec6d6a5b38cc010e7df7947420e699ee152a00cc0f6cf92",
   ".brain/guardianes/colabora.py": "7cdd425cfe250de135ae44ecb6899a4b451526be61a0496c597f320d93811bd5",
-  ".brain/guardianes/diagramas.py": "ecb453a2485cf6b2abcbd51af8039033d0ec1b8f586b4c19c9067e21d7a59ff7",
+  ".brain/guardianes/diagramas.py": "787ac96805c29a15cca22b4a18043b5961371e6b76f8eb247b3ad1803ace376b",
   ".brain/guardianes/diapositivas.py": "727baf78feb022512dcbd03900a143c0e1576dc94bed7f67d0e89857262d843e",
   ".brain/guardianes/eventos_chat.py": "e1d2a7d784c85200c219791aa42e11f8ce453bfb99c366e20c5ae8d76f35c3f1",
   ".brain/guardianes/fabrica.py": "c10529d11f792ecf5981e87d50720e969663ec76ff5be324aad00fe9ed615229",
@@ -223,5 +223,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.46.0"
+ "version": "1.46.1"
 }
