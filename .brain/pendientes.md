@@ -17,6 +17,5 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 
-- **44:** revisión de contenido de `.brain/` (spec 048, arnés 1.50.0, skill `/revisar-contenido`). Prueba: lanza `python .brain/guardianes/revisar_contenido.py` (hoy debe salir 4 specs huérfanas: 011, 012, 032 y 039) y pídeme «revisa el contenido»: debo buscar, lanzar otra IA a refutar y enseñarte los hallazgos antes de tocar nada. **Sin probar por Darwin.**
 
 ## Acciones tuyas

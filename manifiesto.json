@@ -75,7 +75,7 @@
   ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/respuestas.py": "783140f1166155cf2dd43d30bb08e958b35e2e1aa8e734e88b92769b43ec5b4d",
-  ".brain/guardianes/revisar_contenido.py": "f54d5a966ddb658fb81a6f5a09b6caa289bcc0eb3546bc6bf6e076bc6b2b46fb",
+  ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
   ".brain/guardianes/textos.py": "d2517c3a71f7a7eda628bf9f3560e56a3504f18db0c6bca6e64ed0eaff79d913",
@@ -191,7 +191,7 @@
   "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
   "tests/test_respuestas.py": "94b8b4d10cb9cd648b218aa8d61140f47af67f41870a593ff4da5d6da1f6467b",
-  "tests/test_revisar_contenido.py": "6993ce731fd407ca5d59e93c9329c5595d1f1d3b2eb54c9ad953df5919540b16",
+  "tests/test_revisar_contenido.py": "f770e03fa5b2933479db32f5efc5dcdb4ec970f01ef779e9885e768e42527a49",
   "tests/test_revisar_indices.py": "c6f8fac28641edb21eaa1c0d14cc46565d85fe0347d48595b98b3afd5f593a6b",
   "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
   "tests/test_soporte_mac.py": "3c56379484b70a7dd2d6604ad9a0238ca2e911459ee5aaa33a43e095a794f0d5",
@@ -231,5 +231,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.50.0"
+ "version": "1.50.1"
 }

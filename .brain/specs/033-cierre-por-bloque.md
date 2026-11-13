@@ -1,7 +1,7 @@
 # Spec 033: cierre por bloque de trabajo, no por tarea pequeña
 
 - **Estado:** pedida por Darwin el 2026-11-08 (propuesta 1 del informe 032) y programada en 1.29.0
-- **Origen:** informe 032: cerebro-vivo cierra 7,3 veces por chat (Modelo 2: 2,4; LoboHook: 1,1). Cada aviso del guardián obliga a una llamada extra que relee todo el contexto. Los avisos de registro cuestan el 2,1-2,5 % del coste.
+- **Origen:** informe 032 (`.brain/specs/032-informe-medicion-real.md`): cerebro-vivo cierra 7,3 veces por chat (Modelo 2: 2,4; LoboHook: 1,1). Cada aviso del guardián obliga a una llamada extra que relee todo el contexto. Los avisos de registro cuestan el 2,1-2,5 % del coste.
 - **Aclaración de Darwin:** Claude Code compacta el contexto a unos 950.000 tokens; un chat de 200-300k está muy lejos. Pero un chat que se cierra, se cae o se abandona pierde lo no anotado: el cierre por bloque no elimina el cierre, lo agrupa.
 
 ## 1. En alcance

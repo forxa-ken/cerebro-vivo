@@ -53,3 +53,4 @@
 | 29 | Memoria desactualizada: `revisar_indices.py` (spec 037, 1.36.0): probado, sin avisos reales vistos | 2026-11-13 | archive/hechos.md |
 | 43 | Proyectos hermanos (spec 043, arnés 1.43.0): probado por Darwin con Guild Control Retail y Forever | 2026-11-13 | archive/hechos.md |
 | 45 | Respuestas guardadas (spec 045, arnes 1.49.0, `/guardar-respuesta`): probado por Darwin | 2026-11-13 | archive/hechos.md |
+| 44 | Revisión de contenido de `.brain/` (spec 048, arnés 1.50.0 y 1.50.1, `/revisar-contenido`): probado por Darwin con una pasada real refutada por otra IA | 2026-11-14 | archive/hechos.md |

@@ -166,3 +166,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 45 · Respuestas guardadas (arnés 1.49.0, `/guardar-respuesta`) — PROBADO
 
 26-11-13: se guardó una respuesta real con título y fuente (`.brain/respuestas/`) y el índice se rehízo solo; 564 pruebas OK. Darwin confirma («45 probado»). **Límite:** el disparo automático de la skill con «guarda esta respuesta» no se vio en directo.
+
+## 44 · Revisión de contenido de `.brain/` (spec 048, arnés 1.50.1) — PROBADO
+
+26-11-14: pasada real sobre este repo: el guardián dio 4 specs huérfanas; un subagente sin contexto intentó refutarlas y halló que el guardián no leía `decisions.log`, `CAMBIOS.md` ni «informe NNN» (arreglado en 1.50.1; el informe 032 se enlazó desde la spec 033). Darwin confirma («44 probado»). **Límite:** las reglas de frases desfasadas y de topes contradictorios solo están probadas con carpetas de juguete; en este repo no dieron ningún hallazgo real, y el segundo juez de otra IA no se ha usado.

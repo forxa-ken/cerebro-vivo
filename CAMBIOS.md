@@ -388,3 +388,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.50.0 (2026-11-13)
 - Pendiente 44 (spec 048): **revisión del contenido de `.brain/`**. Nuevo guardián `revisar_contenido.py` y skill `/revisar-contenido` (es/en). Solo lectura y sin bloquear: avisa de páginas de `.brain/` que nadie enlaza, de frases que ya no son ciertas en `architecture/` y `biblioteca/` (ruta que no existe, «versión actual» distinta de `VERSION`, «hay N skills» falso) y de topes contradictorios de un mismo archivo entre documentos. El arranque da **una línea** (solo si hay hallazgos y han pasado `revision_contenido_dias`, 30 por defecto; se apaga con `revision_contenido_activa`). La skill hace *buscar y refutar* con **otra IA** (un subagente nuevo sin el contexto de la primera; segundo juez opcional de otra IA para lo dudoso). Lo descartado queda en `revision_contenido.json`. Textos es/en, 18 pruebas nuevas. **Sin probar por Darwin.**
+
+## 1.50.1 (2026-11-13)
+- `revisar_contenido.py` (spec 048): tras la primera pasada real, la otra IA que refutó los hallazgos vio que el guardián no leía `decisions.log` ni `CAMBIOS.md` ni reconocía «informe NNN», y marcaba como huérfanas páginas que sí estaban citadas. Ahora cuenta ambos archivos y «informe NNN» como menciones. Una prueba nueva (19 en total).

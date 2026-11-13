@@ -44,6 +44,13 @@ class TestHuerfanas(Base):
         poner(self.d, ".brain/pendientes.md", "Ver la spec 007.\n")
         self.assertEqual(self.claves(), [])
 
+    def test_informe_citado_por_numero_o_en_el_registro_no_es_huerfano(self):
+        poner(self.d, ".brain/specs/032-informe.md", "# informe\n")
+        poner(self.d, ".brain/specs/011-otra.md", "# otra\n")
+        poner(self.d, ".brain/decisions.log", "2026-11-03 | spec 011 | cerrada\n")
+        poner(self.d, "CAMBIOS.md", "- Salió del informe 032.\n")
+        self.assertEqual(self.claves(), [])
+
     def test_las_dos_ediciones_se_juzgan_juntas(self):
         poner(self.d, ".brain/biblioteca/GUIA.md", "# guia\n")
         poner(self.d, ".brain/biblioteca/GUIA.en.md", "# guide\n")

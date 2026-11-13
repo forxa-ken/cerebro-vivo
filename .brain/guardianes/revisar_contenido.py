@@ -76,7 +76,7 @@ def _corpus(raiz, archivos):
     piezas = {}
     for rel in archivos:
         piezas[rel] = _leer(os.path.join(raiz, rel))
-    for n in ("CLAUDE.md", "GEMINI.md", "AGENTS.md"):
+    for n in ("CLAUDE.md", "GEMINI.md", "AGENTS.md", "CAMBIOS.md", ".brain/decisions.log"):  # el registro y los cambios también citan
         if os.path.isfile(os.path.join(raiz, n)):
             piezas[n] = _leer(os.path.join(raiz, n))
     skills = os.path.join(raiz, ".claude", "skills")
@@ -108,7 +108,7 @@ def hallazgos_huerfanas(raiz, archivos, piezas, a):
         base = nombre[:-6] if nombre.endswith(".en.md") else nombre[:-3]  # la edición en inglés cuenta como la española
         claves = {base + ".md", base + ".en.md", rel}
         m = re.match(r"^(\d{3})-", base)
-        extras = [re.compile(r"\b[Ss]pec(?:s)? %s\b" % m.group(1))] if m else []
+        extras = [re.compile(r"\b(?:[Ss]pec|[Ii]nforme)(?:s)? %s\b" % m.group(1))] if m else []
         m = re.match(r"^(D-\d{3})", base)
         if m:
             claves.add(m.group(1))
