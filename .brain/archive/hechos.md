@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 42 · Modo colaborativo (spec 042, arnes 1.42.0)
+**Fecha:** 2026-11-13 · **Ref:** 
+Probado por Darwin: /colabora si y no, e indices_ajenos con reinstalar. Gemini como obrera NO probado (pendiente 54)
+
 ## 23 · Auditor (spec 044, arnes 1.44.0)
 **Fecha:** 2026-11-13 · **Ref:** 
 Probado por Darwin: estado y quien spec; aviso con codigo sale y con solo .md no
