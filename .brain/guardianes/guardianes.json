@@ -40,6 +40,41 @@
   "revision_sensibles": ["pago", "payment", "licen", "auth", "login", "password", "secret", ".env", "migrac", "schema", "deploy"],
   "indices_ajenos": [],
   "proyectos_hermanos": [],
+  "cadenas_activas": true,
+  "cadenas": [
+    {
+      "si": [".brain/specs/*.md"],
+      "salvo": [".brain/pendientes.md"],
+      "avisar": {
+        "es": "revisa `.brain/pendientes.md`: ¿el estado de la spec y su punto siguen al día?",
+        "en": "check `.brain/pendientes.md`: are the spec's status and its item still up to date?"
+      }
+    },
+    {
+      "si": [".brain/decisions/*.md"],
+      "salvo": [".brain/decisions/indice.md"],
+      "avisar": {
+        "es": "revisa `.brain/decisions/indice.md`: ¿tiene la fila de esa decisión? (`cerrar.py --indices` la añade)",
+        "en": "check `.brain/decisions/indice.md`: does it have that decision's row? (`cerrar.py --indices` adds it)"
+      }
+    },
+    {
+      "si": [".brain/constitution.md"],
+      "salvo": ["CLAUDE.md"],
+      "avisar": {
+        "es": "revisa los índices de IA (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`): ¿resumen o enlazan algo que la constitución ya cambió?",
+        "en": "check the AI indexes (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`): do they summarize or link something the constitution has already changed?"
+      }
+    },
+    {
+      "si": [".brain/guardianes/*.py"],
+      "salvo": [".brain/biblioteca/CEREBRO_VIVO.md"],
+      "avisar": {
+        "es": "revisa el manual (`.brain/biblioteca/CEREBRO_VIVO.md`) y, si existe, la página pública: ¿describen este guardián como antes?",
+        "en": "check the manual (`.brain/biblioteca/CEREBRO_VIVO.md`) and, if there is one, the public page: do they still describe this guardian correctly?"
+      }
+    }
+  ],
   "lecciones_activas": true,
   "lecciones_vigiladas": {},
   "hitos_max_archivos": 5,

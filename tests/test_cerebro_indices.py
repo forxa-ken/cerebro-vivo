@@ -103,6 +103,46 @@ class TestIndicesCerebro(unittest.TestCase):
         self.assertEqual(malas, [], "Entradas recientes de decisions.log sin fecha al inicio")
 
 
+class TestEfectoEnCadena(unittest.TestCase):
+    """Spec 047: al cerrar, avisa de documentos que el cambio puede haber dejado viejos (solo avisa)."""
+
+    def setUp(self):
+        self.cierre = cargar_cierre()
+        self.cfg = {"idioma": "es", "cadenas": [
+            {"si": [".brain/specs/*.md"], "salvo": [".brain/pendientes.md"], "avisar": {"es": "revisa pendientes", "en": "check pending"}}]}
+
+    def test_avisa_si_se_toca_y_no_se_toca_lo_otro(self):
+        av = self.cierre.cadena_avisos([".brain/specs/001-x.md"], self.cfg)
+        self.assertEqual(len(av), 1)
+        self.assertIn("001-x.md", av[0])
+        self.assertIn("revisa pendientes", av[0])
+
+    def test_calla_si_ya_se_toco_lo_que_habia_que_revisar(self):
+        self.assertEqual(self.cierre.cadena_avisos([".brain/specs/001-x.md", ".brain/pendientes.md"], self.cfg), [])
+
+    def test_calla_si_no_se_toca_nada_de_la_regla(self):
+        self.assertEqual(self.cierre.cadena_avisos(["src/a.py"], self.cfg), [])
+
+    def test_idioma_ingles_y_sin_reglas(self):
+        self.cfg["idioma"] = "en"
+        av = self.cierre.cadena_avisos([".brain/specs/001-x.md"], self.cfg)
+        self.assertIn("check pending", av[0])
+        self.assertIn("Knock-on effect", av[0])
+        self.assertEqual(self.cierre.cadena_avisos([".brain/specs/001-x.md"], {"idioma": "es"}), [])
+
+    def test_regla_rota_no_tumba_el_cierre(self):
+        self.cfg["cadenas"].insert(0, {"si": None, "avisar": 5})
+        self.assertEqual(len(self.cierre.cadena_avisos([".brain/specs/001-x.md"], self.cfg)), 1)
+
+    def test_las_reglas_del_arnes_son_validas_y_bilingues(self):
+        with open(os.path.join(GUARDIANES, "guardianes.json"), encoding="utf-8") as f:
+            reglas = json.load(f)["cadenas"]
+        self.assertTrue(reglas)
+        for r in reglas:
+            self.assertTrue(r["si"])
+            self.assertTrue(r["avisar"]["es"] and r["avisar"]["en"])
+
+
 class TestAvisoRepetido(unittest.TestCase):
     """Spec 038 (1A): un aviso informativo que se repite sin atenderse se apaga en ese chat."""
 

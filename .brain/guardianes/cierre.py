@@ -195,6 +195,26 @@ def escribir_linea_auto(raiz, cfg, texto):
         f.write("%s | auto | Claude (auto) | %s | %s\n" % (datetime.date.today().isoformat(), texto, t(cfg, "carril_corto")))
 
 
+def cadena_avisos(editados, cfg):
+    """Spec 047 (efecto en cadena): al cerrar, avisa de documentos que el cambio puede haber dejado viejos. Solo avisa.
+    Reglas en `cadenas` de guardianes.json: {"si": [globs], "salvo": [globs], "avisar": {"es": "...", "en": "..."}}.
+    Una regla salta si el chat editó algo que casa con `si` y nada que casa con `salvo` (lo que ya se tocó no hace falta revisarlo)."""
+    avisos = []
+    for r in cfg.get("cadenas") or []:
+        try:
+            tocados = [c for c in editados if any(fnmatch.fnmatch(c, p) for p in r.get("si") or [])]
+            if not tocados or any(fnmatch.fnmatch(c, p) for c in editados for p in r.get("salvo") or []):
+                continue
+            aviso = r.get("avisar")
+            if isinstance(aviso, dict):
+                aviso = aviso.get(cfg.get("idioma", "es")) or aviso.get("es") or next(iter(aviso.values()), "")
+            if aviso:
+                avisos.append(t(cfg, "cierre_cadena", ", ".join(tocados[:3]), aviso))
+        except Exception:
+            continue
+    return avisos
+
+
 def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None, auditor_aparte=None):
     """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests.
     `editados` (spec 031): archivos que el chat editó con Edit/Write; si hay, solo cuentan esos cambios de git
@@ -317,7 +337,9 @@ def main():
                 sin_cerrar = None
         aviso_auditor = []
         avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar, aviso_auditor)
-        informativos = {"longitud": [], "hitos": [], "auditor": aviso_auditor}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
+        informativos = {"longitud": [], "hitos": [], "auditor": aviso_auditor, "cadena": []}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
+        if en_registro and editados and cfg.get("cadenas_activas", True):  # spec 047: solo al cerrar (hay línea de registro en esta respuesta)
+            informativos["cadena"] = cadena_avisos(editados, cfg)
         try:  # spec 056: aviso de longitud de chat (una vez por tramo; calla si falla)
             import importlib.util
             espec = importlib.util.spec_from_file_location("longitud", os.path.join(AQUI, "longitud.py"))

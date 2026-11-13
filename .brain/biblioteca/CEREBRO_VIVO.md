@@ -86,6 +86,7 @@ Idea ──► [spec aprobada] ──► Falta programar ──► Implementada
 ## 6. Cierre de tarea (checklist obligatorio)
 1. Tests en verde (comando fijo del proyecto).
 2. Una línea en `decisions.log` (fecha, tipo, quién, qué, carril). El tipo es una palabra fija (`arnes`, `leccion`, `decision`, `spec`, `pendiente`, `memoria`, `otro`) que se pone con `cerrar.py --tipo` y sirve para filtrar: `grep "| arnes |" .brain/decisions.log`. Las líneas antiguas no lo llevan (spec 048).
+   Al cerrar, `cierre.py` también avisa del **efecto en cadena** (spec 047): si el chat tocó, por ejemplo, una spec y no `pendientes.md`, dice qué documento revisar. Solo avisa; las reglas están en `cadenas` de `guardianes.json` (`si`, `salvo`, `avisar` es/en) y se apagan con `cadenas_activas: false`.
 3. Si hubo una decisión importante: ficha `D-NNN` + fila en `decisions/indice.md`. Una decisión que cambia **no se borra**: se marca «reemplazada por D-NNN».
 4. Actualizar `pendientes.md` (y transferir a `hechos` si el dueño ya probó).
 5. Si cambió una funcionalidad, actualizar el mapa de funcionalidades.

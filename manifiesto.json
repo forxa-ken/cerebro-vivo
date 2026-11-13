@@ -3,8 +3,8 @@
   ".brain/biblioteca/CARTA_EJECUTORA.en.md": "9650e329039ae60833949f2e06ef6371d567c198be5124126a4847027444faba",
   ".brain/biblioteca/CARTA_EJECUTORA.md": "b05e3b9b4a25c10cfeb5301b33afcf4fd848bfccb831cc2b83b18ca81bc44145",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
-  ".brain/biblioteca/CEREBRO_VIVO.en.md": "d0e98b250d280862fd7ba2f78409e52a8596db269c3b38efcb55f4f10c1262da",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "5c646c466585e502c3a6375bd04d20ce2ec91ed2c4b5f5c4be599665ec74f453",
+  ".brain/biblioteca/CEREBRO_VIVO.en.md": "dad735b5a3433f7061da28402a70e465ba6fe09adf8d1c9765782fcced91948c",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "5ef94fd09f064d2811ed8032fabaa489d6eb755437c8c4a760ff8e70f8eac99b",
   ".brain/biblioteca/IAS_COLABORATIVAS.en.md": "b72323ce665238d67622130bd54ed7c5ebde3871d8d73c47a30ff6f7f5d6d54a",
   ".brain/biblioteca/IAS_COLABORATIVAS.md": "af323712ee73b8e181348f9b28be4817e096cc30f4ade55f58283b8f36f8cb66",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "f82b3f87acb91332e2d30743e32279578ac35dab443ab7fd8996c1ec03626205",
@@ -57,7 +57,7 @@
   ".brain/guardianes/auditor.py": "26ec9687b50ef28054ca8dd16c6a59de02f68382b06033ccb148dcc62d0bd4ee",
   ".brain/guardianes/base_datos.py": "254d88257f1808d36b471f3ff64f90537339034903f229c6c67affc582548b75",
   ".brain/guardianes/cerrar.py": "5e2b32ebea7a7a4867bcc5d0bf77bb8a77e0c199ea35bdc99abd794fe83a0c7d",
-  ".brain/guardianes/cierre.py": "89925f9c59999ef03abf55c45675ac151ec350a077a33ce3f467175abc61083b",
+  ".brain/guardianes/cierre.py": "71f01e2de162970ef6359103130dd83c6006d0fe83f53effb3a1fcd696e8e18b",
   ".brain/guardianes/colabora.py": "7cdd425cfe250de135ae44ecb6899a4b451526be61a0496c597f320d93811bd5",
   ".brain/guardianes/diagramas.py": "787ac96805c29a15cca22b4a18043b5961371e6b76f8eb247b3ad1803ace376b",
   ".brain/guardianes/diapositivas.py": "415afda3d778fdc8d4e680b1f348fe23435d03e460014b5f36026fc84eed777a",
@@ -76,7 +76,7 @@
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "f677fe3eca6910b91383b8dcac1df03e360182bfd6523894f16492af70505ead",
+  ".brain/guardianes/textos.py": "0ce5f89feae8adf7e74ef33b79a46f0a597982af519d560a6b305bf8081fe79f",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -163,7 +163,7 @@
   "tests/test_archivos_gordos.py": "fe9e4eaf36ef6812bd68d98799a612466999cc0560b551d5ea3991bbceaddf65",
   "tests/test_arranque.py": "d200ba2eea7c114deb74d633de6b733fc294910717574aa19935dfb44997ac2d",
   "tests/test_auditor.py": "e37b9fad52506424e8782078d9903f06965b63171e4ede68ae7bad4ecac0db77",
-  "tests/test_cerebro_indices.py": "2d27e6371790335086dcbb07e40fdcdb70aa0cc8df23abe25b709afd83705ffc",
+  "tests/test_cerebro_indices.py": "02084030ae3b6316b14b6cf084aab447da5c76ad10653a232ee582dcadf70a56",
   "tests/test_colabora.py": "6cd9a0b5c067a6c4d07a8d3f4a2bcd03dedc0b1036eb977ccb070f6a425abe7f",
   "tests/test_diagramas.py": "eb53251c9ddbaad2228a07135706d3eb3122c0c09999e99076feff6bcf1b2f13",
   "tests/test_diapositivas.py": "c66032948066710f240aae6c270e5a1fad651efeb517a26358f010acc25cd1fa",
@@ -223,5 +223,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.47.0"
+ "version": "1.48.0"
 }

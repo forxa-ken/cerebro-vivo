@@ -379,3 +379,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.47.0 (2026-11-13)
 - Pendiente 48: cada línea nueva de `decisions.log` lleva un **tipo fijo** en el segundo campo (`AAAA-MM-DD | tipo | quién (chat) | qué | carril`), para filtrarla con `grep "| arnes |" .brain/decisions.log`. `cerrar.py` acepta `--tipo` (arnes, leccion, decision, spec, pendiente, memoria, otro; por defecto «otro»); la línea automática de `cierre.py` usa `auto` y la de `eventos_chat.py` usa `guardian`. Las líneas antiguas no se tocan y los guardianes que leen el registro (arranque, cierre) no cambian. Documentado en `CEREBRO_VIVO` y en la skill `cerrar-una-tarea` (es/en). Pruebas nuevas del formato.
+
+## 1.48.0 (2026-11-13)
+- Pendiente 47: **efecto en cadena al cerrar** (`cierre.py`). Cuando el chat cierra una tarea, avisa de documentos que el cambio puede haber dejado viejos: por ejemplo, tocó una spec y no `pendientes.md`, tocó una decisión y no su índice, tocó la constitución y no `CLAUDE.md`, o tocó un guardián y no el manual. Solo avisa (no bloquea) y, si se repite sin atenderse, se apaga en ese chat (spec 038). Las reglas van en `cadenas` de `guardianes.json` (`si`, `salvo`, `avisar` es/en; cada proyecto añade las suyas) y se apaga todo con `cadenas_activas: false`. Textos es/en y 6 pruebas nuevas.

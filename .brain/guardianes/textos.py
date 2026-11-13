@@ -39,6 +39,7 @@ TEXTOS = {
                                "Prueba de retomar: si otra IA no podría seguir solo con la petición y el git diff, no esperes al tope."),
         "cierre_tope_pendientes": ("%s pesa %d bytes y el tope es %d. Pasa lo ya probado a archive/hechos.md "
                                    "(y su fila al índice) y deja aquí solo lo que falta."),
+        "cierre_cadena": "Efecto en cadena (solo avisa): tocaste %s; %s",
         "cierre_aviso_apagado": "El aviso «%s» ya salió %d veces seguidas sin que cambiara nada; no se repite más en este chat (en el chat siguiente vuelve).",
         "cierre_auto": "(auto) tocó %s; pruebas en verde",
         # longitud.py (aviso de chat largo, lo llama cierre.py)
@@ -491,6 +492,7 @@ TEXTOS = {
                                "Resume test: if another AI could not continue from just the request and the git diff, do not wait for the cap."),
         "cierre_tope_pendientes": ("%s weighs %d bytes and the cap is %d. Move what is already tested to archive/hechos.md "
                                    "(and its row to the index) and leave here only what is missing."),
+        "cierre_cadena": "Knock-on effect (warning only): you touched %s; %s",
         "cierre_aviso_apagado": "The warning \"%s\" has appeared %d times in a row with nothing changing; it will not repeat in this chat (it comes back in the next one).",
         "cierre_auto": "(auto) touched %s; tests green",
         "longitud_frase": ("We come from <this chat>. What was done: … What is not pushed yet: … What the owner must test: … "

@@ -13,12 +13,12 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **44:** (idea del gist «LLM Wiki» de Karpathy, 2026-11-12; prioridad media) revisión de contenido de `.brain/`: un guardián que **avise, sin bloquear**, de contradicciones entre documentos, afirmaciones que ya no son ciertas y páginas que nadie enlaza. Hoy solo se revisan tamaño y referencias rotas. Textos en es/en. Primero spec.
 - **45:** (idea del gist) archivar buenas respuestas: comando para guardar en `.brain/` una respuesta o comparación útil de un chat, con su fuente, aunque no venga de un fallo. Hoy las lecciones solo nacen de un problema resuelto.
 - **46:** (idea del gist) búsqueda local sobre `.brain/` en Python sin dependencias. Dejar para cuando la memoria crezca más (hoy ~55 lecciones más specs y decisiones).
-- **47:** (idea del gist) cierre con efecto en cadena: al cerrar una tarea, avisar de qué documentos toca el cambio (lección, spec, índice, página pública) y quedaron viejos.
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
 - **53:** (viene del cierre del 49; subir solo con orden de Darwin) cuando se cierren los puntos 44 a 48, añadir a Karpathy, Andrej, *LLM Wiki* (gist, 4-4-2026) a las «Fuentes» del pie de la página pública (`top.h5` de `idiomas.js` es/en y `index.html`, rama `gh-pages`) y poner la versión actual del arnés.
 
 ## Esperando tu prueba (Darwin)
 
+- **47:** efecto en cadena al cerrar (arnés 1.48.0). Prueba: edita una spec cualquiera (por ejemplo añade un espacio a `.brain/specs/043-reutilizacion-entre-proyectos-hermanos.md`), escribe la línea de cierre con `cerrar.py` y deshaz el espacio: al terminar la respuesta el cierre debe decir «Efecto en cadena (solo avisa): tocaste ...spec...; revisa `.brain/pendientes.md`». Si también tocas `pendientes.md`, no debe avisar. **Sin probar por Darwin.**
 
 ## Acciones tuyas
