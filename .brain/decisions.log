@@ -312,3 +312,5 @@
 2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 probado con proyectos reales: hermanos configurado en Retail mirando a Forever (portar-forever.md, ultimo portado 51514c8); el aviso sale: 35 commits sin portar. Solo se tocaron guardianes.json y .brain/portar-forever.md de Retail | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 confirmado por Darwin y pasado a hechos | Cambio pequeño
 2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.47.0: pendiente 48, tipo fijo en cada linea nueva de decisions.log (cerrar.py --tipo; auto y guardian para los guardianes; lineas antiguas sin tocar; 552 pruebas en verde) | Cambio pequeño
+2026-11-13 | leccion | Claude (cerebro-vivo #19) | prueba del tipo | Cambio pequeño
+2026-11-13 | pendiente | Claude (cerebro-vivo #19) | Pendiente 48 confirmado por Darwin y pasado a hechos | Cambio pequeño

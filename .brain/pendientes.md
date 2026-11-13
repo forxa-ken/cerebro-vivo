@@ -20,6 +20,5 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 
-- **48:** tipo fijo en cada línea de `decisions.log` (arnés 1.47.0). Prueba: mira la última línea de `.brain/decisions.log` (ya lleva `| arnes |`) y lanza `grep "| arnes |" .brain/decisions.log`: debe salir esa línea y solo las que lleven ese tipo. Si quieres, escribe una de prueba con `python .brain/guardianes/cerrar.py --chat "cerebro-vivo #N" --tipo leccion "prueba"`; un tipo inventado debe rechazarse con la lista de tipos. Las 313 líneas antiguas quedan sin tipo (decisión de Darwin). **Sin probar por Darwin.**
 
 ## Acciones tuyas
