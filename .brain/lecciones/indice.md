@@ -4,7 +4,7 @@
 
 | Tema | Lecciones |
 | :--- | :---: |
-| [arnes-fabrica](arnes-fabrica.md) | 5 |
+| [arnes-fabrica](arnes-fabrica.md) | 6 |
 | [arnes-heredocs](arnes-heredocs.md) | 3 |
 | [arnes-pruebas-y-manifiesto](arnes-pruebas-y-manifiesto.md) | 14 |
 | [arnes-traspaso-y-arranque](arnes-traspaso-y-arranque.md) | 6 |
