@@ -11,18 +11,13 @@ La carta maestra con la que Darwin arma el arnés de trabajo con IA de todos sus
 
 ## Índice de la carta
 
-- **La idea:** §0 a §2
-  - §0 Cómo leer esta carta · §1 Propósito y promesa · §2 Principios
-- **Las piezas:** §3 a §9
-  - §3 Las 7 capas · §4 Archivos y topes · §5 Lectura de arranque
-  - §6 Los dos carriles · §7 Ciclo de una tarea · §8 Checklist de cierre · §9 Guardianes
-- **Cómo se trabaja:** §10 a §15
-  - §10 Varias IA y chats · §11 Conducta de la IA · §12 Repo y memoria personal
-  - §13 Biblioteca · §14 Kit de arranque · §15 Niveles de adopción
-- **Qué sabemos y qué falta:** §16 a §20
-  - §16 Lecciones · §17 Evidencia · §18 Hoja de ruta · §19 Huecos · §20 Proyectos
-- **Apoyo:** §21 a §25
-  - §21 Versiones · §22 Seguridad · §23 Plantillas · §24 Glosario · §25 Mantenimiento
+| Grupo | Secciones |
+| :--- | :--- |
+| **La idea** | §0 Cómo leer · §1 Propósito · §2 Principios |
+| **Las piezas** | §3 Capas · §4 Archivos · §5 Arranque · §6 Carriles · §7 Ciclo de tarea · §8 Cierre · §9 Guardianes |
+| **Cómo se trabaja** | §10 Varias IA · §11 Conducta · §12 Repo y memoria · §13 Biblioteca · §14 Kit · §15 Niveles |
+| **Qué sabemos y qué falta** | §16 Lecciones · §17 Evidencia · §18 Hoja de ruta · §19 Huecos · §20 Proyectos |
+| **Apoyo** | §21 Versiones · §22 Seguridad · §23 Plantillas · §24 Glosario · §25 Mantenimiento |
 
 ---
 
