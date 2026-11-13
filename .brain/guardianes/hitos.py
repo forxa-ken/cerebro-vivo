@@ -3,7 +3,7 @@
 """Guardián de hitos de Cerebro Vivo (spec 026): obliga a apuntar la lección en el momento.
 
 Lo llama `cierre.py` (hook Stop) con el registro del chat. Busca desde la última lección apuntada (o «ninguna») estas señales:
-  - un error que se resolvió (una herramienta falló, la IA editó y la misma herramienta funcionó después);
+  - un error que se resolvió (un comando falló, la IA editó y ese mismo comando o script funcionó después);
   - cambios en archivos que el proyecto marca como delicados (`lecciones_vigiladas`: tema → patrones);
   - una modificación grande (`hitos_max_archivos` archivos propios editados).
 Si hay alguna, devuelve un aviso: no se da la tarea por cerrada hasta lanzar `lecciones.py --tema …` o `lecciones.py ninguna "motivo"`.
@@ -47,6 +47,23 @@ def relativa(ruta, raiz):
     except ValueError:
         pass
     return ruta.replace("\\", "/")
+
+
+def firma(nombre, entrada):
+    """Qué se lanzó, para saber si lo que vuelve a funcionar es lo mismo que falló: en consola, el programa o el script
+    (`python .brain/x.py` -> `.brain/x.py`; se salta `cd`); en el resto, el nombre de la herramienta."""
+    if nombre not in ("Bash", "PowerShell"):
+        return nombre
+    for tramo in re.split(r"&&|\|\||;|\|", str(entrada.get("command", ""))):
+        palabras = tramo.split()
+        if not palabras or palabras[0] in ("cd", "Set-Location"):
+            continue
+        if re.fullmatch(r"(python3?|py|node)(\.exe)?", palabras[0], re.I):
+            for w in palabras[1:]:
+                if not w.startswith("-"):
+                    return "%s %s" % (nombre, w.strip("\"'").replace("\\", "/"))
+        return "%s %s" % (nombre, palabras[0])
+    return nombre
 
 
 def es_marca(nombre, entrada):
@@ -100,7 +117,7 @@ def analizar(ruta_registro, cfg, raiz=RAIZ):
                         senales = {"errores": 0, "vigilados": {}, "archivos": set()}
                         pendientes, fallidas, arreglando = {}, {}, {}
                         continue
-                    pendientes[b.get("id")] = nombre
+                    pendientes[b.get("id")] = firma(nombre, entrada)
                     if nombre in EDITORES:
                         for n in list(fallidas):
                             arreglando[n] = True

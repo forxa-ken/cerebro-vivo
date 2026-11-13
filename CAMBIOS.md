@@ -364,3 +364,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.3 (2026-11-13)
 - `fabrica.py alcance` con un archivo de encargo que no existe: avisa en llano (es/en) y apunta a la plantilla, en vez de soltar un error técnico. Sin probar por Darwin.
+
+
+## 1.46.4 (2026-11-13)
+- `hitos.py`: un error solo cuenta como «resuelto» si vuelve a funcionar el mismo comando o script que falló (antes bastaba cualquier comando de consola). Recorta el aviso de hito sin lección, que era el 62 % de los avisos del guardián. Con 2 pruebas nuevas. Sin probar por Darwin.

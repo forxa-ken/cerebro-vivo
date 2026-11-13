@@ -53,6 +53,20 @@ class TestHitos(unittest.TestCase):
         ev = [u1, resultado(i1, "Traceback (most recent call last)", True), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
         self.assertEqual(len(self.avisos(ev)), 1)
 
+    def test_otro_comando_que_funciona_no_resuelve_el_error(self):
+        i1, u1 = uso("Bash", {"command": "ls carpeta_que_no_existe"})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Bash", {"command": "git status"})
+        ev = [u1, resultado(i1, "No such file", True), u2, resultado(i2, "ok"), u3, resultado(i3, "limpio")]
+        self.assertEqual(self.avisos(ev), [])
+
+    def test_mismo_script_con_otros_argumentos_si_resuelve_el_error(self):
+        i1, u1 = uso("Bash", {"command": 'cd "x" && python .brain/g.py --a'})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("g.py")})
+        i3, u3 = uso("Bash", {"command": "python .brain/g.py --b | tail -3"})
+        ev = [u1, resultado(i1, "Traceback", True), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
+        self.assertEqual(len(self.avisos(ev)), 1)
+
     def test_error_sin_resolver_no_avisa(self):
         i1, u1 = uso("Bash", {"command": "python x.py"})
         self.assertEqual(self.avisos([u1, resultado(i1, "Traceback", True)]), [])
