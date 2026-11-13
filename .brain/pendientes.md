@@ -19,6 +19,5 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 ## Esperando tu prueba (Darwin)
 
-- **47:** efecto en cadena al cerrar (arnés 1.48.0). Prueba: edita una spec cualquiera (por ejemplo añade un espacio a `.brain/specs/043-reutilizacion-entre-proyectos-hermanos.md`), escribe la línea de cierre con `cerrar.py` y deshaz el espacio: al terminar la respuesta el cierre debe decir «Efecto en cadena (solo avisa): tocaste ...spec...; revisa `.brain/pendientes.md`». Si también tocas `pendientes.md`, no debe avisar. **Sin probar por Darwin.**
 
 ## Acciones tuyas

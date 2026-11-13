@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 47 · Efecto en cadena al cerrar (arnés 1.48.0): probado por Darwin
+**Fecha:** 2026-11-13 · **Ref:** 
+Prueba real: se editó la spec 043 sin tocar pendientes.md, se escribió la línea de cierre y al terminar la respuesta salió el aviso «Efecto en cadena (solo avisa): tocaste ...; revisa pendientes.md». Reglas en cadenas de guardianes.json.
+
 ## 48 · Tipo fijo en cada línea de decisions.log (arnés 1.47.0): probado por Darwin
 **Fecha:** 2026-11-13 · **Ref:** 
 Darwin lanzó el filtro grep por tipo y salieron las líneas esperadas (arnes y leccion); líneas antiguas sin tipo por decisión suya; un tipo inventado se rechaza con la lista.
