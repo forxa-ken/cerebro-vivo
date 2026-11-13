@@ -14,12 +14,12 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 - **45:** (idea del gist) archivar buenas respuestas: comando para guardar en `.brain/` una respuesta o comparación útil de un chat, con su fuente, aunque no venga de un fallo. Hoy las lecciones solo nacen de un problema resuelto.
 - **46:** (idea del gist) búsqueda local sobre `.brain/` en Python sin dependencias. Dejar para cuando la memoria crezca más (hoy ~55 lecciones más specs y decisiones).
 - **47:** (idea del gist) cierre con efecto en cadena: al cerrar una tarea, avisar de qué documentos toca el cambio (lección, spec, índice, página pública) y quedaron viejos.
-- **48:** (idea del gist; la más barata) tipo fijo al inicio de cada línea de `decisions.log` (arnés, lección, decisión…) para filtrarlo con `grep`. Comprobar que los guardianes que leen el registro no se rompen con el formato nuevo.
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
 - **53:** (viene del cierre del 49; subir solo con orden de Darwin) cuando se cierren los puntos 44 a 48, añadir a Karpathy, Andrej, *LLM Wiki* (gist, 4-4-2026) a las «Fuentes» del pie de la página pública (`top.h5` de `idiomas.js` es/en y `index.html`, rama `gh-pages`) y poner la versión actual del arnés.
 
 ## Esperando tu prueba (Darwin)
 
+- **48:** tipo fijo en cada línea de `decisions.log` (arnés 1.47.0). Prueba: mira la última línea de `.brain/decisions.log` (ya lleva `| arnes |`) y lanza `grep "| arnes |" .brain/decisions.log`: debe salir esa línea y solo las que lleven ese tipo. Si quieres, escribe una de prueba con `python .brain/guardianes/cerrar.py --chat "cerebro-vivo #N" --tipo leccion "prueba"`; un tipo inventado debe rechazarse con la lista de tipos. Las 313 líneas antiguas quedan sin tipo (decisión de Darwin). **Sin probar por Darwin.**
 
 ## Acciones tuyas

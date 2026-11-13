@@ -78,6 +78,7 @@ class TestModoLigero(unittest.TestCase):
         with open(os.path.join(d, CFG["registro"]), encoding="utf-8") as f:
             linea = f.read()
         self.assertIn("Claude (auto)", linea)
+        self.assertIn(" | auto | Claude (auto) | ", linea)  # spec 048: tipo fijo
         self.assertTrue(linea.endswith("| Cambio pequeño\n"))
 
     def test_carril_nuevo_y_alias_antiguo(self):

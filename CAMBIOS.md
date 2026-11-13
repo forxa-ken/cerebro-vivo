@@ -376,3 +376,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.6 (2026-11-13)
 - Gemini deja de ser ejecutora de la fábrica (spec 042, parte B), por orden de Darwin: Google cerró el comando `gemini` para cuentas personales y no se quiere pagar. La skill `directora-de-fabrica` (es/en) lo dice y la carta de la ejecutora queda en «Claude o Codex». `/colabora` y `indices_ajenos` se mantienen (probados por Darwin); el índice `GEMINI.md` sigue siendo opcional.
+
+## 1.47.0 (2026-11-13)
+- Pendiente 48: cada línea nueva de `decisions.log` lleva un **tipo fijo** en el segundo campo (`AAAA-MM-DD | tipo | quién (chat) | qué | carril`), para filtrarla con `grep "| arnes |" .brain/decisions.log`. `cerrar.py` acepta `--tipo` (arnes, leccion, decision, spec, pendiente, memoria, otro; por defecto «otro»); la línea automática de `cierre.py` usa `auto` y la de `eventos_chat.py` usa `guardian`. Las líneas antiguas no se tocan y los guardianes que leen el registro (arranque, cierre) no cambian. Documentado en `CEREBRO_VIVO` y en la skill `cerrar-una-tarea` (es/en). Pruebas nuevas del formato.

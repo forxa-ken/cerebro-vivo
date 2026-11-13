@@ -87,7 +87,7 @@ Idea ──► [approved spec] ──► To program ──► Implemented
 
 ## 6. Task close (mandatory checklist)
 1. Tests green (the project's fixed command).
-2. One line in `decisions.log` (date, who, what, lane).
+2. One line in `decisions.log` (date, type, who, what, lane). The type is a fixed word (`arnes`, `leccion`, `decision`, `spec`, `pendiente`, `memoria`, `otro`) set with `cerrar.py --tipo` and used to filter: `grep "| arnes |" .brain/decisions.log`. Old lines do not carry it (spec 048).
 3. If there was an important decision: `D-NNN` card + row in `decisions/indice.md`. A decision that changes **is not deleted**: it is marked "replaced by D-NNN".
 4. Update `pendientes.md` (and move to `hechos` if the owner already tested).
 5. If a feature changed, update the feature map.

@@ -16,6 +16,8 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
 # «Fast-Track» sigue aceptándose como alias del carril corto (registros y órdenes antiguos).
 CARRILES = ("Cambio pequeño", "Small change", "Fast-Track", "SDD")
+# Spec 048: tipo fijo de cada línea nueva del registro (las líneas antiguas no lo llevan). «auto» y «guardian» los escriben los guardianes.
+TIPOS = ("arnes", "leccion", "decision", "spec", "pendiente", "memoria", "otro", "auto", "guardian")
 sys.path.insert(0, AQUI)
 from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
@@ -28,14 +30,17 @@ def cargar_config():
         return {}
 
 
-def linea_registro(fecha, quien, chat, texto, carril, lengua=None):
-    """Formato de decisions.log: `AAAA-MM-DD | quién (chat) | qué | carril`."""
+def linea_registro(fecha, quien, chat, texto, carril, lengua=None, tipo="otro"):
+    """Formato de decisions.log (spec 048): `AAAA-MM-DD | tipo | quién (chat) | qué | carril`.
+    El tipo es una palabra fija (TIPOS) para filtrar con grep: `grep "| arnes |" .brain/decisions.log`."""
     texto = " ".join(texto.split())
     if not texto:
         raise ValueError(t(lengua, "cerrar_falta_texto"))
     if carril not in CARRILES:
         raise ValueError(t(lengua, "cerrar_carril", ", ".join(CARRILES)))
-    return "%s | %s (%s) | %s | %s" % (fecha, quien, chat, texto, carril)
+    if tipo not in TIPOS:
+        raise ValueError(t(lengua, "cerrar_tipo", ", ".join(TIPOS)))
+    return "%s | %s | %s (%s) | %s | %s" % (fecha, tipo, quien, chat, texto, carril)
 
 
 def _indices_o_hecho(a, cfg=None):
@@ -71,6 +76,7 @@ def main():
     ap.add_argument("--chat", help=t(cfg, "ayuda_cerrar_chat"))
     ap.add_argument("--quien", default="Claude")
     ap.add_argument("--carril", default=t(cfg, "carril_corto"), choices=CARRILES)
+    ap.add_argument("--tipo", default="otro", choices=TIPOS, help=t(cfg, "ayuda_cerrar_tipo"))
     ap.add_argument("--fecha", default=datetime.date.today().isoformat())
     ap.add_argument("--indices", action="store_true", help=t(cfg, "ayuda_cerrar_indices"))
     ap.add_argument("--hecho", help=t(cfg, "ayuda_cerrar_hecho"))
@@ -85,7 +91,7 @@ def main():
     if not a.chat:
         ap.error(t(cfg, "cerrar_falta_chat"))
     try:
-        linea = linea_registro(a.fecha, a.quien, a.chat, a.texto, a.carril, cfg)
+        linea = linea_registro(a.fecha, a.quien, a.chat, a.texto, a.carril, cfg, a.tipo)
         registro = os.path.join(RAIZ, cfg["registro"])
         with open(registro, "a", encoding="utf-8", newline="") as f:
             f.write(linea + "\n")

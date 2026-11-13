@@ -301,7 +301,12 @@ class TestGuardianArranqueYCierreRapido(unittest.TestCase):
     def test_linea_de_registro_con_formato(self):
         cerrar = cargar_guardian("cerrar")
         self.assertEqual(cerrar.linea_registro("2026-10-28", "Claude", "Proyecto #39", "  hizo   algo ", "SDD"),
-                         "2026-10-28 | Claude (Proyecto #39) | hizo algo | SDD")
+                         "2026-10-28 | otro | Claude (Proyecto #39) | hizo algo | SDD")
+        # Spec 048: tipo fijo en el segundo campo, para filtrar con grep
+        self.assertEqual(cerrar.linea_registro("2026-10-28", "Claude", "Proyecto #39", "hizo algo", "SDD", None, "arnes"),
+                         "2026-10-28 | arnes | Claude (Proyecto #39) | hizo algo | SDD")
+        with self.assertRaises(ValueError):
+            cerrar.linea_registro("2026-10-28", "Claude", "x", "algo", "SDD", None, "inventado")
         with self.assertRaises(ValueError):
             cerrar.linea_registro("2026-10-28", "Claude", "x", "", "SDD")
         with self.assertRaises(ValueError):
