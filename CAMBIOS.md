@@ -372,3 +372,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.5 (2026-11-13)
 - `hitos.py`: el aviso de hito sin lección ya no cuenta como fallo la palabra «error» suelta, que salía al leer o buscar código. Solo mira marcas precisas (`Traceback`, `Exit code`, `FAILED`, `...Error:`) y solo en consola; en `Read`, `Grep` o `Edit` cuenta únicamente si la herramienta falla de verdad. Con 3 pruebas nuevas. Sin probar por Darwin.
+
+
+## 1.46.6 (2026-11-13)
+- Gemini deja de ser ejecutora de la fábrica (spec 042, parte B), por orden de Darwin: Google cerró el comando `gemini` para cuentas personales y no se quiere pagar. La skill `directora-de-fabrica` (es/en) lo dice y la carta de la ejecutora queda en «Claude o Codex». `/colabora` y `indices_ajenos` se mantienen (probados por Darwin); el índice `GEMINI.md` sigue siendo opcional.

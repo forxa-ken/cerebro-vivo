@@ -1,6 +1,6 @@
 # Spec 042: varias IA que colaboran en un proyecto, y Gemini como obrera de la fábrica (punto 19)
 
-- **Estado:** aprobada por Darwin el 2026-11-12 y programada en 1.42.0 (Gemini sin probar)
+- **Estado:** aprobada por Darwin el 2026-11-12 y programada en 1.42.0 (la parte B, Gemini como obrera, retirada por Darwin el 2026-11-13: Google cerró el comando `gemini` para cuentas personales y no se quiere pagar)
 - **Fecha:** 2026-11-12
 - **Cierra:** la parte que quedaba abierta del punto 19 (la fábrica con directora ya está en la spec 035). Recoge además el requisito R12 de la spec 035 (`indices_ajenos`), nunca programado.
 - **Pedido por Darwin el 2026-11-12:** (1) incluir a Gemini como obrera de la fábrica; (2) especificar las IA colaborativas.

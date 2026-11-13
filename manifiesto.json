@@ -1,7 +1,7 @@
 {
  "archivos": {
-  ".brain/biblioteca/CARTA_EJECUTORA.en.md": "8c53fb631b7f92e7ec54cbbc6e8ea53955f8fb2f595aeb691c7f19f8b73a4b4d",
-  ".brain/biblioteca/CARTA_EJECUTORA.md": "a010c374f85afa5eef5a9a391387813759504e3edfd1c906d2053c84d029f78a",
+  ".brain/biblioteca/CARTA_EJECUTORA.en.md": "9650e329039ae60833949f2e06ef6371d567c198be5124126a4847027444faba",
+  ".brain/biblioteca/CARTA_EJECUTORA.md": "b05e3b9b4a25c10cfeb5301b33afcf4fd848bfccb831cc2b83b18ca81bc44145",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
   ".brain/biblioteca/CEREBRO_VIVO.en.md": "2d1cb85663a3423b9625abef3dd15cc334f1541204e5faa9ad0855430f7d1314",
   ".brain/biblioteca/CEREBRO_VIVO.md": "f5f3c6cfc44475bddbc3b6a8f7827a2254f4d18850b68999fbc30a651f241f4d",
@@ -101,8 +101,8 @@
   ".claude/skills/colabora/SKILL.md": "a757c3724225c8695e9c8ab660b0837d3edbb0bcbd36b59c141025d34e34621c",
   ".claude/skills/diapositivas/SKILL.en.md": "5b22c9965f3052519276fed6c6aa80fdbd9f808cd3cdd32b4c3456f69a1707d0",
   ".claude/skills/diapositivas/SKILL.md": "e6872facdb732420224f996ce98ed4b3670d374dd2680cd6a8fd299ba8885243",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "6abee5a71ef91526a695526d81e8a06c756cf5086ee7c5bd278761d142219f0a",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "43cf11d2364b695a810c2c0455b0027437c2572b974a183ca376140e316c7acd",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "795613bae1670d99bbb83704e1f9f45a6654ae6bfa77921516d11d2fc571fa17",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "e872805aca9c45efa9f98abaf778bfc7cf0460d677efe9e792791c3c7004ed70",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "ca67c3f0fadb9ba78e1fa9930cdf8e246cd553c8c60a3d52fc0a8e504057c5cc",
@@ -223,5 +223,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.46.5"
+ "version": "1.46.6"
 }
