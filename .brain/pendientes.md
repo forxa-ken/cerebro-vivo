@@ -23,4 +23,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **36:** prueba de retomar en el cierre (spec 041, arnés 1.41.0): regla nueva en la skill `cerrar-una-tarea` y una frase en el aviso del guardián. Prueba: en un chat de trabajo, comprueba que la IA cierra antes de 15 ediciones cuando hay una decisión que solo está en la conversación. Medir con `python .brain/guardianes/medir.py --ritual` en 2 semanas, junto al 35.
 - **43:** proyectos hermanos (spec 043, arnés 1.43.0). Prueba: en un proyecto con hermano, pon `proyectos_hermanos` en su `guardianes.json` (nombre, ruta, rama, archivo_portar), crea el archivo de portar con la plantilla `PLANTILLA_PORTAR.md` (skill `hermanos`) y lanza `python .brain/guardianes/hermanos.py`: los commits que salen deben ser reales (solo lectura, **sin probar con proyectos reales**).
+- **54:** Gemini como obrera de la fábrica (spec 042; viene del cierre del 42). **Sin probar.** Falta que Darwin inicie sesión en `gemini` desde la consola (debe aparecer `settings.json` en su carpeta `.gemini`); luego repetir el encargo mínimo: `gemini -p "Traduce al inglés: …" --approval-mode plan` en una carpeta vacía. El 2026-11-13 falló por falta de autenticación (código 41).
+
 ## Acciones tuyas
