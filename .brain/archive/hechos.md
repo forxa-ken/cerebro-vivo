@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 36 · Prueba de retomar en el cierre (spec 041, arnes 1.41.0)
+**Fecha:** 2026-11-13 · **Ref:** 
+Probado por Darwin el 2026-11-13: con una decision solo hablada, la IA cerro con 2 ediciones sin aviso del guardian. Un solo caso; medicion a mano el 2026-11-27 opcional
+
 ## 42 · Modo colaborativo (spec 042, arnes 1.42.0)
 **Fecha:** 2026-11-13 · **Ref:** 
 Probado por Darwin: /colabora si y no, e indices_ajenos con reinstalar. Gemini como obrera NO probado (pendiente 54)

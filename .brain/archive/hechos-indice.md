@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 36 | Prueba de retomar en el cierre (spec 041, arnes 1.41.0) | 2026-11-13 |  |
 | 42 | Modo colaborativo (spec 042, arnes 1.42.0) | 2026-11-13 |  |
 | 23 | Auditor (spec 044, arnes 1.44.0) | 2026-11-13 |  |
 | 35 | Cierre por bloque (spec 033, arnes 1.29.0) | 2026-11-13 |  |
