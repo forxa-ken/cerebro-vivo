@@ -153,7 +153,10 @@ class Fabrica:
 
     def comprobar_encargo(self, ruta):
         """Un encargo sin requisito aprobado y congelado se rechaza solo (R6)."""
-        req, permitidos = self.leer_encargo(ruta)
+        try:
+            req, permitidos = self.leer_encargo(ruta)
+        except OSError:
+            return [self.t("fabrica_encargo_no_existe", str(ruta))], "", []
         if not req:
             return [self.t("fabrica_encargo_sin_requisito")], req, permitidos
         h = self._huellas()

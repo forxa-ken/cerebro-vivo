@@ -62,7 +62,7 @@
   ".brain/guardianes/diagramas.py": "787ac96805c29a15cca22b4a18043b5961371e6b76f8eb247b3ad1803ace376b",
   ".brain/guardianes/diapositivas.py": "415afda3d778fdc8d4e680b1f348fe23435d03e460014b5f36026fc84eed777a",
   ".brain/guardianes/eventos_chat.py": "e1d2a7d784c85200c219791aa42e11f8ce453bfb99c366e20c5ae8d76f35c3f1",
-  ".brain/guardianes/fabrica.py": "c10529d11f792ecf5981e87d50720e969663ec76ff5be324aad00fe9ed615229",
+  ".brain/guardianes/fabrica.py": "79ea23d735fdf12de543cf099ab452e7c23ade709114549e4036931f25db7563",
   ".brain/guardianes/guardar_traspaso.py": "4ce4359519f95863711aad34f074360bb902f1efc8c4c2f9f4cfd277e312eb0f",
   ".brain/guardianes/hermanos.py": "9a05cdf6f2f72f235a86a38f2ea5f3c9c6408c0760ea545c505ba1315e7ff4ab",
   ".brain/guardianes/hitos.py": "c038dfd302868237a50fd21e96ac6d2e1c795727b0117686527affdae4f6197c",
@@ -76,7 +76,7 @@
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "f1d0fa166f1a4d7ecf53281815c276d20c7f360518d4da722f859bf08eab7b5e",
+  ".brain/guardianes/textos.py": "7d7072489d523303f37eb65bffd8cc94a310402aa6282c980ab1b3d1d0bcd16f",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -223,5 +223,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.46.2"
+ "version": "1.46.3"
 }

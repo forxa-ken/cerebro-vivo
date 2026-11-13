@@ -360,3 +360,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.46.2 (2026-11-13)
 - `/diapositivas`: subviñetas. Una línea de lista con más sangría (2 espacios) cuelga de la anterior, hasta 3 niveles; antes se aplanaban. Con 3 pruebas nuevas, plantilla es/en y skill es/en al día.
+
+
+## 1.46.3 (2026-11-13)
+- `fabrica.py alcance` con un archivo de encargo que no existe: avisa en llano (es/en) y apunta a la plantilla, en vez de soltar un error técnico. Sin probar por Darwin.

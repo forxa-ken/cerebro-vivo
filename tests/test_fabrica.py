@@ -71,6 +71,12 @@ class FabricaTest(unittest.TestCase):
     def test_sin_spec_congelada_se_rechaza(self):
         self.assertEqual(self.f.alcance(self.encargo, self.repo, "001")[0], 1)
 
+    def test_encargo_que_no_existe_avisa_sin_romper(self):
+        self._listo()
+        codigo, avisos = self.f.alcance(self.repo / "no_existe.md", self.repo, "001")
+        self.assertEqual(codigo, 1)
+        self.assertIn("no_existe.md", avisos[0])
+
     def test_encargo_sin_requisito_se_rechaza(self):
         self._listo()
         self.encargo.write_text(ENCARGO.replace("R2 (posición vertical)", "<R-n de la spec>"), encoding="utf-8")

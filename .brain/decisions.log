@@ -304,3 +304,4 @@
 2026-11-13 | Claude (cerebro-vivo #17) | Pendiente 49 cerrado: Darwin probo /diapositivas (resumen y carta en modo documento); pasado a hechos; la nota de la pagina publica queda como pendiente 53 | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #17) | Pendiente 29 cerrado: Darwin probo revisar_indices.py (sin hallazgos); pasado a hechos | Cambio pequeño
 2026-11-13 | Claude (cerebro-vivo #18) | pendiente 30: ejemplo de prueba corregido (fabrica.py verificar) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.3: fabrica.py alcance avisa en llano si el encargo no existe (con prueba) | Cambio pequeño
