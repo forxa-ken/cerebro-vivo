@@ -382,3 +382,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.48.0 (2026-11-13)
 - Pendiente 47: **efecto en cadena al cerrar** (`cierre.py`). Cuando el chat cierra una tarea, avisa de documentos que el cambio puede haber dejado viejos: por ejemplo, tocó una spec y no `pendientes.md`, tocó una decisión y no su índice, tocó la constitución y no `CLAUDE.md`, o tocó un guardián y no el manual. Solo avisa (no bloquea) y, si se repite sin atenderse, se apaga en ese chat (spec 038). Las reglas van en `cadenas` de `guardianes.json` (`si`, `salvo`, `avisar` es/en; cada proyecto añade las suyas) y se apaga todo con `cadenas_activas: false`. Textos es/en y 6 pruebas nuevas.
+
+## 1.49.0 (2026-11-13)
+- Pendiente 45: **respuestas guardadas**. Nuevo guardián `respuestas.py` y skill `/guardar-respuesta` (es/en): archiva en `.brain/respuestas/AAAA-MM-DD-titulo.md` una respuesta o comparación útil de un chat con su fuente, aunque no venga de un fallo (las lecciones solo nacen de un problema resuelto). Genera `indice.md` (la más nueva primero), no pisa una respuesta con el mismo título y fecha, exige título y fuente, tope de 8 KB y admite el texto por la entrada estándar (`-`) para no usar heredocs. Entra en el kit (`instalar.py`), en el índice de experiencia y en el manual. Textos es/en y 6 pruebas nuevas.
