@@ -318,3 +318,4 @@
 2026-11-13 | spec | Claude (cerebro-vivo #19) | Spec 043: estado al dia (prueba real confirmada por Darwin); sirve de prueba real del aviso en cadena del pendiente 47 | Cambio pequeño
 2026-11-13 | pendiente | Claude (cerebro-vivo #19) | Pendiente 47 confirmado por Darwin y pasado a hechos | Cambio pequeño
 2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.49.0: pendiente 45, respuestas guardadas (respuestas.py y skill guardar-respuesta es/en; 564 pruebas en verde) | Cambio pequeño
+2026-11-13 | memoria | Claude (cerebro-vivo #19) | Traspaso del chat 19 al 20 escrito; leccion de claves literales en textos.py | Cambio pequeño
