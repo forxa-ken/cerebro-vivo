@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 23 | Auditor (spec 044, arnes 1.44.0) | 2026-11-13 |  |
 | 35 | Cierre por bloque (spec 033, arnes 1.29.0) | 2026-11-13 |  |
 | 30 | Avisos de los guardianes con el como arreglarlo (arnes 1.40.1) | 2026-11-13 |  |
 | 31 | Guardian que se repite y tokens por tarea (spec 038) | 2026-11-13 |  |

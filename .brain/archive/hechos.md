@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 23 · Auditor (spec 044, arnes 1.44.0)
+**Fecha:** 2026-11-13 · **Ref:** 
+Probado por Darwin: estado y quien spec; aviso con codigo sale y con solo .md no
+
 ## 35 · Cierre por bloque (spec 033, arnes 1.29.0)
 **Fecha:** 2026-11-13 · **Ref:** 
 Probado por Darwin; medir.py --ritual: 119 avisos en 55 chats (2,2 por chat), 26,8 % del coste atribuible al arnes
