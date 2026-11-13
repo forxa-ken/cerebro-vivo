@@ -37,3 +37,5 @@
 | 40 | Resumen en llano de las «Fuentes» (cerrado sin escribirlo, por orden de Darwin) | 2026-11-12 | archive/hechos.md |
 
 | 25 | Distancia con un proyecto externo: fuentes citadas, sin renombrar nada | 2026-11-12 | archive/hechos.md |
+
+| 50 | Diagramas en `/diapositivas` (spec 046 fase 1, 1.46.0 y 1.46.1): probados por Darwin, «básicos pero sirven» | 2026-11-13 | archive/hechos.md |
