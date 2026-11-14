@@ -4,6 +4,10 @@
 > **No abrir completo:** consultar `hechos-indice.md` y leer solo la entrada necesaria (buscar `## <Nº>`).
 > La **numeración es fija**: el número que tenía el punto en `pendientes.md` no cambia al moverlo aquí.
 
+## 37 · Experimento VMware cerrado: pruebas de seguridad contra vcsim
+**Fecha:** 2026-11-14 · **Ref:** `.brain/archive/informe-vcsim-pendiente-37-2026-11-14.md`, informes `informe-*vmware*`
+Rondas 1 a 5 y conclusión: las reglas de seguridad son lo que decide (skill `seguridad-en-sistemas-reales`, arnés 1.30.0); ODD + reglas para tareas puntuales, Cerebro Vivo + reglas para proyectos largos. Cierre: (a) con el sí de Darwin se instaló Go 1.27.4, `vcsim` y `pyvmomi`; el módulo ganador de la ronda 5 pasó 25 de 25 pruebas contra `vcsim` sin tocar el motor, y se vio que `vcsim` responde «hecho» al mover un disco sin moverlo (el adaptador lee de vuelta el resultado); (b) `test_soporte_mac` arreglado el 2026-11-12 (arnés 1.40.2); (c) `AGENTS.md` del aprobador (ronda5-D) admite `vcsim` como segundo servidor. Límites: simulador, una ejecución, adaptador y pruebas escritos por la misma IA. Cerrado por orden de Darwin el 2026-11-14.
+
 ## 47 · Efecto en cadena al cerrar (arnés 1.48.0): probado por Darwin
 **Fecha:** 2026-11-13 · **Ref:** 
 Prueba real: se editó la spec 043 sin tocar pendientes.md, se escribió la línea de cierre y al terminar la respuesta salió el aviso «Efecto en cadena (solo avisa): tocaste ...; revisa pendientes.md». Reglas en cadenas de guardianes.json.

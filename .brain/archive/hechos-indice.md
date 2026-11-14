@@ -6,6 +6,7 @@
 
 | Nº | Qué | Fecha | Ref. |
 | :--- | :--- | :--- | :--- |
+| 37 | Experimento VMware cerrado: 25 de 25 pruebas de seguridad contra vcsim (Darwin ordenó cerrarlo) | 2026-11-14 | informe-vcsim-pendiente-37-2026-11-14.md |
 | 47 | Efecto en cadena al cerrar (arnés 1.48.0): probado por Darwin | 2026-11-13 |  |
 | 48 | Tipo fijo en cada línea de decisions.log (arnés 1.47.0): probado por Darwin | 2026-11-13 |  |
 | 36 | Prueba de retomar en el cierre (spec 041, arnes 1.41.0) | 2026-11-13 |  |
