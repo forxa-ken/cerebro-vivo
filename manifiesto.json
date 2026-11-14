@@ -148,8 +148,8 @@
   ".claude/skills/revisar-indices-de-ia/SKILL.md": "4025e846a98607d507e2830d334a811f5dd00feb07e2c377eb8e469253a45c97",
   ".claude/skills/revisor-de-consumo/SKILL.en.md": "0ba030f8c4fcbf5128367d104b4a98e56b2ff4aa5b45bfeb4fe5876953b09b3e",
   ".claude/skills/revisor-de-consumo/SKILL.md": "0898487bf866536afff852f77a06562977e748a5e6b24297e77f8fdf5af6e4ce",
-  ".claude/skills/revisor-de-spec/SKILL.en.md": "69e88fb76145a9dfded5e79e30d69b73be98b84b145f402f6e3ce3c16e2307e3",
-  ".claude/skills/revisor-de-spec/SKILL.md": "347938e5771741e16c181f8bacfb2e35c5b13ede906392641629a41a7a84152d",
+  ".claude/skills/revisor-de-spec/SKILL.en.md": "afaa7c10f445bd1aebe2ce900888a48fbfe939143148e287e28dfda5509fd526",
+  ".claude/skills/revisor-de-spec/SKILL.md": "bb20126b494e8df1246d997a389d9c8d9ca9cd9f045750e1a53958877250750b",
   ".claude/skills/revisor-independiente/SKILL.en.md": "cc3583e1447ee13b2b809946e469bb29208d73bc64903767332446526272cf9a",
   ".claude/skills/revisor-independiente/SKILL.md": "d0f6a7b1cf041b05af32d8c38f4e6654f99757a8589f9abd772207b7e2742aa3",
   ".claude/skills/secretos-fuera-del-repo/SKILL.en.md": "c4748964eb26fc09994e5e8c7efe2cb16d3f1ad32283a7805b7673e384fa2c76",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.58.1"
+ "version": "1.58.2"
 }
