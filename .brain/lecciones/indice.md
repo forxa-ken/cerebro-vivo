@@ -7,7 +7,7 @@
 | [arnes-fabrica](arnes-fabrica.md) | 9 |
 | [arnes-guardianes-nuevos](arnes-guardianes-nuevos.md) | 9 |
 | [arnes-heredocs](arnes-heredocs.md) | 3 |
-| [arnes-pagina-publica](arnes-pagina-publica.md) | 4 |
+| [arnes-pagina-publica](arnes-pagina-publica.md) | 5 |
 | [arnes-pruebas-y-manifiesto](arnes-pruebas-y-manifiesto.md) | 16 |
 | [arnes-traspaso-y-arranque](arnes-traspaso-y-arranque.md) | 6 |
 | [metodo-experimento-vmware](metodo-experimento-vmware.md) | 7 |
