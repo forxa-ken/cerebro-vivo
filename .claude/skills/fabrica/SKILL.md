@@ -17,6 +17,10 @@ Activa, desactiva o muestra el ajuste `modo_fabrica` de `.brain/guardianes/guard
    - **Enseguida** `detach_session` con el id que devuelve, para que no cuelgue de este chat. Comprobar con `get_session` (`session_id` el que devuelve) que quedó en Opus con esfuerzo medio: la app ignora un modelo mayor que el del chat que lo abre, y si este chat no es Opus puede heredar el suyo. Si no coincide, corregirlo con `set_session_model` y `set_session_effort`, o decírselo a Darwin. Decir a Darwin cómo se llama el chat nuevo.
    - Sin esas herramientas (Codex, Gemini) o si la app rechaza la llamada tras intentarla: decirlo claro y dar la frase para abrirlo a mano. Nunca decir que se rechaza sin haberlo intentado.
 
+## Modo automático (spec 050)
+- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico PALABRA`. Solo vale con el modo fábrica encendido; `estado` dice qué falta (carta sellada, criterio de «esperado» en `.brain/fabrica/esperado.md`, rama de trabajo que no sea `main`). Ajuste `fabrica_automatica` (por defecto apagado). `/fabrica no` o `modo normal` lo apagan también.
+- Activarlo no abre ningún chat nuevo: lo único que cambia es el aviso del arranque. Las fases siguientes (revisor de spec, prueba de uso real) se activan con sus propias specs.
+
 ## Error que evita (caso real)
 - El proyecto tenía `.brain/fabrica/` pero cada chat nuevo trabajaba como un chat normal: nadie le decía que era una fábrica y había que repetirlo en todos los chats.
 

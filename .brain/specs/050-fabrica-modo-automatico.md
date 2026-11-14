@@ -1,6 +1,6 @@
 # Spec 050: modo automático de la fábrica (línea de producción con prueba de uso real)
 
-- **Estado:** borrador, **esperando la aprobación de Darwin** (no se programa nada hasta entonces).
+- **Estado:** **aprobada por Darwin el 2026-11-14** (completa, con las 4 decisiones de la sección 10). Se programa por fases, empezando por la fase 1.
 - **Fecha:** 2026-11-14
 - **Cierra:** pendiente 54.
 - **Origen:** Darwin quiere usar la fábrica como una línea de producción: él entrega órdenes, la línea trabaja sola, el producto se prueba de verdad («programado no es terminado») y, si el resultado es el esperado, se sube. Quiere dos modos de la fábrica: **normal** y **automático**.
@@ -91,11 +91,11 @@ La prueba de uso real **la hace una IA distinta de la que construyó** (el revis
 - `python -m unittest discover tests` en verde en cada fase (con pruebas del interruptor, de los guardianes que bloquean y de la paridad es/en).
 - Experimento de la fase 6 con informe archivado. **Sin probar por Darwin hasta que lo haga.**
 
-## 10. Preguntas abiertas para Darwin (se deciden antes de la fase 1)
-1. ¿Los topes por defecto (3 reintentos, 30 minutos sin avance) te parecen bien, o prefieres otros?
-2. ¿Quién hace la prueba de uso real: siempre una IA distinta (más segura y más cara) o, para tareas pequeñas, la misma ejecutora con evidencia?
-3. ¿Qué proyecto de prueba usamos para la fase 6 (uno desechable, no un proyecto real)?
-4. ¿El revisor de spec debe ser siempre **otro modelo** (por ejemplo Codex), o basta con otro chat de Claude con instrucciones distintas?
+## 10. Decisiones de Darwin (2026-11-14, respondidas; pendiente su aprobación global de la spec)
+1. **Topes:** 3 reintentos y 30 minutos sin avance.
+2. **Prueba de uso real:** siempre la hace una IA distinta de la ejecutora.
+3. **Proyecto de la fase 6:** una copia desechable del experimento VMware.
+4. **Revisor de spec:** otro modelo (por ejemplo Codex) si hay uno disponible.
 
 ## 11. Cierre
 - [ ] Spec aprobada por Darwin antes de programar

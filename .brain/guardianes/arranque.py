@@ -210,6 +210,8 @@ def resumen(raiz, cfg):
     lineas = [t(cfg, "arranque_titulo")]
     if cfg.get("modo_fabrica"):  # spec 040: el modo fábrica se recuerda entre chats
         lineas.append(t(cfg, "arranque_modo_fabrica"))
+        if cfg.get("fabrica_automatica"):  # spec 050: solo vale con el modo fábrica encendido
+            lineas.append(t(cfg, "arranque_modo_fabrica_auto"))
     if cfg.get("modo_colaborativo"):  # spec 042: el modo colaborativo se recuerda entre chats
         lineas.append(t(cfg, "arranque_modo_colaborativo"))
     try:  # spec 044: ajuste no habitual del auditor (valor normalizado igual que en auditor.py)

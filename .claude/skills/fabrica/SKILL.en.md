@@ -17,6 +17,10 @@ Turns on, turns off or shows the `modo_fabrica` setting in `.brain/guardianes/gu
    - **Right away** `detach_session` with the id it returns, so it does not hang from this chat. Check with `get_session` (`session_id` the one it returns) that it ended up on Opus with medium effort: the app ignores a model higher than the opening chat's, so if this chat is not Opus it may inherit its own. If it does not match, fix it with `set_session_model` and `set_session_effort`, or tell Darwin. Tell Darwin the new chat's name.
    - Without those tools (Codex, Gemini) or if the app refuses after trying: say so clearly and give the sentence to open it by hand. Never say it is refused without having tried.
 
+## Automatic mode (spec 050)
+- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico WORD`. It only works with factory mode on; `estado` says what is missing (sealed charter, "expected" criterion in `.brain/fabrica/esperado.md`, a working branch that is not `main`). Setting `fabrica_automatica` (off by default). `/fabrica no` or `modo normal` also turn it off.
+- Turning it on opens no new chat: the only change is the startup notice. The later phases (spec reviewer, real-use test) are switched on by their own specs.
+
 ## Error it prevents (real case)
 - The project had `.brain/fabrica/` but every new chat worked like a normal chat: nobody told it that it was a factory and it had to be repeated in every chat.
 

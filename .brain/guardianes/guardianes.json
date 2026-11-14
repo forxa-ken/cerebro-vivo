@@ -30,6 +30,7 @@
   "longitud_activa": true,
   "chat_nuevo_auto": true,
   "modo_fabrica": false,
+  "fabrica_automatica": false,
   "modo_colaborativo": false,
   "auditor_cierre": true,
   "auditor_externo": "general-y-spec",

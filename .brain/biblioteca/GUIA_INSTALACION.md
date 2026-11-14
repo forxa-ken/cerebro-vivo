@@ -2,6 +2,8 @@
 
 Vale para cualquier proyecto (`RUTA_PROYECTO`) y para los tres entornos de IA: **Claude Code**, **Antigravity/Gemini** y **GPT Codex**. Versión del arnés al escribirla: 1.5.1.
 
+> **¿Solo Gemini o solo Codex?** Recetas cortas: `GUIA_GEMINI.md` y `GUIA_CODEX.md` (`.en.md` en inglés).
+
 ## Dónde viven las skills
 
 | Entorno | Ruta dentro del proyecto | Cómo llegan |
