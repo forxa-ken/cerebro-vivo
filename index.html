@@ -177,7 +177,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
 
 <header class="top"><div class="wrap">
-  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.58.0</span></div>
+  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.58.2</span></div>
   <nav class="tabs" aria-label="Secciones" data-i18n-aria="top.aria7">
     <a href="#comprender" data-v="comprender" data-i18n="top.t1">Comprender</a>
     <a href="#usar" data-v="usar" data-i18n="top.t2">Usar</a>
@@ -564,7 +564,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 <script>
 const $=s=>document.querySelector(s);
 const tr=(k,n)=>{const v=window.KitI18n?KitI18n.t(k):k;return n===undefined?v:v.replace("{n}",n)};
-let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.58.0";
+let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.58.2";
 function setData(){LANG=(window.KitI18n&&KitI18n.getIdioma())||"es";const D=(window.DATOS||{})[LANG]||window.DATOS.es;({FILES,MOM,G,SK,GL,T}=D)}
 
 const tree=$("#tree");let curF=3;
