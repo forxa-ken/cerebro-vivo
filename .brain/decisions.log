@@ -221,3 +221,4 @@
 2026-11-14 | arnes | Claude (cerebro-vivo #27) | v1.58.1: revisor de spec repetido con segundo revisor (Claude Opus x3 por caso: buena 3/3, inventado 3/3, omitido 3/3, contradiccion 3/3); anotado en skill es/en y pendientes; pruebas en verde; sin subir | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #28) | v1.58.2: skill revisor-de-spec anota la prueba con la spec 001 de VMware (otro tipo): 4 de 4 casos acertados con Claude Opus, veredictos validados por el guardian; limites anotados | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #28) | Subidos a GitHub 3 commits (6575461, d1ff3f2, 82036f4), main al dia con origin | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #28) | Pagina publica al dia con 1.58.2 (gh-pages 0697420, subida) | Cambio pequeño
