@@ -55,3 +55,4 @@
 | 45 | Respuestas guardadas (spec 045, arnes 1.49.0, `/guardar-respuesta`): probado por Darwin | 2026-11-13 | archive/hechos.md |
 | 44 | Revisión de contenido de `.brain/` (spec 048, arnés 1.50.0 y 1.50.1, `/revisar-contenido`): probado por Darwin con una pasada real refutada por otra IA | 2026-11-14 | archive/hechos.md |
 | 46 | Búsqueda local en la memoria (spec 049, arnés 1.51.0, `buscar.py` y `/buscar-en-la-memoria`): probado por Darwin con «heredoc» | 2026-11-14 | archive/hechos.md |
+| 53 | Página pública al día con el arnés 1.51.0, con pestaña «Instalar» y botón «Descargar ZIP» (es/en): probada por Darwin | 2026-11-14 | archive/hechos.md |

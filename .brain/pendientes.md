@@ -12,7 +12,6 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
-- **53:** página pública (rama `gh-pages`, carpeta `../_cv_pagina`; subir solo con orden de Darwin). **Hecho y SUBIDO el 2026-11-14** (`gh-pages` en `8a96ff2`): Karpathy en las «Fuentes», capítulo «Lo nuevo de 1.45 a 1.51», fichas nuevas, contadores 30 / 41 / 594, versión 1.51.0 y pestaña «Instalación» (es/en). **Falta:** que Darwin vea la página publicada en el navegador y confirme, para pasarlo a `hechos.md`.
 
 ## Esperando tu prueba (Darwin)
 

@@ -174,3 +174,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 46 · Búsqueda local en la memoria (spec 049, arnés 1.51.0) — PROBADO
 
 26-11-14: Darwin lanzó `python .brain/guardianes/buscar.py heredoc`: salieron primero las dos lecciones de heredocs, con título y líneas. Darwin confirma («46 probado»). **Límite:** la puntuación es simple; «tope de bytes» no devolvió la mejor respuesta primero. El índice solo se construirá si la memoria pasa de ~5 MB o la búsqueda tarda más de 1 s.
+
+## 53 · Página pública al día con el arnés 1.51.0 — PROBADO
+
+2026-11-14: rama `gh-pages` (carpeta `../_cv_pagina`): Karpathy en las «Fuentes», capítulo «Lo nuevo de 1.45 a 1.51», fichas de guardianes y skills nuevos, contadores 30 / 41 / 594 y versión 1.51.0. Darwin no veía la «pestaña» de instalación porque estaba como capítulo 11 dentro de «Comprender»: se hizo una pestaña superior «Instalar» / «Install» con botón «Descargar ZIP» (enlace al ZIP de `main` en GitHub) y se quitó el capítulo duplicado; en la edición inglesa la regla de idioma dice «answer in English». Comprobador de idiomas OK y revisión en local es/en. Subida: `gh-pages` en `88475c3`. Darwin la vio publicada y confirma («pasa el 53 a hecho»). **Límite:** el botón apunta al ZIP de la rama `main` de GitHub (no hay ZIP propio; el de Mac sigue en pausa) y no se probó la descarga real.
