@@ -110,3 +110,19 @@ File `.brain/fabrica/esperado.md`. Written by Darwin (or proposed by the directo
 - Bad cases (must be rejected): <list, or "not applicable" with the reason> (mandatory)
 - What an AI cannot judge (left to Darwin): <look and feel, comprehension…>
 ```
+
+## 10. Real-use evidence (automatic mode, spec 050)
+
+File `.brain/fabrica/evidencia/REQ-n.md`, written by **an AI different from the one that built**. The evidence files (commands, outputs, screenshots) go inside `.brain/fabrica/evidencia/`. `fabrica.py entregar REQ-n` **blocks** delivery if any field is missing, if "Tested by" equals "Built by", if "Criterion tested" does not quote a literal sentence of `esperado.md` in «…», if an evidence file does not exist or is empty, or if the result is not green. "Red" goes back to the executor; "not tested" goes to "Waiting for your test (Darwin)".
+
+```markdown
+# Real-use evidence for requirement R-n
+- Built by: <AI that built it>
+- Tested by: <different AI that ran the test>
+- Criterion tested: «<literal sentence copied from esperado.md>»
+- Good cases run: <command → what came out>
+- Bad cases run: <command → how it was rejected, or "not applicable" with the reason>
+- Result: <green / red / not tested, with the reason>
+- Not tested: <what an AI cannot judge, or "nothing" with the reason> (never empty)
+- Saved evidence: <paths inside .brain/fabrica/evidencia/, separated by commas>
+```

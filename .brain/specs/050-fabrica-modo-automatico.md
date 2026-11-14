@@ -60,8 +60,8 @@ La prueba de uso real **la hace una IA distinta de la que construyó** (el revis
 - [x] (hecho, v1.54.0: `fabrica.py arrancar`, que `foto` llama sola) Un guardián que **bloquea** arrancar un encargo en modo automático si falta el criterio o si se está en `main`.
 
 **Fase 4 — prueba de uso real.**
-- [ ] Skill `prueba-de-uso-real` (es y `.en.md`): cómo probar cada tipo de producto, dónde queda la evidencia y qué se marca «no probado».
-- [ ] Guardián que exige la evidencia guardada antes de dar un encargo por entregado.
+- [x] Skill `prueba-de-uso-real` (es y `.en.md`): cómo probar cada tipo de producto, dónde queda la evidencia y qué se marca «no probado».
+- [x] (hecho, v1.55.0: `fabrica.py entregar REQ`) Guardián que exige la evidencia guardada antes de dar un encargo por entregado.
 
 **Fase 5 — informe de entrega y frenos.**
 - [ ] Plantilla de informe de entrega (lo pedido / hecho / extra / probado / no probado / decisiones por su cuenta).

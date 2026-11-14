@@ -411,6 +411,113 @@ class ArrancarTest(unittest.TestCase):
                 self.assertIn("- %s" % c, txt)
 
 
+class EntregarTest(unittest.TestCase):
+    """Spec 050, fase 4: sin evidencia de uso real completa no se da un requisito por entregado."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.raiz = Path(self.tmp.name)
+        self.fab = self.raiz / ".brain" / "fabrica"
+        self.f = fabrica.Fabrica(self.raiz, {"idioma": "es"})
+        self.f.modo("si")
+        self.f.automatico("si")
+        self.fab.mkdir(parents=True, exist_ok=True)
+        (self.fab / "esperado.md").write_text(ESPERADO_BUENO, encoding="utf-8")
+        (self.fab / "evidencia" / "R1").mkdir(parents=True)
+        (self.fab / "evidencia" / "R1" / "salida.txt").write_text("OK\n", encoding="utf-8")
+
+    def evidencia(self, **cambios):
+        campos = {"Construyó": "Codex", "Probó": "Claude (otro chat)",
+                  "Criterio probado": "«el comando imprime OK con datos válidos»",
+                  "Casos buenos ejecutados": "cmd datos.csv → OK",
+                  "Casos malos ejecutados": "cmd vacio.csv → código 1",
+                  "Resultado": "verde", "No probado": "nada: no hay aspecto visual",
+                  "Evidencia guardada": ".brain/fabrica/evidencia/R1/salida.txt"}
+        campos.update(cambios)
+        texto = "# Evidencia\n" + "".join("- %s: %s\n" % (k, v) for k, v in campos.items() if v is not None)
+        (self.fab / "evidencia" / "R1.md").write_text(texto, encoding="utf-8")
+
+    def test_no_aplica_fuera_del_automatico(self):
+        self.f.automatico("no")
+        self.assertEqual(self.f.entregar("R1")[0], 0)  # aunque no exista evidencia
+
+    def test_sin_archivo_bloquea(self):
+        codigo, lineas = self.f.entregar("R1")
+        self.assertEqual(codigo, 1)
+        self.assertIn("Sin evidencia, no está hecho", lineas[0])
+
+    def test_evidencia_completa_se_entrega(self):
+        self.evidencia()
+        codigo, lineas = self.f.entregar("R1")
+        self.assertEqual(codigo, 0, lineas)
+
+    def test_quien_construyo_no_puede_probar(self):
+        self.evidencia(**{"Probó": "codex"})
+        self.assertIn("quien probó es quien construyó", "\n".join(self.f.entregar("R1")[1]))
+
+    def test_criterio_inventado_o_sin_cita_bloquea(self):
+        self.evidencia(**{"Criterio probado": "«se ve bonito y rápido»"})
+        self.assertIn("debe citar", "\n".join(self.f.entregar("R1")[1]))
+        self.evidencia(**{"Criterio probado": "el comando imprime OK con datos válidos"})  # sin comillas
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+
+    def test_campo_vacio_o_plantilla_bloquea(self):
+        self.evidencia(**{"Casos malos ejecutados": "<lista>"})
+        self.assertIn("Casos malos ejecutados", self.f.entregar("R1")[1][0])
+        self.evidencia(**{"No probado": None})
+        self.assertIn("No probado", self.f.entregar("R1")[1][0])
+
+    def test_archivo_de_evidencia_falso_vacio_o_fuera_bloquea(self):
+        self.evidencia(**{"Evidencia guardada": ".brain/fabrica/evidencia/R1/no_existe.txt"})
+        self.assertIn("no existe", "\n".join(self.f.entregar("R1")[1]))
+        (self.fab / "evidencia" / "R1" / "vacio.txt").write_text("", encoding="utf-8")
+        self.evidencia(**{"Evidencia guardada": ".brain/fabrica/evidencia/R1/vacio.txt"})
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+        (self.raiz / "fuera.txt").write_text("x", encoding="utf-8")
+        self.evidencia(**{"Evidencia guardada": "fuera.txt"})
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+        self.evidencia(**{"Evidencia guardada": "../../../fuera.txt"})
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+
+    def test_rojo_y_no_probado_no_se_entregan(self):
+        self.evidencia(Resultado="rojo: falla el caso malo")
+        self.assertIn("ROJO", "\n".join(self.f.entregar("R1")[1]))
+        self.evidencia(Resultado="no probado: aspecto visual")
+        self.assertIn("no se declara hecho", "\n".join(self.f.entregar("R1")[1]))
+        self.evidencia(Resultado="quizás")
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+
+    def test_sin_criterio_de_esperado_bloquea(self):
+        self.evidencia()
+        (self.fab / "esperado.md").unlink()
+        self.assertIn("no hay criterio", "\n".join(self.f.entregar("R1")[1]))
+
+    def test_requisito_con_ruta_rara_no_se_cae(self):
+        self.assertEqual(self.f.entregar("../x")[0], 1)
+
+    def test_en_ingles(self):
+        f = fabrica.Fabrica(self.raiz, {"idioma": "en"})
+        self.evidencia(**{"Built by": "Codex", "Tested by": "Claude", "Criterion tested": None})
+        texto = "# Evidence\n- Built by: Codex\n- Tested by: Codex\n"
+        (self.fab / "evidencia" / "R1.md").write_text(texto, encoding="utf-8")
+        self.assertIn("still to fill in", f.entregar("R1")[1][0])
+        self.assertIn("Criterion tested", f.entregar("R1")[1][0])
+
+    def test_plantilla_trae_los_campos(self):
+        for nombre, campos in (("PLANTILLAS_FABRICA.md", [e[0] for e in fabrica.Fabrica.EVID.values()]),
+                               ("PLANTILLAS_FABRICA.en.md", [e[1] for e in fabrica.Fabrica.EVID.values()])):
+            txt = (RAIZ / ".brain" / "biblioteca" / nombre).read_text(encoding="utf-8")
+            for c in campos:
+                self.assertIn("- %s:" % c, txt)
+
+    def test_la_plantilla_sin_rellenar_no_pasa(self):
+        txt = (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.md").read_text(encoding="utf-8")
+        bloque = txt.split("## 10.")[1].split("```markdown")[1].split("```")[0]
+        (self.fab / "evidencia" / "R1.md").write_text(bloque, encoding="utf-8")
+        self.assertEqual(self.f.entregar("R1")[0], 1)
+
+
 NEGOCIO = ("# Negocio\n- Los usuarios pagan una cuota mensual fija por el servicio.\n"
            "- El administrador puede dar de baja a cualquier usuario en un solo paso.\n")
 SPEC = ("# Spec\n## R1\nEl sistema cobra una cuota mensual fija a cada usuario.\n"

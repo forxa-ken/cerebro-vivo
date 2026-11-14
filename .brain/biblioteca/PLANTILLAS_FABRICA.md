@@ -110,3 +110,19 @@ Archivo `.brain/fabrica/esperado.md`. Lo escribe Darwin (o la directora lo propo
 - Casos malos (deben rechazarse): <lista, o «no aplica» con el motivo> (obligatorio)
 - Lo que una IA no puede juzgar (queda para Darwin): <aspecto, comprensión…>
 ```
+
+## 10. Evidencia de uso real (modo automático, spec 050)
+
+Archivo `.brain/fabrica/evidencia/REQ-n.md`, escrito por **otra IA distinta de la que construyó**. Los archivos de evidencia (comandos, salidas, capturas) van dentro de `.brain/fabrica/evidencia/`. `fabrica.py entregar REQ-n` **bloquea** la entrega si falta cualquier campo, si «Probó» es igual que «Construyó», si «Criterio probado» no cita una frase literal de `esperado.md` entre «…», si un archivo de evidencia no existe o está vacío, o si el resultado no es verde. «Rojo» vuelve a la ejecutora; «no probado» pasa a «Esperando tu prueba (Darwin)».
+
+```markdown
+# Evidencia de uso real del requisito R-n
+- Construyó: <IA que construyó>
+- Probó: <IA distinta que hizo la prueba>
+- Criterio probado: «<frase literal copiada de esperado.md>»
+- Casos buenos ejecutados: <comando → qué salió>
+- Casos malos ejecutados: <comando → cómo se rechazó, o «no aplica» con el motivo>
+- Resultado: <verde / rojo / no probado, con el motivo>
+- No probado: <lo que una IA no puede juzgar, o «nada» con el motivo> (nunca vacío)
+- Evidencia guardada: <rutas dentro de .brain/fabrica/evidencia/, separadas por comas>
+```

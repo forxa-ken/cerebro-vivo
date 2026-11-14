@@ -12,6 +12,7 @@ Lo usa la directora (o Darwin) entre pasos; no es un hook. Todo cuelga de `.brai
                                  cuenta las vueltas de revisión de la spec (máximo 3; a la tercera rechazada, parar y preguntar)
   verificar                      falla si la spec congelada o la carta cambiaron
   arrancar                       en modo automático bloquea si falta el criterio de «esperado» (esperado.md) o se está en main (spec 050, fase 3); `foto` lo llama sola
+  entregar REQ                   en modo automático exige la evidencia de uso real de ese requisito (.brain/fabrica/evidencia/REQ.md) antes de darlo por entregado (spec 050, fase 4)
   foto [--repo R] --encargo N    foto del worktree antes de que trabaje la ejecutora
   alcance ENCARGO.md --encargo N [--repo R]
                                  el encargo tiene requisito en la spec congelada y la ejecutora solo tocó lo permitido (R6, R7)
@@ -352,6 +353,74 @@ class Fabrica:
             return 1, [self.t("fabrica_vueltas_tope", n, tope)]
         return 0, [self.t("fabrica_vueltas_ok", n, tope)]
 
+    # --- evidencia de uso real (spec 050, fase 4) ------------------------------------------------------
+    EVID = {"construyo": ("Construyó", "Built by"), "probo": ("Probó", "Tested by"),
+            "criterio": ("Criterio probado", "Criterion tested"), "buenos": ("Casos buenos ejecutados", "Good cases run"),
+            "malos": ("Casos malos ejecutados", "Bad cases run"), "resultado": ("Resultado", "Result"),
+            "noprobado": ("No probado", "Not tested"), "guardada": ("Evidencia guardada", "Saved evidence")}
+
+    @staticmethod
+    def _campo(texto, etiquetas):
+        """Valor de la línea `- Etiqueta: valor` (prefijo de etiqueta, es o en); vacío si no está o sigue en plantilla (<…>)."""
+        for et in etiquetas:
+            m = re.search(r"^[-*]\s*" + re.escape(et) + r"[^:\n]*:\s*(.+)$", texto, re.M | re.I)
+            if m and not m.group(1).strip().startswith("<"):
+                return m.group(1).strip()
+        return ""
+
+    def _nombre_campo(self, clave):
+        es, en = self.EVID[clave]
+        return en if (self.cfg or {}).get("idioma", "es") == "en" else es
+
+    def entregar(self, req):
+        """Puerta de entrega de un requisito. Fuera del modo automático no aplica (0). En automático exige evidencia
+        de uso real guardada en `.brain/fabrica/evidencia/REQ.md`: otra IA la probó, cita el criterio de «esperado»,
+        casos buenos y malos, archivos de evidencia que existen y resultado verde. 0 = puede darse por entregado."""
+        if not self._auto_activa():
+            return 0, [self.t("fabrica_entregar_no_aplica")]
+        req = str(req).strip()
+        pie = [self.t("fabrica_entregar_bloqueado")]
+        if not re.fullmatch(r"[\w.-]+", req):
+            return 1, [self.t("fabrica_entregar_sin_archivo", req)] + pie
+        try:
+            texto = (self.dir / "evidencia" / (req + ".md")).read_text(encoding="utf-8-sig")
+        except (OSError, ValueError):
+            return 1, [self.t("fabrica_entregar_sin_archivo", ".brain/fabrica/evidencia/%s.md" % req)] + pie
+        v = {k: self._campo(texto, e) for k, e in self.EVID.items()}
+        minimo = {"resultado": 1, "construyo": 2, "probo": 2}  # nombres cortos valen («Codex»); el resto pide una frase
+        faltan = [self._nombre_campo(k) for k in self.EVID if len(v[k]) < minimo.get(k, 8)]
+        if faltan:
+            return 1, [self.t("fabrica_entregar_campo", ", ".join(faltan))] + pie
+        problemas = []
+        if self._norm(v["construyo"]) == self._norm(v["probo"]):
+            problemas.append(self.t("fabrica_entregar_mismo", v["probo"]))
+        esperado = self._leer(self.dir / "esperado.md")
+        if self.criterio_faltante() is not None or esperado is None:
+            problemas.append(self.t("fabrica_entregar_sin_esperado"))
+        else:
+            citas = [next(x for x in g if x) for g in re.findall(r"«([^»]+)»|\"([^\"]+)\"|“([^”]+)”", v["criterio"])]
+            if not any(len(self._norm(c)) >= 12 and self._norm(c) in esperado for c in citas):
+                problemas.append(self.t("fabrica_entregar_sin_cita"))
+        raiz = self.raiz.resolve()
+        base = (self.dir / "evidencia").resolve()
+        trozos = re.split(r"\s*[,;]\s*", v["guardada"]) if re.search(r"[,;]", v["guardada"]) else v["guardada"].split()
+        for r in [x.strip(" `*") for x in trozos if x.strip(" `*")]:
+            f = (raiz / r.replace("\\", "/")).resolve()
+            if base not in f.parents or not f.is_file() or f.stat().st_size == 0:
+                problemas.append(self.t("fabrica_entregar_archivo_falta", r))
+        res = self._norm(v["resultado"])
+        if re.match(r"(verde|green)\b", res):
+            pass
+        elif re.match(r"(rojo|red)\b", res):
+            problemas.append(self.t("fabrica_entregar_rojo"))
+        elif re.match(r"(no probado|no ejecutada|not tested|not run)", res):
+            problemas.append(self.t("fabrica_entregar_no_probado"))
+        else:
+            problemas.append(self.t("fabrica_entregar_resultado_raro", v["resultado"][:40]))
+        if problemas:
+            return 1, problemas + pie
+        return 0, [self.t("fabrica_entregar_ok", req)]
+
     def verificar(self):
         h = self._huellas()
         avisos = []
@@ -516,6 +585,7 @@ def main(argv=None):
     s = sub.add_parser("sellar-carta"); s.add_argument("--reemplazar", action="store_true")
     sub.add_parser("verificar")
     sub.add_parser("arrancar")
+    s = sub.add_parser("entregar"); s.add_argument("requisito")
     s = sub.add_parser("modo"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("automatico"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("sellar-negocio"); s.add_argument("--reemplazar", action="store_true")
@@ -548,6 +618,8 @@ def main(argv=None):
         codigo, lineas = f.verificar()
     elif a.orden == "arrancar":
         codigo, lineas = f.arrancar()
+    elif a.orden == "entregar":
+        codigo, lineas = f.entregar(a.requisito)
     elif a.orden == "foto":
         codigo, lineas = f.foto(repo, a.encargo)
     elif a.orden == "alcance":
