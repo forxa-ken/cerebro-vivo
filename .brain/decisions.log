@@ -218,3 +218,4 @@
 2026-11-14 | otro | Claude (cerebro-vivo #27) | v1.58.0: revisor de spec probado con specs danadas (Codex x3: inventado 3/3, contradiccion 3/3, omitido 2/3) y reglas de justicia en la skill es/en; 660 pruebas en verde; sin subir | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #27) | subido a GitHub: 6 commits hasta 95b674c (v1.53.0 a v1.58.0) | Cambio pequeño
 2026-11-14 | memoria | Claude (cerebro-vivo #27) | pagina publica al dia con el arnes 1.58.0: capitulo nuevo 1.52 a 1.58 (fabrica automatica, es/en), 43 skills; gh-pages ceb19a5 subida | Cambio pequeño
+2026-11-14 | arnes | Claude (cerebro-vivo #27) | v1.58.1: revisor de spec repetido con segundo revisor (Claude Opus x3 por caso: buena 3/3, inventado 3/3, omitido 3/3, contradiccion 3/3); anotado en skill es/en y pendientes; pruebas en verde; sin subir | Cambio pequeño
