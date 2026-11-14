@@ -12,6 +12,7 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
+- **54:** (spec 050, borrador; espera aprobación de Darwin) (idea de Darwin, 2026-11-14) modo automático de la fábrica (junto al modo normal): la IA es una línea de producción; Darwin entrega órdenes, la línea trabaja sola, **prueba el producto de verdad** (programado no es terminado), pasa guardianes y pruebas, y Darwin ve el resultado y, si es el esperado, se sube. Por definir en una spec: cómo la IA prueba el producto (criterio de «esperado» escrito antes de cada orden), qué decisiones toma sola, qué sigue pidiendo sí (subir, borrar, gastar, seguridad), límite de intentos/coste y registro de cada decisión. Primero como experimento acotado en rama aparte.
 
 ## Esperando tu prueba (Darwin)
 

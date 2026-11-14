@@ -203,3 +203,4 @@
 2026-11-14 | otro | Claude (cerebro-vivo #22) | Traspaso del chat 22 al 23 escrito; todo subido | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #23) | Troceado metodo-scripts-y-heredocs (6,8 KB) en 3 temas con nombre; copia integra en archive/troceado; constitucion apunta al nuevo; 594 pruebas OK | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #23) | Subido a GitHub: 9fe2bc9 y 99424ab (main) | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #23) | Spec 050 (modo automatico de la fabrica con revisor de spec) en borrador; pendiente 54; Go, vcsim y pyvmomi instalados (37 en curso); leccion de winget | Cambio pequeño
