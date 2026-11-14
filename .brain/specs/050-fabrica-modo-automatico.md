@@ -56,8 +56,8 @@ La prueba de uso real **la hace una IA distinta de la que construyó** (el revis
 - [ ] Pasarle siempre todos los datos que sus reglas necesitan (lección del experimento: una regla que depende de un dato que el juez no tiene siempre falla) y reglas escritas una sola vez, sin ambigüedad.
 
 **Fase 3 — criterio de «esperado» y rama de trabajo.**
-- [ ] Plantilla de orden con el criterio de «esperado» obligatorio (en `PLANTILLAS_FABRICA`, es y en).
-- [ ] Un guardián que **bloquea** arrancar un encargo en modo automático si falta el criterio o si se está en `main`.
+- [x] Plantilla de orden con el criterio de «esperado» obligatorio (en `PLANTILLAS_FABRICA`, es y en).
+- [x] (hecho, v1.54.0: `fabrica.py arrancar`, que `foto` llama sola) Un guardián que **bloquea** arrancar un encargo en modo automático si falta el criterio o si se está en `main`.
 
 **Fase 4 — prueba de uso real.**
 - [ ] Skill `prueba-de-uso-real` (es y `.en.md`): cómo probar cada tipo de producto, dónde queda la evidencia y qué se marca «no probado».

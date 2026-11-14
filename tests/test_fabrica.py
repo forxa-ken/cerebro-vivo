@@ -261,7 +261,7 @@ class AutomaticoTest(unittest.TestCase):
     def test_estado_ve_criterio_y_carta(self):
         self.f.modo("si")
         self.f.automatico("si")
-        (self.raiz / ".brain" / "fabrica" / "esperado.md").write_text("x", encoding="utf-8")
+        (self.raiz / ".brain" / "fabrica" / "esperado.md").write_text(ESPERADO_BUENO, encoding="utf-8")
         (self.raiz / ".brain" / "fabrica" / "carta.md").write_text("carta", encoding="utf-8")
         self.f.sellar_carta()
         texto = "\n".join(self.f.automatico("estado")[1])
@@ -299,6 +299,116 @@ class AutomaticoTest(unittest.TestCase):
         self.assertNotIn("AUTOMÁTICO", solo_fabrica)
         self.assertNotIn("AUTOMÁTICO", solo_auto)
         self.assertIn("Modo fábrica AUTOMÁTICO", ambos)
+
+
+ESPERADO_BUENO = ("# Criterio de «esperado»: prueba\n- Cómo se sabe que salió bien: el comando imprime OK con datos válidos\n"
+                  "- Casos malos (deben rechazarse): un archivo vacío termina con código 1\n")
+
+
+class ArrancarTest(unittest.TestCase):
+    """Spec 050, fase 3: en modo automático no arranca un encargo sin criterio de «esperado» o estando en main."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.raiz = Path(self.tmp.name)
+        self.git("init", "-q", "-b", "main")
+        self.git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "i")
+        self.esperado = self.raiz / ".brain" / "fabrica" / "esperado.md"
+        self.f = fabrica.Fabrica(self.raiz, {"idioma": "es"})
+
+    def git(self, *a):
+        subprocess.run(["git", "-C", str(self.raiz), *a], check=True, capture_output=True)
+
+    def activar(self):
+        self.f.modo("si")
+        self.f.automatico("si")
+
+    def criterio(self, texto):
+        self.esperado.parent.mkdir(parents=True, exist_ok=True)
+        self.esperado.write_text(texto, encoding="utf-8")
+
+    def test_no_aplica_fuera_del_modo_automatico(self):
+        self.assertEqual(self.f.arrancar()[0], 0)  # ni modo fábrica
+        self.f.modo("si")
+        codigo, lineas = self.f.arrancar()  # fábrica normal, en main y sin criterio
+        self.assertEqual(codigo, 0)
+        self.assertIn("no aplica", lineas[0])
+
+    def test_bloquea_sin_criterio_y_en_main(self):
+        self.activar()
+        codigo, lineas = self.f.arrancar()
+        texto = "\n".join(lineas)
+        self.assertEqual(codigo, 1)
+        self.assertIn("Falta: el criterio", texto)
+        self.assertIn("Falta: una rama", texto)
+        self.assertIn("BLOQUEADO", texto)
+
+    def test_criterio_bueno_pero_en_main_sigue_bloqueado(self):
+        self.activar()
+        self.criterio(ESPERADO_BUENO)
+        codigo, lineas = self.f.arrancar()
+        self.assertEqual(codigo, 1)
+        self.assertNotIn("Falta: el criterio", "\n".join(lineas))
+        self.assertNotIn("Falta rellenar", "\n".join(lineas))
+        self.assertIn("Falta: una rama", "\n".join(lineas))
+
+    def test_rama_buena_pero_criterio_plantilla_bloquea(self):
+        self.activar()
+        self.git("checkout", "-q", "-b", "linea/orden-1")
+        self.criterio("# C\n- Cómo se sabe que salió bien: <comprobación observable>\n- Casos malos: <lista>\n")
+        codigo, lineas = self.f.arrancar()
+        self.assertEqual(codigo, 1)
+        self.assertIn("Cómo se sabe que salió bien, Casos malos", "\n".join(lineas))
+
+    def test_criterio_corto_o_a_medias_bloquea(self):
+        self.activar()
+        self.git("checkout", "-q", "-b", "linea/orden-1")
+        self.criterio("- Cómo se sabe que salió bien: ok\n- Casos malos: un archivo vacío falla\n")
+        self.assertIn("Cómo se sabe que salió bien", self.f.arrancar()[1][0])
+        self.criterio("")
+        self.assertIn("Falta: el criterio", self.f.arrancar()[1][0])
+
+    def test_todo_en_regla_arranca(self):
+        self.activar()
+        self.git("checkout", "-q", "-b", "linea/orden-1")
+        self.criterio(ESPERADO_BUENO)
+        codigo, lineas = self.f.arrancar()
+        self.assertEqual(codigo, 0)
+        self.assertIn("linea/orden-1", lineas[0])
+
+    def test_criterio_en_ingles(self):
+        self.activar()
+        self.git("checkout", "-q", "-b", "line/order-1")
+        self.criterio("- How we know it went well: prints OK with valid data\n- Bad cases (must be rejected): empty file exits 1\n")
+        self.assertEqual(self.f.arrancar()[0], 0)
+
+    def test_foto_en_automatico_no_se_hace_si_bloquea(self):
+        self.activar()
+        codigo, _ = self.f.foto(self.raiz, "001")
+        self.assertEqual(codigo, 1)
+        self.assertFalse((self.raiz / ".brain" / "fabrica" / "estado" / "001.foto.json").exists())
+        self.git("checkout", "-q", "-b", "linea/orden-1")
+        self.criterio(ESPERADO_BUENO)
+        self.assertEqual(self.f.foto(self.raiz, "001")[0], 0)
+
+    def test_el_flag_como_texto_no_activa(self):
+        cfg = self.raiz / ".brain" / "guardianes" / "guardianes.json"
+        cfg.parent.mkdir(parents=True, exist_ok=True)
+        cfg.write_text('{"modo_fabrica": true, "fabrica_automatica": "false"}', encoding="utf-8")
+        self.assertIn("no aplica", self.f.arrancar()[1][0])
+
+    def test_mensajes_en_ingles(self):
+        f = fabrica.Fabrica(self.raiz, {"idioma": "en"})
+        f.modo("si"); f.automatico("si")
+        self.assertIn("BLOCKED", "\n".join(f.arrancar()[1]))
+
+    def test_las_plantillas_traen_el_criterio_con_sus_campos(self):
+        for nombre, campos in (("PLANTILLAS_FABRICA.md", ("Cómo se sabe que salió bien", "Casos malos")),
+                               ("PLANTILLAS_FABRICA.en.md", ("How we know it went well", "Bad cases"))):
+            txt = (RAIZ / ".brain" / "biblioteca" / nombre).read_text(encoding="utf-8")
+            for c in campos:
+                self.assertIn("- %s" % c, txt)
 
 
 NEGOCIO = ("# Negocio\n- Los usuarios pagan una cuota mensual fija por el servicio.\n"

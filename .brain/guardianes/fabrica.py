@@ -11,6 +11,7 @@ Lo usa la directora (o Darwin) entre pasos; no es un hook. Todo cuelga de `.brai
   vueltas rechazada|aprobada|reiniciar|estado
                                  cuenta las vueltas de revisión de la spec (máximo 3; a la tercera rechazada, parar y preguntar)
   verificar                      falla si la spec congelada o la carta cambiaron
+  arrancar                       en modo automático bloquea si falta el criterio de «esperado» (esperado.md) o se está en main (spec 050, fase 3); `foto` lo llama sola
   foto [--repo R] --encargo N    foto del worktree antes de que trabaje la ejecutora
   alcance ENCARGO.md --encargo N [--repo R]
                                  el encargo tiene requisito en la spec congelada y la ejecutora solo tocó lo permitido (R6, R7)
@@ -122,18 +123,74 @@ class Fabrica:
         lineas = [self.t("fabrica_auto_si" if activo else "fabrica_auto_no")]
         if activo:
             h = self._huellas()
-            esperado = self.dir / "esperado.md"
             lineas.append(self.t("fabrica_auto_carta_ok" if "carta" in h else "fabrica_auto_carta_falta"))
-            lineas.append(self.t("fabrica_auto_criterio_ok" if esperado.is_file() else "fabrica_auto_criterio_falta"))
-            try:
-                rama = self._git(self.raiz, "rev-parse", "--abbrev-ref", "HEAD").strip()
-            except (RuntimeError, OSError):
-                rama = ""
-            if not rama or rama in ("main", "master", "HEAD"):  # HEAD = cabeza suelta, sin rama
-                lineas.append(self.t("fabrica_auto_rama_falta"))
-            else:
-                lineas.append(self.t("fabrica_auto_rama_ok", rama))
+            lineas += self._criterio_lineas()
+            lineas.append(self._rama_linea())
         return 0, lineas
+
+    # --- criterio de «esperado» y rama de trabajo (spec 050, fase 3) -------------------------------
+    ESPERADO_CAMPOS = (("Cómo se sabe que salió bien", "How we know it went well"),
+                       ("Casos malos", "Bad cases"))
+
+    def criterio_faltante(self):
+        """None = criterio listo. Si no: 'falta' (no existe o vacío) o la lista de campos obligatorios sin rellenar.
+        Un valor que sigue siendo la plantilla (<…>) o muy corto (<8 letras) cuenta como vacío."""
+        ruta = self.dir / "esperado.md"
+        try:
+            texto = ruta.read_text(encoding="utf-8-sig")
+        except (OSError, ValueError):
+            return "falta"
+        if not texto.strip():
+            return "falta"
+        faltan = []
+        for es, en in self.ESPERADO_CAMPOS:
+            ok = False
+            for et in (es, en):
+                m = re.search(r"^[-*]\s*" + re.escape(et) + r"[^:\n]*:\s*(.+)$", texto, re.M | re.I)
+                if m and not m.group(1).strip().startswith("<") and len(m.group(1).strip()) >= 8:
+                    ok = True
+            if not ok:
+                faltan.append(es if (self.cfg or {}).get("idioma", "es") != "en" else en)
+        return ", ".join(faltan) if faltan else None
+
+    def _criterio_lineas(self):
+        falta = self.criterio_faltante()
+        if falta is None:
+            return [self.t("fabrica_auto_criterio_ok")]
+        if falta == "falta":
+            return [self.t("fabrica_auto_criterio_falta")]
+        return [self.t("fabrica_auto_criterio_incompleto", falta)]
+
+    def rama_actual(self):
+        try:
+            return self._git(self.raiz, "rev-parse", "--abbrev-ref", "HEAD").strip()
+        except (RuntimeError, OSError):
+            return ""
+
+    def _rama_linea(self):
+        rama = self.rama_actual()
+        if not rama or rama in ("main", "master", "HEAD"):  # HEAD = cabeza suelta, sin rama
+            return self.t("fabrica_auto_rama_falta")
+        return self.t("fabrica_auto_rama_ok", rama)
+
+    def _auto_activa(self):
+        cfg = _json(self.raiz / ".brain" / "guardianes" / "guardianes.json", {})
+        return isinstance(cfg, dict) and cfg.get("fabrica_automatica") is True and cfg.get("modo_fabrica") is True
+
+    def arrancar(self):
+        """Puerta de arranque de un encargo. Fuera del modo automático no aplica (0). En automático bloquea (1)
+        si falta el criterio de «esperado» o si se está en main/master/cabeza suelta."""
+        if not self._auto_activa():
+            return 0, [self.t("fabrica_arrancar_no_aplica")]
+        bloqueos = []
+        if self.criterio_faltante() is not None:
+            bloqueos += self._criterio_lineas()
+        rama = self._rama_linea()
+        if rama == self.t("fabrica_auto_rama_falta"):
+            bloqueos.append(rama)
+        if bloqueos:
+            return 1, bloqueos + [self.t("fabrica_arrancar_bloqueado")]
+        return 0, [self.t("fabrica_arrancar_ok", self.rama_actual())]
 
     # --- huellas: spec congelada y carta sellada -------------------------------------------------
     def _huellas(self):
@@ -361,6 +418,9 @@ class Fabrica:
         return {n: (huella(repo / n) if (repo / n).is_file() else "borrado") for n in sorted(nombres)}
 
     def foto(self, repo, encargo):
+        codigo, lineas = self.arrancar()  # spec 050, fase 3: en modo automático la foto es el arranque del encargo
+        if codigo:
+            return codigo, lineas
         _guardar(self.estado / f"{encargo}.foto.json",
                  {"cabeza": self._git(repo, "rev-parse", "HEAD").strip(), "archivos": self.estado_repo(repo)})
         return 0, [self.t("fabrica_foto", str(encargo))]
@@ -455,6 +515,7 @@ def main(argv=None):
     s = sub.add_parser("congelar"); s.add_argument("spec"); s.add_argument("--reemplazar", action="store_true")
     s = sub.add_parser("sellar-carta"); s.add_argument("--reemplazar", action="store_true")
     sub.add_parser("verificar")
+    sub.add_parser("arrancar")
     s = sub.add_parser("modo"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("automatico"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("sellar-negocio"); s.add_argument("--reemplazar", action="store_true")
@@ -485,6 +546,8 @@ def main(argv=None):
         codigo, lineas = f.vueltas(a.resultado)
     elif a.orden == "verificar":
         codigo, lineas = f.verificar()
+    elif a.orden == "arrancar":
+        codigo, lineas = f.arrancar()
     elif a.orden == "foto":
         codigo, lineas = f.foto(repo, a.encargo)
     elif a.orden == "alcance":

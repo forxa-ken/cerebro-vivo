@@ -97,3 +97,16 @@ Ninguna IA cambia ni quita un requisito «por seguridad». Si ve un riesgo, lo r
 ## 8. Revisión por riesgo
 
 El revisor comprueba que lo entregado responde al requisito, contrasta cada hallazgo con el código real y los ordena por gravedad. Lo trivial se corrige y se anota. Lo que afecta a un requisito o a una decisión anterior se escala a Darwin.
+
+## 9. Criterio de «esperado» (modo automático, spec 050)
+
+Archivo `.brain/fabrica/esperado.md`. Lo escribe Darwin (o la directora lo propone y Darwin lo aprueba) **antes** de construir nada. En modo automático, `fabrica.py arrancar` (y `foto`, que lo llama sola) **bloquea** el encargo si falta, si los dos campos obligatorios siguen con `<…>` o si se está en `main`. Los campos obligatorios son «Cómo se sabe que salió bien» y «Casos malos»; si de verdad no aplica, se escribe «no aplica» con el motivo.
+
+```markdown
+# Criterio de «esperado»: <orden>
+- Lo que se pide (negocio): <una frase, en palabras de Darwin>
+- Cómo se sabe que salió bien: <comprobación observable, no «que se vea bien»> (obligatorio)
+- Casos buenos (deben funcionar): <lista>
+- Casos malos (deben rechazarse): <lista, o «no aplica» con el motivo> (obligatorio)
+- Lo que una IA no puede juzgar (queda para Darwin): <aspecto, comprensión…>
+```

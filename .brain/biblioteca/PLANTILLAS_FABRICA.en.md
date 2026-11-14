@@ -97,3 +97,16 @@ No AI changes or removes a requirement "for security". If it sees a risk, it rec
 ## 8. Risk-based review
 
 The reviewer checks that what was delivered answers the requirement, checks each finding against the real code and ranks them by severity. Trivial things are fixed and noted. Anything that affects a requirement or an earlier decision is escalated to Darwin.
+
+## 9. "Expected" criterion (automatic mode, spec 050)
+
+File `.brain/fabrica/esperado.md`. Written by Darwin (or proposed by the director and approved by Darwin) **before** anything is built. In automatic mode, `fabrica.py arrancar` (and `foto`, which calls it by itself) **blocks** the assignment if it is missing, if the two mandatory fields are still `<…>`, or if you are on `main`. The mandatory fields are "How we know it went well" and "Bad cases"; if one really does not apply, write "not applicable" with the reason.
+
+```markdown
+# "Expected" criterion: <order>
+- What is asked (business): <one sentence, in Darwin's words>
+- How we know it went well: <observable check, not "it looks good"> (mandatory)
+- Good cases (must work): <list>
+- Bad cases (must be rejected): <list, or "not applicable" with the reason> (mandatory)
+- What an AI cannot judge (left to Darwin): <look and feel, comprehension…>
+```

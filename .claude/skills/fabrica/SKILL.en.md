@@ -18,7 +18,7 @@ Turns on, turns off or shows the `modo_fabrica` setting in `.brain/guardianes/gu
    - Without those tools (Codex, Gemini) or if the app refuses after trying: say so clearly and give the sentence to open it by hand. Never say it is refused without having tried.
 
 ## Automatic mode (spec 050)
-- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico WORD`. It only works with factory mode on; `estado` says what is missing (sealed charter, "expected" criterion in `.brain/fabrica/esperado.md`, a working branch that is not `main`). Setting `fabrica_automatica` (off by default). `/fabrica no` or `modo normal` also turn it off.
+- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico WORD`. It only works with factory mode on; `fabrica.py arrancar` blocks an assignment from starting if the criterion is missing or you are on `main`; `estado` says what is missing (sealed charter, "expected" criterion in `.brain/fabrica/esperado.md`, a working branch that is not `main`). Setting `fabrica_automatica` (off by default). `/fabrica no` or `modo normal` also turn it off.
 - Turning it on opens no new chat: the only change is the startup notice. The later phases (spec reviewer, real-use test) are switched on by their own specs.
 
 ## Error it prevents (real case)

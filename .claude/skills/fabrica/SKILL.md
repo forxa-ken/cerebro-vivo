@@ -18,7 +18,7 @@ Activa, desactiva o muestra el ajuste `modo_fabrica` de `.brain/guardianes/guard
    - Sin esas herramientas (Codex, Gemini) o si la app rechaza la llamada tras intentarla: decirlo claro y dar la frase para abrirlo a mano. Nunca decir que se rechaza sin haberlo intentado.
 
 ## Modo automático (spec 050)
-- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico PALABRA`. Solo vale con el modo fábrica encendido; `estado` dice qué falta (carta sellada, criterio de «esperado» en `.brain/fabrica/esperado.md`, rama de trabajo que no sea `main`). Ajuste `fabrica_automatica` (por defecto apagado). `/fabrica no` o `modo normal` lo apagan también.
+- `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico PALABRA`. Solo vale con el modo fábrica encendido; `fabrica.py arrancar` bloquea el arranque de un encargo si falta el criterio o se está en `main`; `estado` dice qué falta (carta sellada, criterio de «esperado» en `.brain/fabrica/esperado.md`, rama de trabajo que no sea `main`). Ajuste `fabrica_automatica` (por defecto apagado). `/fabrica no` o `modo normal` lo apagan también.
 - Activarlo no abre ningún chat nuevo: lo único que cambia es el aviso del arranque. Las fases siguientes (revisor de spec, prueba de uso real) se activan con sus propias specs.
 
 ## Error que evita (caso real)
