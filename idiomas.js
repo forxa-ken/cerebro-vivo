@@ -12,6 +12,7 @@ window.KIT_I18N = {
    "top.t1": "Comprender",
    "top.t2": "Usar",
    "top.t4": "Cambios",
+   "top.t6": "Instalar",
    "comprender.t1": "DE LA A A LA Z",
    "comprender.t2": "Una memoria en archivos para una IA que olvida",
    "comprender.t3": "Cerebro Vivo es un método y un conjunto de herramientas para trabajar con una IA a lo largo de muchos chats sin perder lo acordado. Estos capítulos lo desmontan pieza a pieza, en el orden en que conviene entenderlo.",
@@ -590,12 +591,17 @@ window.KIT_I18N = {
    "c21.t32": "Detalles que conviene saber",
    "c21.h33": "<b>Mac:</b> el instalador escribe <code>python3</code> en los avisos si no existe <code>python</code>. Si falta tkinter (<code>brew install python-tk</code>) o Python, la ventana lo dice y queda el camino por comando. <b>Esto no se ha probado en un Mac real.</b>",
    "c21.h34": "<b>El plugin <code>/plantilla</code></b> (panel con botones para escribir el encargo) se instala aparte, una vez por equipo: no lo reparte el actualizador. Cómo, en <code>plantilla-prompt/README.md</code>.",
-   "c21.h35": "<b>Nunca se mezcla un proyecto con otro:</b> el repositorio solo reparte guardianes, skills, manual y plantillas; la memoria de cada proyecto es suya."
+   "c21.h35": "<b>Nunca se mezcla un proyecto con otro:</b> el repositorio solo reparte guardianes, skills, manual y plantillas; la memoria de cada proyecto es suya.",
+   "c21.t36": "Descarga",
+   "c21.t37": "Baja el arnés completo y sigue los pasos de abajo.",
+   "c21.t38": "Descargar ZIP",
+   "c21.h39": "O mira el código en <a href=\"https://github.com/forxa-ken/cerebro-vivo\">GitHub</a>."
   },
   "en": {
    "top.t1": "Understand",
    "top.t2": "Use",
    "top.t4": "Changes",
+   "top.t6": "Install",
    "comprender.t1": "FROM A TO Z",
    "comprender.t2": "A memory in files for an AI that forgets",
    "c1.t1": "CHAPTER 1",
@@ -688,7 +694,7 @@ window.KIT_I18N = {
    "c10.t20": "Everything: guardians, skills and method tests.",
    "c11.t1": "CHAPTER 11",
    "c11.t2": "Ten rules that are not broken without your permission",
-   "c11.h3": "<b>Language:</b> answer in Spanish, in a technical and concise tone.",
+   "c11.h3": "<b>Language:</b> answer in English, in a technical and concise tone.",
    "c11.h4": "<b>Strict scope:</b> touch only what concerns the requested change.",
    "c11.h5": "<b>Green tests:</b> run them after every change. Without a proven failure, what works is not altered.",
    "c11.h6": "<b>Living memory:</b> one log line per task and one record per important decision.",
@@ -1174,7 +1180,11 @@ window.KIT_I18N = {
    "c21.t32": "Details worth knowing",
    "c21.h33": "<b>Mac:</b> the installer writes <code>python3</code> in the warnings if <code>python</code> does not exist. If tkinter (<code>brew install python-tk</code>) or Python is missing, the window says so and the command path remains. <b>This has not been tried on a real Mac.</b>",
    "c21.h34": "<b>The <code>/plantilla</code> plugin</b> (a panel with buttons to write the errand) is installed separately, once per team: the updater does not deliver it. How, in <code>plantilla-prompt/README.md</code>.",
-   "c21.h35": "<b>One project is never mixed with another:</b> the repository only delivers guardians, skills, manual and templates; each project's memory is its own."
+   "c21.h35": "<b>One project is never mixed with another:</b> the repository only delivers guardians, skills, manual and templates; each project's memory is its own.",
+   "c21.t36": "Download",
+   "c21.t37": "Get the whole harness and follow the steps below.",
+   "c21.t38": "Download ZIP",
+   "c21.h39": "Or browse the code on <a href=\"https://github.com/forxa-ken/cerebro-vivo\">GitHub</a>."
   }
  }
 };
