@@ -124,6 +124,14 @@ window.DATOS = {
     "n": "Un archivo por tema, con «problema | causa | regla»."
    },
    {
+    "p": "respuestas/",
+    "d": 1,
+    "q": "¿Ya guardamos esta respuesta o comparación?",
+    "r": "Cuando se busca algo ya resuelto; también con /buscar-en-la-memoria",
+    "w": "respuestas.py, lanzado por la IA con /guardar-respuesta",
+    "n": "Una respuesta por archivo, con su fuente, y un índice con la más nueva primero."
+   },
+   {
     "p": "referencias.md",
     "d": 1,
     "q": "¿Qué documentos y hoja de ruta tiene el proyecto?",
@@ -274,7 +282,7 @@ window.DATOS = {
     "e": "Avisa",
     "k": "auto",
     "ek": "warn",
-    "d": "Aviso Stop (fin de cada respuesta). Si se tocaron archivos del proyecto y falta la línea en decisions.log, o pendientes.md pasó su tope de 8 KB, devuelve un aviso que la IA lee y corrige; avisa una sola vez por respuesta. Cierra por bloque de trabajo: avisa tras 15 ediciones sin cerrar, o antes si la tarea no pasa la prueba de retomar (otra IA no podría seguir solo con la petición y el git diff). En tareas pequeñas (hasta 2 archivos, ninguno sensible) escribe él mismo la línea. Desde la 1.44 también avisa «lanza el auditor» cuando hubo cambios de código o configuración (no si solo se tocaron documentos o la memoria). Los avisos que solo informan (chat largo, hito sin lección, auditor) se apagan en ese chat si salen 3 veces seguidas sin cambiar nada; el aviso de la línea del registro nunca se apaga."
+    "d": "Aviso Stop (fin de cada respuesta). Si se tocaron archivos del proyecto y falta la línea en decisions.log, o pendientes.md pasó su tope de 8 KB, devuelve un aviso que la IA lee y corrige; avisa una sola vez por respuesta. Cierra por bloque de trabajo: avisa tras 15 ediciones sin cerrar, o antes si la tarea no pasa la prueba de retomar (otra IA no podría seguir solo con la petición y el git diff). En tareas pequeñas (hasta 2 archivos, ninguno sensible) escribe él mismo la línea. Desde la 1.44 también avisa «lanza el auditor» cuando hubo cambios de código o configuración (no si solo se tocaron documentos o la memoria). Los avisos que solo informan (chat largo, hito sin lección, auditor) se apagan en ese chat si salen 3 veces seguidas sin cambiar nada; el aviso de la línea del registro nunca se apaga. Desde la 1.48 también avisa del efecto en cadena: si se tocó un documento y no el que depende de él, lo recuerda; solo avisa y se apaga en ese chat si se repite."
    },
    {
     "n": "Hitos y lecciones",
@@ -384,7 +392,7 @@ window.DATOS = {
     "e": "Actúa",
     "k": "mano",
     "ek": "act",
-    "d": "Añade la línea de la tarea a decisions.log con el formato correcto: python .brain/guardianes/cerrar.py --chat «Proyecto #N» «qué se hizo». Con --carril elige Cambio pequeño (por defecto) o SDD. Es el cierre de una línea: no obliga a tocar pendientes ni fichas salvo que corresponda."
+    "d": "Añade la línea de la tarea a decisions.log con el formato correcto: python .brain/guardianes/cerrar.py --chat «Proyecto #N» «qué se hizo». Con --carril elige Cambio pequeño (por defecto) o SDD. Es el cierre de una línea: no obliga a tocar pendientes ni fichas salvo que corresponda. Desde la 1.47 acepta --tipo (arnes, leccion, decision, spec, pendiente, memoria, otro) para etiquetar la línea del registro."
    },
    {
     "n": "Medidor",
@@ -487,6 +495,56 @@ window.DATOS = {
     "d": "Lo usa cerrar.py: añade a decisions/indice.md las filas de las fichas D-NNN que faltan (nunca borra ni cambia filas) y mueve un punto terminado de pendientes.md a archive/hechos.md con su fila en el índice. Devuelve los textos y quien lo llama decide si escribe: así existe la vista previa."
    },
    {
+    "n": "Diapositivas",
+    "f": "diapositivas.py",
+    "w": "Convierte un tema o un documento en una presentación .html.",
+    "c": "A mano (/diapositivas)",
+    "e": "Solo lee",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Genera un .html autocontenido (sin internet ni librerías) a partir de un tema (resumen, version, traspaso, auditoria) o de un documento entero. El texto del .md se escapa, solo hay enlaces http(s) o relativos y una política impide cargar nada de fuera. Con --buscar NOMBRE localiza el documento y con --comprobar compara el original con las diapositivas. Los .html no se suben a Git."
+   },
+   {
+    "n": "Diagramas",
+    "f": "diagramas.py",
+    "w": "Dibuja los bloques mermaid de las diapositivas como imagen.",
+    "c": "Lo usa diapositivas.py",
+    "e": "Solo lee",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Entiende flowchart (cajas, rombos, flechas con etiqueta, punteadas y gruesas) y sequenceDiagram, y los dibuja como SVG dentro del .html, sin internet. Si el tipo no se soporta o el dibujo es demasiado grande, deja el texto y el script avisa en español e inglés."
+   },
+   {
+    "n": "Respuestas guardadas",
+    "f": "respuestas.py",
+    "w": "Archiva una respuesta útil de un chat con su fuente.",
+    "c": "A mano o por la IA (/guardar-respuesta)",
+    "e": "Actúa",
+    "k": "mano",
+    "ek": "act",
+    "d": "Guarda la respuesta en .brain/respuestas/AAAA-MM-DD-titulo.md y genera indice.md (la más nueva primero). No pisa una con el mismo título y fecha, exige título y fuente, tiene un tope de 8 KB y admite el texto por la entrada estándar para no usar heredocs."
+   },
+   {
+    "n": "Revisión de contenido",
+    "f": "revisar_contenido.py",
+    "w": "Avisa de páginas huérfanas, frases ya falsas y topes contradictorios en .brain/.",
+    "c": "Al abrir (una línea) / a mano",
+    "e": "Avisa",
+    "k": "auto",
+    "ek": "warn",
+    "d": "Solo lectura, nunca bloquea. El arranque da una línea si hay hallazgos y han pasado revision_contenido_dias (30 por defecto; se apaga con revision_contenido_activa). La skill /revisar-contenido hace «buscar y refutar» con otra IA nueva, sin el contexto de la primera, y lo descartado queda en revision_contenido.json."
+   },
+   {
+    "n": "Búsqueda en la memoria",
+    "f": "buscar.py",
+    "w": "Responde con los mejores archivos de .brain/ para unas palabras.",
+    "c": "A mano (/buscar-en-la-memoria)",
+    "e": "Solo lee",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Recorre lecciones, decisiones, specs, respuestas y registro en cada consulta, sin índice: unos 470 KB tardan milisegundos. Ignora tildes, mayúsculas y palabras vacías, da más peso al título y a los encabezados y limita lo que suma un archivo largo por repetirse. Con --archivo incluye archive/. Umbral para pasar a un índice: 5 MB o más de 1 segundo."
+   },
+   {
     "n": "Textos en dos idiomas",
     "f": "textos.py",
     "w": "Guarda los mensajes de todos los guardianes en español e inglés.",
@@ -578,6 +636,15 @@ window.DATOS = {
      "auditor",
      "colabora",
      "hermanos"
+    ]
+   ],
+   [
+    "Memoria y presentaciones",
+    [
+     "diapositivas",
+     "guardar-respuesta",
+     "revisar-contenido",
+     "buscar-en-la-memoria"
     ]
    ]
   ],
@@ -1097,6 +1164,34 @@ window.DATOS = {
     "w": "En la terminal",
     "x": "python .brain/guardianes/auditor.py quien general",
     "d": "Dice «interno + externo» o solo «interno». Con «codex» en lugar de «quien…» imprime el comando exacto de Codex en solo lectura."
+   },
+   {
+    "c": "Cada día",
+    "t": "Explicar un tema o documento como presentación",
+    "w": "En el chat",
+    "x": "/diapositivas",
+    "d": "Crea un .html que se abre en el navegador, sin conexión. También vale /diapositivas doc NOMBRE."
+   },
+   {
+    "c": "Cada día",
+    "t": "Guardar una respuesta útil del chat",
+    "w": "En el chat",
+    "x": "/guardar-respuesta",
+    "d": "La archiva en .brain/respuestas/ con su fuente, para no tener que volver a pedirla."
+   },
+   {
+    "c": "Cada día",
+    "t": "Preguntar a la memoria si ya estaba apuntado",
+    "w": "En el chat",
+    "x": "/buscar-en-la-memoria",
+    "d": "Devuelve los mejores archivos de .brain/ para unas palabras, con las líneas donde salen."
+   },
+   {
+    "c": "Mantenimiento",
+    "t": "Revisar que la memoria no diga cosas falsas",
+    "w": "En el chat",
+    "x": "/revisar-contenido",
+    "d": "Busca páginas huérfanas, frases que ya no son ciertas y topes contradictorios; otra IA refuta cada hallazgo."
    }
   ]
  },
@@ -1222,6 +1317,14 @@ window.DATOS = {
     "r": "Before repeating similar work; the start-up counts how many there are",
     "w": "lecciones.py, launched by the AI with /leccion",
     "n": "One file per topic, as \"problem | cause | rule\"."
+   },
+   {
+    "p": "respuestas/",
+    "d": 1,
+    "q": "Did we already save this answer or comparison?",
+    "r": "When looking for something already solved; also with /buscar-en-la-memoria",
+    "w": "respuestas.py, launched by the AI with /guardar-respuesta",
+    "n": "One answer per file, with its source, and an index with the newest first."
    },
    {
     "p": "referencias.md",
@@ -1374,7 +1477,7 @@ window.DATOS = {
     "e": "Warns",
     "k": "auto",
     "ek": "warn",
-    "d": "Stop hook (end of every reply). If project files were touched and the line in decisions.log is missing, or pendientes.md went over its 8 KB cap, it returns a warning that the AI reads and fixes; it warns once per reply. It closes by block of work: it warns after 15 edits without closing, or earlier if the task fails the resume test (another AI could not continue from the request and the git diff alone). In small tasks (up to 2 files, none sensitive) it writes the line itself. Since 1.44 it also warns \"launch the auditor\" when code or configuration changed (not if only documents or memory were touched). Warnings that only inform (long chat, milestone without a lesson, auditor) switch themselves off in that chat if they appear 3 times in a row with nothing changing; the log-line warning never switches off."
+    "d": "Stop hook (end of every reply). If project files were touched and the line in decisions.log is missing, or pendientes.md went over its 8 KB cap, it returns a warning that the AI reads and fixes; it warns once per reply. It closes by block of work: it warns after 15 edits without closing, or earlier if the task fails the resume test (another AI could not continue from the request and the git diff alone). In small tasks (up to 2 files, none sensitive) it writes the line itself. Since 1.44 it also warns \"launch the auditor\" when code or configuration changed (not if only documents or memory were touched). Warnings that only inform (long chat, milestone without a lesson, auditor) switch themselves off in that chat if they appear 3 times in a row with nothing changing; the log-line warning never switches off. Since 1.48 it also warns about the chain effect: if one document was touched but not the one that depends on it, it reminds you; it only warns and switches itself off in that chat if repeated."
    },
    {
     "n": "Milestones and lessons",
@@ -1484,7 +1587,7 @@ window.DATOS = {
     "e": "Acts",
     "k": "mano",
     "ek": "act",
-    "d": "It adds the task line to decisions.log in the right format: python .brain/guardianes/cerrar.py --chat \"Project #N\" \"what was done\". With --carril you pick Small change (default) or SDD. It is the one-line close: it does not force you to touch pending items or cards unless needed."
+    "d": "It adds the task line to decisions.log in the right format: python .brain/guardianes/cerrar.py --chat \"Project #N\" \"what was done\". With --carril you pick Small change (default) or SDD. It is the one-line close: it does not force you to touch pending items or cards unless needed. Since 1.47 it accepts --tipo (arnes, leccion, decision, spec, pendiente, memoria, otro) to label the log line."
    },
    {
     "n": "Meter",
@@ -1587,6 +1690,56 @@ window.DATOS = {
     "d": "Used by cerrar.py: it adds to decisions/indice.md the rows of the D-NNN cards that are missing (it never deletes or changes rows) and moves a finished item from pendientes.md to archive/hechos.md with its row in the index. It returns the texts and the caller decides whether to write: that is how the preview exists."
    },
    {
+    "n": "Slides",
+    "f": "diapositivas.py",
+    "w": "Turns a topic or a document into a .html presentation.",
+    "c": "By hand (/diapositivas)",
+    "e": "Read only",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Builds a self-contained .html (no internet, no libraries) from a topic (resumen, version, traspaso, auditoria) or a whole document. The .md text is escaped, only http(s) or relative links are allowed and a policy stops anything from loading from outside. --buscar NAME finds the document and --comprobar compares the original with the slides. .html files are not pushed to Git."
+   },
+   {
+    "n": "Diagrams",
+    "f": "diagramas.py",
+    "w": "Draws the slides' mermaid blocks as an image.",
+    "c": "Used by diapositivas.py",
+    "e": "Read only",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Understands flowchart (boxes, diamonds, labelled, dashed and thick arrows) and sequenceDiagram, and draws them as SVG inside the .html, with no internet. If the type is not supported or the drawing is too big, it leaves the text and the script warns in Spanish and English."
+   },
+   {
+    "n": "Saved answers",
+    "f": "respuestas.py",
+    "w": "Files a useful answer from a chat with its source.",
+    "c": "By hand or by the AI (/guardar-respuesta)",
+    "e": "Acts",
+    "k": "mano",
+    "ek": "act",
+    "d": "Saves the answer in .brain/respuestas/YYYY-MM-DD-title.md and builds indice.md (newest first). It does not overwrite one with the same title and date, requires a title and a source, has an 8 KB cap and accepts the text on standard input so heredocs are not needed."
+   },
+   {
+    "n": "Content review",
+    "f": "revisar_contenido.py",
+    "w": "Warns about orphan pages, sentences that are no longer true and contradictory caps in .brain/.",
+    "c": "On open (one line) / by hand",
+    "e": "Warns",
+    "k": "auto",
+    "ek": "warn",
+    "d": "Read only, never blocks. Start-up gives one line if there are findings and revision_contenido_dias have passed (30 by default; switched off with revision_contenido_activa). The /revisar-contenido skill does \"search and refute\" with a fresh AI that does not have the first one's context, and what is discarded is kept in revision_contenido.json."
+   },
+   {
+    "n": "Memory search",
+    "f": "buscar.py",
+    "w": "Answers with the best files in .brain/ for a few words.",
+    "c": "By hand (/buscar-en-la-memoria)",
+    "e": "Read only",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Sweeps lessons, decisions, specs, answers and log on every query, with no index: about 470 KB takes milliseconds. It ignores accents, case and filler words, gives more weight to the title and headings and limits what a long file earns by repeating itself. --archivo includes archive/. Threshold for moving to an index: 5 MB or more than 1 second."
+   },
+   {
     "n": "Two-language texts",
     "f": "textos.py",
     "w": "Holds every guardian's messages in Spanish and English.",
@@ -1678,6 +1831,15 @@ window.DATOS = {
      "auditor",
      "colabora",
      "hermanos"
+    ]
+   ],
+   [
+    "Memory and slides",
+    [
+     "diapositivas",
+     "guardar-respuesta",
+     "revisar-contenido",
+     "buscar-en-la-memoria"
     ]
    ]
   ],
@@ -2197,6 +2359,34 @@ window.DATOS = {
     "w": "In the terminal",
     "x": "python .brain/guardianes/auditor.py quien general",
     "d": "Says \"interno + externo\" or just \"interno\". With \"codex\" instead of \"quien…\" it prints the exact read-only Codex command."
+   },
+   {
+    "c": "Every day",
+    "t": "Explain a topic or document as a presentation",
+    "w": "In the chat",
+    "x": "/diapositivas",
+    "d": "Creates a .html that opens in the browser, offline. /diapositivas doc NAME also works."
+   },
+   {
+    "c": "Every day",
+    "t": "Save a useful answer from the chat",
+    "w": "In the chat",
+    "x": "/guardar-respuesta",
+    "d": "Files it in .brain/respuestas/ with its source, so you do not have to ask for it again."
+   },
+   {
+    "c": "Every day",
+    "t": "Ask the memory whether it was already written down",
+    "w": "In the chat",
+    "x": "/buscar-en-la-memoria",
+    "d": "Returns the best files in .brain/ for a few words, with the lines where they appear."
+   },
+   {
+    "c": "Maintenance",
+    "t": "Check that the memory does not say false things",
+    "w": "In the chat",
+    "x": "/revisar-contenido",
+    "d": "Looks for orphan pages, sentences that are no longer true and contradictory caps; another AI refutes each finding."
    }
   ]
  }
