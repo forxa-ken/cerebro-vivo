@@ -5,6 +5,7 @@
 | Skill | Cuándo usarla | Área | Fuente |
 | :--- | :--- | :--- | :--- |
 | [auditor](../../.claude/skills/auditor/SKILL.md) | Darwin types /auditor (general, cierre, externo or estado), asks for an audit of quality, resource use and security, or the closing warns "lanza el auditor" | Método | cerebro-vivo 1.44.0 |
+| [buscar-en-la-memoria](../../.claude/skills/buscar-en-la-memoria/SKILL.md) | you are about to investigate, decide or explain something the project may already have written down (a lesson, decision, spec or saved answer), or Darwin asks "¿ya lo teníamos apuntado?" or "busca en la memoria" | Método | cerebro-vivo 1.51.0 |
 | [cero-dependencias](../../.claude/skills/cero-dependencias/SKILL.md) | you must generate Excel, PDF, GIF or similar files and want to avoid installing libraries | Método | cerebro-vivo 1.0.0 |
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
 | [guardar-respuesta](../../.claude/skills/guardar-respuesta/SKILL.md) | Darwin types /guardar-respuesta, says "guarda esta respuesta" or "apunta esto", or an answer or comparison in the chat is worth keeping even though no error produced it | Método | cerebro-vivo 1.49.0 |

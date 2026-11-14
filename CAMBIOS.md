@@ -391,3 +391,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.50.1 (2026-11-13)
 - `revisar_contenido.py` (spec 048): tras la primera pasada real, la otra IA que refutó los hallazgos vio que el guardián no leía `decisions.log` ni `CAMBIOS.md` ni reconocía «informe NNN», y marcaba como huérfanas páginas que sí estaban citadas. Ahora cuenta ambos archivos y «informe NNN» como menciones. Una prueba nueva (19 en total).
+
+## 1.51.0 (2026-11-14)
+- Pendiente 46 (spec 049): **búsqueda local en la memoria**. Nuevo guardián `buscar.py` y skill `/buscar-en-la-memoria` (es/en). Pregunta a `.brain/` (lecciones, decisiones, specs, respuestas, registro) con unas palabras y devuelve los mejores archivos con título y las líneas donde salen. Sin índice (recorre la memoria en cada consulta, unos 470 KB tardan milisegundos), sin tildes ni mayúsculas, sin palabras vacías, más peso al título y a los encabezados y tope para que un archivo largo no gane solo por repetir. `--solo`, `--max`, `--archivo` (incluye `archive/`), `--json`. Solo lectura. Umbral para pasar a un índice: 5 MB o más de 1 segundo. Textos es/en, pruebas nuevas. **Sin probar por Darwin.**

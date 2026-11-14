@@ -326,3 +326,5 @@
 2026-11-13 | otro | Claude (cerebro-vivo #20) | Leccion de 1.50.0 anotada; manual CEREBRO_VIVO es/en ya describe revisar_contenido; auditor de cierre no lanzado | Cambio pequeño
 2026-11-13 | otro | Claude (cerebro-vivo #20) | Revision de contenido real hecha: guardian arreglado (1.50.1: lee decisions.log, CAMBIOS e informe NNN), informe 032 enlazado desde spec 033, revision anotada | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 44 (revision de contenido) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Spec 049 (busqueda local en .brain, pendiente 46) escrita en borrador | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Arnes 1.51.0: busqueda local en la memoria (spec 049, pendiente 46) programada, 594 pruebas OK, falta prueba de Darwin | Cambio pequeño
