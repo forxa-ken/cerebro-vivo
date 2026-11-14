@@ -627,6 +627,8 @@ window.DATOS = {
      "directora-de-fabrica",
      "revisor-independiente",
      "fabrica",
+     "revisor-de-spec",
+     "prueba-de-uso-real",
      "revisor-de-consumo"
     ]
    ],
@@ -1822,6 +1824,8 @@ window.DATOS = {
      "directora-de-fabrica",
      "revisor-independiente",
      "fabrica",
+     "revisor-de-spec",
+     "prueba-de-uso-real",
      "revisor-de-consumo"
     ]
    ],

@@ -177,7 +177,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
 
 <header class="top"><div class="wrap">
-  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.51.0</span></div>
+  <div class="brand">Cerebro Vivo <span id="brandV">arnés 1.58.0</span></div>
   <nav class="tabs" aria-label="Secciones" data-i18n-aria="top.aria7">
     <a href="#comprender" data-v="comprender" data-i18n="top.t1">Comprender</a>
     <a href="#usar" data-v="usar" data-i18n="top.t2">Usar</a>
@@ -302,7 +302,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 
         <section class="ch" id="c9" data-t="Las skills">
           <div class="eyebrow" data-i18n="c9.t1">CAPÍTULO 9</div>
-          <h2 data-i18n="c9.t2">41 skills: instrucciones para cada situación</h2>
+          <h2 data-i18n="c9.t2">43 skills: instrucciones para cada situación</h2>
           <p class="txt" data-i18n-html="c9.h3">Una skill es una ficha de instrucciones. No se lanza sola: la usa la IA cuando toca, o tú con un comando como <code>/resumen</code>.</p>
           <div class="fig skillg" id="skills"></div>
         </section>
@@ -491,6 +491,26 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
           </ul></div>
         </section>
 
+        <section class="ch" id="c22" data-t="Lo nuevo: la fábrica automática">
+          <div class="eyebrow" data-i18n="c22.t1">CAPÍTULO 20</div>
+          <h2 data-i18n="c22.t2">Lo nuevo de las versiones 1.52 a 1.58</h2>
+          <p class="txt" data-i18n="c22.t3"></p>
+          <div class="note"><span data-i18n-html="c22.h4"></span></div>
+          <div class="fig"><h3 style="margin-top:0"><span data-i18n="c22.t5"></span></h3><div class="scroll"><table class="table" style="min-width:620px"><thead><tr><th data-i18n="c22.t6"></th><th data-i18n="c22.t7"></th><th data-i18n="c22.t8"></th></tr></thead><tbody>
+            <tr><td data-i18n="c22.t9"></td><td data-i18n-html="c22.t10"></td><td data-i18n-html="c22.t11"></td></tr>
+            <tr><td data-i18n="c22.t12"></td><td data-i18n-html="c22.t13"></td><td data-i18n-html="c22.t14"></td></tr>
+            <tr><td data-i18n="c22.t15"></td><td data-i18n-html="c22.t16"></td><td data-i18n-html="c22.t17"></td></tr>
+            <tr><td data-i18n="c22.t18"></td><td data-i18n-html="c22.t19"></td><td data-i18n-html="c22.t20"></td></tr>
+            <tr><td data-i18n="c22.t21"></td><td data-i18n-html="c22.t22"></td><td data-i18n-html="c22.t23"></td></tr>
+            <tr><td data-i18n="c22.t24"></td><td data-i18n-html="c22.t25"></td><td data-i18n-html="c22.t26"></td></tr>
+          </tbody></table></div></div>
+          <div class="fig"><h3 style="margin-top:0"><span data-i18n="c22.t27"></span></h3><ul class="plain">
+            <li><b data-i18n="c22.t28"></b> · <span data-i18n-html="c22.t29"></span></li>
+            <li><b data-i18n="c22.t30"></b> · <span data-i18n-html="c22.t31"></span></li>
+            <li><b data-i18n="c22.t32"></b> · <span data-i18n-html="c22.t33"></span></li>
+          </ul></div>
+        </section>
+
         <section class="ch" id="c13" data-t="Glosario A-Z">
           <div class="eyebrow" data-i18n="c13.t1">CAPÍTULO 13</div>
           <h2 data-i18n="c13.t2">Glosario de la A a la Z</h2>
@@ -544,7 +564,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
 <script>
 const $=s=>document.querySelector(s);
 const tr=(k,n)=>{const v=window.KitI18n?KitI18n.t(k):k;return n===undefined?v:v.replace("{n}",n)};
-let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.51.0";
+let LANG="es",FILES,MOM,G,SK,GL,T,VER="1.58.0";
 function setData(){LANG=(window.KitI18n&&KitI18n.getIdioma())||"es";const D=(window.DATOS||{})[LANG]||window.DATOS.es;({FILES,MOM,G,SK,GL,T}=D)}
 
 const tree=$("#tree");let curF=3;
