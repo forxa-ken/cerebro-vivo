@@ -7,6 +7,15 @@ import unittest
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
+
+def _falta_en(nombre):
+    """Un proyecto en español no recibe las ediciones .en.md (spec 024): solo en el repo del arnés (hay manifiesto.json) son obligatorias."""
+    ruta = RAIZ / ".brain" / "biblioteca" / nombre
+    if ruta.is_file():
+        return False
+    assert not (RAIZ / "manifiesto.json").is_file(), "falta " + nombre
+    return True
+
 _e = importlib.util.spec_from_file_location("fabrica_g", RAIZ / ".brain" / "guardianes" / "fabrica.py")
 fabrica = importlib.util.module_from_spec(_e)
 _e.loader.exec_module(fabrica)
@@ -113,6 +122,21 @@ class FabricaTest(unittest.TestCase):
         (self.repo / "a.lua").write_text("v2", encoding="utf-8")
         git(self.repo, "commit", "-q", "-am", "colado")
         self.assertEqual(self.f.alcance(self.encargo, self.repo, "001")[0], 1)
+
+    def test_requisito_con_guion_vale_como_sin_guion(self):
+        """Hallazgo de la fase 6 (spec 050): la plantilla dice «R-n» y el guardián solo entendía «R1»."""
+        self.spec.write_text("# Spec\n- **R-1** uno\n- R-2 dos\n", encoding="utf-8")
+        self.f.congelar(self.spec)
+        for req, esperado in (("R1", 0), ("R-1", 0), ("R-2", 0), ("R-9", 1)):
+            self.encargo.write_text(ENCARGO.replace("R2", req), encoding="utf-8")
+            self.f.foto(self.repo, "001")  # el encargo se escribe antes de la foto
+            self.assertEqual(self.f.alcance(self.encargo, self.repo, "001")[0], esperado, req)
+
+    def test_la_spec_corregida_y_recongelada_no_cuenta_como_cambio_de_la_ejecutora(self):
+        self._listo()
+        self.spec.write_text("# Spec\n- R1 uno corregido\n- R2 dos\n", encoding="utf-8")
+        self.f.congelar(self.spec, reemplazar=True)
+        self.assertEqual(self.f.alcance(self.encargo, self.repo, "001")[0], 0)
 
     def test_spec_cambiada_bloquea_el_alcance(self):
         self._listo()
@@ -406,6 +430,8 @@ class ArrancarTest(unittest.TestCase):
     def test_las_plantillas_traen_el_criterio_con_sus_campos(self):
         for nombre, campos in (("PLANTILLAS_FABRICA.md", ("Cómo se sabe que salió bien", "Casos malos")),
                                ("PLANTILLAS_FABRICA.en.md", ("How we know it went well", "Bad cases"))):
+            if _falta_en(nombre):
+                continue
             txt = (RAIZ / ".brain" / "biblioteca" / nombre).read_text(encoding="utf-8")
             for c in campos:
                 self.assertIn("- %s" % c, txt)
@@ -507,6 +533,8 @@ class EntregarTest(unittest.TestCase):
     def test_plantilla_trae_los_campos(self):
         for nombre, campos in (("PLANTILLAS_FABRICA.md", [e[0] for e in fabrica.Fabrica.EVID.values()]),
                                ("PLANTILLAS_FABRICA.en.md", [e[1] for e in fabrica.Fabrica.EVID.values()])):
+            if _falta_en(nombre):
+                continue
             txt = (RAIZ / ".brain" / "biblioteca" / nombre).read_text(encoding="utf-8")
             for c in campos:
                 self.assertIn("- %s:" % c, txt)
@@ -684,10 +712,11 @@ class InformeTest(unittest.TestCase):
         bloque = txt.split("## 11.")[1].split("```markdown")[1].split("```")[0]
         self.ruta.write_text(bloque, encoding="utf-8")
         self.assertEqual(self.f.informe()[0], 1)  # todo son <…>
-        txt_en = (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.en.md").read_text(encoding="utf-8")
+        txt_en = None if _falta_en("PLANTILLAS_FABRICA.en.md") else (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.en.md").read_text(encoding="utf-8")
         for es, en in fabrica.Fabrica.INFORME:
             self.assertIn("## " + es, bloque)
-            self.assertIn("## " + en, txt_en)
+            if txt_en is not None:
+                self.assertIn("## " + en, txt_en)
 
 
 NEGOCIO = ("# Negocio\n- Los usuarios pagan una cuota mensual fija por el servicio.\n"

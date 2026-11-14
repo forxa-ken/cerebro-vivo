@@ -39,6 +39,7 @@ You are the **spec reviewer**: an AI **different** from the one that designed th
 7. **You are not Darwin.** The business model is his: do not reinterpret or widen it. A big gap, even if you approve, goes to Darwin.
 
 ## So it does not fail (lessons from the VMware experiment)
+- If the reviewer is **Codex**, its sandbox may be unable to read files or run python (phase 6, spec 050): launch it with `-s read-only` and **paste the business model, the spec and the relevant code inside the prompt**; save its verdict to the file yourself and run `fabrica.py veredicto`. A verdict without quotes does not count.
 - An approver is **not deterministic**: the same text can get opposite verdicts. That is why quotes are mandatory and the guardian checks them.
 - A rule that depends on data the judge does not have always fails: give it **everything** it needs (the whole business model and spec), and rules written once, without ambiguity.
 - Severe does not mean inventing: if you cannot quote the sentence, it is not a finding.

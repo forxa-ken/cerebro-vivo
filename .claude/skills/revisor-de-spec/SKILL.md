@@ -39,6 +39,7 @@ Eres el **revisor de spec**: una IA **distinta** de la que diseñó la spec (otr
 7. **No eres Darwin.** El modelo de negocio es suyo: no lo reinterpretes ni lo amplíes. Un hueco grande, aunque apruebes, se lleva a Darwin.
 
 ## Para que no falle (lecciones del experimento VMware)
+- Si el revisor es **Codex**, su caja puede no leer archivos ni tener python (fase 6, spec 050): lánzalo con `-s read-only` y **pega negocio, spec y el código relevante dentro de la orden**; guarda tú su veredicto en el archivo y pásale `fabrica.py veredicto`. Un veredicto sin citas no cuenta.
 - Un aprobador **no es determinista**: el mismo texto puede dar veredictos contrarios. Por eso las citas son obligatorias y el guardián las comprueba.
 - Una regla que depende de un dato que el juez no tiene falla siempre: pásale **todo** lo que necesita (negocio y spec completos), y las reglas escritas una sola vez, sin ambigüedad.
 - Severo no es inventar: si no puedes citar la frase, no es un hallazgo.

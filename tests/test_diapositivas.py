@@ -10,6 +10,12 @@ import tempfile
 import unittest
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+
+def _es_repo_arnes():
+    """Solo el repo del arnés (con manifiesto.json) exige las ediciones .en.md; un proyecto en español no las recibe."""
+    return os.path.isfile(os.path.join(RAIZ, "manifiesto.json"))
+
 SCRIPT = os.path.join(RAIZ, ".brain", "guardianes", "diapositivas.py")
 
 
@@ -210,6 +216,8 @@ class Reparto(unittest.TestCase):
     def test_plantilla_skill_y_textos_en_los_dos_idiomas(self):
         for rel in (".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.md", ".brain/biblioteca/PLANTILLA_DIAPOSITIVAS.en.md",
                     ".claude/skills/diapositivas/SKILL.md", ".claude/skills/diapositivas/SKILL.en.md"):
+            if rel.endswith(".en.md") and not _es_repo_arnes():
+                continue  # un proyecto en español no recibe las .en.md (spec 024)
             self.assertTrue(os.path.isfile(os.path.join(RAIZ, *rel.split("/"))), rel)
         import textos
         claves = [k for k in textos.TEXTOS["es"] if k.startswith("diap_")]
@@ -221,6 +229,8 @@ class Reparto(unittest.TestCase):
         tmp = tempfile.mkdtemp()
         try:
             for nombre in ("PLANTILLA_DIAPOSITIVAS.md", "PLANTILLA_DIAPOSITIVAS.en.md"):
+                if nombre.endswith(".en.md") and not _es_repo_arnes():
+                    continue
                 origen = os.path.join(RAIZ, ".brain", "biblioteca", nombre)
                 rutas, n, _, _ = d.convertir(origen, os.path.join(tmp, nombre + ".html"), abrir=False)
                 self.assertGreaterEqual(n, 5)

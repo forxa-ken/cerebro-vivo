@@ -580,9 +580,10 @@ class Fabrica:
         h = self._huellas()
         if "spec" not in h:
             return [self.t("fabrica_sin_spec")], req, permitidos
-        ids = re.findall(r"\bR\d+\b", req)
+        # «R1» y «R-1» son el mismo requisito (la plantilla dice «R-n»): se compara solo el número.
+        ids = re.findall(r"\bR-?(\d+)\b", req)
         spec = (self.raiz / h["spec"]["ruta"]).read_text(encoding="utf-8") if (self.raiz / h["spec"]["ruta"]).is_file() else ""
-        if not ids or any(not re.search(r"\b" + i + r"\b", spec) for i in ids):
+        if not ids or any(not re.search(r"\bR-?" + i + r"\b", spec) for i in ids):
             return [self.t("fabrica_requisito_no_esta", req)], req, permitidos
         if not permitidos:
             return [self.t("fabrica_encargo_sin_archivos")], req, permitidos
@@ -635,7 +636,11 @@ class Fabrica:
             return 1, [self.t("fabrica_git_fallo", str(e))]
         antes = foto["archivos"]
         cambiados = sorted(n for n in set(ahora) | set(antes) if ahora.get(n) != antes.get(n))
-        fuera = [n for n in cambiados if not self.permitido(n, list(permitidos) + list(SIEMPRE_PERMITIDO))]
+        # La spec congelada la protege su huella (`verificar`, arriba): si la directora la corrige y la vuelve a
+        # congelar tras la foto, no cuenta como cambio de la ejecutora.
+        spec_congelada = str(self._huellas().get("spec", {}).get("ruta", "")).replace("\\", "/")
+        fuera = [n for n in cambiados if n != spec_congelada
+                 and not self.permitido(n, list(permitidos) + list(SIEMPRE_PERMITIDO))]
         if fuera:
             return 1, [self.t("fabrica_fuera_de_alcance", len(fuera), ", ".join(fuera))]
         return 0, [self.t("fabrica_dentro", len(cambiados))]

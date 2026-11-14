@@ -68,7 +68,7 @@ La prueba de uso real **la hace una IA distinta de la que construyó** (el revis
 - [x] (hecho, v1.56.0: `fabrica.py frenos` y `avance`; `foto` los aplica sola) Contador de reintentos y aviso de atasco.
 
 **Fase 6 — experimento acotado.**
-- [ ] Una orden real y pequeña, en un proyecto de prueba y en rama aparte, para ver qué pasa. Se mide: si el resultado era el esperado, qué decisiones tomó sola, cuántas veces hubo que parar, qué no pudo probar, y qué reglas faltaron.
+- [x] (hecho 2026-11-14, informe en `notas-chats/2026-11-14-fase6-informe-experimento.md`; sin probar por Darwin) Una orden real y pequeña, en un proyecto de prueba y en rama aparte, para ver qué pasa. Se mide: si el resultado era el esperado, qué decisiones tomó sola, cuántas veces hubo que parar, qué no pudo probar, y qué reglas faltaron.
 
 ## 7. Fuera de alcance
 - Que el modo automático sea el modo por defecto, o que se active solo.
