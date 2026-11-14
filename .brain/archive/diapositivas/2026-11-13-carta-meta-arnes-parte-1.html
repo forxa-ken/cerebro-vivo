@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
+<title>Carta del Meta-Arnés «Cerebro Vivo»</title>
+<style>
+:root{--fondo:#ffffff;--texto:#1b1f24;--suave:#5b6573;--acento:#1f6feb;--caja:#f3f5f8;--linea:#d6dbe3}
+@media (prefers-color-scheme:dark){:root{--fondo:#12161c;--texto:#e8ecf2;--suave:#9aa6b6;--acento:#6cb0ff;--caja:#1b222c;--linea:#2e3846}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--fondo);color:var(--texto);
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{font-size:clamp(16px,2.7vmin,34px);line-height:1.45;overflow:hidden}
+.d{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vmin 9vw 9vmin;overflow:auto}
+.d.on{display:flex}
+h1{font-size:2.1em;margin:0 0 .4em;line-height:1.15}h2{font-size:1.55em;margin:0 0 .5em;line-height:1.2}h3{font-size:1.15em;margin:0 0 .4em;color:var(--suave)}
+p,ul,ol,blockquote,table,pre{margin:.35em 0}ul,ol{padding-left:1.3em}li{margin:.28em 0}li>ul,li>ol{margin:.1em 0;font-size:.92em}
+code{background:var(--caja);padding:.08em .35em;border-radius:.3em;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+pre{background:var(--caja);padding:.7em 1em;border-radius:.5em;overflow:auto}pre code{background:none;padding:0}
+blockquote{border-left:.25em solid var(--acento);padding:.1em 0 .1em .8em;color:var(--suave)}
+table{border-collapse:collapse;width:100%;font-size:.9em}th,td{border:1px solid var(--linea);padding:.35em .6em;text-align:left}th{background:var(--caja)}
+a{color:var(--acento)}
+.barra{position:fixed;left:0;top:0;height:.4vmin;min-height:3px;background:var(--acento);width:0;transition:width .2s}
+.pie{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:1em;padding:1.2vmin 3vw;font-size:.55em;color:var(--suave)}
+.pie a{color:var(--suave)}
+body.general{overflow:auto}body.general .d{position:static;display:block;float:left;width:31%;margin:1%;height:34vh;padding:2vmin;
+border:1px solid var(--linea);border-radius:.5em;font-size:.38em;overflow:hidden;cursor:pointer}body.general .d.on{border-color:var(--acento)}
+body.general .pie,body.general .barra{display:none}
+@media print{@page{size:landscape;margin:12mm}body{overflow:visible;font-size:15pt}.d{position:static;display:flex!important;min-height:96vh;
+page-break-after:always;break-after:page;padding:0}.barra,.pie{display:none}}
+
+.dg{display:block;margin:.4em auto;width:100%;max-height:62vh;color:var(--acento)}
+.dg-c{fill:var(--caja);stroke:var(--acento);stroke-width:1.6}.dg-n{fill:var(--caja);stroke:var(--suave);stroke-width:1}
+.dg-l{stroke:var(--acento);stroke-width:1.7}.dg-g{stroke-width:3.4}.dg-p{stroke-dasharray:6 5}
+.dg-v{stroke:var(--suave);stroke-width:1;stroke-dasharray:5 5}
+.dg-t{fill:var(--texto);font-size:15px;font-family:inherit}
+.dg-e{paint-order:stroke;stroke:var(--fondo);stroke-width:5px;stroke-linejoin:round;fill:var(--suave)}
+</style></head>
+<body>
+<div class="barra" id="barra"></div>
+<section class="d"><h1>Carta del Meta-Arnés «Cerebro Vivo»</h1>
+<p>La carta maestra con la que Darwin arma el arnés de trabajo con IA de todos sus proyectos. Versión 0.24 de la carta.</p></section>
+<section class="d"><h2>Índice de la carta</h2>
+<table><thead><tr><th>Grupo</th><th>Secciones</th></tr></thead><tbody><tr><td><strong>La idea</strong></td><td>§0 Cómo leer · §1 Propósito · §2 Principios</td></tr><tr><td><strong>Las piezas</strong></td><td>§3 Capas · §4 Archivos · §5 Arranque · §6 Carriles · §7 Ciclo de tarea · §8 Cierre · §9 Guardianes</td></tr><tr><td><strong>Cómo se trabaja</strong></td><td>§10 Varias IA · §11 Conducta · §12 Repo y memoria · §13 Biblioteca · §14 Kit · §15 Niveles</td></tr><tr><td><strong>Qué sabemos y qué falta</strong></td><td>§16 Lecciones · §17 Evidencia · §18 Hoja de ruta · §19 Huecos · §20 Proyectos</td></tr><tr><td><strong>Apoyo</strong></td><td>§21 Versiones · §22 Seguridad · §23 Plantillas · §24 Glosario · §25 Mantenimiento</td></tr></tbody></table></section>
+<section class="d"><h2>0. Cómo leer esta carta</h2>
+<ul><li>Entender la idea: §1 y §2.</li><li>Montar un proyecto nuevo hoy: §14 (kit de arranque) y §15 (qué nivel elegir).</li><li>Saber qué vigila solo: §9.</li><li>Evitar errores ya cometidos: §16.</li><li>Ver qué falta del método: §18 y §19.</li></ul></section>
+<section class="d"><h2>1. Propósito y promesa</h2>
+<ul><li><strong>El problema:</strong> la IA no recuerda entre chats, el contexto cuesta dinero y el dueño no técnico no puede auditar el código.</li><li><strong>Promesa 1:</strong> retomar un proyecto tras días, o con otra IA, sin repetir explicaciones.</li><li><strong>Promesa 2:</strong> leer poco al empezar y buscar el detalle solo cuando hace falta.</li><li><strong>Promesa 3:</strong> que el dueño vea el estado real sin leer código.</li><li><strong>Promesa 4:</strong> que nada irreversible ocurra sin su orden.</li><li><strong>Promesa 5:</strong> que el método se cumpla solo donde se pueda.</li></ul></section>
+<section class="d"><h2>2. Principios (las leyes del arnés)</h2>
+<ul><li>La verdad está en los archivos y el código, no en la conversación.</li><li>Índice primero, detalle después; cada cosa en su sitio.</li><li>Cerrar es parte de trabajar; «implementada» no es «terminada» (terminada = el dueño la probó).</li><li>El porqué se guarda; lo que una máquina puede vigilar no se deja a la disciplina.</li><li>Alcance estricto; lo irreversible se pregunta; lo no probado se dice como no probado.</li><li>Lenguaje llano, medir antes de afirmar y cero dependencias cuando se pueda (son 14 principios en total).</li></ul></section>
+<section class="d"><h2>3. Anatomía: las 7 capas</h2>
+<ul><li><strong>Dueño</strong> (decide, aprueba, prueba) e <strong>índices de entrada</strong> (<code>CLAUDE.md</code>, <code>GEMINI.md</code>, <code>AGENTS.md</code>).</li><li><strong>Reglas:</strong> <code>constitution.md</code>.</li><li><strong>Estado:</strong> <code>pendientes.md</code>, <code>decisions.log</code>, <code>archive/</code>.</li><li><strong>Conocimiento:</strong> <code>architecture/</code>, <code>specs/</code> y las guías.</li><li><strong>Guardianes:</strong> vigilantes automáticos, tests y el hook <code>Stop</code>.</li><li><strong>Biblioteca</strong> (material reutilizable) y, fuera del repo, la <strong>memoria personal del asistente</strong>.</li></ul></section>
+<section class="d"><h2>4. Estructura de archivos y topes</h2>
+<ul><li>Índices de entrada: <strong>5 KB cada uno</strong>, con el mismo contenido, vigilados por una prueba.</li><li><code>pendientes.md</code>: solo lo que falta, <strong>tope 8 KB</strong>.</li><li><code>decisions.log</code>: una línea por tarea cerrada, solo se añade al final.</li><li><code>decisions/</code>, <code>specs/</code>, <code>architecture/</code> y <code>archive/</code> guardan el detalle.</li><li>Escala real en LoboHook (a 2026-11-01): unas 50 specs vivas, 72 decisiones y 992 pruebas.</li></ul></section>
+<section class="d"><h2>5. Lectura de arranque y presupuesto de tokens</h2>
+<ul><li><strong>Se lee siempre:</strong> el índice, la constitución, los pendientes y una ficha del área.</li><li><strong>Solo si toca:</strong> el índice de decisiones, el de hechos y la spec de la tarea.</li><li><strong>Nunca completo:</strong> <code>decisions.log</code>, <code>hechos.md</code> y el historial antiguo.</li><li>Lectura propia estimada: unos 10.000 tokens frente a unos 150.000 si se leyera todo.</li><li>Medido: el arranque cuesta unos 69.000 tokens en todos los chats; lo que sí se controla es la longitud del chat.</li></ul></section>
+<section class="d"><h2>6. Los dos carriles (cómo se decide el trabajo)</h2>
+<svg class="dg" viewBox="0 0 1495 193" style="max-width:1794px" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="dg-f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs><path class="dg-l" fill="none" d="M194.0,96.6 L274.0,96.6" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M488.4,84.1 L614.0,67.6" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M721.4,69.0 L822.9,84.8" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M973.3,96.6 L1053.3,96.6" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M488.4,109.1 L592.5,122.7" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M742.9,126.9 L1053.3,103.6" marker-end="url(#dg-f1)"/><path class="dg-l" fill="none" d="M1238.1,96.6 L1318.1,96.6" marker-end="url(#dg-f1)"/><rect class="dg-c" x="35.0" y="75.6" width="159.0" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="114.5" y="101.6">Llega una tarea</tspan></text><polygon class="dg-c" points="393.2,35.0 512.5,96.6 393.2,158.2 274.0,96.6"/><text class="dg-t" text-anchor="middle"><tspan x="393.2" y="82.6">Toca mas de 2</tspan><tspan x="393.2" y="101.6">archivos o algo</tspan><tspan x="393.2" y="120.6">sensible?</tspan></text><rect class="dg-c" x="614.0" y="39.6" width="107.4" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="667.7" y="65.6">SDD: spec</tspan></text><rect class="dg-c" x="822.9" y="67.6" width="150.4" height="58.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="898.1" y="92.1">Aprobacion del</tspan><tspan x="898.1" y="111.1">dueño</tspan></text><rect class="dg-c" x="1053.3" y="75.6" width="184.8" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="1145.7" y="101.6">Programar y probar</tspan></text><rect class="dg-c" x="592.5" y="111.6" width="150.4" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="667.7" y="137.6">Cambio pequeño</tspan></text><rect class="dg-c" x="1318.1" y="75.6" width="81.6" height="42.0" rx="21.0"/><text class="dg-t" text-anchor="middle"><tspan x="1358.9" y="101.6">Cierre</tspan></text><text class="dg-t dg-e" text-anchor="middle"><tspan x="551.2" y="68.9">si</tspan></text><text class="dg-t dg-e" text-anchor="middle"><tspan x="540.4" y="108.9">no</tspan></text></svg>
+<ul><li>Si dudas entre los dos carriles, es SDD.</li></ul></section>
+<section class="d"><h2>7. Ciclo de vida de una tarea</h2>
+<svg class="dg" viewBox="0 0 1321 112" style="max-width:1585px" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="dg-f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs><path class="dg-l" fill="none" d="M111.0,56.0 L191.0,56.0" marker-end="url(#dg-f2)"/><path class="dg-l" fill="none" d="M332.8,56.0 L412.8,56.0" marker-end="url(#dg-f2)"/><path class="dg-l" fill="none" d="M571.8,56.0 L651.8,56.0" marker-end="url(#dg-f2)"/><path class="dg-l" fill="none" d="M785.0,56.0 L865.0,56.0" marker-end="url(#dg-f2)"/><path class="dg-l" fill="none" d="M1032.6,56.0 L1150.0,56.0" marker-end="url(#dg-f2)"/><path class="dg-l dg-p" fill="none" d="M880.3,35.0 Q720.5,-14.0 423.8,77.0" marker-end="url(#dg-f2)"/><rect class="dg-c" x="35.0" y="35.0" width="76.0" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="73.0" y="61.0">Idea</tspan></text><rect class="dg-c" x="191.0" y="35.0" width="141.8" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="261.9" y="61.0">Spec aprobada</tspan></text><rect class="dg-c" x="412.8" y="35.0" width="159.0" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="492.3" y="61.0">Falta programar</tspan></text><rect class="dg-c" x="651.8" y="35.0" width="133.2" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="718.4" y="61.0">Implementada</tspan></text><rect class="dg-c" x="865.0" y="35.0" width="167.6" height="42.0" rx="4.0"/><text class="dg-t" text-anchor="middle"><tspan x="948.8" y="61.0">Esperando prueba</tspan></text><rect class="dg-c" x="1150.0" y="35.0" width="76.0" height="42.0" rx="21.0"/><text class="dg-t" text-anchor="middle"><tspan x="1188.0" y="61.0">Hecho</tspan></text><text class="dg-t dg-e" text-anchor="middle"><tspan x="1091.3" y="49.0">prueba OK</tspan></text><text class="dg-t dg-e" text-anchor="middle"><tspan x="686.3" y="14.0">falla</tspan></text></svg>
+<ul><li>Los números de <code>pendientes.md</code> son fijos; los huecos son tareas hechas.</li></ul></section>
+<section class="d"><h2>8. Checklist de cierre (obligatorio, cada tarea)</h2>
+<ul><li>Pruebas en verde y una línea en <code>decisions.log</code>.</li><li>Decisión importante: ficha <code>D-NNN</code> y su fila en el índice.</li><li><code>pendientes.md</code> al día, y pasar a hechos lo que el dueño ya probó.</li><li>Mapa de funcionalidades y herramientas al día si cambiaron.</li><li>Preferencias nuevas del dueño a la memoria personal del asistente.</li><li>Resumen en llano: qué quedó, qué probar y <strong>qué no se verificó</strong>.</li></ul></section>
+<section class="d"><h2>9. Guardianes (que el método se cumpla solo)</h2>
+<ul><li>Solo Python estándar; los ajustes viven en <code>guardianes.json</code>.</li><li><strong>Aviso de cierre:</strong> avisa si se editó sin dejar la línea en el registro.</li><li><strong>Arranque:</strong> resume el estado real al abrir el chat.</li><li><strong>Poda, análisis de código, base de datos, secretos, librerías y pruebas:</strong> avisan; el de secretos bloquea el commit si hay una clave real.</li><li><strong>Longitud de chat</strong> (avisa a los 200k tokens) y <strong>notas de chats auxiliares</strong>.</li><li>No leen mensajes ni envían nada fuera. En Gemini y Codex solo se cumple en parte.</li></ul></section>
+<section class="d"><h2>10. Varias IA, varios chats, sesiones auxiliares</h2>
+<ul><li>Un solo cerebro (<code>.brain/</code>) para todas las IA; los tres índices son espejo.</li><li>Chats numerados y cortos: la IA avisa cuando se alarga.</li><li><strong>Traspaso entre chats:</strong> se escribe <code>traspaso.md</code> antes del chat nuevo y el arranque lo muestra.</li><li><strong>Notas de auxiliares:</strong> el chat que sale de otro deja una nota corta al terminar.</li><li>Los avisos en el chat abierto en Codex y Gemini <strong>no están comprobados en vivo</strong>.</li></ul></section>
+<section class="d"><h2>11. Reglas de conducta de la IA (portables)</h2>
+<ul><li>Responder en el idioma del dueño, directo y sin jerga.</li><li>Alcance estricto: nada de refactors no pedidos.</li><li>Consultar lo decidido antes de cambiarlo.</li><li>Commits solo cuando se pide; nunca subir a internet sin orden.</li><li>Irreversible = preguntar; no inventar; probar en la plataforma real.</li></ul></section>
+<section class="d"><h2>12. Qué va en el repo y qué en la memoria personal del asistente</h2>
+<ul><li><strong>En el repo:</strong> lo que cualquier IA necesita saber del proyecto (reglas, estado, decisiones, specs).</li><li><strong>En la memoria personal:</strong> quién es el dueño, cómo prefiere que se le hable y las correcciones que valen entre proyectos.</li><li>No se duplica en memoria lo que ya está en el repo.</li><li>Si una memoria resulta falsa, se borra.</li></ul></section>
+<section class="d"><h2>13. Biblioteca y herramientas</h2>
+<ul><li><code>herramientas.md</code>: una fila por herramienta usada (para qué, licencia o coste, estado).</li><li>Antes de buscar algo, se mira ahí.</li><li>Reglas fijas: cero dependencias, mirar la licencia comercial, tiempo máximo y plan B en toda llamada externa.</li><li>Nada de secretos en el repositorio.</li><li>Si algo exige crédito, queda anotado como condición de publicación.</li></ul></section>
+<section class="d"><h2>14. Kit de arranque (proyecto nuevo, en orden)</h2>
+<ul><li>Atajo: <code>instalar.py DESTINO …</code> hace los pasos por ti y <code>--comprobar</code> prueba los guardianes; también hay ventana con doble clic.</li><li>A mano: crear la carpeta, copiar el manual y la carta, y pedir a la IA que cree la estructura.</li><li>Instalar los guardianes, el hook <code>Stop</code>, reiniciar y <strong>probarlos antes de confiar</strong>.</li><li>Escribir la primera spec solo cuando una tarea lo exija; anotar el proyecto en §20.</li><li>Opcional: kit de traducción para los idiomas del producto.</li><li><strong>No cambiar:</strong> los 14 principios, el ciclo de vida ni el checklist de cierre.</li></ul></section>
+<section class="d"><h2>15. Niveles de adopción</h2>
+<ul><li><strong>Ligero:</strong> <code>CLAUDE.md</code>, <code>pendientes.md</code> y <code>decisions.log</code>; para proyectos de pocos días.</li><li><strong>Medio:</strong> añade constitución, decisiones con porqué, specs y archivo de hechos; para semanas.</li><li><strong>Completo:</strong> añade guardianes, biblioteca, multi-IA y memoria personal; para meses o datos sensibles.</li><li>No usarlo en prototipos de un día ni experimentos sin consecuencias.</li></ul></section>
+<section class="d"><h2>16. Lecciones aprendidas (casos reales)</h2>
+<ul><li><code>pendientes.md</code> llegó a 20 KB: ahora solo lleva lo que falta, con tope y guardián.</li><li>Chats de 300 a 470k de contexto: avisar y abrir uno nuevo.</li><li>El medidor se rompía en la consola de Windows: probar siempre en la plataforma real.</li><li>El aviso de cierre callaba por un registro viejo: ahora comprueba lo editado en esa respuesta.</li><li>Una prueba de guardián que no podía fallar no probaba nada.</li><li>«Implementada» se daba por «hecha» sin la prueba del dueño.</li></ul></section>
+<section class="d"><h2>17. Evidencia: qué se ha medido y qué no</h2>
+<ul><li><strong>Medido:</strong> el arranque cuesta unos 69k tokens y el método añade unos 8 a 10k.</li><li><strong>Medido:</strong> cerrar tareas pesa como máximo el 11 % de los tokens nuevos; lo que más pesa es la longitud del chat.</li><li><strong>Estimado, no medido:</strong> el ahorro de lectura del arranque (~90 %); no hay un chat «sin método» para compararlo.</li><li><strong>Comprobado en vivo:</strong> el hook <code>Stop</code> salta solo en los casos esperados.</li><li><strong>Sin verificar:</strong> el comportamiento del hook en otro sistema operativo o en otra IA.</li></ul></section>
+<div class="pie"><span>← → o espacio: moverse · o: ver todas · Ctrl+P: guardar en PDF</span><span>Parte 1 de 2 · <a href="2026-11-13-carta-meta-arnes-parte-2.html">parte siguiente →</a></span><span id="cuenta"></span></div>
+<script>
+(function(){
+var d=[].slice.call(document.querySelectorAll('.d')),n=d.length,i=0,b=document.getElementById('barra'),c=document.getElementById('cuenta');
+function ir(k){i=Math.max(0,Math.min(n-1,k));d.forEach(function(e,j){e.classList.toggle('on',j===i)});
+b.style.width=(n>1?(i/(n-1))*100:100)+'%';c.textContent=(i+1)+' / '+n;
+try{history.replaceState(null,'','#'+(i+1))}catch(x){}
+if(document.body.classList.contains('general')){d[i].scrollIntoView({block:'nearest'})}}
+function general(){document.body.classList.toggle('general')}
+document.addEventListener('keydown',function(e){var k=e.key;
+if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();ir(i+1)}
+else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();ir(i-1)}
+else if(k==='Home'){ir(0)}else if(k==='End'){ir(n-1)}
+else if(k==='o'||k==='O'){general()}
+else if(k==='Escape'){document.body.classList.remove('general')}});
+document.addEventListener('click',function(e){
+if(e.target.closest('a'))return;
+if(document.body.classList.contains('general')){var s=e.target.closest('.d');if(s){ir(d.indexOf(s));general()}return}
+ir(e.clientX>window.innerWidth/2?i+1:i-1)});
+var h=parseInt((location.hash||'').slice(1),10);ir(h>0?h-1:0);
+})();
+</script>
+</body></html>

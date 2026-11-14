@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
+<title>Carta del Meta-Arnés «Cerebro Vivo»</title>
+<style>
+:root{--fondo:#ffffff;--texto:#1b1f24;--suave:#5b6573;--acento:#1f6feb;--caja:#f3f5f8;--linea:#d6dbe3}
+@media (prefers-color-scheme:dark){:root{--fondo:#12161c;--texto:#e8ecf2;--suave:#9aa6b6;--acento:#6cb0ff;--caja:#1b222c;--linea:#2e3846}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--fondo);color:var(--texto);
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{font-size:clamp(16px,2.7vmin,34px);line-height:1.45;overflow:hidden}
+.d{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vmin 9vw 9vmin;overflow:auto}
+.d.on{display:flex}
+h1{font-size:2.1em;margin:0 0 .4em;line-height:1.15}h2{font-size:1.55em;margin:0 0 .5em;line-height:1.2}h3{font-size:1.15em;margin:0 0 .4em;color:var(--suave)}
+p,ul,ol,blockquote,table,pre{margin:.35em 0}ul,ol{padding-left:1.3em}li{margin:.28em 0}li>ul,li>ol{margin:.1em 0;font-size:.92em}
+code{background:var(--caja);padding:.08em .35em;border-radius:.3em;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+pre{background:var(--caja);padding:.7em 1em;border-radius:.5em;overflow:auto}pre code{background:none;padding:0}
+blockquote{border-left:.25em solid var(--acento);padding:.1em 0 .1em .8em;color:var(--suave)}
+table{border-collapse:collapse;width:100%;font-size:.9em}th,td{border:1px solid var(--linea);padding:.35em .6em;text-align:left}th{background:var(--caja)}
+a{color:var(--acento)}
+.barra{position:fixed;left:0;top:0;height:.4vmin;min-height:3px;background:var(--acento);width:0;transition:width .2s}
+.pie{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:1em;padding:1.2vmin 3vw;font-size:.55em;color:var(--suave)}
+.pie a{color:var(--suave)}
+body.general{overflow:auto}body.general .d{position:static;display:block;float:left;width:31%;margin:1%;height:34vh;padding:2vmin;
+border:1px solid var(--linea);border-radius:.5em;font-size:.38em;overflow:hidden;cursor:pointer}body.general .d.on{border-color:var(--acento)}
+body.general .pie,body.general .barra{display:none}
+@media print{@page{size:landscape;margin:12mm}body{overflow:visible;font-size:15pt}.d{position:static;display:flex!important;min-height:96vh;
+page-break-after:always;break-after:page;padding:0}.barra,.pie{display:none}}
+
+.dg{display:block;margin:.4em auto;width:100%;max-height:62vh;color:var(--acento)}
+.dg-c{fill:var(--caja);stroke:var(--acento);stroke-width:1.6}.dg-n{fill:var(--caja);stroke:var(--suave);stroke-width:1}
+.dg-l{stroke:var(--acento);stroke-width:1.7}.dg-g{stroke-width:3.4}.dg-p{stroke-dasharray:6 5}
+.dg-v{stroke:var(--suave);stroke-width:1;stroke-dasharray:5 5}
+.dg-t{fill:var(--texto);font-size:15px;font-family:inherit}
+.dg-e{paint-order:stroke;stroke:var(--fondo);stroke-width:5px;stroke-linejoin:round;fill:var(--suave)}
+</style></head>
+<body>
+<div class="barra" id="barra"></div>
+<section class="d"><h2>18. Hoja de ruta del arnés</h2>
+<ul><li>Hechos: prueba en vivo del hook, fichas con archivos, avisos de tamaño y de longitud de chat.</li><li>Hechos y probados por el dueño: kit de arranque, kit de traducción y los guardianes 7 a 12.</li><li>Codex y Gemini: arrancan solos en un chat nuevo; el cierre sigue siendo manual.</li><li>La poda de memoria está encendida; falta verla mover una spec real.</li><li>El traspaso entre chats quedó resuelto y probado (spec 078).</li></ul></section>
+<section class="d"><h2>19. Huecos conocidos (honestidad)</h2>
+<ul><li>Depende de que la IA lea los índices; el guardián solo detecta olvidos al cerrar.</li><li>Mantener la memoria cuesta 3 o 4 escrituras por tarea, desproporcionado en cambios de una línea.</li><li>Una ficha falsa se propaga; por eso se verifican contra el código.</li><li>La aprobación de specs frena el trabajo si el dueño no está.</li><li>El ahorro real no se puede medir con precisión.</li><li>Los guardianes asumen Claude Code, Git y Windows con Python; <strong>sin verificar fuera de Windows</strong>.</li></ul></section>
+<section class="d"><h2>20. Proyectos que usan el arnés</h2>
+<ul><li><strong>LoboHook:</strong> nivel completo, desde 2026-10; es el origen del método.</li><li><strong>Otro proyecto de Darwin:</strong> kit de arranque, desde 2026-11, en uso.</li><li>Cada proyecto nuevo se anota aquí.</li></ul></section>
+<section class="d"><h2>21. Registro de versiones de la carta</h2>
+<ul><li>0.1 (2026-10-28): primera carta completa, con principios, capas, kit y lecciones.</li><li>0.2 a 0.18 (2026-10-28): hook comprobado, Codex y Gemini, y guardianes 4 a 12.</li><li>0.19 a 0.21 (2026-10-31): traspaso entre chats, skills de experiencia y notas de auxiliares.</li><li>0.22 y 0.23 (2026-11-01): puesta al día de cifras y guardián 13.</li><li>0.24 (2026-11-01): avisos de notas para Codex y Gemini.</li></ul></section>
+<section class="d"><h2>22. Seguridad y límites (portables)</h2>
+<ul><li>Claves y tokens en variables de entorno o archivos ignorados; escanear antes de cada subida.</li><li>Pruebas con base de datos temporal, nunca con los datos reales.</li><li>La IA no sube, borra, gasta, envía mensajes ni cambia permisos sola.</li><li>Llamadas externas con tiempo máximo y plan B local.</li><li>Acciones críticas con registro de auditoría; antes de tocar algo en vivo, instantánea y vuelta atrás.</li></ul></section>
+<section class="d"><h2>23. Plantillas listas para copiar</h2>
+<ul><li>La carta trae plantillas de <code>pendientes.md</code>, de la fila de <code>decisions.log</code> y de la ficha <code>D-NNN</code>.</li><li>También de <code>hechos</code>, de una spec, de la frase de traspaso a un chat nuevo y del hook de <code>settings.json</code>.</li><li>Son texto para copiar; se ven completas en la carta.</li></ul></section>
+<section class="d"><h2>24. Glosario en lenguaje llano</h2>
+<ul><li><strong>Arnés:</strong> lo que rodea a la IA para que trabaje con orden. <strong>Meta-arnés:</strong> el que crea el arnés de cada proyecto.</li><li><strong>Contexto:</strong> lo que la IA tiene delante; cuanto más largo, más cuesta cada mensaje. <strong>Token:</strong> unidad de ese texto.</li><li><strong>Spec:</strong> ficha de lo que se va a construir, aprobada antes de programar.</li><li><strong>Hook:</strong> aviso automático en un momento fijo. <strong>Guardián:</strong> comprobación automática del método.</li><li><strong>Commit:</strong> foto de los cambios en el equipo. <strong>Push:</strong> subirlos a GitHub, solo con orden.</li></ul></section>
+<section class="d"><h2>25. Cómo se mantiene esta carta</h2>
+<ul><li>Se actualiza cuando algo del método cambia, falla o se aprende, no por calendario.</li><li>Cada cambio sube la versión y corrige las lecciones y lo comprobado.</li><li>Lo comprobado y lo supuesto se distinguen siempre.</li><li>Al empezar un proyecto nuevo se copia la versión vigente.</li><li>Si la carta y <code>CEREBRO_VIVO.md</code> se contradicen, manda la carta.</li></ul></section>
+<section class="d"><h2>Qué se presentó y qué se condensó</h2>
+<ul><li>Documento: <code>.brain/biblioteca/CARTA_META_ARNES.md</code> (versión 0.24).</li><li><strong>Muy condensadas:</strong> §4 (árbol de archivos), §9 (tabla de guardianes), §18, §21 (tabla de versiones) y §23 (plantillas, sin su texto).</li><li>Los diagramas de §6 y §7 son dibujos nuevos a partir de las tablas y el esquema del original.</li><li>Lo que se resumió puede haber perdido matices: la fuente completa es la carta.</li></ul></section>
+<div class="pie"><span>← → o espacio: moverse · o: ver todas · Ctrl+P: guardar en PDF</span><span>Parte 2 de 2 · <a href="2026-11-13-carta-meta-arnes-parte-1.html">← parte anterior</a></span><span id="cuenta"></span></div>
+<script>
+(function(){
+var d=[].slice.call(document.querySelectorAll('.d')),n=d.length,i=0,b=document.getElementById('barra'),c=document.getElementById('cuenta');
+function ir(k){i=Math.max(0,Math.min(n-1,k));d.forEach(function(e,j){e.classList.toggle('on',j===i)});
+b.style.width=(n>1?(i/(n-1))*100:100)+'%';c.textContent=(i+1)+' / '+n;
+try{history.replaceState(null,'','#'+(i+1))}catch(x){}
+if(document.body.classList.contains('general')){d[i].scrollIntoView({block:'nearest'})}}
+function general(){document.body.classList.toggle('general')}
+document.addEventListener('keydown',function(e){var k=e.key;
+if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();ir(i+1)}
+else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();ir(i-1)}
+else if(k==='Home'){ir(0)}else if(k==='End'){ir(n-1)}
+else if(k==='o'||k==='O'){general()}
+else if(k==='Escape'){document.body.classList.remove('general')}});
+document.addEventListener('click',function(e){
+if(e.target.closest('a'))return;
+if(document.body.classList.contains('general')){var s=e.target.closest('.d');if(s){ir(d.indexOf(s));general()}return}
+ir(e.clientX>window.innerWidth/2?i+1:i-1)});
+var h=parseInt((location.hash||'').slice(1),10);ir(h>0?h-1:0);
+})();
+</script>
+</body></html>

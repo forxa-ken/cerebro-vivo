@@ -1,0 +1,335 @@
+2026-10-31 | Claude (LoboHook #76) (cerebro-vivo #1) | Repo creado desde la spec 087 de LoboHook: guardianes, kits, skills, pruebas y plugin /plantilla 0.2.0; actualizar_arnes.py y actualizar.py; manifiesto y VERSION 1.0.0 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 001 (borrador): medir ahorro/efectividad con medidor de logs (B) + carpetas gemelas CON/SIN con 3 tareas (A); espera aprobacion de Darwin | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 001 aprobada; parte B hecha: medir.py + test_medir.py, kit lo instala, version 1.1.0. Falta parte A (carpetas gemelas) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Parte A preparada: bench/ (proyecto juguete, 3 tareas, montar/verificar, pruebas ocultas) + test_bench.py; sin ejecutar las 12 pruebas | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A: T1 r1 hecha (CON y SIN logran; CON +13% tokens nuevos); montar.py arreglado (.git en uso); carpetas listas para T1 r2 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A: T1 r2 hecha (ambos logran; CON ~4k tokens nuevos mas); carpetas listas para T2 r1 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A: T2 r1 hecha (ambos logran; CON 24k vs SIN 16k nuevos); carpetas listas para T2 r2 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A: T2 r2 hecha (ambos logran; CON 19k vs SIN 16k nuevos); carpetas listas para T3 r1 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A: T3 r1 hecha: CON logra (usa traspaso), SIN no (inventa formato); carpetas listas para T3 r2 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Prueba A completa (12 ejecuciones): efectividad si en T3 (CON 2/2, SIN 0/2); tokens +17-43% con arnés en tareas pequenas; informe en specs/001-resultados.md; medir.py con --tarea | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 002 (borrador): modo ligero para tareas pequenas (cierre automatico sin vuelta extra de la IA, arranque corto); espera aprobacion | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 002 aprobada e implementada (v1.2.0): modo ligero en cierre.py (linea auto en tareas pequenas, no sensibles, en verde), arranque mas corto, test_modo_ligero; 188 pruebas en verde; medicion CON v1.2 en curso | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Modo ligero medido parcialmente: escribe la linea solo pero no ahorra (29-31k nuevos); el coste principal esta en el arranque, no en el cierre; informe specs/002-resultados.md | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003 (borrador): medir coste real con cache (la cifra tokens nuevos estaba distorsionada) y recortar arranque con datos; avisos anadidos a los informes 001 y 002 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003 paso 1-2: medir.py 1.3.0 (coste ponderado, desglose, cache igualada) y relectura: el sobrecoste del arnes es menor y mas ruidoso de lo dicho; casi todo es numero de mensajes, arranque fijo ~2-3k; informe parcial 003-resultados.md | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003: recortes de arranque y cierre por terminal (v1.3.1, 191 pruebas en verde); montadas 30 carpetas bench-r y lanzada la tanda T1 (5+5) de la re-medicion | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003: tanda T1 (5+5, v1.3.1): ambos 5/5, coste ponderado CON +7% frente a SIN (dentro del criterio <=15%); anadido bench/agregar.py | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003: tanda T2 (5+5, v1.3.1): ambos 5/5, coste CON +16% (borde del criterio); linea auto escrita en las 5 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Spec 003 completa: T3 CON 5/5 vs SIN 0/5 (efectividad demostrada), coste CON +7% (T1), +16% (T2), +59% (T3, sesgado); ahorro de tokens no demostrado; informe final en 003-resultados.md | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Pruebas de medicion cerradas por orden de Darwin; README y pendientes recogen lo demostrado (efectividad en retomar trabajo), lo medido (coste +7-16% en tareas pequenas) y la hipotesis de ahorro a la larga sin medir | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #2) | Descartada la prueba con los proyectos gemelos (Darwin adapta los cambios de uno a otro: no son independientes); pendiente 4 y traspaso actualizados | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Escrita la spec 004 (prueba del indice), sin aprobar ni lanzar | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Spec 004 aprobada; programados bench/indice (montar, verificar, preguntas) y sus pruebas; sin lanzar chats | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Spec 004 medida: indice no mejora acierto (30/30) y cuesta +19% con ~80 fichas; informe 004-resultados.md | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Preparada la variante nombres planos de la prueba del indice (montar.py --nombres-planos + prueba); sin lanzar chats | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Escrito MANUAL_DE_USO.md (guia diaria en llano) y enlazado desde el README | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #3) | Manual de uso: añadida seccion de /prompt-inicial, /plantilla, instalacion del plugin y plantillas | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #4) | Quitados uso_tokens, modo auto y plugin plantilla (spec 005, version 1.4.0); 181 pruebas en verde | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #4) | Anotado en pendientes (5): decidir manana tras la prueba de nombres planos si se eliminan los indices | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Prueba nombres planos completa (30/30); resultados en 004-resultados.md; pendiente 5 actualizado, decide Darwin | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Decidido por Darwin: indices se mantienen y no se leen al arrancar (ya es asi); pendiente 5 cerrado sin cambios de codigo | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Via intermedia de indices anotada en MANUAL_DE_USO.md (indices a demanda, entrada corta) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Pendientes 6-8 anotados: objetivo.md y skills .agents/skills en el instalador, y textos de la guia maestra | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Arnes 1.4.1: encargo con autoevaluacion y dos preguntas en CEREBRO_VIVO.md; nota Gemini/Codex en el manual; pendiente 8 cerrado | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #5) | Pendiente 9 anotado: indice central INDICE.md con archivos de IA como punteros (idea de Darwin, hibrida, sin hacer) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Pendientes 1 y 9 archivados (9 descartado); spec 006 en borrador: skills /resumen, /pendiente y /prompt-inicial separadas | Fast-Track
+2026-11-01 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.4.2: skills /resumen y /pendiente nuevas, /prompt-inicial solo plantilla (spec 006); manifiesto y pruebas en verde | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Spec 006 probada por Darwin y archivada; commit del arnes 1.4.2 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Pendiente 2 archivado (repo viejo sin tocar); spec 007 en borrador (pendientes 6 y 7); grafico del arnes | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.5.0 (spec 007): instalador crea objetivo.md enlazado y regla en constitucion; skills tambien a .agents/skills si hay Codex; 185 pruebas en verde | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.5.1: /pendiente describe completo lo que le toca hacer a Darwin | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Guia de instalacion actualizada en biblioteca/GUIA_INSTALACION.md; spec 008 en borrador (migrar objetivo en proyectos empezados) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Guia de instalacion: anotado el panel /plantilla (plugin aparte, ya no se reparte desde el repo) | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Arnes 1.6.0 (spec 008): actualizar_arnes.py --migrar-objetivo para proyectos ya instalados; 7 pruebas nuevas; guia al dia | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Spec 009 en borrador: recuperar el panel /plantilla del historial (e1e604e~1) y adaptarlo | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #6) | Spec 009 aprobada por Darwin; se programa en el chat #7 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #7) | Spec 009 hecha: plugin /plantilla recuperado (plantilla-prompt 0.3.0, botones a /pendiente y /resumen), arnes 1.7.0, prueba test_plugin_plantilla; logica TS 9/9 con shim, panel sin probar; pendiente 11 | Fast-Track
+2026-11-01 | Claude (cerebro-vivo #8) | Pruebas de Darwin: puntos 6 y 12 archivados; 7 sigue (F:/prueba sin AGENTS.md); parche ajeno en instalar.py (arnes_repo) sin commitear | Fast-Track
+2026-11-02 | Claude (cerebro-vivo #8) | Darwin confirma probado: puntos 7 y 11 archivados; specs 007-009 hechas y probadas | Fast-Track
+2026-11-02 | Claude (cerebro-vivo #8) | Borrados 33 chats de la prueba nombres planos y las carpetas bench-indice, bench-indice-planos y bench-r (regenerables desde bench/); traspaso escrito | Fast-Track
+2026-11-02 | Claude (cerebro-vivo #8) | Borrados tambien 60 chats de prueba (Indice y R T); traspaso al dia; chat largo, se recomienda abrir uno nuevo | Fast-Track
+2026-11-03 | Claude (auto) | (auto) tocó MANUAL_DE_USO.md; pruebas en verde | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Actualizado LoboHook a 1.7.0; manual con comandos de actualizar/migrar; spec 010 /cambio-de-ia en borrador; pendientes 13 y 14 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Spec 010 hecha: skill cambio-de-ia, plantilla de traspaso con campos nuevos, regla en archivos de entrada, manual; arnés 1.8.0 | Fast-Track
+2026-11-03 | Claude (x) | x | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | 1.8.1 (prueba de cambio-de-ia sin manifiesto en proyectos); Pegatinas actualizado a 1.8.1; spec 011 traspaso-in/out en borrador; pendiente 15 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Spec 011 hecha: traspaso-in (misma IA) y traspaso-out (entre IAs) sustituyen a traspaso-entre-chats y cambio-de-ia; arnés 1.9.0 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #9) | Arnés 1.9.1 y 1.9.2: dos pruebas arregladas (una archivaba el traspaso real, otra se colgaba con traspaso largo) | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Spec 012 en borrador: aviso de chat largo y chat nuevo al mismo nivel; pendiente 15 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Arnés 1.10.0: aviso de chat largo abre el chat nuevo al mismo nivel (spec 012); pruebas 200 OK; pendiente 16 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Spec 013 en borrador: soporte para Mac; pendiente 17 | Fast-Track
+2026-11-03 | Claude (cerebro-vivo #10) | Arnés 1.11.0: soporte para Mac (spec 013): instalar_kit.command, python3 en ganchos, aviso tkinter; 203 pruebas OK; Mac sin probar; pendiente 17 | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #10) | ZIP limpio para probar en Mac (con LEEME_PRIMERO), instalado y probado desde el ZIP; traspaso #10 a #11 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #10) | Traspaso #10 a #11 actualizado con el estado real (203 pruebas OK); pendientes revisados sin cambios | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #11) | Arnes 1.12.0: /traspaso-in salgo abre el chat nuevo con start_session + detach_session (204 pruebas OK, sin probar en real) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #11) | Probado /traspaso-in salgo: abrio cerebro-vivo #12 y lo separo; pendiente 18 anotado para la prueba de Darwin; traspaso #11 a #12 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #12) | Subido 1.10-1.12 a GitHub (cbc3d85); revisados secretos antes de abrir el repo (0 hallazgos; falta licencia); explicado aviso de version nueva (spec 014 sin escribir); traspaso #12 a #13 escrito | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #13) | Spec 015 hecha (arnés 1.13.0): el instalador fusiona CLAUDE.md y settings.json existentes sin quitar nada, con copia de seguridad; skill adoptar-indice-existente; 210 pruebas en verde | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #13) | Probada la spec 015 en una copia de Guild Control Forever: fusionó CLAUDE.md y AGENTS.md sin perder nada; arreglados saltos de línea CRLF y el tope de tamaño del índice adoptado; 212 pruebas en verde | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #13) | Spec 016 hecha (arnés 1.14.0): guardián revisar_indices.py (solo lectura), skill revisar-indices-de-ia con doble pasada, aviso en el arranque, ZIP de Mac 1.14.0; probado en copia de Guild Control Forever; 239 pruebas en verde | Fast-Track
+2026-11-04 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.14.1: skill /adopta (atajo de adoptar-indice-existente); manifiesto, ZIP Mac y pruebas en verde; kit instalado en Guild Control Forever | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.15.0: skill /acorta (spec 017) para bajar los índices al tope; manifiesto, ZIP Mac y pruebas en verde; llevada a Guild Control Forever | Fast-Track
+2026-11-04 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.0: guardián archivos_gordos.py (tope 8 KB en .brain/) y skill /trocea (spec 018); manifiesto, ZIP Mac y pruebas en verde; llevado a Guild Control Forever | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Manual al día: sección 3 ter en MANUAL_DE_USO.md y 9 quinquies en CEREBRO_VIVO.md (/adopta, /acorta, /trocea, archivos_gordos); manifiesto, ZIP Mac y pruebas en verde | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.16.1: test_arranque usa indices_entrada (un AGENTS.md ajeno ya no da rojo); manual: comandos probados en GCF real | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Anotado pendiente 19: diseñar la colaboración entre IA con responsabilidades distintas (caso Guild Control Forever) | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.17.0 (spec 019): aviso de versión nueva en el arranque y skill /actualizar; el actualizador añade claves de config y fichas de skills solo; 2 pruebas del kit corregidas; LoboHook actualizado a 1.17.0 | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Arnés 1.18.0 (spec 020): /adopta encadena adoptar, acortar y trocear; el instalador anota escribe /adopta | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Anotado pendiente 20: arreglar el traspaso cuando el chat nace de otra sesion y el aviso de chat largo que se repite | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #14) | Guardada preferencia: abrir yo el chat nuevo al alargarse el chat (start_session + detach_session); sesión #15 abierta con el traspaso | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #15) | Arnés 1.18.1: el aviso de índices pasados de tope dice escribe /adopta | Fast-Track
+2026-11-04 | Claude (cerebro-vivo #15) | Arnés 1.18.2: /traspaso-in sin palabra equivale a salgo y abre el chat nuevo | Fast-Track
+2026-11-06 | Claude (cerebro-vivo #15) | Creado CONTEXTO_PARA_OTRA_CUENTA.md con el resumen del proyecto para otra cuenta de IA (sin commitear) | Fast-Track
+2026-11-06 | Claude (cerebro-vivo #15) | Escrito .brain/traspaso.md del chat #15 al #16 (lee antes CONTEXTO_PARA_OTRA_CUENTA.md) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Darwin confirma /traspaso-in y /actualizar en LoboHook: puntos 3 y 18 pasados a hechos | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Subido a GitHub el arnés 1.17.0 a 1.18.2 con orden de Darwin; CONTEXTO_PARA_OTRA_CUENTA.md al día; skill vieja eliminada de LoboHook | Fast-Track
+2026-11-07 | Guardián (poda automática) | Poda de memoria: archivadas 3 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #16) | Analizada F:\Arquitectura de desarrollo (47 archivos) contra el arnés; hallazgos comprobados en carpeta temporal, sin cambios en código. Escrito traspaso al #17 y abierto el chat nuevo | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #17) | Arnes 1.19.0 (spec 021): actualizador fiable. Retirados, escritura atomica, sin_aplicar, huella comprobada, nivel guardado (punto 14), --simular completo. Ensayado solo en copias de Pegatinas y LoboHook; sin ZIP de Mac por orden de Darwin; sin commitear. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Chat #18 separado al nivel superior con detach_session self (comprobado detached true). Causa: se abrio por tarjeta y el #17 no lo separo; la skill no cubre ese camino. Sin cambios en el arnes | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.19.1: traspaso-in entro se separa solo del chat anterior, tambien si se abrio desde una tarjeta (272 pruebas OK, 6 saltadas; sin probar en real ni commit) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | pendientes.md: quitada la linea de estado desfasada y el 'sin subir' de los puntos 13, 16 y 17, ya en GitHub (272 pruebas OK, 6 saltadas) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Commit 5e98659 de pendientes. Revisadas las causas de lo que queda suelto o viejo: arranque ignora .brain/ y .claude/, secretos_estado.json seguido por Git, datos a mano sin dueno. Sin arreglar todavia | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022 en borrador: que no se quede nada suelto ni viejo (punto 21). Sin programar; espera aprobacion de Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022: los traspasos se quedan dentro de Git por decision de Darwin (contexto en otro ordenador); los recoge subir-a-github. Sigue en borrador | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022 ampliada: git automatico en traspaso-out salgo con guardar_traspaso.py, documentado en los manuales. Falta decidir commit o tambien subida; sin programar | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Spec 022: traspaso-out salgo hara commit y subida por decision de Darwin; con otros commits pendientes pregunta antes de subir. Sin programar | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #18) | Arnes 1.20.0 (spec 022): aviso de lo suelto, git automatico en traspaso-out con guardar_traspaso.py, skill subir-a-github, poda de specs hecha, secretos_estado fuera de Git, manuales al dia (289 pruebas OK, 6 saltadas; subida probada solo con remoto local) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Commit local del arnes 1.20.0 (spec 022) por orden de Darwin; sin subir a GitHub | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 22 anotado: automatizaciones con Jenkins o GitHub, explicando antes las opciones a Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 23 anotado: agente de IA que verifique las pruebas y los errores de la IA principal | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 23 ajustado: idea somera y objetivo de aprender, con las fuentes de la investigacion | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pendiente 24 anotado: investigar cuatro fuentes sobre harness y meta-arneses | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Punto 24: enlaces con su nombre real tras abrirlos | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pagina privada Cerebro Vivo de la A a la Z (comprender, usar, presentar); sin subir a GitHub | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Pagina publica en GitHub Pages (rama gh-pages, commit 97c1a5b): https://forxa-ken.github.io/cerebro-vivo/ ; main sin subir | Fast-Track
+2026-11-07 | Guardián (poda automática) | Poda de memoria: archivadas 3 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Comprobado el origen del metodo: la base viene de metaarnes.md (basado en un autor externo); el repo no lo acredita. Sin cambios | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Comparado con un proyecto externo (commit 726aaf3): 0 archivos identicos, 0 lineas largas compartidas; las ideas de base si derivan. Copia temporal borrada | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #19) | Traspaso archivado del chat #20 ampliado con la comparacion con un autor externo y la decision de no acreditar todavia | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Apuntado el punto 25 en pendientes: cambiar la jerga para distanciarse de un proyecto externo y bibliografia con un autor externo y demas autores. Sin empezar. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Reconocimiento a un autor externo en README y CEREBRO_VIVO.md (arnes 1.20.1). Pruebas en verde. Sin commit; falta en la pagina publica. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Reconocimiento a un autor externo publicado en la pagina publica (gh-pages 9d50e56). main sigue sin subir. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Subidos a GitHub los 6 commits de main (83bafa4 a 6b9ff26, arnes 1.20.1) por orden de Darwin. Secretos 0, pruebas en verde. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pie de la pagina publica con el texto nuevo de Darwin (sin el video; trabajo colaborativo entre agentes de IA), gh-pages 1062073. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | README y CEREBRO_VIVO.md con el mismo reconocimiento que la pagina (arnes 1.20.2). Pruebas en verde. Sin commit. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Commit y subida de la 1.20.2 (reconocimiento con el texto de la pagina) por orden de Darwin. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Arnes 1.21.0: skill /version (spec 023), manual y pagina con el caso de /actualizar inexistente (gh-pages f4aa574). Modelo 2 actualizado de 1.12.0 a 1.21.0. Pruebas en verde. Sin commit. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina publica: pestana Cambios que lee CAMBIOS.md de GitHub al momento (version de la cabecera tambien). Commit y subida de la 1.21.0 y de la pagina por orden de Darwin. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina: recuadro de proyectos antiguos (si /actualizar no existe) en el capitulo Como se reparte, gh-pages fe2c16a. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #20) | Pagina: pasos completos (simular y aplicar) para actualizar un proyecto antiguo, en Comprender y en Usar; gh-pages 095f8f1. | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Pagina: el pie dice 1.21.0 y toma la version de Cambios como la cabecera (commit local en gh-pages, sin subir) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Pagina: arreglo del pie subido (gh-pages de3ca0f) y comprobado en la pagina real: pie y cabecera dicen 1.21.0, sin errores de consola | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 (Cerebro Vivo y pagina en ingles) en borrador, espera aprobacion de Darwin | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 fase 1: pagina en espanol e ingles con selector (gh-pages a09ce01, commit local sin subir); probada en local, movil sin desbordes | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #21) | Spec 024 fase 1 subida (gh-pages a09ce01) y comprobada en la pagina real: ES/EN, Cambios en los dos idiomas, sin errores de consola | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #22) | Spec 024 fase 2 (1a parte, arnes 1.22.0 sin subir): textos.py es/en, ajuste idioma (defecto es), instalador guarda el idioma, test_textos; arranque, cierre, cerrar y longitud pasados; 300 pruebas OK y comprobado en proyecto de prueba en ingles | SDD
+2026-11-07 | Claude (cerebro-vivo #22) | Spec 024 fase 2 completa (arnes 1.22.0 sin subir): los 17 guardianes toman sus avisos de textos.py es/en (unos 250); test_textos con paridad, claves repetidas y uso; 303 pruebas OK y comprobado en proyecto de prueba en ingles | SDD
+2026-11-07 | Claude (cerebro-vivo #23) | Commit de arnes 1.22.0 (spec 024 fase 2, avisos de los guardianes en es/en); sin subir a GitHub | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #23) | Spec 025 (arnes 1.23.0 sin commit): chat nuevo solo como regla comun (aviso firme de longitud.py, ajuste chat_nuevo_auto) y comando /chat-nuevo si|no|estado | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #23) | Arnes 1.23.1 sin commit: permiso fijo de abrir el chat nuevo en CLAUDE.md y plantilla de indices (Claude, Gemini, Codex) | Fast-Track
+2026-11-07 | Claude (cerebro-vivo #23) | Arnes 1.23.2 sin commit: traspaso-in entro llama siempre a detach_session self (GCF #18 quedo colgado) | Fast-Track
+
+2026-11-07 | Claude (cerebro-vivo #24) | Arnes 1.24.0 sin commit: spec 026 hecha (lecciones.py, hitos.py, traspaso corto + completo, skills /leccion y /memoria-traspaso, pruebas nuevas) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #24) | Arnes 1.25.0 sin commit: spec 024 fase 3 hecha (ediciones .en de 28 skills, manual, plantillas y README; actualizador e instalador eligen por idioma; pruebas de paridad) | SDD
+2026-11-08 | Claude (cerebro-vivo #25) | Commit local de arnes 1.24.0 (spec 026) y 1.25.0 (spec 024 fase 3); suite en verde, sin subir a GitHub | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.1: la prueba de textos solo revisa guardianes repartidos por el arnes (fallaba en LoboHook por el modo auto); suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.2: README ingles del kit de arranque y del kit de traduccion; el instalador copia el ingles; suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.25.3: plantilla de spec en ingles (_template.en.md); suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.0: ayuda --help de cerrar, medir y actualizar_arnes en es/en; probado en un proyecto en ingles; suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.1: plantilla de pruebas en ingles; traduccion del arnes completa; regla nueva: todo en es/en (CLAUDE.md y memoria); suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Arnes 1.26.2: punto 20 cerrado en codigo (traspaso se escribe una vez, es/en); pasa a Esperando tu prueba; suite en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #25) | Punto 24 investigado y cerrado: 4 fuentes leidas; 4 ideas nuevas anotadas en pendientes (guardianes con memoria, jardinero de memoria, avisos con solucion, cortar guardian en bucle y tokens por tarea) | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.27.0: guardian eventos_chat.py (spec 027, punto 28) programado, es/en, 17 pruebas nuevas; suite en verde; pasa a Esperando tu prueba; nuevo punto 32 (npm/cargo/go) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.27.1: el actualizador anade los hooks que faltan en settings.json y el hook de eventos_chat solo vigila Bash/PowerShell (informe 028, 3.1 y 3.3); 357 pruebas en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Arnes 1.28.0: medir.py --skills mide el uso real de las skills (informe 028, 3.2); quitado el campo Veces que nadie actualizaba; 360 pruebas en verde | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Informe 028: pendientes.md acortado de 7,7 a 4,3 KB (detalle archivado; puntos 16 y 27 fundidos en el 20) y regla nueva de editar codigo sin scripts heredoc en la constitucion; arnes 1.28.1; 360 pruebas en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #26) | Traspaso al chat #27 escrito y chat nuevo abierto; leccion 4 de heredoc apuntada | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Informe 028 3.4: tests/test_esperando_prueba.py cubre de punta a punta los puntos 14, 21 y 26 con el arnes real (1.28.2, 365 pruebas en verde); sin commitear | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Revision de indices de IA: ruta de CARTA_META_ARNES.md corregida en CLAUDE.md, 4 hallazgos descartados, informe limpio | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Subidos a GitHub 23 commits (27ecd4f..df98d40), sin secretos, pruebas en verde | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Darwin prueba y confirma los puntos 14 y 26; pasan a archive/hechos.md y salen de pendientes | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Arnes 1.28.3: la prueba nueva de 1.28.2 se repartia y fallaba en proyectos; renombrada a test_arnes_esperando_prueba y retirada de Modelo 2 | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Darwin prueba traspaso-in/out en Codex y Gemini (F:/Modelo, 1.28.3): punto 13 cerrado, pasa a hechos | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Darwin confirma el punto 28 (ya probado con Claude); pasa a hechos y sale de pendientes | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Punto 28 reabierto: Modelo #59 probo y el guardian no bloquea git push con libreria vulnerable instalada en un .venv (version_instalada usa el Python del hook); vuelve a Falta programar | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | Arnes 1.28.4 (spec 029): el guardian eventos_chat ve las librerias del .venv (venv, version fijada, Python del hook) y avisa si no encuentra version; probado con .venv real y hook real contra OSV (django 3.2 detiene el push); punto 28 vuelve a esperando prueba | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #27) | F:/Modelo 2 actualizado a 1.28.4 (guardian ve el .venv); pruebas del proyecto en verde; falta que Darwin reinicie Claude Code alli y repita la prueba del punto 28 | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.5 (spec 030): eventos_chat olvida lo no instalado (desinstalada u orden detenida) y 2>&1 ya no cuenta como libreria; probado con .venv real, 373 pruebas en verde; Modelo 2 aun sin actualizar | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Pagina publica actualizada en copia aparte (_cv_pagina, rama gh-pages): guardianes eventos_chat y hitos, 3 skills, 29 skills es/en; sin publicar; CLAUDE.md y memoria apuntan a gh-pages | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Subido a GitHub por orden de Darwin: main (410c99f, 1.28.5, 12 commits) y gh-pages (84a7d4a, pagina al dia) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.6 (spec 031, punto 33): el aviso de cierre solo cuenta lo que el chat edito con Edit/Write; lo que trae /actualizar ya no se le atribuye; 376 pruebas en verde; punto 33 a esperando prueba | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Arnes 1.28.7: hitos.py reconoce lecciones.py lanzado con PowerShell (hallazgo de Modelo #61); prueba nueva; 377 pruebas en verde. Verificado en GitHub: commit 439b298 de Modelo-2 solo lleva 7 archivos de .brain (prueba 21 sigue esperando confirmacion de Darwin) | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #28) | Punto 21 probado por Darwin (traspaso-out salgo con remoto) y pasado a hechos | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Modelo 2 actualizado a 1.28.7 (hitos.py y test_hitos.py pisados con copia de seguridad; 14 skills de Codex en .agents intactas). Sin subir a GitHub. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Punto 17 (Mac) sale de pendientes y pasa a hechos marcado SIN PROBAR; el codigo y las notas 'sin probar' se quedan. No cambia lo que llega a los proyectos. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Arnes 1.28.8: actualizar_arnes.py respeta el Python del venv entre comillas al completar hooks (hallado en LoboHook). Prueba nueva, 378 en verde. Sin subir a GitHub. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Prueba 20 (chat nuevo solo) del primer intento sin valor: otro traspaso pendiente de un chat de prueba bloqueo el hueco; Darwin decide dejar el arnes como esta. Sigue esperando repeticion. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Punto 33 probado por Darwin en LoboHook (sin aviso de cierre tras /actualizar); pasa a hechos. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Informe 032 de medicion real (Modelo 2, LoboHook, cerebro-vivo): ritual del arnes 16-18% del coste, arranque solo 5-9%. Solo lectura, sin cambios en el arnes. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #29) | Traspaso #29 a #30 escrito (corto y completo) por chat de 224k. | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.0: cierre por bloque (spec 033), medir.py --ritual, análisis de fusión de skills (spec 034); 386 pruebas en verde | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Arnés 1.29.1: traspaso-out remite a traspaso-in (spec 034 paso 1 parcial); skills no quitadas por estar citadas en instalador, textos y pruebas | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Corrección: revertido el cambio de traspaso-out (1.29.1); fusión de skills descartada por Darwin (spec 034); arnés vuelve a 1.29.0 | Fast-Track
+2026-11-08 | Claude (cerebro-vivo #30) | Punto 20 (chat nuevo solo) probado por Darwin en Modelo 2 (#62 a #63) y pasado a hechos | Fast-Track
+2026-11-08 | Guardián (poda automática) | Poda de memoria: archivadas 1 specs/fichas terminadas (spec 048) | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #31) | Arnés 1.29.1: arranque.py guarda registro de tiempos y la pila si pasa de 8 s (cortes de 20 s en Modelo 2); informe ODD/Gentle Shell; pruebas 388 OK; sin subir | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Arnés 1.29.2: poda.py y revisar_indices.py ya no recorren vendor/outputs/dist/build/env; arranque de Modelo 2 pasa de 6-36 s a 1,3 s. Modelo 2 actualizado | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Punto 36 (resume test) y 37 (experimento CV contra ODD) anotados; creado vmware-automatizacion con el arnés 1.29.2 instalado y comprobado | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | vmware-automatizacion: commit de cimientos, ramas A y B creadas, Codex instalado como aprobador (AGENTS.md, aprobador.py) y probado con 3 specs de ejemplo | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #32) | Rama B configurada con flujo ODD (fix 6109c19), traspaso #32 a #33 escrito y chat #33 abierto y separado para llevar el experimento mientras Darwin esta fuera | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware: encargo identico en experimento/encargo.md (master 7d8424c), pasado a rama A (ff) y rama B (merge, habia divergido); chats de rama NO abiertos: la app rechaza start_session en un chat nacido de otro chat | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware: informe ronda 1 en .brain/archive/informe-experimento-vmware-ronda1-2026-11-09.md; aprobador con tope de tiempo y reintento; ronda 2 abierta (ramas exp2-*, chats ronda2-a y ronda2-b) | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware ronda 2 terminada: A 7/7 y B 7/7, coste A 481k vs B 372k; informe en .brain/archive/informe-experimento-vmware-ronda2-2026-11-09.md; causa de cuelgues (stdin) corregida | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #33) | experimento VMware ronda 3 lanzada (3 ramas, modulo Redes), aclaracion del check 1 del aprobador; traspaso a #34 | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 3 terminada: medido, seguridad igual en las tres (C>B>A) e informe en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 4 lanzada: 4 ramas (A Cerebro, B ODD, C ODD+seg, D Cerebro+seg), modulo Discos, encargo en vmware-automatizacion/experimento/encargo-ronda4.md | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | experimento VMware ronda 4 terminada: medido, seguridad igual en las 4 (C~D > A~B) e informe en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | arnes 1.30.0: skill seguridad-en-sistemas-reales (es/en) desde las rondas 3 y 4 del experimento VMware | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #34) | informe final del experimento VMware (rondas 1-4) con conclusiones por niveles en archive | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #35) | ronda 5 del experimento VMware (mover disco, C y D) y cierre del punto 37 con conclusion final | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #35) | arnes 1.30.1 (via rapida) y pagina gh-pages ampliada: 21 guardianes con detalle, mapa del cerebro, coste, experimento VMware y via rapida, en es/en; sin subir | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #36) | subido a GitHub por orden de Darwin: main (5c39274, arnes 1.30.1 + experimento VMware). Pagina gh-pages: commit pendiente (el guardian de secretos no corre en su carpeta)
+2026-11-09 | Claude (cerebro-vivo #36) | punto 4 (banco T1-T3 con 1.29.0) descartado por Darwin; sustituido por medir.py --ritual (punto 35); movido a archive/hechos.md
+2026-11-09 | Claude (cerebro-vivo #36) | spec 035 (fabrica de IA con directora y varias IA, punto 19) redactada en borrador tras investigar Codex, Sonnet 5.5 y el video de un autor externo; pendiente de aprobacion de Darwin
+2026-11-09 | Claude (cerebro-vivo #36) | spec 035 en marcha: proyecto de prueba F:\Proyectos Antigravity\wow-addon-chat (addon CopyChatLB, WoW Forever). Encargo 1 y 1b hechos por Codex Luna alto (~63k + ~49k tokens), revisor independiente devolvio el 1; falta prueba de Darwin en el juego y encargo 2 (R6, R8, R9)
+2026-11-09 | Claude (cerebro-vivo #37) | CopyChatLB descartado (ya existe): proyecto archivado en Wow pruebas, paso previo ¿ya existe? en spec 035 y leccion | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica: modulo iconos de clase en GuildControlForever (spec aprobada, ejecutora + revisor + correccion); sin commit, sin probar en el juego; pagina gh-pages: reconstruida la build atascada | Fast-Track
+2026-11-09 | Claude (cerebro-vivo #37) | Prueba de fabrica cerrada con exito: modulo iconos de clase aprobado por Darwin en el juego (directora + ejecutora + revisor + correccion, sin Codex) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #37) | Spec 035 (fabrica de IA) aprobada por Darwin con los resultados de las pruebas; pendiente 19 actualizado; sin commit ni subida | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #37) | Prueba 3 de la fabrica preparada: prototipo alcance.py con 6 pruebas (.brain/fabrica/), mini-spec posicion vertical en GuildControlForever; falta aprobacion de Darwin; sin commit | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Prueba 3 de la fabrica: Codex Luna acabo, alcance.py OK, LuaJIT y 295 pruebas OK; falta que Darwin pruebe el deslizador | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Prueba 3 aprobada por Darwin en el juego (deslizador mueve el icono al instante) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Spec 035: respuestas 1 y 4 aprobadas por Darwin (directora Opus medio por proyecto, topes de Codex, reglas reducidas para Codex) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Pagina publica: capitulo 17 La fabrica de IA (es/en), glosario, fecha; subida a gh-pages (c8baa85) por orden de Darwin; comprobar_idiomas OK | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Corregido (pagina y spec 035): traspasos en Codex/Gemini ya probados por Darwin el 8-nov; prueba pendiente = aviso de ventana llena y chat nuevo de Codex | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Pagina: capitulo fabrica revisado contra codigo, spec y registros (diseno vs construido; traspasos Codex/Gemini exactos); subido a gh-pages | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #38) | Traspaso al #39 escrito; lecciones anotadas | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 1: plantillas de la fabrica (carta, roles, puertas, encargo, evidencia, huecos, carta de ejecutora) es/en; arnes 1.31.0; 390 pruebas OK; sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 2: guardian fabrica.py (congelar spec, sellar carta, alcance del encargo, gasto, topes, dos fallos) es/en; arnes 1.32.0; prototipo alcance.py archivado; 407 pruebas OK; sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Spec 035 fase 3: skills directora-de-fabrica y revisor-independiente (es/en) y regla 7 (R9) en seguridad-en-sistemas-reales; arnes 1.33.0; 407 pruebas OK; commit local, sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #39) | Quitado el paso previo 'ya existe el producto' (era puntual del addon WoW) de skill, plantillas, spec 035 y leccion; arnes 1.33.1; 407 pruebas OK; commit local | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #41) | Prueba R13 TraductorVoz: encargo 001 commiteado, encargos 002-006 hechos por Codex Luna, revisados (revisor independiente: apto con reparos, reparos hechos en el 006) y mezclados en tres-capas (40 pruebas verdes, 510k tokens de Codex). Falta audio de Darwin (R5) y su prueba de la ventana. Movidas 5 carpetas de F: a Proyectos Antigravity, memoria copiada | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Audio alemán de Darwin probado: idioma ok, hablantes no se separan (hueco). Evidencia en TraductorVoz-notas y pendiente 39 de investigar solución | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Prueba de 5 min de TraductorVoz (rama tres-capas, iniciar.bat) hecha por Darwin con aleman, frances y chino; sin fallos comunicados. Falta confirmar el detalle (atajos, pausa) si Darwin lo da; sigue opcion B del punto 19 | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Creado diario de la prueba R13 en .brain/archive/diario-fabrica-r13.md (materia para la pagina, en lenguaje llano) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Prueba B de la fabrica: relevo de Codex funciono, aviso de ventana llena no concluyente; anotado en pendiente 19 y diario | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Encargo 007 de TraductorVoz cerrado y mezclado en tres-capas (local); diario y pendiente 19 actualizados | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Pendiente 19: prueba de ventana llena de Codex cerrada con matiz por decision de Darwin (relevo probado, aviso en vivo no; sin vigilante); pasada a hechos 19-B | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #42) | Informe final de la prueba R13 escrito (archive/informe-r13-traductorvoz-2026-11-10.md); pendiente 19 reducido al medidor de gasto | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #43) | medidor de gasto de Codex (medir.py --fabrica, arnés 1.34.0), lecciones de método troceadas en 4 temas, capítulo de la fábrica de la página actualizado con R13 (sin commitear ni subir) | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #43) | tope de 200k de Codex anotado como riesgo aceptado (cubierto por encargos pequeños, sin medición en vivo) en hechos 19-B y pendiente 19 | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #43) | pagina publica (gh-pages e6d295a): capitulo de la fabrica con R13, datos revisados contra informe y diario, subida por orden de Darwin; main sigue sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #43) | pagina al dia con 1.34.0 y Presentar privada (gh-pages 524bfd9 local, sin subir; copia en _cv_pagina_privada); traspaso al #44 escrito | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #44) | un autor externo pasa de Reconocimiento a Fuentes (arnes 1.34.1, README, manual y pagina); sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #44) | Fuentes: anadidos Stanford Meta-Harness y Databricks Omnigent (arnes 1.34.2); sin subir | Fast-Track
+2026-11-10 | Claude (cerebro-vivo #44) | Fast-Track pasa a Cambio pequeno / Small change (arnes 1.35.0); sin subir | Cambio pequeño
+2026-11-10 | Claude (cerebro-vivo #44) | Hook pre-commit de secretos arreglado para worktrees (punto 38, arnes 1.35.1); prueba nueva; sin subir | Cambio pequeño
+2026-11-10 | Claude (cerebro-vivo #44) | Punto 25 actualizado: hecho lo de fuentes y Cambio pequeno; quedan dos decisiones de Darwin; sin subir | Cambio pequeño
+2026-11-10 | Claude (cerebro-vivo #44) | Fuentes ampliadas con ADR (Nygard, Fowler, Microsoft, Red Hat, AWS) y Spec Kit (arnes 1.35.2); sin subir | Cambio pequeño
+2026-11-10 | Claude (cerebro-vivo #45) | Fuentes de constitucion: GitHub/Microsoft spec-kit (agosto 2025), spec-driven.md y blog Delimarsky; arnes 1.35.3, pagina al dia | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Punto 25 cerrado en pendientes: autores completos, sin renombres | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Punto 30: avisos de guardianes con como arreglar (analisis, base de datos, pruebas, secretos); arnes 1.35.4 | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Quitadas las menciones de los videos de un autor externo (skill fabrica y spec 035); solo queda la bibliografia; arnes 1.35.5 | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Fuentes de fabrica: Cusumano 1991 y Greenfield y Short 2004; arnes 1.35.6; fabrica no se renombra | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Pendiente 40: resumen de la bibliografia para Darwin | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Specs 036, 037 y 038 (puntos 32, 29 y 31) en borrador, a aprobar por Darwin | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #45) | Specs 036, 037 y 038 programadas (puntos 32, 29, 31): librerias npm/cargo/go, memoria desactualizada, aviso repetido apagado y tokens por tarea; arnes 1.36.0 | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Subido main a GitHub (arnes 1.36.0), commit 0d802a6; pruebas 424 OK
+2026-11-11 | Claude (cerebro-vivo #46) | Punto 39 (TraductorVoz) sacado de pendientes por orden de Darwin: ya no es de este proyecto; texto movido a archive/pendientes-detalle-2026-11-11.md. PDF del punto 40 en notas-chats (sin enviar) | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Spec 039 aprobada y programada (punto 22): workflow de GitHub Actions en Ubuntu y Windows; pruebas locales 424 OK; sin ejecutar en GitHub, sin subir | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Primera ejecucion en GitHub Actions: Windows OK, Ubuntu 1 fallo real (hook pre-commit de secretos sin permiso de ejecucion). Arreglado en 1.36.1; 424 pruebas locales OK; commit local, sin subir | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Constitucion: cita rota de la regla 10 corregida (lecciones/metodo-scripts-y-heredocs.md) por orden de Darwin; main 1.36.1 subido, Actions verde en Ubuntu y Windows; sin subir este cambio | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Spec 040 programada (arnes 1.37.0): /fabrica si|no|estado, modo fabrica recordado entre chats y linea en el arranque; 429 pruebas OK; commit local, sin subir; falta prueba real | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Refinado /fabrica si (arnes 1.37.1): abre solo el chat de la directora (traspaso + start_session + detach_session), tras la prueba real de Darwin en TraductorVoz; solo skill es/en; 429 pruebas OK; commit local, sin subir | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #46) | Arreglo 1.37.2: fabrica.py ya no falla con consola cp1252 (emoji), hallado por la directora de TraductorVoz; con prueba; 430 pruebas OK; commit local, sin subir | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.37.3: skill directora-de-fabrica (es/en) con el paso de lanzar Codex por codex exec. 430 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.37.4: la directora lanza Codex sin pedir permiso en cada encargo. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Punto 41 cerrado: /fabrica y Codex por codex exec probados por Darwin en GuildControl y TraductorVoz. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.0: la carta elige la IA obrera (Codex/Claude/la decide la directora) y la skill sabe lanzar Claude. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.38.1: revisor por defecto = subagente de solo lectura. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.39.0: skill revisor-de-consumo (es/en) y presupuesto de recursos en la spec. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-11 | Claude (cerebro-vivo #47) | Arnés 1.39.1: directora nueva con Opus medio y nombre directora #N. Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #47) | Punto 40 cerrado por orden de Darwin (resumen de Fuentes no escrito). Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.0: medir.py --fabrica enseña el gasto de la directora (punto 19); cerrado el punto 25. 431 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.1: punto 30, 18 avisos de guardianes dicen cómo arreglarlo (es/en). 431 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #47) | Arnés 1.40.2: punto 37-b, test_soporte_mac se salta fuera del repo del arnés (CRLF de Windows). Pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #48) | Punto 29 comprobado (constitucion sin rutas rotas); sube a GitHub la 1.40.2 (be86cbf y anteriores) por orden de Darwin
+2026-11-12 | Claude (cerebro-vivo #48) | Punto 22 probado por Darwin: GitHub Actions en verde (Ubuntu y Windows, commit b855a76); leccion del traspaso ya archivado
+2026-11-12 | Claude (cerebro-vivo #48) | /trocea: lecciones/arnes.md (19 lecciones) dividido en 4 temas (traspaso, fabrica, pruebas, heredocs); original en archive/troceado
+2026-11-12 | Claude (cerebro-vivo #48) | Punto 32 cerrado: prueba real contra OSV.dev con proyecto de juguete detecta npm, cargo y go; web actualizada (gh-pages 40d38c5); 2 lecciones
+2026-11-12 | Claude (cerebro-vivo #48) | Arnes 1.41.0: punto 36 (spec 041) prueba de retomar como segundo criterio del cierre; 431 pruebas OK; sin subir
+2026-11-12 | Claude (cerebro-vivo #48) | Arnes 1.42.0: spec 042 programada (/colabora, indices_ajenos, Gemini obrera sin probar); spec 043 aprobada, sin programar; 444 pruebas OK; sin subir
+2026-11-12 | Claude (cerebro-vivo #49) | Subida a GitHub de la 1.42.0 (commits 31b9a14 y 2362673, pruebas 444 en verde); el punto de prueba de la 042 pasa de 38 a 42 porque el 38 ya era un hecho | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #49) | Arnes 1.43.0: spec 043 programada (hermanos.py, proyectos_hermanos, plantillas PORTAR y HALLAZGOS, skill hermanos es/en, 11 pruebas con repos de juguete); arreglo: IAS_COLABORATIVAS no se repartia; 455 pruebas en verde, sin subir | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #49) | Subida a GitHub de la 1.43.0 (commit 9963bfd, 455 pruebas en verde) | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #49) | Punto 19 terminado: ya no queda nada por programar; su detalle pasa a archive/hechos.md y su fila a hechos-indice.md; lo que espera prueba sigue en 31, 42 y 43 | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #49) | Spec 044 (auditor) reescrita con las decisiones de Darwin y prueba de fallos plantados ronda 1: Sonnet, Opus y Codex gpt-6-sol hallan 11 de 11, la prueba no distingue; informe en archive/informe-prueba-auditor-2026-11-12.md | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Ronda 2 de la prueba del auditor preparada en .brain/archive/prueba-auditor-ronda2/ (proyecto caja v2 con 11 fallos sutiles, clave e instruccion); sin ejecutar con auditores aun | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Ronda 2 de la prueba del auditor ejecutada: Sonnet 11/11, Opus 11/11, Codex 9/11 (sin poder ejecutar python); informe en archive/prueba-auditor-ronda2/INFORME.md | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Codex ya puede ejecutar python como auditor: lanzar con -c windows.sandbox=unelevated (probado, sigue sin poder escribir); anotado en spec 044 | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Ronda 2 repetida con Codex ya ejecutando python: 10/11, 7 reproducidos (único que reprodujo la carrera de folios); informe actualizado | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Spec 044 reescrita con el reparto de ejecutores (Codex+Sonnet en general y cierre de spec, Sonnet solo en cierres rutinarios; Opus no) y los resultados de las dos rondas; sigue pendiente de aprobacion de Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Spec 044 aprobada y programada (arnes 1.44.0): auditor.py, skill /auditor es/en, plantilla de informe, aviso en cierre.py, 23 pruebas nuevas; suite 478 en verde; sin probar con la IA en un trabajo real ni subir a GitHub | Cambio pequeño
+2026-11-12 | Guardián (poda automática) | Poda de memoria: archivadas 2 specs/fichas terminadas (spec 048) | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #50) | Primera prueba real del auditor sobre la 044 (Sonnet + Codex): 14 hallazgos casi sin solaparse, sin corregir; informe en archive/informe-auditor-sobre-044-2026-11-12.md; traspaso escrito para el #51 | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Corregidos los hallazgos del auditor (1.44.1 y 1.44.2) y relanzados Sonnet+Codex: 499 pruebas OK; commit local, sin subir | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Aviso del auditor con apagado si se repite (1.44.3), probado con el hook Stop real; 500 pruebas | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #51) | Pagina publica al dia con el arnes 1.44.3 (capitulo nuevo, 25 guardianes, 37 skills, comandos, glosario) y subida a gh-pages por orden de Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Subido main a GitHub (6 commits, hasta 9a103de, arnes 1.44.3, 500 pruebas OK, secretos limpio). Punto 23 ya estaba en Esperando tu prueba. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.4: 4 pruebas del metodo (3 auditor, 1 colabora) se saltan fuera del repo del arnes; falla vista al actualizar LoboHook. 500 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.4 corregido de raiz (sustituye la linea anterior, que decia 'se saltan'): las 4 pruebas se mudaron a tests/test_arnes_reparto.py, que no se reparte, con prueba que vigila que no entre al manifiesto; sin pruebas saltadas ni 4 en rojo en proyectos (simulado sin manifiesto.json, no probado en LoboHook). 501 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Constitucion regla 11: un parche se llama parche (pedido por Darwin); solo en la constitucion de este repo, no en la plantilla de los proyectos. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Regla 12 'un parche se llama parche' en la plantilla de constitucion es/en, dentro de la 1.44.4 (aun sin repartir). 501 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.5: la directora lanza Codex con Luna a esfuerzo maximo (-m gpt-6-luna -c model_reasoning_effort=max, tope 1800 s), skill es/en. Opciones del comando comprobadas con --help; sin probar en un encargo real. 501 pruebas OK. Sin subir. | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #52) | Arnes 1.44.6: la directora de fabrica se separa sola del chat que la abre (paso 0 en directora-de-fabrica + frase en el encargo de /fabrica si, es/en). Sin probar con una directora real. Pruebas OK. Sin subir (1.44.5 y 1.44.6). | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #53) | Arnes 1.44.7: quitada una fuente externa de README, manual, pagina y registros; historial de git reescrito sin esas menciones (respaldo en bundle fuera del repo). Pendientes 44-49 (ideas de un gist de Karpathy y diapositivas) apuntados | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #53) | Arnes 1.45.0: /diapositivas (spec 045, punto 49): script diapositivas.py, skill es/en, plantilla es/en, modo doc con indice y comprobacion; 526 pruebas en verde; visor probado en navegador; sin probar por Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #16) | Ejemplo de diapositivas (.brain/diapositivas/2026-11-12-ejemplo.md) y respuesta sobre gráficos desde Markdown; sin cambios al arnés | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #16) | Spec 046 v2 (borrador): diagramas completos en /diapositivas con subconjunto Mermaid, en 5 fases; esperando aprobación de Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #16) | Spec 047 (borrador): vídeo de las diapositivas reutilizando la técnica del Estudio de video de LoboHook; esperando aprobación de Darwin | Cambio pequeño
+2026-11-12 | Claude (cerebro-vivo #16) | Arnés 1.46.0: diagramas Mermaid (flowchart y sequenceDiagram) como SVG en /diapositivas (spec 046 fase 1); diagramas.py nuevo, textos es/en, skill, plantilla, manual, pruebas; sin probar por Darwin | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Limpieza: indices revisados (1 aviso falso descartado: colaboracion.md se crea con /colabora), archivo de lecciones al 82% del tope, no hace falta trocear | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Arnes 1.46.1: la secuencia ya no se agranda (max-width del SVG); el titulo cortado en movil era un artefacto de la captura (Edge headless no baja de ~500 px), no un fallo | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Pendiente 50 cerrado: Darwin probo los diagramas (basicos pero sirven); pasado a hechos | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Pendientes 51 (diagramas fases 2-5) y 52 (video, spec 047) anotados como aparcados | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Arnes 1.46.2: subvinetas en /diapositivas (sangria de 2 espacios, 3 niveles), 3 pruebas, plantilla y skill es/en; indice de la carta con subvinetas | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Pendiente 49 cerrado: Darwin probo /diapositivas (resumen y carta en modo documento); pasado a hechos; la nota de la pagina publica queda como pendiente 53 | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #17) | Pendiente 29 cerrado: Darwin probo revisar_indices.py (sin hallazgos); pasado a hechos | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | pendiente 30: ejemplo de prueba corregido (fabrica.py verificar) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.3: fabrica.py alcance avisa en llano si el encargo no existe (con prueba) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.4: hitos.py solo cuenta error resuelto si vuelve a funcionar el mismo comando (opcion 2 elegida por Darwin; con 2 pruebas) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.5: hitos.py solo cuenta fallos con marcas precisas y solo en consola (3 pruebas) | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | decision hablada con Darwin: pendiente 36 abierto hasta 2026-11-27 (opcion A); medicion a mano ese dia porque la tarea programada fue bloqueada por el sistema | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #18) | arnes 1.46.6: Gemini retirada como ejecutora de la fabrica (decision de Darwin: Google cerro el comando personal y no quiere pagar); pendiente 54 eliminado | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 probado con proyectos reales: hermanos configurado en Retail mirando a Forever (portar-forever.md, ultimo portado 51514c8); el aviso sale: 35 commits sin portar. Solo se tocaron guardianes.json y .brain/portar-forever.md de Retail | Cambio pequeño
+2026-11-13 | Claude (cerebro-vivo #19) | Pendiente 43 confirmado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.47.0: pendiente 48, tipo fijo en cada linea nueva de decisions.log (cerrar.py --tipo; auto y guardian para los guardianes; lineas antiguas sin tocar; 552 pruebas en verde) | Cambio pequeño
+2026-11-13 | leccion | Claude (cerebro-vivo #19) | prueba del tipo | Cambio pequeño
+2026-11-13 | pendiente | Claude (cerebro-vivo #19) | Pendiente 48 confirmado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.48.0: pendiente 47, aviso de efecto en cadena al cerrar (cadenas en guardianes.json, solo avisa; 558 pruebas en verde) | Cambio pequeño
+2026-11-13 | spec | Claude (cerebro-vivo #19) | Spec 043: estado al dia (prueba real confirmada por Darwin); sirve de prueba real del aviso en cadena del pendiente 47 | Cambio pequeño
+2026-11-13 | pendiente | Claude (cerebro-vivo #19) | Pendiente 47 confirmado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-13 | arnes | Claude (cerebro-vivo #19) | arnes 1.49.0: pendiente 45, respuestas guardadas (respuestas.py y skill guardar-respuesta es/en; 564 pruebas en verde) | Cambio pequeño
+2026-11-13 | memoria | Claude (cerebro-vivo #19) | Traspaso del chat 19 al 20 escrito; leccion de claves literales en textos.py | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Pendiente 45 (respuestas guardadas) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Spec 048 (revision de contenido de .brain, pendiente 44) escrita en borrador | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Spec 048: la refutacion la hace otra IA sin el contexto de la primera (decision de Darwin) | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Arnes 1.50.0: revision de contenido de .brain (spec 048, pendiente 44) programada, 582 pruebas OK, falta prueba de Darwin | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Leccion de 1.50.0 anotada; manual CEREBRO_VIVO es/en ya describe revisar_contenido; auditor de cierre no lanzado | Cambio pequeño
+2026-11-13 | otro | Claude (cerebro-vivo #20) | Revision de contenido real hecha: guardian arreglado (1.50.1: lee decisions.log, CAMBIOS e informe NNN), informe 032 enlazado desde spec 033, revision anotada | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 44 (revision de contenido) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Spec 049 (busqueda local en .brain, pendiente 46) escrita en borrador | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Arnes 1.51.0: busqueda local en la memoria (spec 049, pendiente 46) programada, 594 pruebas OK, falta prueba de Darwin | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 46 (busqueda local en la memoria) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Leccion de la puntuacion de buscar.py anotada | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 53: Karpathy anadido a las Fuentes de la pagina (gh-pages, local sin commit); falta contenido 1.45-1.51 y version | Cambio pequeño
+2026-11-14 | pendiente | Claude (cerebro-vivo #21) | Pendiente 53: pagina publica actualizada en local a 1.51.0 (capitulo c20, guardianes y skills nuevos, contadores 30/41/594, es/en); sin commit ni subir | Cambio pequeño
+2026-11-14 | arnes | Claude (cerebro-vivo #21) | Subidos a GitHub 40 commits de main (524551f..cb83792, arnes 1.51.0); secretos sin avisos, 594 pruebas en verde | Cambio pequeño

@@ -5,10 +5,13 @@
 | Tema | Lecciones |
 | :--- | :---: |
 | [arnes-fabrica](arnes-fabrica.md) | 7 |
+| [arnes-guardianes-nuevos](arnes-guardianes-nuevos.md) | 7 |
 | [arnes-heredocs](arnes-heredocs.md) | 3 |
-| [arnes-pruebas-y-manifiesto](arnes-pruebas-y-manifiesto.md) | 21 |
+| [arnes-pagina-publica](arnes-pagina-publica.md) | 3 |
+| [arnes-pruebas-y-manifiesto](arnes-pruebas-y-manifiesto.md) | 11 |
 | [arnes-traspaso-y-arranque](arnes-traspaso-y-arranque.md) | 6 |
 | [metodo-experimento-vmware](metodo-experimento-vmware.md) | 6 |
 | [metodo-guardianes-y-pruebas](metodo-guardianes-y-pruebas.md) | 12 |
+| [metodo-herramientas-y-rutas](metodo-herramientas-y-rutas.md) | 4 |
 | [metodo-investigacion-y-rutas](metodo-investigacion-y-rutas.md) | 7 |
-| [metodo-scripts-y-heredocs](metodo-scripts-y-heredocs.md) | 17 |
+| [metodo-scripts-y-heredocs](metodo-scripts-y-heredocs.md) | 13 |
