@@ -328,3 +328,7 @@
 2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 44 (revision de contenido) probado por Darwin y pasado a hechos | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #20) | Spec 049 (busqueda local en .brain, pendiente 46) escrita en borrador | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #20) | Arnes 1.51.0: busqueda local en la memoria (spec 049, pendiente 46) programada, 594 pruebas OK, falta prueba de Darwin | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 46 (busqueda local en la memoria) probado por Darwin y pasado a hechos | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Leccion de la puntuacion de buscar.py anotada | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #20) | Pendiente 53: Karpathy anadido a las Fuentes de la pagina (gh-pages, local sin commit); falta contenido 1.45-1.51 y version | Cambio pequeño
+2026-11-14 | pendiente | Claude (cerebro-vivo #21) | Pendiente 53: pagina publica actualizada en local a 1.51.0 (capitulo c20, guardianes y skills nuevos, contadores 30/41/594, es/en); sin commit ni subir | Cambio pequeño

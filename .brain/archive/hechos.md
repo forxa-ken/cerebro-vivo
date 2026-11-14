@@ -170,3 +170,7 @@ Cerrado por orden de Darwin. Hecho en el arnés 1.34.1 a 1.35.3; Darwin decidió
 ## 44 · Revisión de contenido de `.brain/` (spec 048, arnés 1.50.1) — PROBADO
 
 26-11-14: pasada real sobre este repo: el guardián dio 4 specs huérfanas; un subagente sin contexto intentó refutarlas y halló que el guardián no leía `decisions.log`, `CAMBIOS.md` ni «informe NNN» (arreglado en 1.50.1; el informe 032 se enlazó desde la spec 033). Darwin confirma («44 probado»). **Límite:** las reglas de frases desfasadas y de topes contradictorios solo están probadas con carpetas de juguete; en este repo no dieron ningún hallazgo real, y el segundo juez de otra IA no se ha usado.
+
+## 46 · Búsqueda local en la memoria (spec 049, arnés 1.51.0) — PROBADO
+
+26-11-14: Darwin lanzó `python .brain/guardianes/buscar.py heredoc`: salieron primero las dos lecciones de heredocs, con título y líneas. Darwin confirma («46 probado»). **Límite:** la puntuación es simple; «tope de bytes» no devolvió la mejor respuesta primero. El índice solo se construirá si la memoria pasa de ~5 MB o la búsqueda tarda más de 1 s.

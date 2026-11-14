@@ -12,10 +12,9 @@ Lista viva de **lo que falta**. Una línea por punto. **Numeración fija** (los 
 
 - **51:** (spec 046, fases 2 a 5; aparcado por Darwin, 2026-11-13: «un poco básicos pero sirven») más tipos de diagrama en `/diapositivas`: clases y estados, tarta/barras/líneas, ER, Gantt. Se aprueban de una en una cuando Darwin lo pida. Textos es/en.
 - **52:** (spec 047, borrador; aparcado por Darwin, 2026-11-13) vídeo de las diapositivas: grabar un lienzo a `.webm` (técnica del Estudio de video de LoboHook, sin copiar código) con voz Kokoro. Esperando la aprobación de la spec antes de programar nada.
-- **53:** (viene del cierre del 49; subir solo con orden de Darwin) cuando se cierren los puntos 44 a 48, añadir a Karpathy, Andrej, *LLM Wiki* (gist, 4-4-2026) a las «Fuentes» del pie de la página pública (`top.h5` de `idiomas.js` es/en y `index.html`, rama `gh-pages`) y poner la versión actual del arnés.
+- **53:** página pública (rama `gh-pages`, carpeta `../_cv_pagina`; subir solo con orden de Darwin). **Hecho en local, sin commit ni subir (2026-11-14):** Karpathy en las «Fuentes» y contenido de 1.45 a 1.51 dentro (capítulo nuevo `c20` «Lo nuevo de las versiones 1.45 a 1.51», 5 guardianes y 4 skills nuevos en sus fichas, 4 comandos, carpeta `respuestas/`, contadores 30 guardianes / 41 skills / 594 pruebas, versión 1.51.0), todo es/en; `comprobar_idiomas.py` en verde. Copia de seguridad previa en `../_cv_bak`. **Falta:** que Darwin vea la página en el navegador (no se pudo abrir con JavaScript desde aquí), y su orden para commitear en `gh-pages` y subirla.
 
 ## Esperando tu prueba (Darwin)
 
-- **46:** búsqueda local en la memoria (spec 049, arnés 1.51.0, skill `/buscar-en-la-memoria`). Prueba: pídeme algo que ya esté apuntado («¿ya teníamos algo sobre heredocs?») o lanza `python .brain/guardianes/buscar.py heredoc`: deben salir primero las lecciones de heredocs, con sus líneas. **Sin probar por Darwin.**
 
 ## Acciones tuyas
