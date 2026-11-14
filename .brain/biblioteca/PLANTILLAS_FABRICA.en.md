@@ -126,3 +126,25 @@ File `.brain/fabrica/evidencia/REQ-n.md`, written by **an AI different from the 
 - Not tested: <what an AI cannot judge, or "nothing" with the reason> (never empty)
 - Saved evidence: <paths inside .brain/fabrica/evidencia/, separated by commas>
 ```
+
+## 11. Delivery report and brakes (automatic mode, spec 050)
+
+**Delivery report:** file `.brain/fabrica/informe.md`, a plain page for Darwin. `fabrica.py informe` checks that all six sections are there and that **none is left empty without an explanation** (a "nothing" comes with its reason). With it Darwin decides once: accept or discard the branch.
+
+```markdown
+# Delivery report: <order>
+## What was asked
+- <the order and the "expected" criterion, in Darwin's words>
+## What was done
+- <what was built, per requirement>
+## Extras
+- <what appeared without being asked (reverted unless Darwin accepts it), or "nothing: reason">
+## Really tested
+- <what was tested in real use, who tested it and where the evidence is>
+## Not tested
+- <what no AI could judge or could not be run; goes to "Waiting for your test (Darwin)", or "nothing: reason">
+## Decisions the line made on its own
+- <each decision the line took without asking (names, order, conservative option on a small gap), or "nothing: reason">
+```
+
+**Brakes:** `fabrica.py frenos --encargo N` stops the assignment at **3 failures** or **30 minutes without progress** and leaves `.brain/fabrica/estado/parada-N.md` with where it stood. `foto` calls it by itself; `gasto` (no failure), `foto` and `entregar` note progress; `avance --encargo N --nota "…"` notes it by hand. Only Darwin resumes: `frenos --encargo N --reanudar`. The charter may change the caps with the lines `- auto_reintentos_max: 3` and `- auto_atasco_minutos: 30`.

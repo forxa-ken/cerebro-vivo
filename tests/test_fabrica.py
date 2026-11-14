@@ -518,6 +518,178 @@ class EntregarTest(unittest.TestCase):
         self.assertEqual(self.f.entregar("R1")[0], 1)
 
 
+class FrenosTest(unittest.TestCase):
+    """Spec 050, fase 5: tope de 3 fallos y de 30 minutos sin avance por encargo; solo Darwin reanuda."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.raiz = Path(self.tmp.name)
+        self.f = fabrica.Fabrica(self.raiz, {"idioma": "es"})
+        self.f.modo("si")
+        self.f.automatico("si")
+
+    def test_no_aplica_fuera_del_automatico(self):
+        self.f.automatico("no")
+        for _ in range(5):
+            self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 0)
+        self.assertEqual(self.f.avance("001")[0], 0)
+        self.assertFalse((self.raiz / ".brain" / "fabrica" / "estado" / "frenos.json").exists())
+
+    def test_tres_fallos_paran_y_dejan_informe(self):
+        self.f.gasto("001", 1, "x", fallo=True)
+        self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 0)
+        self.f.gasto("001", 1, "x", fallo=True)
+        codigo, lineas = self.f.frenos("001")
+        self.assertEqual(codigo, 1)
+        self.assertIn("3 fallos", lineas[0])
+        parada = self.raiz / ".brain" / "fabrica" / "estado" / "parada-001.md"
+        self.assertIn("Fallos desde el último arranque: 3", parada.read_text(encoding="utf-8"))
+        self.assertIn("parada-001.md", "\n".join(lineas))
+
+    def test_un_acierto_no_borra_los_fallos_pero_otro_encargo_no_cuenta(self):
+        for _ in range(2):
+            self.f.gasto("001", 1, "x", fallo=True)
+        self.f.gasto("001", 1, "x", fallo=False)
+        self.f.gasto("002", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 0)
+        self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 1)
+        self.assertEqual(self.f.frenos("002")[0], 0)
+
+    def test_atasco_a_los_30_minutos(self):
+        self.f.avance("001", "empezó", ahora=1000.0)
+        self.assertEqual(self.f.frenos("001", ahora=1000.0 + 29 * 60)[0], 0)
+        codigo, lineas = self.f.frenos("001", ahora=1000.0 + 30 * 60)
+        self.assertEqual(codigo, 1)
+        self.assertIn("30 minutos sin avance", lineas[0])
+        texto = (self.raiz / ".brain" / "fabrica" / "estado" / "parada-001.md").read_text(encoding="utf-8")
+        self.assertIn("empezó", texto)
+
+    def test_avance_reinicia_el_reloj(self):
+        self.f.avance("001", ahora=1000.0)
+        self.f.avance("001", ahora=1000.0 + 25 * 60)
+        self.assertEqual(self.f.frenos("001", ahora=1000.0 + 50 * 60)[0], 0)
+
+    def test_sin_marca_de_avance_no_hay_atasco(self):
+        self.assertEqual(self.f.frenos("001", ahora=10 ** 10)[0], 0)
+
+    def test_reanudar_pone_todo_a_cero(self):
+        for _ in range(3):
+            self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 1)
+        self.assertEqual(self.f.frenos("001", reanudar=True)[0], 0)
+        self.assertEqual(self.f.frenos("001")[0], 0)
+        for _ in range(3):
+            self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 1)
+
+    def test_la_carta_cambia_los_topes(self):
+        (self.raiz / ".brain" / "fabrica").mkdir(parents=True, exist_ok=True)
+        (self.raiz / ".brain" / "fabrica" / "carta.md").write_text("- auto_reintentos_max: 1\n- auto_atasco_minutos: 5\n", encoding="utf-8")
+        self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.frenos("001")[0], 1)
+        self.f.avance("002", ahora=0.0)
+        self.assertEqual(self.f.frenos("002", ahora=6 * 60.0)[0], 1)
+
+    def test_archivo_de_frenos_roto_no_tumba(self):
+        est = self.raiz / ".brain" / "fabrica" / "estado"
+        est.mkdir(parents=True, exist_ok=True)
+        (est / "frenos.json").write_text("[1, 2", encoding="utf-8")
+        self.assertEqual(self.f.frenos("001")[0], 0)
+        (est / "frenos.json").write_text("[1]", encoding="utf-8")
+        self.assertEqual(self.f.avance("001")[0], 0)
+
+    def test_foto_se_para_con_tres_fallos(self):
+        subprocess.run(["git", "-C", str(self.raiz), "init", "-q", "-b", "main"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(self.raiz), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q",
+                        "--allow-empty", "-m", "i"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(self.raiz), "checkout", "-q", "-b", "linea/x"], check=True, capture_output=True)
+        (self.raiz / ".brain" / "fabrica" / "esperado.md").write_text(ESPERADO_BUENO, encoding="utf-8")
+        self.assertEqual(self.f.foto(self.raiz, "001")[0], 0)
+        for _ in range(3):
+            self.f.gasto("001", 1, "x", fallo=True)
+        self.assertEqual(self.f.foto(self.raiz, "001")[0], 1)
+
+    def test_en_ingles(self):
+        f = fabrica.Fabrica(self.raiz, {"idioma": "en"})
+        for _ in range(3):
+            f.gasto("001", 1, "x", fallo=True)
+        self.assertIn("failures", f.frenos("001")[1][0])
+
+
+INFORME_BUENO = """# Informe de entrega: prueba
+## Lo pedido
+- Un comando que imprime OK con datos válidos
+## Lo hecho
+- El comando y su prueba, requisito R1
+## Lo extra
+- nada: no apareció nada fuera de lo pedido
+## Lo probado de verdad
+- Otra IA ejecutó el comando con casos buenos y malos; evidencia en R1/salida.txt
+## Lo no probado
+- nada: no hay aspecto visual que juzgar
+## Decisiones de la línea por su cuenta
+- Nombre del archivo elegido por la línea: datos.csv
+"""
+
+
+class InformeTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.raiz = Path(self.tmp.name)
+        self.f = fabrica.Fabrica(self.raiz, {"idioma": "es"})
+        self.ruta = self.raiz / ".brain" / "fabrica" / "informe.md"
+        self.ruta.parent.mkdir(parents=True)
+
+    def test_informe_completo_pasa_por_defecto_y_por_ruta(self):
+        self.ruta.write_text(INFORME_BUENO, encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 0)
+        otra = self.raiz / "otro.md"
+        otra.write_text(INFORME_BUENO, encoding="utf-8")
+        self.assertEqual(self.f.informe(otra)[0], 0)
+
+    def test_sin_archivo_falla(self):
+        self.assertEqual(self.f.informe()[0], 1)
+
+    def test_falta_una_seccion(self):
+        self.ruta.write_text(INFORME_BUENO.replace("## Lo no probado", "## Otra cosa"), encoding="utf-8")
+        codigo, lineas = self.f.informe()
+        self.assertEqual(codigo, 1)
+        self.assertIn("Lo no probado", lineas[0])
+
+    def test_seccion_vacia_o_con_plantilla_o_con_nada_a_secas(self):
+        self.ruta.write_text(INFORME_BUENO.replace("- nada: no hay aspecto visual que juzgar", ""), encoding="utf-8")
+        self.assertIn("Lo no probado", self.f.informe()[1][0])
+        self.ruta.write_text(INFORME_BUENO.replace("- nada: no hay aspecto visual que juzgar", "- <lista>"), encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 1)
+        self.ruta.write_text(INFORME_BUENO.replace("- nada: no hay aspecto visual que juzgar", "- nada"), encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 1)  # un «nada» sin motivo no vale
+
+    def test_en_ingles(self):
+        f = fabrica.Fabrica(self.raiz, {"idioma": "en"})
+        txt = ("# Report\n## What was asked\n- The order and its criterion\n## What was done\n- Built the command\n"
+               "## Extras\n- nothing: all asked\n## Really tested\n- Another AI ran it, evidence saved\n"
+               "## Not tested\n- nothing: no visuals\n## Decisions the line made on its own\n- File name chosen: data.csv\n")
+        self.ruta.write_text(txt, encoding="utf-8")
+        self.assertEqual(f.informe()[0], 0)
+        self.ruta.write_text(txt.replace("## Not tested", "## X"), encoding="utf-8")
+        self.assertIn("Not tested", f.informe()[1][0])
+
+    def test_la_plantilla_sin_rellenar_no_pasa_y_rellena_si(self):
+        txt = (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.md").read_text(encoding="utf-8")
+        bloque = txt.split("## 11.")[1].split("```markdown")[1].split("```")[0]
+        self.ruta.write_text(bloque, encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 1)  # todo son <…>
+        txt_en = (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.en.md").read_text(encoding="utf-8")
+        for es, en in fabrica.Fabrica.INFORME:
+            self.assertIn("## " + es, bloque)
+            self.assertIn("## " + en, txt_en)
+
+
 NEGOCIO = ("# Negocio\n- Los usuarios pagan una cuota mensual fija por el servicio.\n"
            "- El administrador puede dar de baja a cualquier usuario en un solo paso.\n")
 SPEC = ("# Spec\n## R1\nEl sistema cobra una cuota mensual fija a cada usuario.\n"

@@ -126,3 +126,25 @@ Archivo `.brain/fabrica/evidencia/REQ-n.md`, escrito por **otra IA distinta de l
 - No probado: <lo que una IA no puede juzgar, o «nada» con el motivo> (nunca vacío)
 - Evidencia guardada: <rutas dentro de .brain/fabrica/evidencia/, separadas por comas>
 ```
+
+## 11. Informe de entrega y frenos (modo automático, spec 050)
+
+**Informe de entrega:** archivo `.brain/fabrica/informe.md`, una página llana para Darwin. `fabrica.py informe` comprueba que están las seis secciones y que **ninguna queda vacía sin explicación** (un «nada» lleva su motivo). Con él Darwin decide una sola vez: aceptar o descartar la rama.
+
+```markdown
+# Informe de entrega: <orden>
+## Lo pedido
+- <la orden y el criterio de «esperado», en palabras de Darwin>
+## Lo hecho
+- <qué se construyó, por requisito>
+## Lo extra
+- <lo que apareció sin pedirlo (se revierte salvo que Darwin lo acepte), o «nada: motivo»>
+## Lo probado de verdad
+- <qué se probó de uso real, quién lo probó y dónde está la evidencia>
+## Lo no probado
+- <lo que ninguna IA pudo juzgar o no se pudo ejecutar; pasa a «Esperando tu prueba (Darwin)», o «nada: motivo»>
+## Decisiones de la línea por su cuenta
+- <cada decisión que tomó la línea sin preguntar (nombres, orden, opción conservadora ante un hueco pequeño), o «nada: motivo»>
+```
+
+**Frenos:** `fabrica.py frenos --encargo N` para el encargo a los **3 fallos** o a los **30 minutos sin avance** y deja `.brain/fabrica/estado/parada-N.md` con dónde quedó. `foto` lo llama sola; `gasto` (sin fallo), `foto` y `entregar` anotan avance; `avance --encargo N --nota «…»` lo anota a mano. Solo Darwin reanuda: `frenos --encargo N --reanudar`. La carta puede cambiar los topes con las líneas `- auto_reintentos_max: 3` y `- auto_atasco_minutos: 30`.

@@ -10,6 +10,10 @@ Lo usa la directora (o Darwin) entre pasos; no es un hook. Todo cuelga de `.brai
   veredicto ARCHIVO [--spec S]   valida el veredicto del revisor de spec: formato y que cada hallazgo cite una frase real
   vueltas rechazada|aprobada|reiniciar|estado
                                  cuenta las vueltas de revisión de la spec (máximo 3; a la tercera rechazada, parar y preguntar)
+  frenos --encargo N [--reanudar]
+                                 modo automático: para el encargo a los 3 fallos o a los 30 min sin avance y deja parada-N.md (spec 050, fase 5); `foto` lo llama sola
+  avance --encargo N [--nota T]  anota que el encargo avanzó (reinicia el reloj de atasco)
+  informe [ARCHIVO]              valida el informe de entrega (.brain/fabrica/informe.md): 6 secciones, ninguna vacía sin explicación
   verificar                      falla si la spec congelada o la carta cambiaron
   arrancar                       en modo automático bloquea si falta el criterio de «esperado» (esperado.md) o se está en main (spec 050, fase 3); `foto` lo llama sola
   entregar REQ                   en modo automático exige la evidencia de uso real de ese requisito (.brain/fabrica/evidencia/REQ.md) antes de darlo por entregado (spec 050, fase 4)
@@ -28,6 +32,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -419,7 +424,116 @@ class Fabrica:
             problemas.append(self.t("fabrica_entregar_resultado_raro", v["resultado"][:40]))
         if problemas:
             return 1, problemas + pie
+        self.avance(req, "entregado con evidencia de uso real")
         return 0, [self.t("fabrica_entregar_ok", req)]
+
+    # --- frenos del modo automático: reintentos y atasco (spec 050, fase 5) ------------------------------
+    FRENOS_POR_DEFECTO = {"auto_reintentos_max": 3, "auto_atasco_minutos": 30}  # decisión de Darwin, 2026-11-14
+
+    def _frenos_carta(self):
+        """Topes del modo automático; la carta (`- clave: número`) puede cambiarlos."""
+        tp_ = dict(self.FRENOS_POR_DEFECTO)
+        if self.carta.is_file():
+            texto = self.carta.read_text(encoding="utf-8", errors="replace")
+            for clave in tp_:
+                m = re.search(r"^[-*]\s*" + clave + r"\s*:\s*(\d+)", texto, re.M)
+                if m and int(m.group(1)) > 0:
+                    tp_[clave] = int(m.group(1))
+        return tp_
+
+    def _fallos(self, encargo):
+        return sum(1 for x in self._gasto() if x.get("encargo") == str(encargo) and x.get("fallo"))
+
+    def avance(self, encargo, nota="", ahora=None):
+        """Marca que el encargo avanzó (reinicia el reloj de atasco). Solo hace algo en modo automático."""
+        if not self._auto_activa():
+            return 0, [self.t("fabrica_frenos_no_aplica")]
+        d = _json(self.estado / "frenos.json", {})
+        d = d if isinstance(d, dict) else {}
+        e = d.get(str(encargo)) if isinstance(d.get(str(encargo)), dict) else {}
+        e["avance"] = ahora if ahora is not None else time.time()
+        e["nota"] = str(nota)[:200]
+        d[str(encargo)] = e
+        _guardar(self.estado / "frenos.json", d)
+        return 0, [self.t("fabrica_frenos_avance", str(encargo))]
+
+    def frenos(self, encargo, reanudar=False, ahora=None):
+        """Reintentos (tope 3 fallos por encargo) y atasco (30 min sin avance). Al saltar, deja un informe corto en
+        `.brain/fabrica/estado/parada-ENCARGO.md` y sale 1. `reanudar` (orden de Darwin) pone el contador a cero."""
+        if not self._auto_activa():
+            return 0, [self.t("fabrica_frenos_no_aplica")]
+        ahora = ahora if ahora is not None else time.time()
+        enc = str(encargo)
+        d = _json(self.estado / "frenos.json", {})
+        d = d if isinstance(d, dict) else {}
+        e = d.get(enc) if isinstance(d.get(enc), dict) else {}
+        if reanudar:
+            e.update({"desde": self._fallos(enc), "avance": ahora, "nota": "reanudado por orden de Darwin"})
+            d[enc] = e
+            _guardar(self.estado / "frenos.json", d)
+            return 0, [self.t("fabrica_frenos_reanudado", enc)]
+        tp_ = self._frenos_carta()
+        fallos = self._fallos(enc) - int(e.get("desde", 0) or 0)
+        problemas = []
+        if fallos >= tp_["auto_reintentos_max"]:
+            problemas.append(self.t("fabrica_frenos_reintentos", enc, fallos, tp_["auto_reintentos_max"]))
+        minutos = None
+        if isinstance(e.get("avance"), (int, float)):
+            minutos = int((ahora - e["avance"]) // 60)
+            if minutos >= tp_["auto_atasco_minutos"]:
+                problemas.append(self.t("fabrica_frenos_atasco", enc, minutos, tp_["auto_atasco_minutos"]))
+        if not problemas:
+            return 0, [self.t("fabrica_frenos_ok", enc, fallos, tp_["auto_reintentos_max"], tp_["auto_atasco_minutos"])]
+        parada = self.estado / ("parada-%s.md" % re.sub(r"[^\w.-]", "_", enc))
+        gastado = sum(x.get("tokens", 0) for x in self._gasto() if x.get("encargo") == enc)
+        cuerpo = ["# Parada del encargo %s" % enc, ""] + ["- " + p for p in problemas] + [
+            "- Fallos desde el último arranque: %d" % fallos,
+            "- Minutos sin avance: %s" % (minutos if minutos is not None else "sin marca de avance"),
+            "- Último avance anotado: %s" % (e.get("nota") or "ninguno"),
+            "- Tokens gastados en el encargo: %d" % gastado,
+            "- Reanudar (solo con orden de Darwin): fabrica.py frenos --encargo %s --reanudar" % enc]
+        parada.parent.mkdir(parents=True, exist_ok=True)
+        parada.write_text("\n".join(cuerpo) + "\n", encoding="utf-8")
+        rel = os.path.relpath(parada, self.raiz).replace("\\", "/")
+        return 1, problemas + [self.t("fabrica_frenos_parada", rel), self.t("fabrica_frenos_pie", enc, enc)]
+
+    # --- informe de entrega (spec 050, fase 5) -----------------------------------------------------------
+    INFORME = (("Lo pedido", "What was asked"), ("Lo hecho", "What was done"), ("Lo extra", "Extras"),
+               ("Lo probado de verdad", "Really tested"), ("Lo no probado", "Not tested"),
+               ("Decisiones de la línea por su cuenta", "Decisions the line made on its own"))
+
+    def informe(self, ruta=None):
+        """Valida el informe de entrega: las 6 secciones, cada una con al menos una viñeta rellena (≥8 letras, sin <…>).
+        «Lo no probado» y «Decisiones» nunca quedan vacías sin explicación: un «nada» va con su motivo."""
+        ruta = Path(ruta) if ruta else self.dir / "informe.md"
+        try:
+            texto = ruta.read_text(encoding="utf-8-sig")
+        except (OSError, ValueError):
+            return 1, [self.t("fabrica_informe_ilegible", str(ruta))]
+        bloques, actual = {}, None
+        for linea in texto.splitlines():
+            m = re.match(r"^\s*##\s+(.*)$", linea)
+            if m:
+                titulo = self._norm(m.group(1))
+                actual = None
+                for i, (es, en) in enumerate(self.INFORME):
+                    if titulo.startswith(self._norm(es)) or titulo.startswith(self._norm(en)):
+                        actual = i
+                        bloques.setdefault(i, [])
+                continue
+            mi = re.match(r"^\s*(?:[-*]|\d+[.)])\s+(\S.*)$", linea)
+            if mi and actual is not None:
+                bloques[actual].append(mi.group(1).strip())
+        en_ingles = (self.cfg or {}).get("idioma", "es") == "en"
+        nombre = lambda i: self.INFORME[i][1 if en_ingles else 0]  # noqa: E731
+        sin_seccion = [nombre(i) for i in range(len(self.INFORME)) if i not in bloques]
+        if sin_seccion:
+            return 1, [self.t("fabrica_informe_secciones", ", ".join(sin_seccion))]
+        vacias = [nombre(i) for i in range(len(self.INFORME))
+                  if not any(len(x) >= 8 and not x.startswith("<") for x in bloques[i])]
+        if vacias:
+            return 1, [self.t("fabrica_informe_vacia", ", ".join(vacias))]
+        return 0, [self.t("fabrica_informe_ok")]
 
     def verificar(self):
         h = self._huellas()
@@ -490,8 +604,12 @@ class Fabrica:
         codigo, lineas = self.arrancar()  # spec 050, fase 3: en modo automático la foto es el arranque del encargo
         if codigo:
             return codigo, lineas
+        codigo, lineas = self.frenos(encargo)  # spec 050, fase 5: tope de reintentos y atasco
+        if codigo:
+            return codigo, lineas
         _guardar(self.estado / f"{encargo}.foto.json",
                  {"cabeza": self._git(repo, "rev-parse", "HEAD").strip(), "archivos": self.estado_repo(repo)})
+        self.avance(encargo, "arranque del encargo")
         return 0, [self.t("fabrica_foto", str(encargo))]
 
     @staticmethod
@@ -530,6 +648,8 @@ class Fabrica:
         g = self._gasto()
         g.append({"encargo": str(encargo), "tokens": int(tokens), "papel": papel, "fallo": bool(fallo)})
         _guardar(self.estado / "gasto.json", g)
+        if not fallo:
+            self.avance(encargo, "trabajo de %s sin fallo" % papel)
         return 0, [self.t("fabrica_gasto_anotado", papel, int(tokens), str(encargo))]
 
     def topes_carta(self):
@@ -586,6 +706,9 @@ def main(argv=None):
     sub.add_parser("verificar")
     sub.add_parser("arrancar")
     s = sub.add_parser("entregar"); s.add_argument("requisito")
+    s = sub.add_parser("frenos"); s.add_argument("--encargo", required=True); s.add_argument("--reanudar", action="store_true")
+    s = sub.add_parser("avance"); s.add_argument("--encargo", required=True); s.add_argument("--nota", default="")
+    s = sub.add_parser("informe"); s.add_argument("archivo", nargs="?", default=None)
     s = sub.add_parser("modo"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("automatico"); s.add_argument("palabra", nargs="?", default="estado")
     s = sub.add_parser("sellar-negocio"); s.add_argument("--reemplazar", action="store_true")
@@ -620,6 +743,12 @@ def main(argv=None):
         codigo, lineas = f.arrancar()
     elif a.orden == "entregar":
         codigo, lineas = f.entregar(a.requisito)
+    elif a.orden == "frenos":
+        codigo, lineas = f.frenos(a.encargo, a.reanudar)
+    elif a.orden == "avance":
+        codigo, lineas = f.avance(a.encargo, a.nota)
+    elif a.orden == "informe":
+        codigo, lineas = f.informe(a.archivo)
     elif a.orden == "foto":
         codigo, lineas = f.foto(repo, a.encargo)
     elif a.orden == "alcance":

@@ -64,8 +64,8 @@ La prueba de uso real **la hace una IA distinta de la que construyó** (el revis
 - [x] (hecho, v1.55.0: `fabrica.py entregar REQ`) Guardián que exige la evidencia guardada antes de dar un encargo por entregado.
 
 **Fase 5 — informe de entrega y frenos.**
-- [ ] Plantilla de informe de entrega (lo pedido / hecho / extra / probado / no probado / decisiones por su cuenta).
-- [ ] Contador de reintentos y aviso de atasco.
+- [x] (hecho, v1.56.0: sección 11 de `PLANTILLAS_FABRICA` y `fabrica.py informe`) Plantilla de informe de entrega (lo pedido / hecho / extra / probado / no probado / decisiones por su cuenta).
+- [x] (hecho, v1.56.0: `fabrica.py frenos` y `avance`; `foto` los aplica sola) Contador de reintentos y aviso de atasco.
 
 **Fase 6 — experimento acotado.**
 - [ ] Una orden real y pequeña, en un proyecto de prueba y en rama aparte, para ver qué pasa. Se mide: si el resultado era el esperado, qué decisiones tomó sola, cuántas veces hubo que parar, qué no pudo probar, y qué reglas faltaron.
