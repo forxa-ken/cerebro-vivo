@@ -206,3 +206,4 @@
 2026-11-14 | otro | Claude (cerebro-vivo #23) | Spec 050 (modo automatico de la fabrica con revisor de spec) en borrador; pendiente 54; Go, vcsim y pyvmomi instalados (37 en curso); leccion de winget | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #23) | Pendiente 37 (a): 25 de 25 pruebas de seguridad contra vcsim con el modulo ganador sin tocar el motor; hallazgo: vcsim dice hecho al mover disco sin moverlo (lectura de vuelta); informe archivado; medicion del 55 (sin problema real); idea 56 apuntada | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #23) | Pendiente 37 cerrado por orden de Darwin: AGENTS.md del aprobador (ronda5-D) admite vcsim; detalle en hechos.md | Cambio pequeño
+2026-11-14 | otro | Claude (cerebro-vivo #23) | Subido a GitHub: 729814d a 4957a13 (5 commits, main) | Cambio pequeño
