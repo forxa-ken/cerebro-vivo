@@ -75,6 +75,17 @@ class TestLongitud(unittest.TestCase):
         self.assertIn("Nunca digas que la app lo rechaza", texto)
         self.assertTrue(lg.ajustes({})["auto"])
 
+    def test_modo_fabrica_el_chat_nuevo_es_la_directora(self):
+        for idioma, marca in (("es", "claude-opus-5-5"), ("en", "claude-opus-5-5")):
+            con, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"modo_fabrica": True, "idioma": idioma})
+            self.assertIn(marca, con)
+            self.assertIn("directora-N", con)
+            self.assertIn("directora_n.txt", con)
+            sin, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"idioma": idioma})
+            self.assertNotIn("claude-opus-5-5", sin)
+        manual, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False), {"modo_fabrica": True})
+        self.assertNotIn("claude-opus-5-5", manual)
+
     def test_spec025_apagado_solo_avisa(self):
         texto, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False))
         self.assertNotIn("start_session", texto)

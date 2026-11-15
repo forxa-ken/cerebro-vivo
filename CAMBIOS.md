@@ -441,3 +441,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.1 (2026-11-15)
 - Arreglo: la prueba `test_skill_y_encargo_lo_dicen` exigía `traspaso-in/SKILL.en.md`, que un proyecto en español no recibe (falló en empresa-virtual-sim al pasar a 1.60.0). Ahora la salta si falta la edición inglesa.
+
+## 1.60.2 (2026-11-15)
+- Arreglo: en modo fábrica, el aviso de chat largo ahora manda abrir el chat nuevo como la directora (Opus, esfuerzo medio, «directora #N», `directora_n.txt`) y comprobarlo con `get_session`. Antes el chat nuevo salía en Sonnet y con el nombre del proyecto (caso real: empresa-virtual-sim #4 y #5). Texto es/en y prueba nueva.
