@@ -239,3 +239,4 @@
 2026-11-15 | otro | Claude (cerebro-vivo #30) | subida a GitHub la v1.60.0 (commits 01c5131, bfb1f0d, 0ebbe26); pagina publica sin actualizar | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #30) | subida la pagina publica con el arnes 1.60.0 (gh-pages 604151f: fila 1.60.0, 670 pruebas, es y en comprobados en navegador local) | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #31) | 1.60.1: la prueba de traspaso-in ya salta SKILL.en.md si el proyecto es en español; aplicada en empresa-virtual-sim (772 pruebas en verde); sin subir a GitHub | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #31) | subida la pagina publica con el arnes 1.60.1 (gh-pages 4c9196d, solo el numero de version; la 1.60.1 es un arreglo de prueba sin cambios visibles) | Cambio pequeño
