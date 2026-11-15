@@ -229,3 +229,7 @@
 2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.2: el CLAUDE.md del kit cita con ruta completa hechos-indice, hitos.py y _template.md (hallazgo en DemonFramework 2.0); 662 pruebas OK | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #29) | subida a GitHub de la 1.59.2 (commits b126996..170dff6) | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.3: traspaso-in (es/en) y el encargo del aviso de chat largo exigen separarse con detach_session aunque crea que corta avisos (caso empresa-virtual-sim #4); 663 pruebas OK | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | subida a GitHub de la 1.59.3 (commit 865bfda) | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | pagina publica (gh-pages faecd10) subida con el arnes 1.59.3 | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | pendiente 57: revisar el resultado de empresa-virtual-sim y como funciono el modo automatico al terminar la linea | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | pendiente 58: topes de la fabrica mal calculados, revisar con los datos de empresa-virtual-sim (primeras pistas anotadas) | Cambio pequeño

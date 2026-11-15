@@ -7,7 +7,7 @@
 | [arnes-fabrica](arnes-fabrica.md) | 10 |
 | [arnes-guardianes-nuevos](arnes-guardianes-nuevos.md) | 9 |
 | [arnes-heredocs](arnes-heredocs.md) | 3 |
-| [arnes-pagina-publica](arnes-pagina-publica.md) | 5 |
+| [arnes-pagina-publica](arnes-pagina-publica.md) | 6 |
 | [arnes-pruebas-y-manifiesto](arnes-pruebas-y-manifiesto.md) | 9 |
 | [arnes-skills-y-archivos-nuevos](arnes-skills-y-archivos-nuevos.md) | 7 |
 | [arnes-skills](arnes-skills.md) | 1 |
