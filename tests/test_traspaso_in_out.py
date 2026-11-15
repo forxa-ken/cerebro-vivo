@@ -86,7 +86,10 @@ class SeparaseAunqueCreaQueCortaAvisosTest(unittest.TestCase):
         raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
         for nombre, marcas in (("SKILL.md", ("incluye separarte con `detach_session`", "cortaría el aviso de resultados")),
                                ("SKILL.en.md", ("it includes detaching with `detach_session`", "cut the results notice"))):
-            with open(os.path.join(raiz, ".claude", "skills", "traspaso-in", nombre), encoding="utf-8") as f:
+            ruta = os.path.join(raiz, ".claude", "skills", "traspaso-in", nombre)
+            if nombre.endswith(".en.md") and not os.path.isfile(ruta):
+                continue  # un proyecto en español no recibe las ediciones .en (spec 024 fase 3)
+            with open(ruta, encoding="utf-8") as f:
                 texto = f.read()
             for marca in marcas:
                 self.assertIn(marca, texto, nombre)

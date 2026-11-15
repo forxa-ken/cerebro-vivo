@@ -204,7 +204,7 @@
   "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
   "tests/test_soporte_mac.py": "3c56379484b70a7dd2d6604ad9a0238ca2e911459ee5aaa33a43e095a794f0d5",
   "tests/test_textos.py": "7b2d157fbe7151bc67e5f09e8accb3181009a25d4711bd895e98f762e1e51045",
-  "tests/test_traspaso_in_out.py": "2bbaccbba34c8e6001e5e8b93fd033a6c66affcf22107f67f84521fb7687fd54"
+  "tests/test_traspaso_in_out.py": "6a07aa53d2cb88cf3f2ceb1381ca5af2c7641d7f13a5a69c4fe600e1d7f0d335"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.0"
+ "version": "1.60.1"
 }

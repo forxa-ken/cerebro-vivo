@@ -438,3 +438,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.57.0 (2026-11-14)
 - Arreglos de los hallazgos del experimento de la fase 6 (spec 050): el guardián `alcance` entiende `R-1` igual que `R1` (la plantilla decía `R-n`) y no cuenta como cambio de la ejecutora la spec congelada que la directora corrige y vuelve a congelar; las pruebas que leen las ediciones `.en.md` solo las exigen en el repo del arnés (un proyecto en español no las recibe, y fallaban 5 tras `actualizar`); la skill `revisor-de-spec` (es y en) explica cómo lanzar a Codex pegando el texto en la orden.
+
+## 1.60.1 (2026-11-15)
+- Arreglo: la prueba `test_skill_y_encargo_lo_dicen` exigía `traspaso-in/SKILL.en.md`, que un proyecto en español no recibe (falló en empresa-virtual-sim al pasar a 1.60.0). Ahora la salta si falta la edición inglesa.

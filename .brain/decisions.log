@@ -236,3 +236,6 @@
 2026-11-15 | otro | Claude (cerebro-vivo #29) | revision del modo automatico con empresa-virtual-sim hecha: nota con cifras y 6 hallazgos; pendiente 57 actualizado, 58 sigue | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #30) | v1.60.0: topes de la fabrica (todos los papeles, mision calculada, ampliar-topes), directora en segundo plano, revisor de spec con objetivos, informe con todos los requisitos; 670 pruebas en verde, sin subir | Cambio pequeño
 2026-11-15 | auto | Claude (auto) | (auto) tocó .gitignore; pruebas en verde | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #30) | subida a GitHub la v1.60.0 (commits 01c5131, bfb1f0d, 0ebbe26); pagina publica sin actualizar | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #30) | subida la pagina publica con el arnes 1.60.0 (gh-pages 604151f: fila 1.60.0, 670 pruebas, es y en comprobados en navegador local) | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #31) | 1.60.1: la prueba de traspaso-in ya salta SKILL.en.md si el proyecto es en español; aplicada en empresa-virtual-sim (772 pruebas en verde); sin subir a GitHub | Cambio pequeño
