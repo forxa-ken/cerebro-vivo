@@ -28,6 +28,9 @@ def cargar_config():
         return json.load(f)
 
 
+REPETIR_FABRICA_AUTO = 20000
+
+
 def guardar_config(cfg):
     ruta = os.path.join(AQUI, "guardianes.json")
     temporal = ruta + ".tmp"
@@ -37,10 +40,14 @@ def guardar_config(cfg):
 
 
 def ajustes(cfg):
+    repetir = int(cfg.get("longitud_repetir_tokens", 100000))
+    if cfg.get("modo_fabrica") and cfg.get("fabrica_automatica"):
+        # Automático: si el chat nuevo no llega a abrirse, el aviso firme (con el plan B) vuelve cada 20.000 tokens, no cada 100.000
+        repetir = min(repetir, REPETIR_FABRICA_AUTO)
     return {"activo": bool(cfg.get("longitud_activa", True)),
             "auto": bool(cfg.get("chat_nuevo_auto", True)),
             "aviso": int(cfg.get("longitud_aviso_tokens", 200000)),
-            "repetir": int(cfg.get("longitud_repetir_tokens", 100000))}
+            "repetir": repetir}
 
 
 def contexto_actual(ruta_registro):

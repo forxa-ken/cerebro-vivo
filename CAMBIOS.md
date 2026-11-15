@@ -450,3 +450,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.4 (2026-11-15)
 - Mejora de la skill `directora-de-fabrica` (es/en), a raíz de empresa-virtual-sim #6: la directora dejó a Codex trabajando con un vigilante de 10 minutos y solo dijo «espero su resultado», y Darwin tuvo que escribir «sigue». Ahora, al esperar, dice qué espera, desde cuándo, cuánto suele tardar y cuándo vuelve a mirar; si caduca el vigilante antes que Codex, comprueba el estado y lo relanza sin esperar a Darwin; y si Darwin escribe «sigue» mientras espera, contesta con el estado real.
+
+## 1.60.5 (2026-11-15)
+- Arreglo: en modo fábrica automático, el aviso firme de chat largo (con el plan B de la tarea programada) se repite cada 20.000 tokens y no cada 100.000. Caso real: empresa-virtual-sim #6 recibió el aviso una sola vez a los 200.000, no pudo abrir el chat y siguió hasta 283.000 sin otro aviso del arnés.

@@ -246,3 +246,4 @@
 2026-11-15 | otro | Claude (cerebro-vivo #31) | 1.60.3 rehecha: plan B con tarea programada (a 1 minuto) para abrir el chat de la directora si la app solo deja tarjeta; probado el ensayo (abre chat, se renombra y cambia a Opus); sin subir | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #31) | 1.60.4: skill directora-de-fabrica dice que espera, desde cuando y cuanto tarda; relanza el vigilante si caduca; responde con el estado si Darwin escribe sigue; sin subir | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #31) | subidas la 1.60.4 (main 4283f22), aplicada en empresa-virtual-sim y la pagina publica (gh-pages 9b1889b, solo el numero de version) | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #31) | 1.60.5: en fabrica automatica el aviso firme de chat largo se repite cada 20.000 tokens; quitado de ~/.claude/settings.json el vigilante viejo tokens.py (copia .bak-20261115-tokens-hook); sin subir | Cambio pequeño

@@ -98,6 +98,14 @@ class TestLongitud(unittest.TestCase):
             self.assertNotIn("SIGUE en este chat", solo)
             self.assertNotIn("KEEP GOING in this chat", solo)
 
+    def test_automatico_repite_el_aviso_cada_20000(self):
+        self.assertEqual(lg.ajustes({"longitud_repetir_tokens": 100000})["repetir"], 100000)
+        self.assertEqual(lg.ajustes({"longitud_repetir_tokens": 100000, "modo_fabrica": True})["repetir"], 100000)
+        a = lg.ajustes({"longitud_repetir_tokens": 100000, "modo_fabrica": True, "fabrica_automatica": True})
+        self.assertEqual(a["repetir"], 20000)
+        self.assertEqual(lg.tramo(226000, a), 2)
+        self.assertEqual(lg.tramo(245000, a), 3)
+
     def test_spec025_apagado_solo_avisa(self):
         texto, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False))
         self.assertNotIn("start_session", texto)
