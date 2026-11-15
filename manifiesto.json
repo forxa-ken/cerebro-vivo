@@ -106,8 +106,8 @@
   ".claude/skills/colabora/SKILL.md": "a757c3724225c8695e9c8ab660b0837d3edbb0bcbd36b59c141025d34e34621c",
   ".claude/skills/diapositivas/SKILL.en.md": "5b22c9965f3052519276fed6c6aa80fdbd9f808cd3cdd32b4c3456f69a1707d0",
   ".claude/skills/diapositivas/SKILL.md": "e6872facdb732420224f996ce98ed4b3670d374dd2680cd6a8fd299ba8885243",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "5e0b81c8206e86fe2ab052471b153bf497aa3f545936b7324b667cafe08ca132",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "3a045b0f95c4552dc4b44cd5c81a666b4af46a911934528addd50d5d4179b971",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "b6822208745ef929afda5e1c174cdf578e11a90cf678b63998cc1a428f07aab6",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "b23f23fc43b52e247865ecb7064b52d72530307181c7309515fb6aab1abb6504",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "5b5a2504159a4071d349f6715f26e2c188802e3be8051f278ec4eac0b317d633",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.3"
+ "version": "1.60.4"
 }

@@ -447,3 +447,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.3 (2026-11-15)
 - Arreglo: en modo fábrica automático, abrir el chat nuevo ya no puede dejar la línea parada esperando que Darwin pulse la tarjeta de la app. El aviso de chat largo manda intentar `start_session` una vez y, si la app lo rechaza o solo deja tarjeta, usar el plan B: una tarea programada de una sola vez (a 1 minuto) que abre el chat de la directora; el chat viejo le pone título «directora #N», Opus y esfuerzo medio, le manda «Empieza» y borra la tarea. Probado el 2026-11-15: la tarea abre el chat y se puede renombrar y cambiar de modelo. Texto es/en y prueba nueva.
+
+## 1.60.4 (2026-11-15)
+- Mejora de la skill `directora-de-fabrica` (es/en), a raíz de empresa-virtual-sim #6: la directora dejó a Codex trabajando con un vigilante de 10 minutos y solo dijo «espero su resultado», y Darwin tuvo que escribir «sigue». Ahora, al esperar, dice qué espera, desde cuándo, cuánto suele tardar y cuándo vuelve a mirar; si caduca el vigilante antes que Codex, comprueba el estado y lo relanza sin esperar a Darwin; y si Darwin escribe «sigue» mientras espera, contesta con el estado real.
