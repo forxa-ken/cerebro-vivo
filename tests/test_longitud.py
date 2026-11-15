@@ -86,6 +86,18 @@ class TestLongitud(unittest.TestCase):
         manual, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False), {"modo_fabrica": True})
         self.assertNotIn("claude-opus-5-5", manual)
 
+    def test_modo_automatico_nunca_espera_una_tarjeta(self):
+        for idioma in ("es", "en"):
+            cfg = {"modo_fabrica": True, "fabrica_automatica": True, "idioma": idioma}
+            con, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), cfg)
+            self.assertIn("traspaso.md", con)
+            self.assertIn("create_scheduled_task", con)
+            self.assertIn("claude-opus-5-5", con)
+            self.assertIn("set_session_title", con)
+            solo, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"modo_fabrica": True, "idioma": idioma})
+            self.assertNotIn("SIGUE en este chat", solo)
+            self.assertNotIn("KEEP GOING in this chat", solo)
+
     def test_spec025_apagado_solo_avisa(self):
         texto, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False))
         self.assertNotIn("start_session", texto)

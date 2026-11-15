@@ -70,7 +70,7 @@
   ".brain/guardianes/indices.py": "2b4ec3b5c18004a826b6a0a845a72362474e8ab3d8d00f62db3d4dadfe62c96c",
   ".brain/guardianes/lecciones.py": "a1408d32ce542f1b4a1521d0d560636168b4c0045b0b1a070f204392f11d70d5",
   ".brain/guardianes/librerias.py": "4096837642b0de7e501f5515cd77ec7417bb06f4fbbc38c6aea1ed2ef09f89a8",
-  ".brain/guardianes/longitud.py": "59fac417f1a4d79e5312a069224920cfe9d99dc1321e0a8f2729620ac1fe05a9",
+  ".brain/guardianes/longitud.py": "8fdda0bf718e19407e0c08cdcb1c6fb84e5a116329f1fe5da23a02c012ab9998",
   ".brain/guardianes/medir.py": "74316eb6505303bb83b0e39e48bbabc63f7585f09acf674b9500763ab1e16df2",
   ".brain/guardianes/notas_abiertas.py": "7a596d6060af56f39e0e952394e2242cff61bfe081b1a517d008e5beef72bb4f",
   ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
@@ -79,7 +79,7 @@
   ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "f2ce2e88c34f34451fb936d26e53006b25bc7ebdb164176b460546e566177296",
+  ".brain/guardianes/textos.py": "3ee62d748eb7e4d5b7be922b1b4bdf131971a52f45ce7a463e7763cfc24e3268",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -193,7 +193,7 @@
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_lecciones.py": "24ccf3b207d58ea1b95142a1f23b6ea10ac7723bbd0fc25fe2b9765799fe46c7",
   "tests/test_librerias.py": "287f2786577a7b4629015e6580ba787628452e16dff16e300f383d251d702de4",
-  "tests/test_longitud.py": "99bcbd3e8b5b7d023e96856cd352b010bafa59243f6621cc03f0777e0245ad7a",
+  "tests/test_longitud.py": "f0e2be44ac960d3ae3130bcd832be5ce26d3e921fa46bbf2cc812446206ba45f",
   "tests/test_medir.py": "e6cb2e7c66d848c52593c783db1862ca2ce2b39b8c1b5466f617ad1a26a4c2d8",
   "tests/test_modo_ligero.py": "add36fbc455b736d760d2ef33a9e92450b57db3bb8b757a89da0fd7092c09715",
   "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.2"
+ "version": "1.60.3"
 }

@@ -71,6 +71,9 @@ def texto_aviso(contexto, lengua=None, auto=True):
     if auto and isinstance(lengua, dict) and lengua.get("modo_fabrica"):
         # En modo fábrica el chat nuevo ES la directora: Opus, esfuerzo medio, «directora #N» (caso real: empresa-virtual-sim #4 y #5 salieron en Sonnet con otro nombre)
         texto += " " + t(lengua, "longitud_aviso_fabrica")
+        if lengua.get("fabrica_automatica"):
+            # Automático: Darwin puede no estar; abrir el chat nunca puede dejar la línea parada esperando un clic
+            texto += " " + t(lengua, "longitud_aviso_fabrica_auto")
     return texto
 
 

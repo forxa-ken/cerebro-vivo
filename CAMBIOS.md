@@ -444,3 +444,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.2 (2026-11-15)
 - Arreglo: en modo fábrica, el aviso de chat largo ahora manda abrir el chat nuevo como la directora (Opus, esfuerzo medio, «directora #N», `directora_n.txt`) y comprobarlo con `get_session`. Antes el chat nuevo salía en Sonnet y con el nombre del proyecto (caso real: empresa-virtual-sim #4 y #5). Texto es/en y prueba nueva.
+
+## 1.60.3 (2026-11-15)
+- Arreglo: en modo fábrica automático, abrir el chat nuevo ya no puede dejar la línea parada esperando que Darwin pulse la tarjeta de la app. El aviso de chat largo manda intentar `start_session` una vez y, si la app lo rechaza o solo deja tarjeta, usar el plan B: una tarea programada de una sola vez (a 1 minuto) que abre el chat de la directora; el chat viejo le pone título «directora #N», Opus y esfuerzo medio, le manda «Empieza» y borra la tarea. Probado el 2026-11-15: la tarea abre el chat y se puede renombrar y cambiar de modelo. Texto es/en y prueba nueva.
