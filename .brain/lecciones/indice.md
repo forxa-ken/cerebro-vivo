@@ -4,7 +4,7 @@
 
 | Tema | Lecciones |
 | :--- | :---: |
-| [arnes-fabrica](arnes-fabrica.md) | 9 |
+| [arnes-fabrica](arnes-fabrica.md) | 10 |
 | [arnes-guardianes-nuevos](arnes-guardianes-nuevos.md) | 9 |
 | [arnes-heredocs](arnes-heredocs.md) | 3 |
 | [arnes-pagina-publica](arnes-pagina-publica.md) | 5 |

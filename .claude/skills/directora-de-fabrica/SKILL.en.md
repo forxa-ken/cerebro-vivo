@@ -25,6 +25,11 @@ You are the **director**: you turn Darwin's goal into a spec and the spec into s
    - **When a module or the mission is finished** (not after every assignment), also launch the `revisor-de-consumo` skill (read-only subagent, Sonnet). A finding that breaks the spec's budget goes back to the executor as a fix assignment, without asking Darwin; one with no written budget goes to `propuestas.md` and he is asked. The fix counts toward the caps and failures and is reviewed again.
 10. **Gate (c): final report for Darwin** with what was asked, what was done and what is extra. Extras are reverted unless he accepts them. Leave each requirement's evidence in `.brain/fabrica/evidencia/`.
 
+## Automatic mode (spec 050)
+- With `fabrica.py automatico estado` active, **between assignments do not ask Darwin or ask permission to move on to the next one**: when an assignment passes the scope check, your tests and the separate review, launch the next one at once, in order, until all are done.
+- Stop and ask only for what section 3 of spec 050 reserves to Darwin: a cap in the charter, two failures in a row or the brake, a big gap in the spec, a new requirement, pushing to GitHub, deleting, secrets or other people's projects. A small gap is resolved with the most conservative option and noted; if an assignment depends on a big gap, stop that one and carry on with the rest.
+- Ask for no intermediate approval: report what was done once, in the final report (gate (c)).
+
 ## Error it prevents (real case)
 - The "Frankenstein": with the goal "make the tests pass", the agent filled gaps with assumptions, removed requirements "for security" and added behaviours nobody asked for.
 - Tests 2 and 3 of spec 035 (GuildControlForever): the gate that mattered most was approving the spec before coding; the executor kept quiet about what was not in the assignment; the separate reviewer found flaws nobody else saw.

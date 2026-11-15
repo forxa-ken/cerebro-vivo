@@ -106,8 +106,8 @@
   ".claude/skills/colabora/SKILL.md": "a757c3724225c8695e9c8ab660b0837d3edbb0bcbd36b59c141025d34e34621c",
   ".claude/skills/diapositivas/SKILL.en.md": "5b22c9965f3052519276fed6c6aa80fdbd9f808cd3cdd32b4c3456f69a1707d0",
   ".claude/skills/diapositivas/SKILL.md": "e6872facdb732420224f996ce98ed4b3670d374dd2680cd6a8fd299ba8885243",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "795613bae1670d99bbb83704e1f9f45a6654ae6bfa77921516d11d2fc571fa17",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "e872805aca9c45efa9f98abaf778bfc7cf0460d677efe9e792791c3c7004ed70",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "82b8c61f041b861910cc6b4de35e92c36e51e2a2b0fe4bc8e3d363d2264e9e2f",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "f6545741fe7455ca0da64e64083f7901593b44141a003257fbdd881241de8d2c",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "5b5a2504159a4071d349f6715f26e2c188802e3be8051f278ec4eac0b317d633",
@@ -184,7 +184,7 @@
   "tests/test_ediciones_en.py": "adda46cb9f601739aa371bc2c48a5570c64544baa0f90a15f954ad374065329f",
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
-  "tests/test_fabrica.py": "66edb68a696fd74dc0b9d7d28814080933f7a0c2bbbdda8d717514588c72c6b3",
+  "tests/test_fabrica.py": "54267671610f1815f67999f9504c7c9a4faeb0e1e8b6d77ee742c556f6e68120",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hermanos.py": "6ad7017262e7a0014168489c50ad682d3fdb067b2c48aa9b5747480ffe809238",
   "tests/test_hitos.py": "e6ad3c657d40220f0e0cf51ad51e2d5e2db9769afb667991f25c540c9892a5f4",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.58.2"
+ "version": "1.59.0"
 }

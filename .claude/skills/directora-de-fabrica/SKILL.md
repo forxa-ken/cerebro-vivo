@@ -25,6 +25,11 @@ Eres la **directora**: conviertes el objetivo de Darwin en una spec y la spec en
    - **Al terminar un módulo o la misión** (no tras cada encargo), lanza también la skill `revisor-de-consumo` (subagente de solo lectura, Sonnet). Un hallazgo que incumple el presupuesto de la spec vuelve a la ejecutora como encargo de arreglo, sin preguntar a Darwin; uno sin presupuesto escrito va a `propuestas.md` y se le pregunta. El arreglo cuenta para los topes y los fallos y se revisa de nuevo.
 10. **Puerta (c): informe final para Darwin** con lo pedido, lo hecho y lo extra. Lo extra se revierte salvo que él lo acepte. Deja la evidencia de cada requisito en `.brain/fabrica/evidencia/`.
 
+## Modo automático (spec 050)
+- Con `fabrica.py automatico estado` activo, **entre encargos no preguntes a Darwin ni pidas permiso para pasar al siguiente**: cuando un encargo pasa el alcance, tus pruebas y la revisión aparte, lanza el siguiente de inmediato, en orden, hasta acabarlos todos.
+- Solo paras y preguntas por lo que la sección 3 de la spec 050 reserva a Darwin: tope de la carta, dos fallos seguidos o freno, hueco grande de la spec, requisito nuevo, subir a GitHub, borrar, secretos o proyectos ajenos. Un hueco pequeño se resuelve con la opción más conservadora y se anota; si un encargo depende de un hueco grande, páralo y sigue con los demás.
+- No pidas visto bueno intermedio: cuenta lo hecho una sola vez, en el informe final (puerta (c)).
+
 ## Error que evita (caso real)
 - El «Frankenstein»: con el objetivo «que pasen las pruebas», el agente rellenó huecos con suposiciones, quitó requisitos «por seguridad» y añadió comportamientos no pedidos.
 - Pruebas 2 y 3 de la spec 035 (GuildControlForever): la puerta que más valió fue aprobar la spec antes de programar; la ejecutora calló lo que no estaba en el encargo; el revisor aparte halló fallos que nadie más vio.

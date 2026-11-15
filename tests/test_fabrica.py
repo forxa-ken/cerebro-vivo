@@ -874,5 +874,20 @@ class RevisorSpecTest(unittest.TestCase):
         self.assertEqual(self.f.vueltas("quizas")[0], 1)
 
 
+class DirectoraAutomaticoTest(unittest.TestCase):
+    """Modo automático (spec 050): la directora no pregunta entre encargos; la regla debe estar en su skill."""
+
+    def test_skill_dice_que_no_se_pregunta_entre_encargos(self):
+        for nombre, marcas in (("SKILL.md", ("Modo automático", "entre encargos no preguntes")),
+                               ("SKILL.en.md", ("Automatic mode", "between assignments do not ask"))):
+            ruta = RAIZ / ".claude" / "skills" / "directora-de-fabrica" / nombre
+            if not ruta.is_file():
+                self.assertFalse((RAIZ / "manifiesto.json").is_file(), "falta " + nombre)
+                continue
+            texto = ruta.read_text(encoding="utf-8")
+            for marca in marcas:
+                self.assertIn(marca, texto, nombre)
+
+
 if __name__ == "__main__":
     unittest.main()
