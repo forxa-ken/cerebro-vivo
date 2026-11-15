@@ -14,7 +14,7 @@ Eres el **revisor de spec**: una IA **distinta** de la que diseñó la spec (otr
 ## Cómo (pasos)
 1. **Quien diseñó** comprueba antes que `negocio.md` está sellado: `python .brain/guardianes/fabrica.py sellar-negocio` (la primera vez, con permiso de Darwin) y `fabrica.py verificar`. Si el negocio cambió sin que Darwin lo apruebe, parar.
 2. **Lee primero el negocio, después la spec.** Haz las cuatro búsquedas:
-   - **(a) Negocio no cubierto:** algo que el negocio pide y la spec no tiene.
+   - **(a) Negocio no cubierto:** algo que el negocio pide y la spec no tiene. **Antes de buscar, saca del negocio cada objetivo declarado** (lo que el usuario debe poder hacer, aprender, ver o conseguir: «aprender de forma certera», «ver el estado»…) y para cada uno pregunta: **¿hay al menos un requisito de la spec cuyo cumplimiento lo logre y se pueda comprobar?** Un objetivo sin ningún requisito que lo cumpla es un hallazgo (a), aunque cada requisito suelto parezca correcto. (Caso real: el negocio decía «aprender de forma certera» y la spec no pedía ninguna explicación; lo vio Darwin al probar, no el revisor.)
    - **(b) Requisitos inventados:** algo que la spec exige y el negocio no respalda.
    - **(c) Huecos y ambigüedades:** frases con dos lecturas posibles o datos que faltan. Marca con `[GRANDE]` los que cambian lo que el usuario puede hacer: esos suben a Darwin aunque apruebes.
    - **(d) Contradicciones** con otra spec o decisión anterior.

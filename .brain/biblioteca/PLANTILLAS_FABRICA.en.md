@@ -10,13 +10,14 @@ File `.brain/fabrica/carta.md`. **Only Darwin writes it**; the director reads it
 # Factory charter: <project>
 - Goal: <one sentence, in Darwin's words>
 - Forbidden: <what no AI may do: new dependencies, touching X, pushing to GitHub…>
-- Cap per assignment: 2 windows of ~200,000 tokens or 400,000 spent; whichever comes first (stop and ask)
-- Cap per mission: 10 assignments and 1,000,000 Codex tokens
+- Cap per assignment: 2 windows of ~200,000 tokens or 800,000 spent (all roles add up: executor, reviewer, Codex); whichever comes first (stop and ask)
+- Cap per mission: 10 assignments and, with `tope_mision_tokens: 0`, 350,000 tokens per assignment (3,500,000 for 10); all roles count. A real mission spent ~320,000 per assignment
 - General brake: if the weekly Codex budget drops below 50 % free, stop and ask
 - Failures: two in a row on one assignment = stop and tell Darwin
-- tope_encargo_tokens: 400000
+- tope_encargo_tokens: 800000
 - tope_mision_encargos: 10
-- tope_mision_tokens: 1000000
+- tope_mision_tokens: 0
+- topes_papeles: todos
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
 - Default executor: <Codex | Claude | whichever the director decides>. You choose it; with "whichever the director decides" she picks per assignment and tells you which she used. For a specific assignment you can ask for another one in the chat.
@@ -129,7 +130,9 @@ File `.brain/fabrica/evidencia/REQ-n.md`, written by **an AI different from the 
 
 ## 11. Delivery report and brakes (automatic mode, spec 050)
 
-**Delivery report:** file `.brain/fabrica/informe.md`, a plain page for Darwin. `fabrica.py informe` checks that all six sections are there and that **none is left empty without an explanation** (a "nothing" comes with its reason). With it Darwin decides once: accept or discard the branch.
+**Delivery report:** file `.brain/fabrica/informe.md`, a plain page for Darwin. `fabrica.py informe` checks that all six sections are there that **none is left empty without an explanation** (a "nothing" comes with its reason) and that it **names every requirement (R1, R-2…) of the current frozen spec**: if the spec changes (v4), the report is redone.
+
+**Caps:** `0` in `tope_mision_tokens` means "calculated": allowed assignments × 350,000. `topes_papeles` (a list, or `todos`) says which roles count. After Darwin's OK (e.g. a new spec with more assignments) the director reopens the caps **at once**: `fabrica.py ampliar-topes --mas-encargos K --nota "what Darwin approved"`; it is kept in `estado/topes-ampliados.json` and the sealed charter is not touched. With it Darwin decides once: accept or discard the branch.
 
 ```markdown
 # Delivery report: <order>

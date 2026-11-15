@@ -10,13 +10,14 @@ Archivo `.brain/fabrica/carta.md`. **Solo la escribe Darwin**; la directora la l
 # Carta de la fábrica: <proyecto>
 - Objetivo: <una frase, en palabras de Darwin>
 - Prohibido: <lo que ninguna IA puede hacer: dependencias nuevas, tocar X, subir a GitHub…>
-- Tope por encargo: 2 ventanas de ~200.000 tokens o 400.000 gastados; salta el primero que se alcance (se para y se pregunta)
-- Tope por misión: 10 encargos y 1.000.000 de tokens de Codex
+- Tope por encargo: 2 ventanas de ~200.000 tokens o 800.000 gastados (suma todos los papeles: ejecutora, revisora, Codex); salta el primero que se alcance (se para y se pregunta)
+- Tope por misión: 10 encargos y, con `tope_mision_tokens: 0`, 350.000 tokens por encargo (3.500.000 con 10); cuentan todos los papeles. Una misión real gastó ~320.000 por encargo
 - Freno general: si el gasto semanal de Codex baja del 50 % libre, parar y preguntar
 - Fallos: dos seguidos en un mismo encargo = parar y avisar a Darwin
-- tope_encargo_tokens: 400000
+- tope_encargo_tokens: 800000
 - tope_mision_encargos: 10
-- tope_mision_tokens: 1000000
+- tope_mision_tokens: 0
+- topes_papeles: todos
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
 - Ejecutora por defecto: <Codex | Claude | la que decida la directora>. La eliges tú; con «la que decida la directora» ella elige por encargo y te dice cuál usó. Para un encargo concreto puedes pedir otra en el chat.
@@ -129,7 +130,9 @@ Archivo `.brain/fabrica/evidencia/REQ-n.md`, escrito por **otra IA distinta de l
 
 ## 11. Informe de entrega y frenos (modo automático, spec 050)
 
-**Informe de entrega:** archivo `.brain/fabrica/informe.md`, una página llana para Darwin. `fabrica.py informe` comprueba que están las seis secciones y que **ninguna queda vacía sin explicación** (un «nada» lleva su motivo). Con él Darwin decide una sola vez: aceptar o descartar la rama.
+**Informe de entrega:** archivo `.brain/fabrica/informe.md`, una página llana para Darwin. `fabrica.py informe` comprueba que están las seis secciones, que **ninguna queda vacía sin explicación** (un «nada» lleva su motivo) y que **nombra todos los requisitos (R1, R-2…) de la spec congelada vigente**: si la spec cambia (v4), el informe se rehace.
+
+**Topes:** `0` en `tope_mision_tokens` significa «calculado»: encargos permitidos × 350.000. `topes_papeles` (lista, o `todos`) dice qué papeles cuentan. Tras un OK de Darwin (p. ej. una spec nueva con más encargos) la directora reabre los topes **de una vez**: `fabrica.py ampliar-topes --mas-encargos K --nota «lo que aprobó Darwin»`; queda en `estado/topes-ampliados.json` y la carta sellada no se toca. Con él Darwin decide una sola vez: aceptar o descartar la rama.
 
 ```markdown
 # Informe de entrega: <orden>

@@ -23,7 +23,10 @@ Lo usa la directora (o Darwin) entre pasos; no es un hook. Todo cuelga de `.brai
   gasto --encargo N --tokens T --papel P [--fallo]
                                  anota el gasto de un papel (y si el intento falló)
   topes [--encargo N] [--libre-semanal PCT]
-                                 compara el gasto con los topes de la carta (encargo, misión, freno semanal, dos fallos seguidos)
+                                 compara el gasto (todos los papeles, o los de `topes_papeles` de la carta) con los topes de la carta
+                                 y sus ampliaciones (encargo, misión, freno semanal, dos fallos seguidos)
+  ampliar-topes --nota T [--mas-encargos K] [--mision-tokens N] [--encargo-tokens N]
+                                 tras un OK de Darwin (p. ej. una spec nueva con más encargos) reabre los topes de una vez y lo anota
 Código de salida: 0 = en regla, 1 = incumple (parar y avisar a Darwin), 2 = uso incorrecto."""
 import argparse
 import hashlib
@@ -39,8 +42,11 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 
-# Topes aprobados por Darwin el 2026-11-10 (spec 035, sección 7); la carta los puede cambiar.
-TOPES_POR_DEFECTO = {"tope_encargo_tokens": 400000, "tope_mision_encargos": 10, "tope_mision_tokens": 1000000,
+# Topes (spec 035, sección 7; corregidos en la 1.60.0 tras la revisión del modo automático): la carta los puede cambiar.
+# Ahora cuentan TODOS los papeles (ejecutora, revisora, Codex…): es el gasto real. Una misión real gastó ~320.000 por
+# encargo, así que el tope de misión en 0 se calcula solo (encargos × TOKENS_POR_ENCARGO_MEDIO) y sube con los encargos.
+TOKENS_POR_ENCARGO_MEDIO = 350000
+TOPES_POR_DEFECTO = {"tope_encargo_tokens": 800000, "tope_mision_encargos": 10, "tope_mision_tokens": 0,
                      "libre_semanal_minimo": 50, "fallos_seguidos_max": 2}
 # Siempre permitido a la ejecutora: su nota, y el estado interno de este guardián.
 SIEMPRE_PERMITIDO = (".brain/notas-chats/", ".brain/fabrica/estado/")
@@ -533,7 +539,31 @@ class Fabrica:
                   if not any(len(x) >= 8 and not x.startswith("<") for x in bloques[i])]
         if vacias:
             return 1, [self.t("fabrica_informe_vacia", ", ".join(vacias))]
+        faltan = self._requisitos_sin_mencionar(texto)
+        if faltan:
+            return 1, [self.t("fabrica_informe_requisitos", ", ".join(faltan))]
         return 0, [self.t("fabrica_informe_ok")]
+
+    def _requisitos_sin_mencionar(self, texto_informe):
+        """Requisitos (R1, R-2…) de la spec congelada que el informe no nombra. Con una spec nueva (v4) el informe viejo
+        deja de valer: así Darwin no acepta una entrega sin ver el requisito que se añadió (revisión de empresa-virtual-sim)."""
+        ruta = str(self._huellas().get("spec", {}).get("ruta", ""))
+        if not ruta:
+            return []
+        for cand in (Path(ruta), self.raiz / ruta):
+            if cand.is_file():
+                spec = cand.read_text(encoding="utf-8-sig", errors="replace")
+                break
+        else:
+            return []
+        norm = lambda x: "R" + re.sub(r"\D", "", x)  # noqa: E731  R-10 y R10 son lo mismo
+        pedidos = []
+        for m in re.finditer(r"\bR-?(\d+)\b", spec):
+            r = norm(m.group(0))
+            if r not in pedidos:
+                pedidos.append(r)
+        nombrados = {norm(m.group(0)) for m in re.finditer(r"\bR-?(\d+)\b", texto_informe)}
+        return [r for r in pedidos if r not in nombrados]
 
     def verificar(self):
         h = self._huellas()
@@ -657,8 +687,11 @@ class Fabrica:
             self.avance(encargo, "trabajo de %s sin fallo" % papel)
         return 0, [self.t("fabrica_gasto_anotado", papel, int(tokens), str(encargo))]
 
+    def _ampliaciones(self):
+        return _json(self.estado / "topes-ampliados.json", {"claves": {}, "historial": []})
+
     def topes_carta(self):
-        """Los topes numéricos de carta.md (líneas `- clave: número`); lo que falte usa el valor aprobado."""
+        """Los topes numéricos de carta.md (líneas `- clave: número`); lo que falte usa el valor por defecto."""
         topes = dict(TOPES_POR_DEFECTO)
         if self.carta.is_file():
             texto = self.carta.read_text(encoding="utf-8")
@@ -668,11 +701,64 @@ class Fabrica:
                     topes[clave] = int(m.group(1))
         return topes
 
-    def topes(self, encargo=None, libre_semanal=None):
+    def papeles_que_cuentan(self):
+        """Línea `- topes_papeles: ejecutora, revisora` de la carta; vacía o «todos» = cuentan todos los papeles."""
+        if self.carta.is_file():
+            m = re.search(r"^[-*]\s*topes_papeles\s*:\s*(.+)$", self.carta.read_text(encoding="utf-8"), re.M)
+            if m:
+                lista = [x.strip().lower() for x in re.split(r"[,;]", m.group(1)) if x.strip()]
+                if lista and lista != ["todos"] and lista != ["all"]:
+                    return lista
+        return None
+
+    def topes_efectivos(self):
+        """Carta + ampliaciones aprobadas por Darwin (solo suben); el tope de misión en 0 se calcula por encargos."""
         tp_ = self.topes_carta()
+        for clave, valor in self._ampliaciones().get("claves", {}).items():
+            if clave in tp_:
+                tp_[clave] = max(tp_[clave], int(valor))
+        if tp_["tope_mision_tokens"] <= 0:
+            tp_["tope_mision_tokens"] = tp_["tope_mision_encargos"] * TOKENS_POR_ENCARGO_MEDIO
+        return tp_
+
+    def ampliar_topes(self, nota, mas_encargos=0, mision_tokens=None, encargo_tokens=None):
+        """Reabre los topes de una vez tras un OK de Darwin (spec nueva con más encargos). La nota dice quién lo aprobó."""
+        if not str(nota or "").strip():
+            return 1, [self.t("fabrica_ampliar_sin_nota")]
+        tp_ = self.topes_efectivos()
         g = self._gasto()
+        n_enc = len({x["encargo"] for x in g})
+        gastado = sum(x["tokens"] for x in self._cuentan(g))
+        nuevos = {}
+        if mas_encargos:
+            nuevos["tope_mision_encargos"] = max(tp_["tope_mision_encargos"], n_enc + int(mas_encargos))
+            nuevos["tope_mision_tokens"] = max(tp_["tope_mision_tokens"], gastado + int(mas_encargos) * TOKENS_POR_ENCARGO_MEDIO)
+        if mision_tokens:
+            nuevos["tope_mision_tokens"] = max(nuevos.get("tope_mision_tokens", 0), int(mision_tokens))
+        if encargo_tokens:
+            nuevos["tope_encargo_tokens"] = int(encargo_tokens)
+        if not nuevos:
+            return 1, [self.t("fabrica_ampliar_nada")]
+        amp = self._ampliaciones()
+        amp.setdefault("claves", {}).update({k: max(int(v), int(amp["claves"].get(k, 0))) for k, v in nuevos.items()})
+        amp.setdefault("historial", []).append({"fecha": time.strftime("%Y-%m-%d %H:%M"), "nota": str(nota).strip(), **nuevos})
+        _guardar(self.estado / "topes-ampliados.json", amp)
+        return 0, [self.t("fabrica_ampliar_ok", ", ".join("%s=%d" % kv for kv in sorted(nuevos.items())))]
+
+    def _cuentan(self, g):
+        papeles = self.papeles_que_cuentan()
+        return [x for x in g if papeles is None or str(x.get("papel", "")).lower() in papeles]
+
+    def topes(self, encargo=None, libre_semanal=None):
+        tp_ = self.topes_efectivos()
+        g = self._gasto()
+        gc = self._cuentan(g)
         avisos = []
-        total = sum(x["tokens"] for x in g)
+        total = sum(x["tokens"] for x in gc)
+        por_papel = {}
+        for x in gc:
+            por_papel[x.get("papel", "?")] = por_papel.get(x.get("papel", "?"), 0) + x["tokens"]
+        desglose = self.t("fabrica_topes_desglose", ", ".join("%s %d" % kv for kv in sorted(por_papel.items())) or "-")
         if total > tp_["tope_mision_tokens"]:
             avisos.append(self.t("fabrica_tope_mision_tokens", total, tp_["tope_mision_tokens"]))
         n_enc = len({x["encargo"] for x in g})
@@ -680,7 +766,7 @@ class Fabrica:
             avisos.append(self.t("fabrica_tope_mision_encargos", n_enc, tp_["tope_mision_encargos"]))
         if encargo is not None:
             propios = [x for x in g if x["encargo"] == str(encargo)]
-            gastado = sum(x["tokens"] for x in propios)
+            gastado = sum(x["tokens"] for x in self._cuentan(propios))
             if gastado >= tp_["tope_encargo_tokens"]:
                 avisos.append(self.t("fabrica_tope_encargo", str(encargo), gastado, tp_["tope_encargo_tokens"]))
             seguidos = 0
@@ -693,7 +779,7 @@ class Fabrica:
         if libre_semanal is not None and libre_semanal < tp_["libre_semanal_minimo"]:
             avisos.append(self.t("fabrica_freno_semanal", libre_semanal, tp_["libre_semanal_minimo"]))
         if avisos:
-            return 1, avisos + [self.t("fabrica_parar")]
+            return 1, avisos + [desglose, self.t("fabrica_parar")]
         return 0, [self.t("fabrica_topes_ok", total, n_enc)]
 
 
@@ -724,6 +810,9 @@ def main(argv=None):
     s = sub.add_parser("gasto"); s.add_argument("--encargo", required=True); s.add_argument("--tokens", type=int, required=True)
     s.add_argument("--papel", required=True); s.add_argument("--fallo", action="store_true")
     s = sub.add_parser("topes"); s.add_argument("--encargo", default=None); s.add_argument("--libre-semanal", type=float, default=None)
+    s = sub.add_parser("ampliar-topes"); s.add_argument("--nota", default="")
+    s.add_argument("--mas-encargos", type=int, default=0); s.add_argument("--mision-tokens", type=int, default=0)
+    s.add_argument("--encargo-tokens", type=int, default=0)
     a = ap.parse_args(argv)
 
     f = Fabrica(a.raiz)
@@ -760,6 +849,8 @@ def main(argv=None):
         codigo, lineas = f.alcance(a.encargo_md, repo, a.encargo)
     elif a.orden == "gasto":
         codigo, lineas = f.gasto(a.encargo, a.tokens, a.papel, a.fallo)
+    elif a.orden == "ampliar-topes":
+        codigo, lineas = f.ampliar_topes(a.nota, a.mas_encargos, a.mision_tokens, a.encargo_tokens)
     else:
         codigo, lineas = f.topes(a.encargo, a.libre_semanal)
     for linea in lineas:

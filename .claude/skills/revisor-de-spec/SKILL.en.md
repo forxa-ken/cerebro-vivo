@@ -14,7 +14,7 @@ You are the **spec reviewer**: an AI **different** from the one that designed th
 ## How (steps)
 1. **Whoever designed it** first checks that `negocio.md` is sealed: `python .brain/guardianes/fabrica.py sellar-negocio` (the first time, with Darwin's permission) and `fabrica.py verificar`. If the business model changed without Darwin's approval, stop.
 2. **Read the business model first, then the spec.** Make the four searches:
-   - **(a) Business not covered:** something the business asks for that the spec lacks.
+   - **(a) Business not covered:** something the business asks for that the spec lacks. **Before searching, pull every stated goal out of the business** (what the user must be able to do, learn, see or achieve: "learn reliably", "see the status"…) and for each ask: **is there at least one requirement in the spec whose fulfilment achieves it and can be checked?** A goal with no requirement that fulfils it is an (a) finding, even if every single requirement looks right. (Real case: the business said "learn reliably" and the spec asked for no explanation at all; Darwin saw it when testing, not the reviewer.)
    - **(b) Invented requirements:** something the spec demands that the business does not back.
    - **(c) Gaps and ambiguities:** sentences with two possible readings or missing data. Mark with `[GRANDE]` the ones that change what the user can do: those go up to Darwin even if you approve.
    - **(d) Contradictions** with another spec or earlier decision.

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Spec 035 fase 2: el guardián de la fábrica (huellas, alcance del encargo, topes y parada)."""
 import importlib.util
+import os
+import sys
 import subprocess
 import tempfile
 import unittest
@@ -148,12 +150,16 @@ class FabricaTest(unittest.TestCase):
         self.f.gasto("001", 300000, "ejecutora")
         self.assertEqual(self.f.topes("001")[0], 0)
         self.f.gasto("001", 100000, "ejecutora")
-        self.assertEqual(self.f.topes("001")[0], 1)  # 400.000 = tope del encargo
+        self.assertEqual(self.f.topes("001")[0], 0)  # 400.000 aún no es el tope (800.000)...
+        self.f.gasto("001", 400000, "ejecutora")
+        self.assertEqual(self.f.topes("001")[0], 1)  # ...800.000 = tope del encargo
         self.assertEqual(self.f.topes("002")[0], 0)
         self.assertEqual(self.f.topes("002", libre_semanal=49)[0], 1)
         self.assertEqual(self.f.topes("002", libre_semanal=50)[0], 0)
         self.f.gasto("002", 700000, "ejecutora")
-        self.assertEqual(self.f.topes("003")[0], 1)  # 1.100.000 > tope de misión
+        self.assertEqual(self.f.topes("003")[0], 0)  # 1.900.000 < 3.500.000 (10 encargos × 350.000, calculado)
+        self.f.gasto("002", 2100000, "revisora")
+        self.assertEqual(self.f.topes("003")[0], 1)  # 4.000.000 > tope de misión
 
     def test_dos_fallos_seguidos_paran_y_un_acierto_los_cuenta_de_nuevo(self):
         self.f.gasto("001", 10, "ejecutora", fallo=True)
@@ -173,8 +179,62 @@ class FabricaTest(unittest.TestCase):
         txt = (RAIZ / ".brain" / "biblioteca" / "PLANTILLAS_FABRICA.md").read_text(encoding="utf-8")
         self.carta.write_text(txt, encoding="utf-8")
         self.assertEqual(self.f.topes_carta(), fabrica.TOPES_POR_DEFECTO)
+        self.assertEqual(self.f.papeles_que_cuentan(), None)  # «topes_papeles: todos»
         for clave in fabrica.TOPES_POR_DEFECTO:
             self.assertIn("- %s:" % clave, txt)
+
+    def test_el_tope_de_mision_calculado_sube_con_los_encargos_de_la_carta(self):
+        self.assertEqual(self.f.topes_efectivos()["tope_mision_tokens"], 3500000)
+        self.carta.write_text("- tope_mision_encargos: 12\n", encoding="utf-8")
+        self.assertEqual(self.f.topes_efectivos()["tope_mision_tokens"], 12 * 350000)
+        self.carta.write_text("- tope_mision_tokens: 1000000\n", encoding="utf-8")  # fijo en la carta: manda
+        self.assertEqual(self.f.topes_efectivos()["tope_mision_tokens"], 1000000)
+
+    def test_los_topes_cuentan_todos_los_papeles_y_el_aviso_los_desglosa(self):
+        self.carta.write_text("- tope_mision_tokens: 100000\n", encoding="utf-8")
+        self.f.gasto("001", 60000, "ejecutora")
+        self.f.gasto("001", 60000, "revisora")  # entre las dos pasan el tope, ninguna sola
+        codigo, lineas = self.f.topes()
+        self.assertEqual(codigo, 1)
+        self.assertTrue(any("ejecutora 60000" in x and "revisora 60000" in x for x in lineas))
+        self.assertTrue(any("ampliar-topes" in x for x in lineas))
+
+    def test_topes_papeles_de_la_carta_filtra_lo_que_cuenta(self):
+        self.carta.write_text("- tope_mision_tokens: 100000\n- topes_papeles: Codex\n", encoding="utf-8")
+        self.assertEqual(self.f.papeles_que_cuentan(), ["codex"])
+        self.f.gasto("001", 90000, "ejecutora")  # no cuenta
+        self.f.gasto("001", 90000, "Codex")
+        self.assertEqual(self.f.topes()[0], 0)
+        self.f.gasto("001", 20000, "Codex")
+        self.assertEqual(self.f.topes()[0], 1)
+
+    def test_ampliar_topes_necesita_nota_solo_sube_y_se_anota(self):
+        self.carta.write_text("- tope_mision_encargos: 2\n- tope_mision_tokens: 100000\n", encoding="utf-8")
+        self.f.gasto("001", 60000, "ejecutora")
+        self.f.gasto("002", 60000, "ejecutora")
+        self.f.gasto("003", 10, "ejecutora")
+        self.assertEqual(self.f.topes()[0], 1)  # 3 encargos > 2 y 120.010 > 100.000
+        self.assertEqual(self.f.ampliar_topes("", mas_encargos=2)[0], 1)  # sin nota no vale
+        self.assertEqual(self.f.ampliar_topes("ok", mas_encargos=0)[0], 1)  # sin nada que ampliar
+        self.assertEqual(self.f.ampliar_topes("Darwin aprobó la spec v4", mas_encargos=2)[0], 0)
+        ef = self.f.topes_efectivos()
+        self.assertEqual(ef["tope_mision_encargos"], 5)  # 3 hechos + 2
+        self.assertEqual(ef["tope_mision_tokens"], 120010 + 2 * 350000)
+        self.assertEqual(self.f.topes()[0], 0)
+        self.assertEqual(self.f.ampliar_topes("pide menos", mision_tokens=1)[0], 0)  # nunca baja
+        self.assertEqual(self.f.topes_efectivos()["tope_mision_tokens"], 120010 + 2 * 350000)
+        hist = self.f._ampliaciones()["historial"]
+        self.assertEqual(len(hist), 2)
+        self.assertIn("spec v4", hist[0]["nota"])
+        self.assertEqual(self.f.ampliar_topes("más por encargo", encargo_tokens=1200000)[0], 0)
+        self.assertEqual(self.f.topes_efectivos()["tope_encargo_tokens"], 1200000)
+
+    def test_ampliar_topes_por_la_linea_de_comandos(self):
+        r = subprocess.run([sys.executable, str(RAIZ / ".brain" / "guardianes" / "fabrica.py"), "--raiz", str(self.repo),
+                            "ampliar-topes", "--nota", "OK de Darwin", "--mas-encargos", "3"],
+                           capture_output=True, env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertTrue((self.repo / ".brain" / "fabrica" / "estado" / "topes-ampliados.json").is_file())
 
     def test_mensajes_en_ingles(self):
         f = fabrica.Fabrica(self.repo, {"idioma": "en"})
@@ -683,6 +743,26 @@ class InformeTest(unittest.TestCase):
     def test_sin_archivo_falla(self):
         self.assertEqual(self.f.informe()[0], 1)
 
+    def test_el_informe_debe_nombrar_todos_los_requisitos_de_la_spec_vigente(self):
+        spec = self.raiz / ".brain" / "specs" / "s.md"
+        spec.parent.mkdir(parents=True)
+        spec.write_text("# Spec v3\n- R1 uno\n- R-2 dos\n", encoding="utf-8")
+        self.f.congelar(spec)
+        self.ruta.write_text(INFORME_BUENO, encoding="utf-8")
+        codigo, lineas = self.f.informe()
+        self.assertEqual(codigo, 1)  # el informe no nombra R2
+        self.assertIn("R2", lineas[0])
+        self.ruta.write_text(INFORME_BUENO + "\n- R1 y R2 probados con la prueba de uso real\n", encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 0)
+        # llega la spec v4 con R-10: el informe de la v3 ya no vale
+        spec.write_text("# Spec v4\n- R1 uno\n- R-2 dos\n- R-10 explicaciones\n", encoding="utf-8")
+        self.f.congelar(spec, reemplazar=True)
+        codigo, lineas = self.f.informe()
+        self.assertEqual(codigo, 1)
+        self.assertIn("R10", lineas[0])
+        self.ruta.write_text(INFORME_BUENO + "\n- R1, R2 y R-10 hechos y probados\n", encoding="utf-8")
+        self.assertEqual(self.f.informe()[0], 0)
+
     def test_falta_una_seccion(self):
         self.ruta.write_text(INFORME_BUENO.replace("## Lo no probado", "## Otra cosa"), encoding="utf-8")
         codigo, lineas = self.f.informe()
@@ -887,6 +967,21 @@ class DirectoraAutomaticoTest(unittest.TestCase):
             texto = ruta.read_text(encoding="utf-8")
             for marca in marcas:
                 self.assertIn(marca, texto, nombre)
+
+    def test_skills_traen_las_reglas_de_la_1_60_0(self):
+        """Hallazgos 1 a 5 de la revisión del modo automático: topes, esperar en segundo plano, objetivo sin requisito, informe."""
+        casos = (("directora-de-fabrica", "SKILL.md", ("ampliar-topes", "run_in_background", "Esperar sin quedarte parada", "todos los papeles", "informe nombra todos los requisitos")),
+                 ("directora-de-fabrica", "SKILL.en.md", ("ampliar-topes", "run_in_background", "Waiting without stalling", "all roles", "report names every requirement")),
+                 ("revisor-de-spec", "SKILL.md", ("cada objetivo declarado", "al menos un requisito")),
+                 ("revisor-de-spec", "SKILL.en.md", ("every stated goal", "at least one requirement")))
+        for skill, nombre, marcas in casos:
+            ruta = RAIZ / ".claude" / "skills" / skill / nombre
+            if not ruta.is_file():
+                self.assertFalse((RAIZ / "manifiesto.json").is_file(), "falta " + nombre)
+                continue
+            texto = ruta.read_text(encoding="utf-8")
+            for marca in marcas:
+                self.assertIn(marca, texto, skill + "/" + nombre)
 
 
 if __name__ == "__main__":
