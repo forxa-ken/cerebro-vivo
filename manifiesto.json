@@ -79,7 +79,7 @@
   ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "5e7fdd233c83bd67e0b6faf2ea7fe643095c06a5e74ebaa6c11fcaac41303caf",
+  ".brain/guardianes/textos.py": "2b53223f64dc134ae1c97f41fed1533ec6272021f2a38c8405644329098877a0",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -160,8 +160,8 @@
   ".claude/skills/spec-antes-de-programar/SKILL.md": "68047010a2d2b60ff8260f680c07fa91aa2c99ad17bdf06bd95a4ce76460c71d",
   ".claude/skills/subir-a-github/SKILL.en.md": "a72e75e808db36b08bc1ed3903eb61439f0f6f71a8ad4152e951779ecddbbf6c",
   ".claude/skills/subir-a-github/SKILL.md": "66fc0fbd14068648cf4698efd1447c99342c24a1b3fd890d20ca1d1572dba4f9",
-  ".claude/skills/traspaso-in/SKILL.en.md": "dc6d37910f74823ac636c4af399114e4e8ade9c50ad4456e1325974cee89a7ae",
-  ".claude/skills/traspaso-in/SKILL.md": "012dde27a6b02cbebf19f2bddfd65e837f95e092415d51ef715a9772ed4a7a3c",
+  ".claude/skills/traspaso-in/SKILL.en.md": "70d8f607a71c3dbbec44ffd2a47595ec5d892c60d05ccbbec668db5670909edf",
+  ".claude/skills/traspaso-in/SKILL.md": "475a40dd05ec468967fe4df97b9dc4d5ba4055ea922b8a58573916a47eed3fb4",
   ".claude/skills/traspaso-out/SKILL.en.md": "97adda8a8b2c5875ab7f1e596f352def0a1b75f8ae14655a0da0c2812773bda7",
   ".claude/skills/traspaso-out/SKILL.md": "3995807cd2a552ea698f87bb9ebce6f9be2e300e967dc92e53e6ff502a3980c8",
   ".claude/skills/trocea/SKILL.en.md": "ad198f5359e38f6fc977e44c4f723b440617eaeb8edb5d888ee6d57350c325ca",
@@ -204,7 +204,7 @@
   "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
   "tests/test_soporte_mac.py": "3c56379484b70a7dd2d6604ad9a0238ca2e911459ee5aaa33a43e095a794f0d5",
   "tests/test_textos.py": "7b2d157fbe7151bc67e5f09e8accb3181009a25d4711bd895e98f762e1e51045",
-  "tests/test_traspaso_in_out.py": "c4633847c17ebcf105e7825e686b99bb9a4425baad0f18ba05d6a27fe77995e4"
+  "tests/test_traspaso_in_out.py": "2bbaccbba34c8e6001e5e8b93fd033a6c66affcf22107f67f84521fb7687fd54"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.59.2"
+ "version": "1.59.3"
 }

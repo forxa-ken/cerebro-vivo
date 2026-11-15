@@ -47,7 +47,7 @@ TEXTOS = {
                            "Lee el índice y responde; no empieces nada por tu cuenta."),
         "longitud_aviso": ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Regla común de Cerebro Vivo (ajuste chat_nuevo_auto activo): abre TÚ el chat nuevo, sin preguntar. "
                            "1) PRIMERO escribe .brain/traspaso.md (plantilla en .brain/biblioteca/PLANTILLA_TRASPASO.md: sus últimas palabras literales, decisiones, estado de cada punto, lo que no se ha subido). "
-                           "2) Llama SIEMPRE a start_session (cárgala con ToolSearch si hace falta; contexto fresh, initiation user_asked, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro y contarlo en 4-5 viñetas) y enseguida a detach_session con su id. "
+                           "2) Llama SIEMPRE a start_session (cárgala con ToolSearch si hace falta; contexto fresh, initiation user_asked, encargo: leer .brain/traspaso.md, ejecutar traspaso-in entro, que incluye separarse con detach_session aunque crea que cortaría los avisos, y contarlo en 4-5 viñetas) y enseguida a detach_session con su id. "
                            "Nunca digas que la app lo rechaza sin haber hecho la llamada. Si initiation user_asked da error, prueba una vez con own_initiative (queda una tarjeta para un clic). "
                            "3) Dile a Darwin, en lenguaje llano, cómo se llama el chat nuevo. Solo si no tienes la herramienta o las llamadas fallan, déjale la frase para pegar: «%s»"),
         "longitud_aviso_manual": ("Este chat ya pesa ~%dk tokens de contexto: cada mensaje relee todo y cuesta más. Dile a Darwin, en lenguaje llano, que conviene "
@@ -589,7 +589,7 @@ TEXTOS = {
                            "Read the index and reply; do not start anything on your own."),
         "longitud_aviso": ("This chat already weighs ~%dk tokens of context: every message rereads everything and costs more. Common Cerebro Vivo rule (setting chat_nuevo_auto on): open the new chat YOURSELF, without asking. "
                            "1) FIRST write .brain/traspaso.md (template in .brain/biblioteca/PLANTILLA_TRASPASO.md: their last literal words, decisions, status of each item, what has not been pushed). "
-                           "2) ALWAYS call start_session (load it with ToolSearch if needed; fresh context, initiation user_asked, task: read .brain/traspaso.md, run traspaso-in entro and report it in 4-5 bullets) and right after detach_session with its id. "
+                           "2) ALWAYS call start_session (load it with ToolSearch if needed; fresh context, initiation user_asked, task: read .brain/traspaso.md, run traspaso-in entro, which includes detaching with detach_session even if it thinks that would cut the notices, and report it in 4-5 bullets) and right after detach_session with its id. "
                            "Never say the app refuses it without having made the call. If initiation user_asked returns an error, try once with own_initiative (it leaves a card for one click). "
                            "3) Tell Darwin, in plain words, the name of the new chat. Only if you lack the tool or the calls fail, leave them the phrase to paste: «%s»"),
         "longitud_aviso_manual": ("This chat already weighs ~%dk tokens of context: every message rereads everything and costs more. Tell Darwin, in plain words, that it is "

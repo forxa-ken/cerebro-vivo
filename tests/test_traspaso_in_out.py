@@ -79,5 +79,18 @@ class TestTraspasoInOut(unittest.TestCase):
             self.assertNotIn("traspaso-out", leer(d, "CLAUDE.md"))
 
 
+class SeparaseAunqueCreaQueCortaAvisosTest(unittest.TestCase):
+    """El chat nuevo se separa del anterior siempre (caso real: empresa-virtual-sim #4 lo saltó por miedo a perder avisos)."""
+
+    def test_skill_y_encargo_lo_dicen(self):
+        raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        for nombre, marcas in (("SKILL.md", ("incluye separarte con `detach_session`", "cortaría el aviso de resultados")),
+                               ("SKILL.en.md", ("it includes detaching with `detach_session`", "cut the results notice"))):
+            with open(os.path.join(raiz, ".claude", "skills", "traspaso-in", nombre), encoding="utf-8") as f:
+                texto = f.read()
+            for marca in marcas:
+                self.assertIn(marca, texto, nombre)
+
+
 if __name__ == "__main__":
     unittest.main()

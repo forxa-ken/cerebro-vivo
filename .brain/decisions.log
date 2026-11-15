@@ -227,3 +227,5 @@
 2026-11-15 | otro | Claude (cerebro-vivo #28) | v1.59.0: la skill directora-de-fabrica (es/en) dice que en modo automatico no se pregunta entre encargos; prueba nueva; 661 pruebas en verde; sin commit ni subida | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.1: arreglados los 4 hallazgos del auditor sobre la skill directora-de-fabrica (es/en): paradas completas por spec 050 secc. 3, reintentos secc. 5, huecos, prueba mas estricta; 661 pruebas OK | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.2: el CLAUDE.md del kit cita con ruta completa hechos-indice, hitos.py y _template.md (hallazgo en DemonFramework 2.0); 662 pruebas OK | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | subida a GitHub de la 1.59.2 (commits b126996..170dff6) | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.3: traspaso-in (es/en) y el encargo del aviso de chat largo exigen separarse con detach_session aunque crea que corta avisos (caso empresa-virtual-sim #4); 663 pruebas OK | Cambio pequeño
