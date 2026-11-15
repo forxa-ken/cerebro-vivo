@@ -225,3 +225,4 @@
 2026-11-14 | otro | Claude (cerebro-vivo #28) | Leccion apuntada: tope de 60 lineas por skill | Cambio pequeño
 2026-11-14 | otro | Claude (cerebro-vivo #28) | Troceada la leccion arnes-pruebas-y-manifiesto en dos temas (9 y 7 lecciones, 3,8 y 3,3 KB); copia integra en archive/troceado; ninguna leccion perdida | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #28) | v1.59.0: la skill directora-de-fabrica (es/en) dice que en modo automatico no se pregunta entre encargos; prueba nueva; 661 pruebas en verde; sin commit ni subida | Cambio pequeño
+2026-11-15 | otro | Claude (cerebro-vivo #29) | v1.59.1: arreglados los 4 hallazgos del auditor sobre la skill directora-de-fabrica (es/en): paradas completas por spec 050 secc. 3, reintentos secc. 5, huecos, prueba mas estricta; 661 pruebas OK | Cambio pequeño

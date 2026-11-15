@@ -878,8 +878,8 @@ class DirectoraAutomaticoTest(unittest.TestCase):
     """Modo automático (spec 050): la directora no pregunta entre encargos; la regla debe estar en su skill."""
 
     def test_skill_dice_que_no_se_pregunta_entre_encargos(self):
-        for nombre, marcas in (("SKILL.md", ("Modo automático", "entre encargos no preguntes")),
-                               ("SKILL.en.md", ("Automatic mode", "between assignments do not ask"))):
+        for nombre, marcas in (("SKILL.md", ("Modo automático", "entre encargos no preguntes", "sección 3 de la spec 050", "sección 5 de la spec 050", "hasta 3 reintentos", "más conservadora")),
+                               ("SKILL.en.md", ("Automatic mode", "between assignments do not ask", "section 3 of spec 050", "section 5 of spec 050", "up to 3 retries", "most conservative"))):
             ruta = RAIZ / ".claude" / "skills" / "directora-de-fabrica" / nombre
             if not ruta.is_file():
                 self.assertFalse((RAIZ / "manifiesto.json").is_file(), "falta " + nombre)

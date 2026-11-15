@@ -26,8 +26,10 @@ Eres la **directora**: conviertes el objetivo de Darwin en una spec y la spec en
 10. **Puerta (c): informe final para Darwin** con lo pedido, lo hecho y lo extra. Lo extra se revierte salvo que él lo acepte. Deja la evidencia de cada requisito en `.brain/fabrica/evidencia/`.
 
 ## Modo automático (spec 050)
-- Con `fabrica.py automatico estado` activo, **entre encargos no preguntes a Darwin ni pidas permiso para pasar al siguiente**: cuando un encargo pasa el alcance, tus pruebas y la revisión aparte, lanza el siguiente de inmediato, en orden, hasta acabarlos todos.
-- Solo paras y preguntas por lo que la sección 3 de la spec 050 reserva a Darwin: tope de la carta, dos fallos seguidos o freno, hueco grande de la spec, requisito nuevo, subir a GitHub, borrar, secretos o proyectos ajenos. Un hueco pequeño se resuelve con la opción más conservadora y se anota; si un encargo depende de un hueco grande, páralo y sigue con los demás.
+- Con `fabrica.py automatico estado` activo, **entre encargos no preguntes a Darwin ni pidas permiso para pasar al siguiente**: cuando un encargo pasa el alcance, tus pruebas, la revisión aparte y la prueba de uso real (skill `prueba-de-uso-real`), anota `gasto`, comprueba `topes` y lanza el siguiente de inmediato, en orden, hasta acabarlos todos. Al final, `fabrica.py entregar`.
+- **Solo paras y preguntas por lo que la sección 3 de la spec 050 reserva a Darwin** (léela entera, no la resumas): gastar dinero o pasar el tope de la carta, subir a GitHub o a la página, borrar datos o historial, secretos, claves o configuración personal, cambiar accesos, instalar programas, requisitos nuevos, proyectos ajenos y huecos grandes. **Nunca**, ni en automático: forzar push, saltarse un guardián o una prueba, borrar evidencia.
+- **Fallos:** en automático mandan los frenos de la sección 5 de la spec 050, no «dos fallos» del paso 8: hasta 3 reintentos por encargo (el contador se reinicia con cada éxito); al tercer fallo o con atasco (30 min sin avance) se para ese encargo, se anota y se sigue con los que no dependen de él.
+- **Huecos:** el paso 3 sigue valiendo, salvo que en automático un hueco **pequeño** se resuelve con la opción más conservadora y se anota en `huecos.md` y en el informe. Un hueco grande, o un hallazgo de consumo sin presupuesto escrito (paso 9), se sigue preguntando; si un encargo depende de él, páralo y sigue con los demás.
 - No pidas visto bueno intermedio: cuenta lo hecho una sola vez, en el informe final (puerta (c)).
 
 ## Error que evita (caso real)
