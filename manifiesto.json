@@ -24,7 +24,7 @@
   ".brain/biblioteca/kit-arranque/README.en.md": "1d1aeeb8fcb9be2ac86ca596384a9876e5356d5ee5eb2747c2f5e03c37839d53",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
-  ".brain/biblioteca/kit-arranque/instalar.py": "6a6e2985be4f8d5ce56324f0e33461c6252689795d42dd63f89cc9cd16a1be58",
+  ".brain/biblioteca/kit-arranque/instalar.py": "802cfc58b5181343f25788736ef26d114cfcb028993e2d9abcf74bbb74f48b3a",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "ae08b139c70261b465643e0fcb087572fa924feb9d48b2e6ca69538f0a347b6c",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f07c33e32ea6057ae4ac707e6d47c55560f4d8278f524d822509d34214f62fd3",
@@ -34,8 +34,8 @@
   ".brain/biblioteca/kit-arranque/plantillas/hechos.md": "7c43a6c1527772f7aed6f68c7418508b84e4e1d690533618fb7e57f9e3c73591",
   ".brain/biblioteca/kit-arranque/plantillas/hechos_indice.en.md": "a394d162d752b5121958d41bbe44a4634f4aa7f96f974f4cf47628089d59ff0d",
   ".brain/biblioteca/kit-arranque/plantillas/hechos_indice.md": "8f704bd4326b6382a4f389450821973f6f4bca56c809d71d0803435c8b29351c",
-  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.en.md": "a4c1153b5b912d0acb06d3ac4a3549371cfa69e075e22bf15886f91f2fef6980",
-  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "6504c67c0b9f3eeb8d371d5f5d2b45eed11c4f6abe303ae1cf1e4ced281a089f",
+  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.en.md": "b3c2b373dc82c053fe458567d185c3e3b96c94b480bb668dc9ff2e14565b47c6",
+  ".brain/biblioteca/kit-arranque/plantillas/indice_ia.md": "a340c42287d65b2c2b3a4a30618ca2ec737ee2d300c3d5eebe7607cd7f1c79d0",
   ".brain/biblioteca/kit-arranque/plantillas/objetivo.en.md": "eeff600796beffbdc1f5495ec7fd268094510650d9efa395427a10687d14fc3b",
   ".brain/biblioteca/kit-arranque/plantillas/objetivo.md": "7760b4baa031704b311804a4cdeb5830f52c8234559550e15323616bc111e092",
   ".brain/biblioteca/kit-arranque/plantillas/pendientes.en.md": "620868f52736fc600f5f6d9ceec07b39064f6e5c5f98be3c1609e09d6495d905",
@@ -189,7 +189,7 @@
   "tests/test_hermanos.py": "6ad7017262e7a0014168489c50ad682d3fdb067b2c48aa9b5747480ffe809238",
   "tests/test_hitos.py": "e6ad3c657d40220f0e0cf51ad51e2d5e2db9769afb667991f25c540c9892a5f4",
   "tests/test_instalar_gui.py": "be24832e32e66834c041bf9653359d1e1bf27afd3168df2ef637af894c5e1f86",
-  "tests/test_kit_arranque.py": "c9eda5585cabf34ca2193829933d489870fcef93113055b2af813caad1a5552d",
+  "tests/test_kit_arranque.py": "48e0ba59ce4a71af1f2eb511b9e6bf13357bb4ec7f8e02786631bcfa9e6e762d",
   "tests/test_kit_traduccion.py": "60ddd57ee5d66366d61049eeeb7f400b587cd79ebbd4b34671c38f8107874f15",
   "tests/test_lecciones.py": "24ccf3b207d58ea1b95142a1f23b6ea10ac7723bbd0fc25fe2b9765799fe46c7",
   "tests/test_librerias.py": "287f2786577a7b4629015e6580ba787628452e16dff16e300f383d251d702de4",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.59.1"
+ "version": "1.59.2"
 }

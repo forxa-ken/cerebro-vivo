@@ -7,7 +7,7 @@ This file (`{{ARCHIVO}}`) is the index that **{{IA}}** reads. Same operating con
 ## Persistent memory (Brain `.brain/`)
 {{BLOQUE_IA}}
 {{MAPA}}
-* **Lessons:** when a milestone is solved (error resolved, delicate file, big change) note the lesson on the spot with `/leccion`; the `hitos.py` guardian does not let the task close without it. Read `.brain/lecciones/` before repeating that work.
+* **Lessons:** when a milestone is solved (error resolved, delicate file, big change) note the lesson on the spot with `/leccion`; the `.brain/guardianes/hitos.py` guardian does not let the task close without it. Read `.brain/lecciones/` before repeating that work.
 * **Short chats:** when the session gets long, write the handoff and open the new chat yourself (`{{NOMBRE}} #N`), unless `/chat-nuevo no` turned it off. **{{DUENO}} gives permanent authorization to open that new chat automatically** (tools `start_session` and `detach_session`), without asking permission each time. Speak to them in plain language.
 
 ## Essential rules
@@ -17,5 +17,5 @@ This file (`{{ARCHIVO}}`) is the index that **{{IA}}** reads. Same operating con
 * Anything irreversible (pushing, deleting, spending, touching real data) is asked first. What is untested is stated as untested.
 
 ## Methodology (two lanes)
-1. **SDD** — more than 2 files or sensitive areas (payments, permissions, user data, deployment): spec in `.brain/specs/NNN-name.md` from `_template.md` and **wait for {{DUENO}}'s approval** before coding.
+1. **SDD** — more than 2 files or sensitive areas (payments, permissions, user data, deployment): spec in `.brain/specs/NNN-name.md` from `.brain/specs/_template.md` and **wait for {{DUENO}}'s approval** before coding.
 2. **Small change** — everything else: apply, tests green and one line in `.brain/decisions.log`.

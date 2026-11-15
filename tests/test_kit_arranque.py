@@ -220,5 +220,21 @@ class TestFusionConLoExistente(unittest.TestCase):
         self.assertEqual(self.leer(destino, "CLAUDE.md" + kit.COPIA), "uno\n")
 
 
+class RutasCompletasEnElIndiceTest(unittest.TestCase):
+    """El CLAUDE.md que instala el kit cita las rutas completas: con el nombre corto el revisor de índices las daba por rotas."""
+
+    def test_sin_rutas_cortas(self):
+        for idioma in ("español", "english"):
+            destino = tempfile.mkdtemp()
+            kit.instalar(destino, "Demo", "Ana", idioma, "pytest", ["claude"], "completo", hoy="2026-01-01")
+            with open(os.path.join(destino, "CLAUDE.md"), encoding="utf-8") as f:
+                texto = f.read()
+            for corta, completa in (("hechos-indice.md", ".brain/archive/hechos-indice.md"),
+                                    ("hitos.py", ".brain/guardianes/hitos.py"),
+                                    ("_template.md", ".brain/specs/_template.md")):
+                for m in re.finditer(r"`([^`]*%s)`" % re.escape(corta), texto):
+                    self.assertEqual(m.group(1), completa, idioma)
+
+
 if __name__ == "__main__":
     unittest.main()

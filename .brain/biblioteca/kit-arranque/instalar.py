@@ -208,7 +208,7 @@ def mapa_en(nivel):
         lineas += ["* **Switching AI (Claude, Gemini, Codex):** if `.brain/traspaso.md` exists, read it first; when opening a new chat with the same AI use `traspaso-in entro`, and when switching AI `traspaso-out salgo` / `traspaso-out entro` (in Codex, with `$`).",
                    "* **Non-negotiable rules:** [`.brain/constitution.md`](.brain/constitution.md).",
                    "* **Decisions and their why:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md); check it before changing anything already decided.",
-                   "* **History:** `.brain/archive/` (**do not open it whole**; check `hechos-indice.md`).",
+                   "* **History:** `.brain/archive/` (**do not open it whole**; check `.brain/archive/hechos-indice.md`).",
                    "* **Map and roadmap:** [`.brain/referencias.md`](.brain/referencias.md) (check only when needed)."]
     if nivel == "completo":
         lineas += ["* **Handoff between chats:** if `.brain/traspaso.md` exists, startup shows it by itself; when proposing a new chat it is written first (template in `.brain/biblioteca/PLANTILLA_TRASPASO.md`).",
@@ -228,7 +228,7 @@ def mapa(nivel):
         lineas += ["* **Cambio de IA (Claude, Gemini, Codex):** si existe `.brain/traspaso.md`, léelo primero; al abrir un chat nuevo con la misma IA usa `traspaso-in entro`, y al cambiar de IA `traspaso-out salgo` / `traspaso-out entro` (en Codex, con `$`).",
                    "* **Reglas innegociables:** [`.brain/constitution.md`](.brain/constitution.md).",
                    "* **Decisiones y su porqué:** [`.brain/decisions/indice.md`](.brain/decisions/indice.md); consultarlo antes de cambiar algo ya decidido.",
-                   "* **Historial:** `.brain/archive/` (**no abrirlo completo**; consultar `hechos-indice.md`).",
+                   "* **Historial:** `.brain/archive/` (**no abrirlo completo**; consultar `.brain/archive/hechos-indice.md`).",
                    "* **Mapa y hoja de ruta:** [`.brain/referencias.md`](.brain/referencias.md) (consultar solo si toca)."]
     if nivel == "completo":
         lineas += ["* **Traspaso entre chats:** si existe `.brain/traspaso.md`, el arranque lo muestra solo; al proponer un chat nuevo se escribe antes (plantilla en `.brain/biblioteca/PLANTILLA_TRASPASO.md`).",
