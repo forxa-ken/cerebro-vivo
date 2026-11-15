@@ -235,3 +235,4 @@
 2026-11-15 | otro | Claude (cerebro-vivo #29) | pendiente 58: topes de la fabrica mal calculados, revisar con los datos de empresa-virtual-sim (primeras pistas anotadas) | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #29) | revision del modo automatico con empresa-virtual-sim hecha: nota con cifras y 6 hallazgos; pendiente 57 actualizado, 58 sigue | Cambio pequeño
 2026-11-15 | otro | Claude (cerebro-vivo #30) | v1.60.0: topes de la fabrica (todos los papeles, mision calculada, ampliar-topes), directora en segundo plano, revisor de spec con objetivos, informe con todos los requisitos; 670 pruebas en verde, sin subir | Cambio pequeño
+2026-11-15 | auto | Claude (auto) | (auto) tocó .gitignore; pruebas en verde | Cambio pequeño
