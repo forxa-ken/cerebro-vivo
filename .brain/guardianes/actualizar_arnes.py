@@ -159,6 +159,38 @@ def completar_configuracion(repo, proyecto, simular=False):
     return nuevas
 
 
+def _version_tupla(v):
+    try:
+        return tuple(int(x) for x in str(v).strip().split("."))
+    except (TypeError, ValueError):
+        return None
+
+
+MIGRACION_AUDITOR = (1, 60, 9)  # 1.60.9: Codex audita siempre; el valor antiguo «general-y-spec» pasa a «siempre» una sola vez
+
+
+def migrar_auditor(proyecto, version_antes, version_nueva, simular=False):
+    """1.60.9: pasa `auditor_externo` de «general-y-spec» (el valor de antes) a «siempre» una sola vez, al subir de una versión
+    anterior a la 1.60.9. No distingue si ese valor era el de fábrica o una elección, así que avisa y se puede volver atrás con
+    `/auditor externo general-y-spec` (esa vez ya no se toca, porque el proyecto ya no viene de una versión anterior).
+    Devuelve {'auditor_externo': ('general-y-spec', 'siempre')} si cambia (o cambiaría); {} si no."""
+    antes, nueva = _version_tupla(version_antes), _version_tupla(version_nueva)
+    if not antes or not nueva or antes >= MIGRACION_AUDITOR or nueva < MIGRACION_AUDITOR:
+        return {}
+    ruta = os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            cfg = json.load(f)
+    except Exception:
+        return {}
+    if not isinstance(cfg, dict) or str(cfg.get("auditor_externo", "")).strip().lower() != "general-y-spec":
+        return {}
+    if not simular:
+        cfg["auditor_externo"] = "siempre"
+        escribir_atomico(ruta, (json.dumps(cfg, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+    return {"auditor_externo": ("general-y-spec", "siempre")}
+
+
 def completar_hooks(repo, proyecto, simular=False, ahora=None):
     """Punto 3.1 del informe 028: añade a `.claude/settings.json` del proyecto los hooks del arnés que le faltan (p. ej. el de un guardián
     nuevo), tomándolos de `.claude/settings.json` del repo. Nunca quita ni cambia un hook que ya exista y respeta el intérprete
@@ -362,7 +394,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     forzar = {f.replace("\\", "/") for f in forzar}
     res = {"version_antes": registro.get("version"), "version": manifiesto.get("version"), "nuevos": [], "actualizados": [],
            "sin_cambios": [], "a_mano": [], "forzados": [], "copia": None, "claves_nuevas": claves_nuevas(repo, proyecto),
-           "claves_escritas": {}, "hooks_nuevos": [], "fichas": [], "retirados": [], "retirados_a_mano": [], "filas_quitadas": [], "sin_aplicar": []}
+           "claves_escritas": {}, "valores_migrados": {}, "hooks_nuevos": [], "fichas": [], "retirados": [], "retirados_a_mano": [], "filas_quitadas": [], "sin_aplicar": []}
     por_escribir = []  # (rel, destino, contenido, existia)
     for fuente, rel in destinos(manifiesto, proyecto):
         destino = ruta_segura(proyecto, rel)
@@ -407,6 +439,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     res["filas_quitadas"] = filas_de_retiradas(manifiesto, proyecto, salen)
     if simular:
         res["claves_escritas"] = completar_configuracion(repo, proyecto, simular=True)
+        res["valores_migrados"] = migrar_auditor(proyecto, res["version_antes"], res["version"], simular=True)
         res["hooks_nuevos"] = completar_hooks(repo, proyecto, simular=True)
         llegan = [_skill_de(rel) for rel in res["nuevos"] if rel.startswith(".claude/") and _skill_de(rel)]
         res["fichas"] = completar_fichas_skills(repo, proyecto, simular=True, llegan=llegan, salen=salen)
@@ -431,6 +464,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg,
                                 "nivel": "completo", "sin_aplicar": res["sin_aplicar"]})
     res["claves_escritas"] = completar_configuracion(repo, proyecto)
+    res["valores_migrados"] = migrar_auditor(proyecto, res["version_antes"], res["version"])
     res["hooks_nuevos"] = completar_hooks(repo, proyecto, ahora=ahora)
     res["fichas"] = completar_fichas_skills(repo, proyecto)
     return res
@@ -572,6 +606,8 @@ def informe(res, simular):
     if res.get("claves_escritas"):
         L.append(tp("actualizar_arnes_configuracion_clave_nueva") % (
             tp("actualizar_arnes_anadirian2") if simular else tp("actualizar_arnes_anadieron"), len(res["claves_escritas"]), ", ".join(sorted(res["claves_escritas"]))))
+    for clave, (viejo, nuevo) in sorted((res.get("valores_migrados") or {}).items()):
+        L.append(tp("actualizar_arnes_valor_migrado") % (tp("actualizar_arnes_cambiaria") if simular else tp("actualizar_arnes_cambio"), clave, viejo, nuevo))
     if res.get("hooks_nuevos"):
         L.append(tp("actualizar_arnes_hooks_nuevos") % (tp("actualizar_arnes_anadirian") if simular else tp("actualizar_arnes_anadidas"), ", ".join(res["hooks_nuevos"])))
     if res.get("fichas"):

@@ -462,3 +462,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.8 (2026-11-16)
 - Arreglo de prueba: `test_ajustes_por_defecto_del_repo` exigía que el `guardianes.json` de cada proyecto valiera `siempre`; en los proyectos que ya tenían `auditor_externo: general-y-spec` escrito la prueba salía roja tras la 1.60.7 (visto en Prominimap). Ahora solo comprueba que el valor sea reconocible.
+
+## 1.60.9 (2026-11-16)
+- Cambio de método (orden de Darwin): como el auditor externo (Codex) es ahora el de siempre, el actualizador pasa `auditor_externo` de «general-y-spec» a «siempre» **una sola vez** al subir de una versión anterior a la 1.60.9, y lo dice en el informe (es/en). No distingue si ese valor era el de fábrica o una elección: quien quiera lo antiguo escribe `/auditor externo general-y-spec` y ya no se vuelve a tocar. Otros valores (`no`, `siempre`) no se tocan.

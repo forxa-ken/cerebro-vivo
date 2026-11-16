@@ -194,6 +194,57 @@ class TestSincronizar(Base):
             act.sincronizar(self.repo, self.repo)
 
 
+class TestMigracionAuditor(Base):
+    """1.60.9: el auditor externo pasa a ser Codex siempre; el valor antiguo se migra una sola vez."""
+
+    def preparar(self, version_antes, valor, version_repo="1.60.9"):
+        self.poner_repo({".brain/guardianes/uno.py": "# uno v2\n"}, version_repo)
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"auditor_externo": valor, "a": 1}))
+        act.guardar_registro(self.proy, {"version": version_antes, "archivos": {}})
+
+    def valor(self):
+        return json.loads(leer(self.proy, ".brain/guardianes/guardianes.json"))["auditor_externo"]
+
+    def test_migra_el_valor_antiguo_una_vez_y_con_simular_no_escribe(self):
+        self.preparar("1.60.8", "general-y-spec")
+        res = act.sincronizar(self.repo, self.proy, simular=True)
+        self.assertEqual(res["valores_migrados"], {"auditor_externo": ("general-y-spec", "siempre")})
+        self.assertEqual(self.valor(), "general-y-spec")
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(self.valor(), "siempre")
+        self.assertIn("siempre", act.informe(res, False))
+
+    def test_si_el_dueno_vuelve_al_valor_antiguo_ya_no_se_toca(self):
+        self.preparar("1.60.8", "general-y-spec")
+        act.sincronizar(self.repo, self.proy)
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"auditor_externo": "general-y-spec", "a": 1}))
+        self.poner_repo({".brain/guardianes/uno.py": "# uno v3\n"}, "1.60.10")
+        act.sincronizar(self.repo, self.proy)
+        self.assertEqual(self.valor(), "general-y-spec")
+
+    def test_no_toca_otros_valores_ni_versiones_ya_migradas(self):
+        for antes, valor in (("1.60.8", "no"), ("1.60.8", "siempre"), ("1.60.9", "general-y-spec")):
+            with self.subTest(antes=antes, valor=valor):
+                self.preparar(antes, valor)
+                res = act.sincronizar(self.repo, self.proy)
+                self.assertEqual(res["valores_migrados"], {})
+                self.assertEqual(self.valor(), valor)
+
+    def test_sin_registro_de_version_no_migra(self):
+        self.preparar("1.60.8", "general-y-spec")
+        act.guardar_registro(self.proy, {"archivos": {}})
+        res = act.sincronizar(self.repo, self.proy)
+        self.assertEqual(res["valores_migrados"], {})
+
+    def test_el_texto_existe_en_es_y_en(self):
+        import sys
+        sys.path.insert(0, os.path.join(RAIZ, ".brain", "guardianes"))
+        from textos import TEXTOS
+        for idioma in ("es", "en"):
+            for clave in ("actualizar_arnes_valor_migrado", "actualizar_arnes_cambiaria", "actualizar_arnes_cambio"):
+                self.assertIn(clave, TEXTOS[idioma])
+
+
 class TestHooks(Base):
     """Informe 028 (3.1): el actualizador añade a .claude/settings.json los hooks de guardianes que faltan, sin tocar los que hay."""
     def hook(self, guardian, prefijo="python", matcher=None):
