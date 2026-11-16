@@ -260,3 +260,4 @@
 2026-11-16 | otro | Claude (cerebro-vivo #33) | 1.60.10: la fabrica no hace revision aparte en encargos pequeños; subida a main y aplicada en empresa-virtual-sim | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #33) | Pagina publica: capitulo de la fabrica con el paso a paso actual (gh-pages 43268e8), en 1.60.10; main ya estaba subido en 1.60.10 | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #33) | Subida la 1.60.11 (main) y pagina publica en 1.60.11 (gh-pages): camino corto, medir.py ve a la directora, skill de la directora reescrita | Cambio pequeño
+2026-11-16 | otro | Claude (cerebro-vivo #34) | Limpieza: dos documentos sueltos de la raiz movidos a .brain/archive; subido main f11b388 | Cambio pequeño
