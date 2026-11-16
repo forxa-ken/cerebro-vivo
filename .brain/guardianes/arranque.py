@@ -190,6 +190,21 @@ NO_AVISAR_COMMIT = ["*.migrado", "__pycache__/*", "*.pyc", "*.bak*", ".brain/dec
                     ".brain/archive/traspasos/*", ".brain/guardianes/*_estado.json"]  # spec 022: lo que se genera solo
 
 
+def falta_autorizacion_chat(raiz, cfg):
+    """Nombre del índice de Claude si no trae la frase que autoriza abrir el chat nuevo sin preguntar; None si está bien o no aplica."""
+    if not cfg.get("chat_nuevo_auto", True):
+        return None
+    nombre = cfg.get("claude_md", "CLAUDE.md")
+    try:
+        with open(os.path.join(raiz, nombre), encoding="utf-8", errors="replace") as f:
+            texto = f.read().lower()
+    except OSError:
+        return nombre
+    if "autoriza de forma permanente" in texto or "permanent authorization" in texto:
+        return None
+    return nombre
+
+
 def sin_commitear(raiz, cfg):
     """Spec 022: archivos sin commitear de todo el proyecto, salvo `no_avisar_commit`. En un movido cuenta el destino."""
     patrones = cfg.get("no_avisar_commit", NO_AVISAR_COMMIT)
@@ -340,6 +355,12 @@ def resumen(raiz, cfg):
             v = act.version_disponible(raiz, cfg)
             if v:
                 lineas.append(t(cfg, "arranque_arnes", *v))
+    except Exception:
+        pass
+    try:  # 1.60.6: sin la frase de autorización en CLAUDE.md el modo automático deniega abrir el chat nuevo
+        falta_aut = falta_autorizacion_chat(raiz, cfg)
+        if falta_aut:
+            lineas.append(t(cfg, "arranque_sin_autorizacion", falta_aut))
     except Exception:
         pass
     try:  # spec 085: plugins del meta-arnés que no están instalados

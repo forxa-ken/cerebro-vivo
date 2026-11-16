@@ -294,3 +294,39 @@ class TiemposArranqueTest(unittest.TestCase):
             self.assertEqual(datos["ultimos"], [{"segundos": 1}])
             m.TIEMPOS = os.path.join(d, "no_existe", "x.json")  # ruta imposible: no debe lanzar
             m._guardar_tiempos(ultimos=[])
+
+
+class AutorizacionChatNuevoTest(unittest.TestCase):
+    """1.60.6: sin la frase de autorización en CLAUDE.md el modo automático deniega abrir el chat nuevo."""
+
+    def setUp(self):
+        self.a = _cargar_arranque()
+        self.tmp = tempfile.TemporaryDirectory()
+        self.raiz = self.tmp.name
+        self.addCleanup(self.tmp.cleanup)
+
+    def _claude(self, texto):
+        with open(os.path.join(self.raiz, "CLAUDE.md"), "w", encoding="utf-8") as f:
+            f.write(texto)
+
+    def test_sin_claude_md_avisa(self):
+        self.assertEqual(self.a.falta_autorizacion_chat(self.raiz, {}), "CLAUDE.md")
+
+    def test_sin_la_frase_avisa(self):
+        self._claude("# Indice\n* Chats cortos: abre el chat nuevo.\n")
+        self.assertEqual(self.a.falta_autorizacion_chat(self.raiz, {}), "CLAUDE.md")
+
+    def test_con_la_frase_en_espanol_o_ingles_calla(self):
+        self._claude("DARWIN autoriza de forma permanente abrir ese chat")
+        self.assertIsNone(self.a.falta_autorizacion_chat(self.raiz, {}))
+        self._claude("Darwin gives permanent authorization to open that chat")
+        self.assertIsNone(self.a.falta_autorizacion_chat(self.raiz, {}))
+
+    def test_con_chat_nuevo_apagado_calla(self):
+        self.assertIsNone(self.a.falta_autorizacion_chat(self.raiz, {"chat_nuevo_auto": False}))
+
+    def test_el_texto_existe_en_es_y_en(self):
+        sys.path.insert(0, os.path.dirname(SCRIPT))
+        from textos import t
+        self.assertIn("CLAUDE.md", t({"idioma": "es"}, "arranque_sin_autorizacion", "CLAUDE.md"))
+        self.assertIn("CLAUDE.md", t({"idioma": "en"}, "arranque_sin_autorizacion", "CLAUDE.md"))

@@ -453,3 +453,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.5 (2026-11-15)
 - Arreglo: en modo fábrica automático, el aviso firme de chat largo (con el plan B de la tarea programada) se repite cada 20.000 tokens y no cada 100.000. Caso real: empresa-virtual-sim #6 recibió el aviso una sola vez a los 200.000, no pudo abrir el chat y siguió hasta 283.000 sin otro aviso del arnés.
+
+## 1.60.6 (2026-11-16)
+- Nuevo aviso en el arranque: si el `CLAUDE.md` del proyecto no existe o no trae la frase que autoriza abrir el chat nuevo sin preguntar, lo dice (es/en). Caso real: Prominimap pasó de Gemini y Codex a Claude sin `CLAUDE.md`; el modo automático de Claude Code denegó `start_session` a los 205.000 tokens y quedó solo una tarjeta. El actualizador no toca `CLAUDE.md`, así que la frase no llegaba sola.
