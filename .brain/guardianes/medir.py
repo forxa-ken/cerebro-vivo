@@ -33,7 +33,7 @@ def leer_chat(ruta):
     """Devuelve dict con los totales de un chat, sin contar dos veces el mismo mensaje
     (Claude Code repite la línea mientras la respuesta se va escribiendo)."""
     por_mensaje = {}
-    primera_fecha, titulo = None, ""
+    primera_fecha, titulo, inicio = None, "", ""
     with open(ruta, encoding="utf-8", errors="replace") as f:
         for linea in f:
             try:
@@ -49,6 +49,7 @@ def leer_chat(ruta):
                     c = " ".join(b.get("text", "") for b in c if isinstance(b, dict) and b.get("type") == "text")
                 if isinstance(c, str) and c.strip() and not c.lstrip().startswith("<"):
                     titulo = " ".join(c.split())[:45]
+                    inicio = " ".join(c.split())[:700]  # para reconocer a la directora aunque la palabra salga tarde
             uso = msg.get("usage")
             if e.get("type") == "assistant" and isinstance(uso, dict):
                 por_mensaje[msg.get("id") or e.get("uuid") or len(por_mensaje)] = uso
@@ -64,7 +65,7 @@ def leer_chat(ruta):
         salida += u.get("output_tokens", 0) or 0
         maximo = max(maximo, ent + esc + lec)
     return {"id": os.path.basename(ruta)[:8], "fecha": primera_fecha or "?", "mensajes": len(por_mensaje),
-            "nuevos": nuevos, "cache": cache, "salida": salida, "maximo": maximo, "arranque": arranque, "titulo": titulo or tp("medir_sin_titulo")}
+            "nuevos": nuevos, "cache": cache, "salida": salida, "maximo": maximo, "arranque": arranque, "titulo": titulo or tp("medir_sin_titulo"), "inicio": inicio}
 
 
 def k(n):
@@ -422,7 +423,7 @@ def directora_de_proyecto(proyecto, carpeta=None):
             c = leer_chat(ruta)
         except Exception:
             continue
-        if "directora" in c["titulo"].lower() or "director" in c["titulo"].lower():
+        if "director" in (c["titulo"] + " " + c.get("inicio", "")).lower():
             chats.append(c)
     return chats
 

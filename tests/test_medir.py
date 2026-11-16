@@ -177,9 +177,10 @@ class TestMedirFabrica(unittest.TestCase):
                 f.write(chr(10).join(json.dumps(x) for x in ls))
         chat("a.jsonl", "eres la directora de fábrica: leer el traspaso", 1000, 500)
         chat("b.jsonl", "arregla el guardián de textos", 7000, 7000)  # chat normal: no cuenta
+        chat("c.jsonl", "Background (from the session that started this one): Proyecto X, fábrica en automático. " + "relleno " * 10 + "Eres la directora: no programas", 200, 100)  # la palabra sale más allá del título corto
         cs = medir.directora_de_proyecto("X", d)
-        self.assertEqual(len(cs), 1)
-        self.assertEqual(cs[0]["nuevos"] + cs[0]["salida"], 1500)  # la caché no cuenta
+        self.assertEqual(len(cs), 2)
+        self.assertEqual(sorted(c["nuevos"] + c["salida"] for c in cs), [300, 1500])  # la caché no cuenta
         self.assertEqual(medir.directora_de_proyecto("X", os.path.join(d, "nada")), [])
 
 

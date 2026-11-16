@@ -71,7 +71,7 @@
   ".brain/guardianes/lecciones.py": "a1408d32ce542f1b4a1521d0d560636168b4c0045b0b1a070f204392f11d70d5",
   ".brain/guardianes/librerias.py": "4096837642b0de7e501f5515cd77ec7417bb06f4fbbc38c6aea1ed2ef09f89a8",
   ".brain/guardianes/longitud.py": "8871dba18175cd6e3ea6cd3f6dad73120fe5cb23ebdd115c29815018510e35e0",
-  ".brain/guardianes/medir.py": "74316eb6505303bb83b0e39e48bbabc63f7585f09acf674b9500763ab1e16df2",
+  ".brain/guardianes/medir.py": "bbce6db2c9a1a00e3e94430bc787bbcd2416573d4ca3c71a8ddbe2b081210211",
   ".brain/guardianes/notas_abiertas.py": "7a596d6060af56f39e0e952394e2242cff61bfe081b1a517d008e5beef72bb4f",
   ".brain/guardianes/poda.py": "78f798cc015077e3ea7edd48a179531028b90012f0df1de64703b248219b4523",
   ".brain/guardianes/pruebas.py": "11f174db1ac45adcba6fae9851beba9c99245da6c7069d6ff75b96f9605b681b",
@@ -106,8 +106,8 @@
   ".claude/skills/colabora/SKILL.md": "a757c3724225c8695e9c8ab660b0837d3edbb0bcbd36b59c141025d34e34621c",
   ".claude/skills/diapositivas/SKILL.en.md": "5b22c9965f3052519276fed6c6aa80fdbd9f808cd3cdd32b4c3456f69a1707d0",
   ".claude/skills/diapositivas/SKILL.md": "e6872facdb732420224f996ce98ed4b3670d374dd2680cd6a8fd299ba8885243",
-  ".claude/skills/directora-de-fabrica/SKILL.en.md": "0b3a278540ed6dcd03860ff2a2ed95455307283a19940ae4720efe09f893e72c",
-  ".claude/skills/directora-de-fabrica/SKILL.md": "0427d8daf75450a28796d6c54783339e15370032dff1de2b8b9eddcf0dd683c3",
+  ".claude/skills/directora-de-fabrica/SKILL.en.md": "3e44f69513f2b9c8aedd1204c18b020a1802661c3b8398d2f7492cfa7e69e484",
+  ".claude/skills/directora-de-fabrica/SKILL.md": "b8041412e0d4237e68d0037a9d9eaff4daf6dca71290005c3f77ff3990131e20",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
   ".claude/skills/fabrica/SKILL.en.md": "5b5a2504159a4071d349f6715f26e2c188802e3be8051f278ec4eac0b317d633",
@@ -194,7 +194,7 @@
   "tests/test_lecciones.py": "24ccf3b207d58ea1b95142a1f23b6ea10ac7723bbd0fc25fe2b9765799fe46c7",
   "tests/test_librerias.py": "287f2786577a7b4629015e6580ba787628452e16dff16e300f383d251d702de4",
   "tests/test_longitud.py": "0add6c9a1d426015cef2739acd92f58fda7f19e5bee440abf1785d7b89993332",
-  "tests/test_medir.py": "e6cb2e7c66d848c52593c783db1862ca2ce2b39b8c1b5466f617ad1a26a4c2d8",
+  "tests/test_medir.py": "269f0d6ca77d78671a33a2bae09132a7a7b4d1602216bbbd1c3ac0329310b50c",
   "tests/test_modo_ligero.py": "add36fbc455b736d760d2ef33a9e92450b57db3bb8b757a89da0fd7092c09715",
   "tests/test_poda.py": "c941dbe5e37f624d1de069d27561ac1112ef8c3bc208f47bafdfdc020d6d37e6",
   "tests/test_pruebas.py": "eb0dfbc078fd8590f21193d040e5cab6a1863c531593d1f1f4f1d14853b06077",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.10"
+ "version": "1.60.11"
 }
