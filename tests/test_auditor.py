@@ -308,8 +308,9 @@ class AvisoDeCierre(unittest.TestCase):
     def test_ajustes_por_defecto_del_repo(self):
         cfg = cfg_real()
         self.assertIs(cfg["auditor_cierre"], True)
-        self.assertEqual(cfg["auditor_externo"], "siempre")
-        self.assertEqual(cfg["auditor_interno"], "opcional")
+        # 1.60.8: el valor es del proyecto (uno antiguo con «general-y-spec» sigue siendo válido): solo se comprueba que sea reconocible
+        self.assertIn(auditor.valor_externo(cfg), auditor.EXTERNO_VALORES)
+        self.assertIn(auditor.valor_interno(cfg), auditor.INTERNO_VALORES)
 
 
 if __name__ == "__main__":

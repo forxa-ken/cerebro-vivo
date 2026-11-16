@@ -175,7 +175,7 @@
   "tests/test_analisis.py": "25c22d1298a713beb90a3c01f94b19e2c28622ae39bf2d7463caf4ce72c73a7e",
   "tests/test_archivos_gordos.py": "fe9e4eaf36ef6812bd68d98799a612466999cc0560b551d5ea3991bbceaddf65",
   "tests/test_arranque.py": "90bdb3a0e8fcf1e68ecae3c267914f3986c891b930e68a69f3552c6a59862502",
-  "tests/test_auditor.py": "844975965fd546b71715477c84407e8d3aad69fc88e2f183ced8440912446133",
+  "tests/test_auditor.py": "823e52844c64cf03c5205a3cf7b4d11faee4042d410bc04f66924494150d50c0",
   "tests/test_buscar.py": "112d758273f47c9a962d3fba3e1597da527de74b88cc52e7e0cb719ec1094c58",
   "tests/test_cerebro_indices.py": "02084030ae3b6316b14b6cf084aab447da5c76ad10653a232ee582dcadf70a56",
   "tests/test_colabora.py": "6cd9a0b5c067a6c4d07a8d3f4a2bcd03dedc0b1036eb977ccb070f6a425abe7f",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.7"
+ "version": "1.60.8"
 }

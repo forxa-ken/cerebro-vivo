@@ -459,3 +459,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.7 (2026-11-16)
 - Cambio de método (orden de Darwin): el auditor es **externo (Codex) por defecto** en todas las auditorías (general, cierre y spec) y el interno es **opcional** (`auditor_interno: opcional|siempre`; `/auditor interno ...`; `auditor.py quien MODO --interno` para una vez). Si el externo no corre (`auditor_externo: no`, o `general-y-spec` en un cierre rutinario) audita el interno. Los proyectos que ya tengan `auditor_externo` escrito en su `guardianes.json` conservan su valor; el arranque anuncia si es distinto de `siempre`.
+
+## 1.60.8 (2026-11-16)
+- Arreglo de prueba: `test_ajustes_por_defecto_del_repo` exigía que el `guardianes.json` de cada proyecto valiera `siempre`; en los proyectos que ya tenían `auditor_externo: general-y-spec` escrito la prueba salía roja tras la 1.60.7 (visto en Prominimap). Ahora solo comprueba que el valor sea reconocible.
