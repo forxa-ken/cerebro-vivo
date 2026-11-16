@@ -465,3 +465,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.9 (2026-11-16)
 - Cambio de método (orden de Darwin): como el auditor externo (Codex) es ahora el de siempre, el actualizador pasa `auditor_externo` de «general-y-spec» a «siempre» **una sola vez** al subir de una versión anterior a la 1.60.9, y lo dice en el informe (es/en). No distingue si ese valor era el de fábrica o una elección: quien quiera lo antiguo escribe `/auditor externo general-y-spec` y ya no se vuelve a tocar. Otros valores (`no`, `siempre`) no se tocan.
+
+
+## 1.60.10 (2026-11-16)
+- Cambio de método (orden de Darwin): la fábrica ya no hace la revisión aparte en un **encargo pequeño** (como máximo 3 archivos de interfaz, texto o estilo, sin tocar datos, seguridad, red o servidor, dinero ni accesos; ante la duda, no es pequeño). Ese encargo se cierra con el alcance, las pruebas de la directora, la lectura del diff y, en automático, la prueba de uso real, y el informe anota que no tuvo revisión aparte. Skill `directora-de-fabrica`, es y en.
