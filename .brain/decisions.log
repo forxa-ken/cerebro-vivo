@@ -258,3 +258,4 @@
 2026-11-16 | otro | Claude (cerebro-vivo #33) | 1.60.9 (migracion unica auditor_externo a siempre) aplicada en Prominimap y empresa-virtual-sim; subida a main; pagina publica a 1.60.9 | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #33) | Subida la 1.60.9 (main bb9a47a) y pagina publica en 1.60.9 (gh-pages f290c41) | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #33) | 1.60.10: la fabrica no hace revision aparte en encargos pequeños; subida a main y aplicada en empresa-virtual-sim | Cambio pequeño
+2026-11-16 | otro | Claude (cerebro-vivo #33) | Pagina publica: capitulo de la fabrica con el paso a paso actual (gh-pages 43268e8), en 1.60.10; main ya estaba subido en 1.60.10 | Cambio pequeño
