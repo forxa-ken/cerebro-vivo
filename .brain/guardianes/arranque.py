@@ -231,7 +231,7 @@ def resumen(raiz, cfg):
         lineas.append(t(cfg, "arranque_modo_colaborativo"))
     try:  # spec 044: ajuste no habitual del auditor (valor normalizado igual que en auditor.py)
         from auditor import valor_externo
-        if valor_externo(cfg) in ("siempre", "no"):
+        if valor_externo(cfg) in ("general-y-spec", "no"):  # 1.60.7: «siempre» es el habitual y no se anuncia
             lineas.append(t(cfg, "arranque_auditor_externo", valor_externo(cfg)))
     except Exception:
         pass

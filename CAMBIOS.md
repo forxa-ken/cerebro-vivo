@@ -456,3 +456,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.6 (2026-11-16)
 - Nuevo aviso en el arranque: si el `CLAUDE.md` del proyecto no existe o no trae la frase que autoriza abrir el chat nuevo sin preguntar, lo dice (es/en). Caso real: Prominimap pasó de Gemini y Codex a Claude sin `CLAUDE.md`; el modo automático de Claude Code denegó `start_session` a los 205.000 tokens y quedó solo una tarjeta. El actualizador no toca `CLAUDE.md`, así que la frase no llegaba sola.
+
+## 1.60.7 (2026-11-16)
+- Cambio de método (orden de Darwin): el auditor es **externo (Codex) por defecto** en todas las auditorías (general, cierre y spec) y el interno es **opcional** (`auditor_interno: opcional|siempre`; `/auditor interno ...`; `auditor.py quien MODO --interno` para una vez). Si el externo no corre (`auditor_externo: no`, o `general-y-spec` en un cierre rutinario) audita el interno. Los proyectos que ya tengan `auditor_externo` escrito en su `guardianes.json` conservan su valor; el arranque anuncia si es distinto de `siempre`.

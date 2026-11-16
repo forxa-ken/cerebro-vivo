@@ -53,8 +53,8 @@
   ".brain/guardianes/actualizar_arnes.py": "51fc80720eb6e9ed85d7b47a5ac3fa6adae409bd0c5159a640b38e66b5544e9c",
   ".brain/guardianes/analisis.py": "ea047f40b9213d75e7bf68b737ae0a038d28022971fb736dfd3d94d3ec36f722",
   ".brain/guardianes/archivos_gordos.py": "75c3a5a3c1eb99aed32666500b892795517cda3ca2d2fb6e9da06181df313c22",
-  ".brain/guardianes/arranque.py": "6096a8cec9e3fa0d498d28d248952dec8860b6f12a40b8d756a5a5dc3def9d1d",
-  ".brain/guardianes/auditor.py": "26ec9687b50ef28054ca8dd16c6a59de02f68382b06033ccb148dcc62d0bd4ee",
+  ".brain/guardianes/arranque.py": "029a65183ad8a5bd65d8fc14546cede4ed555a610861e08bf1a397d8f4a14f29",
+  ".brain/guardianes/auditor.py": "66958a184bc7b709efe57c82439e2fe4c9554bb476fcc216bf97e25ea1187265",
   ".brain/guardianes/base_datos.py": "254d88257f1808d36b471f3ff64f90537339034903f229c6c67affc582548b75",
   ".brain/guardianes/buscar.py": "51b5d23a1598161133020a85a2e6383b07f556f2b3e8ddfc01f29400f93fcf82",
   ".brain/guardianes/cerrar.py": "5e2b32ebea7a7a4867bcc5d0bf77bb8a77e0c199ea35bdc99abd794fe83a0c7d",
@@ -79,7 +79,7 @@
   ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "da7280f19c95d18ee0e042b7726291d34199fb2706feaa1be0bd9539a8588059",
+  ".brain/guardianes/textos.py": "3f05d3ab52ba6d616804dda3ef295ab8c008e86b50f753507055f7fac73ce192",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -92,8 +92,8 @@
   ".claude/skills/adopta/SKILL.md": "02a47353a1dbf4aee50be3b012507b96239da9dfbd33bf75a2a96d22d9130c02",
   ".claude/skills/adoptar-indice-existente/SKILL.en.md": "9a9de11e606154323ad4edf1120d2eacbb8e25744516670473054182d7d7d388",
   ".claude/skills/adoptar-indice-existente/SKILL.md": "8ecd8f70beba40bbe6b68f55d88a00bdc5fb0cae9bcf02dfb25c75a55892d062",
-  ".claude/skills/auditor/SKILL.en.md": "4c3db6965fbbeeb0c7821d1dc08a5b7691132a775c7ed8d77bb38c7be72571d2",
-  ".claude/skills/auditor/SKILL.md": "05f13c9bc215ff1034d55dcebe35fefc49ec395a1397f684554849156a0a2c4d",
+  ".claude/skills/auditor/SKILL.en.md": "993ca7d1c8eb846c7423b16605dee275ff943f4c703fe0124d39c75960b7591e",
+  ".claude/skills/auditor/SKILL.md": "cb6cfdff2a4503f30b44895bf7b97bd0916b39886535f6a8f9c4b038e9a6c66b",
   ".claude/skills/buscar-en-la-memoria/SKILL.en.md": "9763c867190bfcdafd0e86c9acedc0b33cee8b78f86ed3ef01f9e174717d55a6",
   ".claude/skills/buscar-en-la-memoria/SKILL.md": "3a9152be84d9c3803eb0a4c49078fa207c2a9fb8e1d9825a411b70a25e3322f0",
   ".claude/skills/cero-dependencias/SKILL.en.md": "fc1537d255cf17a031838d806a01829eaf5139dcd5c5997f8331ec6b3171690f",
@@ -175,7 +175,7 @@
   "tests/test_analisis.py": "25c22d1298a713beb90a3c01f94b19e2c28622ae39bf2d7463caf4ce72c73a7e",
   "tests/test_archivos_gordos.py": "fe9e4eaf36ef6812bd68d98799a612466999cc0560b551d5ea3991bbceaddf65",
   "tests/test_arranque.py": "90bdb3a0e8fcf1e68ecae3c267914f3986c891b930e68a69f3552c6a59862502",
-  "tests/test_auditor.py": "e37b9fad52506424e8782078d9903f06965b63171e4ede68ae7bad4ecac0db77",
+  "tests/test_auditor.py": "844975965fd546b71715477c84407e8d3aad69fc88e2f183ced8440912446133",
   "tests/test_buscar.py": "112d758273f47c9a962d3fba3e1597da527de74b88cc52e7e0cb719ec1094c58",
   "tests/test_cerebro_indices.py": "02084030ae3b6316b14b6cf084aab447da5c76ad10653a232ee582dcadf70a56",
   "tests/test_colabora.py": "6cd9a0b5c067a6c4d07a8d3f4a2bcd03dedc0b1036eb977ccb070f6a425abe7f",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.6"
+ "version": "1.60.7"
 }

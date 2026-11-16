@@ -28,23 +28,28 @@ def cfg_real():
 
 
 class QuienAudita(unittest.TestCase):
-    def test_por_defecto_el_externo_entra_en_general_y_spec_pero_no_en_cierre(self):
+    def test_por_defecto_audita_solo_el_externo_en_los_tres_modos(self):
         cfg = {}
-        self.assertEqual(auditor.quien_audita(cfg, "general"), ["interno", "externo"])
-        self.assertEqual(auditor.quien_audita(cfg, "spec"), ["interno", "externo"])
+        for modo in ("general", "cierre", "spec"):
+            self.assertEqual(auditor.quien_audita(cfg, modo), ["externo"])
+
+    def test_el_interno_es_opcional_siempre_o_solo_esta_vez(self):
+        self.assertEqual(auditor.quien_audita({"auditor_interno": "siempre"}, "cierre"), ["interno", "externo"])
+        self.assertEqual(auditor.quien_audita({}, "general", con_interno=True), ["interno", "externo"])
+
+    def test_general_y_spec_deja_el_cierre_rutinario_al_interno(self):
+        cfg = {"auditor_externo": "general-y-spec"}
+        self.assertEqual(auditor.quien_audita(cfg, "general"), ["externo"])
         self.assertEqual(auditor.quien_audita(cfg, "cierre"), ["interno"])
 
-    def test_siempre_incluye_el_cierre_rutinario(self):
-        cfg = {"auditor_externo": "siempre"}
-        self.assertEqual(auditor.quien_audita(cfg, "cierre"), ["interno", "externo"])
-
-    def test_no_nunca_llama_a_una_ia_externa(self):
+    def test_no_nunca_llama_a_una_ia_externa_y_audita_el_interno(self):
         cfg = {"auditor_externo": "no"}
         for modo in ("general", "cierre", "spec"):
             self.assertEqual(auditor.quien_audita(cfg, modo), ["interno"])
 
-    def test_valor_raro_vuelve_al_defecto(self):
-        self.assertEqual(auditor.valor_externo({"auditor_externo": "quizá"}), "general-y-spec")
+    def test_valores_raros_vuelven_al_defecto(self):
+        self.assertEqual(auditor.valor_externo({"auditor_externo": "quizá"}), "siempre")
+        self.assertEqual(auditor.valor_interno({"auditor_interno": "quizá"}), "opcional")
 
 
 class ComandoCodex(unittest.TestCase):
@@ -203,8 +208,13 @@ class Main(unittest.TestCase):
         return cod, buf.getvalue().strip()
 
     def test_quien(self):
-        self.assertEqual(self.correr("quien", "general"), (0, "interno + externo"))
-        self.assertEqual(self.correr("quien", "cierre"), (0, "interno"))
+        self.assertEqual(self.correr("quien", "general"), (0, "externo"))
+        self.assertEqual(self.correr("quien", "cierre"), (0, "externo"))
+        self.assertEqual(self.correr("quien", "cierre", "--interno"), (0, "interno + externo"))
+        self.assertEqual(self.correr("interno", "quizá")[0], 1)
+        self.assertEqual(self.correr("interno", "siempre")[0], 0)
+        self.assertEqual(self.correr("quien", "spec"), (0, "interno + externo"))
+        self.assertEqual(self.correr("externo", "general-y-spec")[0], 0)
         self.assertEqual(self.correr("quien", "cierre", "src/auth.py"), (0, "interno + externo?"))
 
     def test_quien_modo_raro_da_uso(self):
@@ -298,7 +308,8 @@ class AvisoDeCierre(unittest.TestCase):
     def test_ajustes_por_defecto_del_repo(self):
         cfg = cfg_real()
         self.assertIs(cfg["auditor_cierre"], True)
-        self.assertEqual(cfg["auditor_externo"], "general-y-spec")
+        self.assertEqual(cfg["auditor_externo"], "siempre")
+        self.assertEqual(cfg["auditor_interno"], "opcional")
 
 
 if __name__ == "__main__":

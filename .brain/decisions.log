@@ -251,3 +251,4 @@
 2026-11-15 | otro | Claude (cerebro-vivo #32) | Prominimap actualizado a 1.60.5; pagina publica aclara que el metodo esta pensado para Claude con el humano como orquestador (gh-pages) | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #32) | 1.60.6: el arranque avisa si CLAUDE.md no autoriza abrir el chat nuevo (causa del chat que no se abria en Prominimap); CLAUDE.md creado en Prominimap; sin commitear ni subir | Cambio pequeño
 2026-11-16 | otro | Claude (cerebro-vivo #32) | Subida la 1.60.6 (main) y pagina publica en 1.60.6 (gh-pages) | Cambio pequeño
+2026-11-16 | otro | Claude (cerebro-vivo #32) | 1.60.7: auditor externo (Codex) por defecto en general, cierre y spec; interno opcional (auditor_interno). Sin commitear ni subir | Cambio pequeño

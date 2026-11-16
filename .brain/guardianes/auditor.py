@@ -4,8 +4,9 @@
 
   python .brain/guardianes/auditor.py estado
   python .brain/guardianes/auditor.py externo general-y-spec|siempre|no|estado
+  python .brain/guardianes/auditor.py interno opcional|siempre|estado
   python .brain/guardianes/auditor.py cierre si|no|estado
-  python .brain/guardianes/auditor.py quien general|cierre|spec [archivos…]   (quién audita; con archivos sensibles sugiere el externo)
+  python .brain/guardianes/auditor.py quien general|cierre|spec [--interno] [archivos…]   (quién audita; --interno lo añade solo esta vez)
   python .brain/guardianes/auditor.py codex                       (el comando de Codex, en una línea)
 
 No lanza ninguna IA: solo guarda los ajustes y dice quién debe auditar y con qué comando. Lo lanza la IA
@@ -21,9 +22,12 @@ sys.path.insert(0, AQUI)
 from textos import t  # noqa: E402
 
 EXTERNO_VALORES = ("general-y-spec", "siempre", "no")
-EXTERNO_DEFECTO = "general-y-spec"
+EXTERNO_DEFECTO = "siempre"  # 1.60.7: Codex audita siempre (general, cierre y spec); el interno es opcional
+INTERNO_VALORES = ("opcional", "siempre")
+INTERNO_DEFECTO = "opcional"
 CLAVE_EXTERNO = {"general-y-spec": "auditor_externo_general_y_spec", "siempre": "auditor_externo_siempre",
                  "no": "auditor_externo_no"}
+CLAVE_INTERNO = {"opcional": "auditor_interno_opcional", "siempre": "auditor_interno_siempre"}
 SI = ("si", "sí", "on", "yes", "true", "1", "verdadero", "activar", "activa")
 NO = ("no", "off", "false", "0", "falso", "desactivar", "desactiva")
 EXT_DOCS = (".md", ".txt", ".log", ".rst")
@@ -57,6 +61,11 @@ def valor_externo(cfg):
     return v if v in EXTERNO_VALORES else EXTERNO_DEFECTO
 
 
+def valor_interno(cfg):
+    v = str(cfg.get("auditor_interno", INTERNO_DEFECTO)).strip().lower()
+    return v if v in INTERNO_VALORES else INTERNO_DEFECTO
+
+
 def cierre_activo(cfg):
     """Valor único de `auditor_cierre` para todo el arnés: verdadero por defecto (spec 044). Acepta booleanos y
     textos como «false»/«no»/«0»."""
@@ -73,13 +82,18 @@ def sensible(archivos, cfg):
     return any(c and c in str(a).lower() for a in archivos or [] for c in claves)
 
 
-def quien_audita(cfg, modo, archivos=None):
+def quien_audita(cfg, modo, archivos=None, con_interno=False):
     """Lista de ejecutores para un modo: 'general', 'cierre' (rutinario) o 'spec' (cierre de spec de la fábrica).
-    Siempre el interno; el externo entra en general y spec, y en cierre solo con `siempre`. Con `no`, nunca.
-    Con `general-y-spec` y archivos sensibles en un cierre, se SUGIERE el externo («externo?»: lo decide la IA/Darwin)."""
+    Por defecto (1.60.7) audita solo el externo (Codex) en los tres modos; el interno es opcional: entra con
+    `auditor_interno: siempre` o `con_interno` (solo esta vez). Si el externo no corre en ese modo (`no`, o
+    `general-y-spec` en un cierre rutinario), el interno audita siempre para no dejar el trabajo sin auditor.
+    Con `general-y-spec` y archivos sensibles en un cierre, se SUGIERE el externo («externo?»)."""
     externo = valor_externo(cfg)
-    quienes = ["interno"]
-    if externo == "siempre" or (externo == "general-y-spec" and modo in ("general", "spec")):
+    externo_corre = externo == "siempre" or (externo == "general-y-spec" and modo in ("general", "spec"))
+    quienes = []
+    if con_interno or valor_interno(cfg) == "siempre" or not externo_corre:
+        quienes.append("interno")
+    if externo_corre:
         quienes.append("externo")
     elif externo == "general-y-spec" and modo == "cierre" and sensible(archivos, cfg):
         quienes.append("externo?")
@@ -107,16 +121,21 @@ def comando_codex(cfg, plataforma=None):
 
 
 def modo(raiz, aspecto, orden):
-    """Devuelve (código, líneas). `aspecto`: 'externo', 'cierre' o 'estado'. 0 = bien, 1 = palabra desconocida."""
+    """Devuelve (código, líneas). `aspecto`: 'externo', 'interno', 'cierre' o 'estado'. 0 = bien, 1 = palabra desconocida."""
     ruta, cfg, legible = _cfg(raiz)
     orden = (orden or "estado").strip().lower()
-    cambia = aspecto in ("externo", "cierre") and orden != "estado"
+    cambia = aspecto in ("externo", "interno", "cierre") and orden != "estado"
     if cambia and not legible:  # no pisar un archivo que no se pudo leer: se perderían los demás ajustes
         return 1, [t(cfg, "auditor_config_ilegible", ruta)]
     if aspecto == "externo" and orden != "estado":
         if orden not in EXTERNO_VALORES:
             return 1, [t(cfg, "auditor_uso")]
         cfg["auditor_externo"] = orden
+        _guardar(ruta, cfg)
+    elif aspecto == "interno" and orden != "estado":
+        if orden not in INTERNO_VALORES:
+            return 1, [t(cfg, "auditor_uso")]
+        cfg["auditor_interno"] = orden
         _guardar(ruta, cfg)
     elif aspecto == "cierre" and orden != "estado":
         if orden in SI:
@@ -126,11 +145,12 @@ def modo(raiz, aspecto, orden):
         else:
             return 1, [t(cfg, "auditor_uso")]
         _guardar(ruta, cfg)
-    elif aspecto not in ("externo", "cierre", "estado"):
+    elif aspecto not in ("externo", "interno", "cierre", "estado"):
         return 1, [t(cfg, "auditor_uso")]
     lineas = [] if legible else [t(cfg, "auditor_config_ilegible", ruta)]  # estado: avisa de que lo mostrado es el defecto
     lineas += [t(cfg, "auditor_cierre_si" if cierre_activo(cfg) else "auditor_cierre_no"),
               t(cfg, CLAVE_EXTERNO[valor_externo(cfg)]),
+              t(cfg, CLAVE_INTERNO[valor_interno(cfg)]),
               t(cfg, "auditor_modelos", _seguro(cfg.get("auditor_modelo"), "sonnet"),
                 _seguro(cfg.get("auditor_modelo_externo"), "gpt-6-sol"), _seguro(cfg.get("auditor_esfuerzo"), "medium"))]
     return 0, lineas
@@ -161,7 +181,9 @@ def main(argv=None, raiz=None):
         if m not in ("general", "cierre", "spec"):
             print(t(cfg, "auditor_uso"))
             return 1
-        print(" + ".join(quien_audita(cfg, m, argv[2:])))
+        resto = argv[2:]
+        con_interno = "--interno" in resto
+        print(" + ".join(quien_audita(cfg, m, [a for a in resto if a != "--interno"], con_interno)))
         return 0
     if aspecto == "codex":
         print(" ".join(a if " " not in a else '"' + a + '"' for a in comando_codex(cfg)))
