@@ -485,3 +485,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.14 (2026-11-17)
 - Cambio de método (orden de Darwin): al ejecutar `/fabrica si` (si el modo estaba apagado) la skill `fabrica` pregunta antes a Darwin, en una sola llamada y en lenguaje llano, **el modelo de la directora** (Sonnet 5.5 recomendado, Opus 5.5 u otro), **la ejecutora por defecto** y **si el modo automático va encendido**, y aplica lo que responda. El modelo se anota en `directora_n.txt` y el aviso de chat nuevo (`textos.py`, es/en) lo respeta. La carta la sigue sellando Darwin. Sin probar en un `/fabrica si` real.
+
+## 1.60.15 (2026-11-18)
+- Cambio de método (orden de Darwin, tras medir tiempos y calidad): la ejecutora **Codex pasa siempre a esfuerzo alto** (`model_reasoning_effort=high`), también en camino completo (antes máximo); y **DeepSeek V4.1 Flash Free** (OpenCode, `opencode-cli.exe run -m opencode/deepseek-v4.1-flash-free --auto`) entra como tercera ejecutora: la skill `directora-de-fabrica` (es/en) explica cómo lanzarla y sus avisos (sin caja de seguridad, servicio gratuito, revisión aparte obligatoria incluso en camino corto), y la skill `fabrica` y la carta la ofrecen como opción. Solo documentación del método; sin cambios en guardianes.

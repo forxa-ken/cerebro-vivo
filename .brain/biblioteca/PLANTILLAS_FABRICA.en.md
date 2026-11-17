@@ -20,7 +20,7 @@ File `.brain/fabrica/carta.md`. **Only Darwin writes it**; the director reads it
 - topes_papeles: todos
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
-- Default executor: <Codex | Claude | whichever the director decides>. You choose it; with "whichever the director decides" she picks per assignment and tells you which she used. For a specific assignment you can ask for another one in the chat.
+- Default executor: <Codex | Claude | DeepSeek | whichever the director decides>. You choose it; with "whichever the director decides" she picks per assignment and tells you which she used. For a specific assignment you can ask for another one in the chat.
 - Director: Sonnet 5.5 (Opus only if the charter asks), medium effort, one per project. Detailed reading of results: Sonnet, medium effort
 ```
 

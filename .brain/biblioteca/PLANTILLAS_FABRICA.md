@@ -20,7 +20,7 @@ Archivo `.brain/fabrica/carta.md`. **Solo la escribe Darwin**; la directora la l
 - topes_papeles: todos
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
-- Ejecutora por defecto: <Codex | Claude | la que decida la directora>. La eliges tú; con «la que decida la directora» ella elige por encargo y te dice cuál usó. Para un encargo concreto puedes pedir otra en el chat.
+- Ejecutora por defecto: <Codex | Claude | DeepSeek | la que decida la directora>. La eliges tú; con «la que decida la directora» ella elige por encargo y te dice cuál usó. Para un encargo concreto puedes pedir otra en el chat.
 - Directora: Sonnet 5.5 (Opus solo si lo pide la carta), esfuerzo medio, una por proyecto. Lectura detallada de resultados: Sonnet, esfuerzo medio
 ```
 

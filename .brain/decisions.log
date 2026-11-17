@@ -264,3 +264,5 @@
 2026-11-17 | otro | Claude (cerebro-vivo #34) | v1.60.12: automatico nace encendido con la fabrica, esperas a plantilla, skill fabrica sin Gemini; subidos main e1eb4b5 y gh-pages 2607ea6 | Cambio pequeño
 2026-11-17 | otro | Claude (cerebro-vivo #34) | Spec 088 del camino corto de la fabrica escrita (borrador, pendiente de visto bueno) | Cambio pequeño
 2026-11-17 | otro | Claude (cerebro-vivo #34) | v1.60.13: directora de la fabrica a Sonnet 5.5 por gasto; subido main | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #35) | Subi la 1.60.14 y la apliqué a empresa-virtual-sim y Prominimap; prueba de tiempos Sonnet/Codex/DeepSeek guardada en respuestas | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #35) | v1.60.15 local: Codex siempre en esfuerzo alto y DeepSeek como tercera ejecutora (skills es/en, carta); prueba de calidad guardada; sin commit ni subir | Cambio pequeño
