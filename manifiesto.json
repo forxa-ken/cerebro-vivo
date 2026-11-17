@@ -79,7 +79,7 @@
   ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "ad581f96e6af85ffb3b1adabf19191e115bc88d8076f975d1b819fdaf81d7d9b",
+  ".brain/guardianes/textos.py": "50e04dd81775ccb08cfe6d6588d34315d0873ef485e60747f032ed67a5de5648",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -110,8 +110,8 @@
   ".claude/skills/directora-de-fabrica/SKILL.md": "fea02e29dad072af85e8de8c50b00cfc34a9a06dced8f38b34ebf3286053d67b",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.en.md": "ce6548aaddc881284d483ea81af9367d3d1470ea4253cc68f19e935e6d32320d",
   ".claude/skills/explicar-a-darwin-en-llano/SKILL.md": "bb87c5a513faf44bb840af51df626b7f34930741ccfdaf0798f96a0e53792de0",
-  ".claude/skills/fabrica/SKILL.en.md": "2588c8b8cb419e0fe1e487592ba016047d6205110e3930410ab829c15793549e",
-  ".claude/skills/fabrica/SKILL.md": "5a8698a9c048fa1ac8fd20461d58c2a7348f0bca74bd78b07f7b508bf117dd5a",
+  ".claude/skills/fabrica/SKILL.en.md": "395e865368c9e2abc9ca5a04809fce67c37cd50239e04dcfa2fb8d14ca6af657",
+  ".claude/skills/fabrica/SKILL.md": "348909c49ee2af5459b16e984f46a84f35dbaaee84523a33e4747dbaf12b345a",
   ".claude/skills/guardar-respuesta/SKILL.en.md": "45f9106d9a3e417d9b9e49df976ee8570427d8f61554541b2138120122e0e58b",
   ".claude/skills/guardar-respuesta/SKILL.md": "7b4393b0c897d034a0713aa5ad27e4cb96206aa3a02eaa720887b4017158983b",
   ".claude/skills/guardian-avisa-o-bloquea/SKILL.en.md": "d104304dd2a0793cf01d96190458cd76b7b6d594cead3b551c8e88b3ec602f1c",
@@ -239,5 +239,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.13"
+ "version": "1.60.14"
 }

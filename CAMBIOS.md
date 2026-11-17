@@ -482,3 +482,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.13 (2026-11-17)
 - Cambio de método (orden de Darwin, por gasto): la **directora de la fábrica pasa de Opus a Sonnet 5.5** (esfuerzo medio). Opus solo si la carta lo pide. Cambia en la skill `fabrica`, en el aviso de chat nuevo de `longitud` (es/en, `textos.py`), en `PLANTILLAS_FABRICA` (es/en) y en la prueba. La directora anota el modelo en `.brain/fabrica/directora_n.txt` para cruzar el gasto con `medir.py --fabrica`. Se mide con el estreno del camino corto (spec 088); si algo defectuoso se cuela, vuelve Opus.
+
+## 1.60.14 (2026-11-17)
+- Cambio de método (orden de Darwin): al ejecutar `/fabrica si` (si el modo estaba apagado) la skill `fabrica` pregunta antes a Darwin, en una sola llamada y en lenguaje llano, **el modelo de la directora** (Sonnet 5.5 recomendado, Opus 5.5 u otro), **la ejecutora por defecto** y **si el modo automático va encendido**, y aplica lo que responda. El modelo se anota en `directora_n.txt` y el aviso de chat nuevo (`textos.py`, es/en) lo respeta. La carta la sigue sellando Darwin. Sin probar en un `/fabrica si` real.
