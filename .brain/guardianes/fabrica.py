@@ -95,6 +95,8 @@ class Fabrica:
         cfg = _json(ruta, {})
         os.makedirs(os.path.dirname(ruta), exist_ok=True)
         if orden in ("si", "sí", "on", "yes", "activar", "activa"):
+            if not cfg.get("modo_fabrica"):
+                cfg["fabrica_automatica"] = True  # Darwin, 2026-11-17: el automático nace encendido con la fábrica
             cfg["modo_fabrica"] = True
             self.estado.mkdir(parents=True, exist_ok=True)
             (self.dir / "encargos").mkdir(parents=True, exist_ok=True)
@@ -111,6 +113,7 @@ class Fabrica:
         lineas = [self.t("fabrica_modo_si" if activo else "fabrica_modo_no")]
         if activo:
             lineas.append(self.t("fabrica_modo_carta_ok" if self.carta.is_file() else "fabrica_modo_falta"))
+            lineas.append(self.t("fabrica_auto_si" if cfg.get("fabrica_automatica") else "fabrica_auto_no"))
         return 0, lineas
 
     # --- modo automático (spec 050, fase 1): interruptor, solo válido con modo_fabrica -----------

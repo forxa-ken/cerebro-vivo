@@ -342,6 +342,16 @@ class AutomaticoTest(unittest.TestCase):
         self.assertIn("Falta: el criterio", texto)
         self.assertIn("Falta: una rama", texto)
 
+    def test_el_automatico_nace_encendido_con_la_fabrica(self):
+        self.f.modo("si")
+        self.assertTrue(self._cfg()["fabrica_automatica"])
+
+    def test_repetir_fabrica_si_no_reenciende_el_automatico_apagado(self):
+        self.f.modo("si")
+        self.f.automatico("no")
+        self.f.modo("si")
+        self.assertFalse(self._cfg()["fabrica_automatica"])
+
     def test_estado_ve_criterio_y_carta(self):
         self.f.modo("si")
         self.f.automatico("si")
@@ -415,6 +425,7 @@ class ArrancarTest(unittest.TestCase):
     def test_no_aplica_fuera_del_modo_automatico(self):
         self.assertEqual(self.f.arrancar()[0], 0)  # ni modo fábrica
         self.f.modo("si")
+        self.f.automatico("no")
         codigo, lineas = self.f.arrancar()  # fábrica normal, en main y sin criterio
         self.assertEqual(codigo, 0)
         self.assertIn("no aplica", lineas[0])
