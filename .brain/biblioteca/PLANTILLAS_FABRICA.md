@@ -1,6 +1,6 @@
 # Plantillas de la fábrica de IA (spec 035, fase 1)
 
-Para un proyecto donde una **directora** (Opus) convierte el objetivo de Darwin en una spec, **ejecutoras** hacen encargos pequeños y un **revisor** independiente verifica. Esto son solo las plantillas: se copian a `.brain/fabrica/` del proyecto cuando Darwin decide montar una fábrica. Las hace cumplir el guardián `.brain/guardianes/fabrica.py` (fase 2); de la carta lee las líneas `clave: número`.
+Para un proyecto donde una **directora** (Sonnet 5.5) convierte el objetivo de Darwin en una spec, **ejecutoras** hacen encargos pequeños y un **revisor** independiente verifica. Esto son solo las plantillas: se copian a `.brain/fabrica/` del proyecto cuando Darwin decide montar una fábrica. Las hace cumplir el guardián `.brain/guardianes/fabrica.py` (fase 2); de la carta lee las líneas `clave: número`.
 
 ## 1. Carta de la fábrica
 
@@ -21,7 +21,7 @@ Archivo `.brain/fabrica/carta.md`. **Solo la escribe Darwin**; la directora la l
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
 - Ejecutora por defecto: <Codex | Claude | la que decida la directora>. La eliges tú; con «la que decida la directora» ella elige por encargo y te dice cuál usó. Para un encargo concreto puedes pedir otra en el chat.
-- Directora: Opus, esfuerzo medio, una por proyecto. Lectura detallada de resultados: Sonnet, esfuerzo medio
+- Directora: Sonnet 5.5 (Opus solo si lo pide la carta), esfuerzo medio, una por proyecto. Lectura detallada de resultados: Sonnet, esfuerzo medio
 ```
 
 ## 2. Roles
@@ -32,7 +32,7 @@ Archivo `.brain/fabrica/roles.md`: quién hace qué y quién es dueño de cada a
 # Roles de la fábrica
 | Papel | Quién | Puede escribir | No puede |
 |---|---|---|---|
-| Directora | Claude Opus (un chat por proyecto) | spec, encargos, huecos, propuestas, evidencia | programar; editar la carta; hablar con nadie que no sea Darwin |
+| Directora | Claude Sonnet 5.5 (un chat por proyecto) | spec, encargos, huecos, propuestas, evidencia | programar; editar la carta; hablar con nadie que no sea Darwin |
 | Ejecutora | Claude o Codex Luna | solo los archivos que lista su encargo, en su propio worktree y rama; su nota en `.brain/notas-chats/` | commitear; tocar el resto de `.brain/`; añadir o quitar requisitos |
 | Revisor | Claude en otro chat | su informe | cambiar el código que revisa |
 | Darwin | persona | la carta; aprueba las tres puertas | — |

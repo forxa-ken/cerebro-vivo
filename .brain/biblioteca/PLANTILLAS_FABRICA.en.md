@@ -1,6 +1,6 @@
 # AI factory templates (spec 035, phase 1)
 
-For a project where a **director** (Opus) turns Darwin's goal into a spec, **executors** do small assignments and an independent **reviewer** verifies. These are only templates: they are copied to the project's `.brain/fabrica/` when Darwin decides to set up a factory. They are enforced by the guardian `.brain/guardianes/fabrica.py` (phase 2); from the charter it reads the `key: number` lines.
+For a project where a **director** (Sonnet 5.5) turns Darwin's goal into a spec, **executors** do small assignments and an independent **reviewer** verifies. These are only templates: they are copied to the project's `.brain/fabrica/` when Darwin decides to set up a factory. They are enforced by the guardian `.brain/guardianes/fabrica.py` (phase 2); from the charter it reads the `key: number` lines.
 
 ## 1. Factory charter
 
@@ -21,7 +21,7 @@ File `.brain/fabrica/carta.md`. **Only Darwin writes it**; the director reads it
 - libre_semanal_minimo: 50
 - fallos_seguidos_max: 2
 - Default executor: <Codex | Claude | whichever the director decides>. You choose it; with "whichever the director decides" she picks per assignment and tells you which she used. For a specific assignment you can ask for another one in the chat.
-- Director: Opus, medium effort, one per project. Detailed reading of results: Sonnet, medium effort
+- Director: Sonnet 5.5 (Opus only if the charter asks), medium effort, one per project. Detailed reading of results: Sonnet, medium effort
 ```
 
 ## 2. Roles
@@ -32,7 +32,7 @@ File `.brain/fabrica/roles.md`: who does what and who owns each file. Someone el
 # Factory roles
 | Role | Who | May write | May not |
 |---|---|---|---|
-| Director | Claude Opus (one chat per project) | spec, assignments, gaps, proposals, evidence | write code; edit the charter; talk to anyone but Darwin |
+| Director | Claude Sonnet 5.5 (one chat per project) | spec, assignments, gaps, proposals, evidence | write code; edit the charter; talk to anyone but Darwin |
 | Executor | Claude or Codex Luna | only the files its assignment lists, in its own worktree and branch; its note in `.brain/notas-chats/` | commit; touch the rest of `.brain/`; add or remove requirements |
 | Reviewer | Claude in another chat | its report | change the code it reviews |
 | Darwin | person | the charter; approves the three gates | — |

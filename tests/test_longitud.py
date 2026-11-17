@@ -76,15 +76,15 @@ class TestLongitud(unittest.TestCase):
         self.assertTrue(lg.ajustes({})["auto"])
 
     def test_modo_fabrica_el_chat_nuevo_es_la_directora(self):
-        for idioma, marca in (("es", "claude-opus-5-5"), ("en", "claude-opus-5-5")):
+        for idioma, marca in (("es", "claude-sonnet-5-5"), ("en", "claude-sonnet-5-5")):
             con, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"modo_fabrica": True, "idioma": idioma})
             self.assertIn(marca, con)
             self.assertIn("directora-N", con)
             self.assertIn("directora_n.txt", con)
             sin, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"idioma": idioma})
-            self.assertNotIn("claude-opus-5-5", sin)
+            self.assertNotIn("claude-sonnet-5-5", sin)
         manual, _ = lg.evaluar(250000, "c", {}, dict(A, auto=False), {"modo_fabrica": True})
-        self.assertNotIn("claude-opus-5-5", manual)
+        self.assertNotIn("claude-sonnet-5-5", manual)
 
     def test_modo_automatico_nunca_espera_una_tarjeta(self):
         for idioma in ("es", "en"):
@@ -92,7 +92,7 @@ class TestLongitud(unittest.TestCase):
             con, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), cfg)
             self.assertIn("traspaso.md", con)
             self.assertIn("create_scheduled_task", con)
-            self.assertIn("claude-opus-5-5", con)
+            self.assertIn("claude-sonnet-5-5", con)
             self.assertIn("set_session_title", con)
             solo, _ = lg.evaluar(250000, "c", {}, dict(A, auto=True), {"modo_fabrica": True, "idioma": idioma})
             self.assertNotIn("SIGUE en este chat", solo)
