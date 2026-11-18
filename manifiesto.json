@@ -3,8 +3,8 @@
   ".brain/biblioteca/CARTA_EJECUTORA.en.md": "9650e329039ae60833949f2e06ef6371d567c198be5124126a4847027444faba",
   ".brain/biblioteca/CARTA_EJECUTORA.md": "b05e3b9b4a25c10cfeb5301b33afcf4fd848bfccb831cc2b83b18ca81bc44145",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
-  ".brain/biblioteca/CEREBRO_VIVO.en.md": "bf56fd02d13ee6378dd0ca975c80bba402b492d0d933cf2555886af76bdbb5d7",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "ffeba80365832e988c93e3dfd51205b087a2c1fd8cd7d1375acc2f09e5a2eaca",
+  ".brain/biblioteca/CEREBRO_VIVO.en.md": "cf324e1ccde3f6f142746eb89b0a2309b9be99cfb732b060185cd78beed395b0",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "dc094fd67dc747d2f597cc35980d1c5834314536d85e921d8e8593a0814e6f42",
   ".brain/biblioteca/IAS_COLABORATIVAS.en.md": "b72323ce665238d67622130bd54ed7c5ebde3871d8d73c47a30ff6f7f5d6d54a",
   ".brain/biblioteca/IAS_COLABORATIVAS.md": "af323712ee73b8e181348f9b28be4817e096cc30f4ade55f58283b8f36f8cb66",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "856fa444337f0ba33fa92c4d0fcf86311dddb918038c2fea81d77215f150062f",
@@ -24,7 +24,7 @@
   ".brain/biblioteca/kit-arranque/README.en.md": "1d1aeeb8fcb9be2ac86ca596384a9876e5356d5ee5eb2747c2f5e03c37839d53",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
-  ".brain/biblioteca/kit-arranque/instalar.py": "802cfc58b5181343f25788736ef26d114cfcb028993e2d9abcf74bbb74f48b3a",
+  ".brain/biblioteca/kit-arranque/instalar.py": "c6998cbf72700fa7d1113d61cdbc6bcfede8de74aaaed2eac6d48ec329626ea0",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "ae08b139c70261b465643e0fcb087572fa924feb9d48b2e6ca69538f0a347b6c",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f07c33e32ea6057ae4ac707e6d47c55560f4d8278f524d822509d34214f62fd3",
@@ -79,7 +79,8 @@
   ".brain/guardianes/revisar_contenido.py": "754f624ff91ba5718b583bfa2264e7a0c8b3dc49e5586fd258a099196df2f806",
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
-  ".brain/guardianes/textos.py": "50e04dd81775ccb08cfe6d6588d34315d0873ef485e60747f032ed67a5de5648",
+  ".brain/guardianes/textos.py": "c2ac717108a2fa171a8ae10baf91bfb91efed7d15f202978f89b4b27f62dc44e",
+  ".brain/guardianes/web.py": "5294e61eef0dec0d61147578cb606b2beb4f9d9634af27a616891a7d45de9c92",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -204,7 +205,8 @@
   "tests/test_secretos.py": "13b0a6a12a74f53c176c3348352ebae3076fdd3b887f07e684db1dad5df4a3ec",
   "tests/test_soporte_mac.py": "3c56379484b70a7dd2d6604ad9a0238ca2e911459ee5aaa33a43e095a794f0d5",
   "tests/test_textos.py": "7b2d157fbe7151bc67e5f09e8accb3181009a25d4711bd895e98f762e1e51045",
-  "tests/test_traspaso_in_out.py": "6a07aa53d2cb88cf3f2ceb1381ca5af2c7641d7f13a5a69c4fe600e1d7f0d335"
+  "tests/test_traspaso_in_out.py": "6a07aa53d2cb88cf3f2ceb1381ca5af2c7641d7f13a5a69c4fe600e1d7f0d335",
+  "tests/test_web.py": "96fb5a752543a8396b74901b24901bb72ca32c4ee3a1c0a7403cdc7b9858a5a0"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -228,7 +230,8 @@
   "tests.test_ediciones_en",
   "tests.test_eventos_chat",
   "tests.test_fabrica",
-  "tests.test_auditor"
+  "tests.test_auditor",
+  "tests.test_web"
  ],
  "retirados": [
   ".brain/guardianes/modo_auto.py",
@@ -239,5 +242,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.60.16"
+ "version": "1.61.0"
 }

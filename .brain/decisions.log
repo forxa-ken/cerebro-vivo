@@ -268,3 +268,6 @@
 2026-11-18 | otro | Claude (cerebro-vivo #35) | v1.60.15 local: Codex siempre en esfuerzo alto y DeepSeek como tercera ejecutora (skills es/en, carta); prueba de calidad guardada; sin commit ni subir | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #36) | spec 089 (ejecutoras en paralelo) redactada en borrador, pendiente de aprobacion de Darwin | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #36) | v1.60.16 local: hitos.py ya no da falsos avisos (143 a 80 casos en 77 chats, 3 pruebas nuevas); bench y experimento-vmware movidos a .brain/archive; 679 pruebas OK; sin subir | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #36) | subido a GitHub main 5936305 (v1.60.16, poda de hitos.py y bench/experimento-vmware al archivo) | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #37) | spec 090 (web local del cerebro) en borrador y pendiente 61; mensaje a directora #17 para estrenar camino corto en Prominimap (respondió: el 027 no vale, propondrá otro) | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #37) | v1.61.0: web local del cerebro fase 1 (web.py, solo lectura) con revisión aparte, prueba de uso real y 691 pruebas en verde; spec 090 actualizada; sin subir a GitHub | Cambio pequeño
