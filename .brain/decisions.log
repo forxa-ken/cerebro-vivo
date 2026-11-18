@@ -266,3 +266,5 @@
 2026-11-17 | otro | Claude (cerebro-vivo #34) | v1.60.13: directora de la fabrica a Sonnet 5.5 por gasto; subido main | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #35) | Subi la 1.60.14 y la apliqué a empresa-virtual-sim y Prominimap; prueba de tiempos Sonnet/Codex/DeepSeek guardada en respuestas | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #35) | v1.60.15 local: Codex siempre en esfuerzo alto y DeepSeek como tercera ejecutora (skills es/en, carta); prueba de calidad guardada; sin commit ni subir | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #36) | spec 089 (ejecutoras en paralelo) redactada en borrador, pendiente de aprobacion de Darwin | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #36) | v1.60.16 local: hitos.py ya no da falsos avisos (143 a 80 casos en 77 chats, 3 pruebas nuevas); bench y experimento-vmware movidos a .brain/archive; 679 pruebas OK; sin subir | Cambio pequeño

@@ -488,3 +488,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.60.15 (2026-11-18)
 - Cambio de método (orden de Darwin, tras medir tiempos y calidad): la ejecutora **Codex pasa siempre a esfuerzo alto** (`model_reasoning_effort=high`), también en camino completo (antes máximo); y **DeepSeek V4.1 Flash Free** (OpenCode, `opencode-cli.exe run -m opencode/deepseek-v4.1-flash-free --auto`) entra como tercera ejecutora: la skill `directora-de-fabrica` (es/en) explica cómo lanzarla y sus avisos (sin caja de seguridad, servicio gratuito, revisión aparte obligatoria incluso en camino corto), y la skill `fabrica` y la carta la ofrecen como opción. Solo documentación del método; sin cambios en guardianes.
+
+## 1.60.16 (2026-11-18)
+- Poda (orden de Darwin): el guardián de hitos (`hitos.py`) deja de dar por «error resuelto» los fallos de herramientas que solo leen o editan (Read, Grep, Glob, Edit, Write) ni los de órdenes de lectura de consola (`sed`, `cat`, `grep`, `ls`…), y no mira el texto de su salida: un `sed` que mostraba código con «RuntimeError:» disparaba el aviso «hito sin lección» sin que hubiera nada que aprender. Medido sobre 77 chats de cerebro-vivo: los casos que cuentan bajan de 143 a 80. Tres pruebas nuevas en `test_hitos.py`.
+- `bench/` y `experimento-vmware/` (y las dos pruebas del banco) pasan a `.brain/archive/bench-y-experimento/`: no iban en el manifiesto ni llegaban a ningún proyecto.

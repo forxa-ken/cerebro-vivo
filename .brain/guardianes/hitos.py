@@ -24,6 +24,11 @@ from textos import t  # noqa: E402  (spec 024: mensajes en es/en)
 EDITORES = ("Edit", "Write", "NotebookEdit", "MultiEdit")
 # Marcas precisas de fallo en la salida de una consola. Sin la palabra suelta «error»: aparece al leer o buscar código (1.46.5).
 FALLO = re.compile(r"Traceback \(most recent|\bFAILED\b|\d+ failed|No such file or directory|command not found|Permission denied|Exit code [1-9]|\w*Error:", re.I)
+# Herramientas y órdenes que solo leen o editan: si fallan (archivo que no existe, texto que no se encuentra, un grep sin
+# resultados) o si su salida es código con la palabra «Error:», no es un error que enseñe nada (v1.60.16).
+SOLO_LEER = ("Read", "Grep", "Glob", "Edit", "Write", "NotebookEdit", "MultiEdit")
+ORDENES_LECTURA = ("sed", "cat", "head", "tail", "grep", "rg", "ls", "awk", "find", "wc", "du", "echo", "type", "findstr",
+                   "get-content", "select-string", "get-childitem", "test-path", "diff", "sort", "uniq", "stat")
 
 
 def ajustes(cfg):
@@ -67,6 +72,14 @@ def firma(nombre, entrada):
     return nombre
 
 
+def solo_leer(nombre):
+    """¿La llamada (tal como la devuelve `firma`) es de lectura o edición? Esas no cuentan como error resuelto."""
+    partes = nombre.split()
+    if partes[0] in SOLO_LEER:
+        return True
+    return len(partes) > 1 and partes[0] in ("Bash", "PowerShell") and partes[1].lower() in ORDENES_LECTURA
+
+
 def es_marca(nombre, entrada):
     """¿Esta llamada de la IA apunta una lección (o cierra el hito con «ninguna»)?"""
     if nombre in ("Bash", "PowerShell"):  # en Windows la IA suele usar PowerShell (hallado por Modelo #61)
@@ -102,6 +115,8 @@ def analizar(ruta_registro, cfg, raiz=RAIZ):
                     if isinstance(b, dict) and b.get("type") == "tool_result":
                         nombre = pendientes.pop(b.get("tool_use_id"), None)
                         if not nombre:
+                            continue
+                        if solo_leer(nombre):
                             continue
                         consola = nombre.split()[0] in ("Bash", "PowerShell")  # el texto solo se mira en consola; Read, Grep, Edit… solo cuentan si la herramienta falla
                         mal = bool(b.get("is_error")) or (consola and bool(FALLO.search(texto_resultado(b)[:2000])))

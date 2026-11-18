@@ -88,6 +88,27 @@ class TestHitos(unittest.TestCase):
         ev = [u1, resultado(i1, "Traceback (most recent call last):\n  ...\nValueError: mal"), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
         self.assertEqual(len(self.avisos(ev)), 1)
 
+    def test_leer_con_sed_codigo_que_dice_error_no_es_un_fallo(self):
+        # Caso real (chat #36): un `sed` mostró código con «RuntimeError:» y, tras editar, otro `sed` avisó de un «error resuelto».
+        i1, u1 = uso("Bash", {"command": "sed -n 1,20p fabrica.py"})
+        i2, u2 = uso("Write", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Bash", {"command": "sed -n 1,20p otro.py"})
+        ev = [u1, resultado(i1, "except RuntimeError: raise ValueError: mal"), u2, resultado(i2, "ok"), u3, resultado(i3, "bien")]
+        self.assertEqual(self.avisos(ev), [])
+
+    def test_editar_con_fallo_y_reintentar_no_es_un_error_resuelto(self):
+        i1, u1 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        ev = [u1, resultado(i1, "File has not been read yet", True), u2, resultado(i2, "ok")]
+        self.assertEqual(self.avisos(ev), [])
+
+    def test_grep_sin_resultados_no_es_un_fallo(self):
+        i1, u1 = uso("Bash", {"command": "grep -n zzz x.py"})
+        i2, u2 = uso("Edit", {"file_path": self.ruta("x.py")})
+        i3, u3 = uso("Bash", {"command": "grep -n zzz y.py"})
+        ev = [u1, resultado(i1, "Exit code 1", True), u2, resultado(i2, "ok"), u3, resultado(i3, "3: zzz")]
+        self.assertEqual(self.avisos(ev), [])
+
     def test_error_sin_resolver_no_avisa(self):
         i1, u1 = uso("Bash", {"command": "python x.py"})
         self.assertEqual(self.avisos([u1, resultado(i1, "Traceback", True)]), [])
