@@ -20,6 +20,9 @@ Lo usa la directora (o Darwin) entre pasos; no es un hook. Todo cuelga de `.brai
   foto [--repo R] --encargo N    foto del worktree antes de que trabaje la ejecutora
   alcance ENCARGO.md --encargo N [--repo R]
                                  el encargo tiene requisito en la spec congelada y la ejecutora solo tocó lo permitido (R6, R7)
+  cerrar-encargo ENCARGO.md --encargo N [--repo R]
+                                 cierre mecánico (spec 091): alcance, pruebas (`comando_pruebas` de la carta), gasto de la directora
+                                 y avance; resumen corto y detalle en evidencia/. NO acepta el encargo: eso lo decide la directora
   gasto --encargo N --tokens T --papel P [--fallo]
                                  anota el gasto de un papel (y si el intento falló)
   topes [--encargo N] [--libre-semanal PCT]
@@ -49,6 +52,7 @@ TOKENS_POR_ENCARGO_MEDIO = 350000
 TOPES_POR_DEFECTO = {"tope_encargo_tokens": 800000, "tope_mision_encargos": 10, "tope_mision_tokens": 0,
                      "libre_semanal_minimo": 50, "fallos_seguidos_max": 2}
 # Siempre permitido a la ejecutora: su nota, y el estado interno de este guardián.
+PAPEL_DIRECTORA = "directora"  # spec 091: su gasto se anota por encargo pero solo se muestra (no cuenta en los topes)
 SIEMPRE_PERMITIDO = (".brain/notas-chats/", ".brain/fabrica/estado/")
 
 
@@ -642,7 +646,8 @@ class Fabrica:
         if codigo:
             return codigo, lineas
         _guardar(self.estado / f"{encargo}.foto.json",
-                 {"cabeza": self._git(repo, "rev-parse", "HEAD").strip(), "archivos": self.estado_repo(repo)})
+                 {"cabeza": self._git(repo, "rev-parse", "HEAD").strip(), "archivos": self.estado_repo(repo),
+                  "hora": time.time()})  # spec 091: la hora delimita el gasto de la directora en este encargo
         self.avance(encargo, "arranque del encargo")
         return 0, [self.t("fabrica_foto", str(encargo))]
 
@@ -686,7 +691,7 @@ class Fabrica:
         g = self._gasto()
         g.append({"encargo": str(encargo), "tokens": int(tokens), "papel": papel, "fallo": bool(fallo)})
         _guardar(self.estado / "gasto.json", g)
-        if not fallo:
+        if not fallo and papel != PAPEL_DIRECTORA:  # la directora es quien mira: su gasto no prueba que el encargo avance
             self.avance(encargo, "trabajo de %s sin fallo" % papel)
         return 0, [self.t("fabrica_gasto_anotado", papel, int(tokens), str(encargo))]
 
@@ -749,8 +754,102 @@ class Fabrica:
         return 0, [self.t("fabrica_ampliar_ok", ", ".join("%s=%d" % kv for kv in sorted(nuevos.items())))]
 
     def _cuentan(self, g):
+        """Gasto que cuenta para los topes. La directora (spec 091) solo se muestra: no cuenta salvo que la carta
+        la nombre en `topes_papeles`."""
         papeles = self.papeles_que_cuentan()
-        return [x for x in g if papeles is None or str(x.get("papel", "")).lower() in papeles]
+        if papeles is None:
+            return [x for x in g if str(x.get("papel", "")).lower() != PAPEL_DIRECTORA]
+        return [x for x in g if str(x.get("papel", "")).lower() in papeles]
+
+    def gasto_directora(self, encargo=None):
+        """Tokens anotados a la directora (todo el gasto, o solo el de un encargo); es una estimación por tiempo."""
+        return sum(x.get("tokens", 0) for x in self._gasto()
+                   if x.get("papel") == PAPEL_DIRECTORA and (encargo is None or x.get("encargo") == str(encargo)))
+
+    # --- cerrar un encargo con un solo comando (spec 091) ------------------------------------------------
+    def _comando_pruebas(self):
+        """Línea `- comando_pruebas: …` de la carta (cómo corre las pruebas el proyecto); None si no la hay."""
+        if self.carta.is_file():
+            m = re.search(r"^[-*]\s*comando_pruebas\s*:\s*(.+?)\s*$", self.carta.read_text(encoding="utf-8"), re.M)
+            if m:
+                return m.group(1).strip().strip("`")
+        return None
+
+    def cerrar_encargo(self, ruta_encargo, repo, encargo, ahora=None, timeout=900):
+        """Pasos mecánicos del cierre: alcance, pruebas, gasto de la directora y avance. Devuelve un resumen corto y
+        guarda el detalle en `evidencia/cerrar-encargo-N.md`. NO acepta el encargo: eso lo decide la directora."""
+        enc = str(encargo)
+        ahora = ahora if ahora is not None else time.time()
+        detalle, rojo = [], False
+        # 1. alcance
+        c_alc, l_alc = self.alcance(ruta_encargo, repo, enc)
+        rojo = rojo or bool(c_alc)
+        detalle += ["## Alcance (código %d)" % c_alc] + ["- " + x for x in l_alc]
+        # 2. pruebas del proyecto
+        cmd = self._comando_pruebas()
+        if cmd is None:
+            res_pru = self.t("fabrica_cerrar_sin_pruebas")
+            rojo = True
+            detalle += ["## Pruebas", "- sin `comando_pruebas` en la carta"]
+        else:
+            try:
+                p = subprocess.run(cmd, shell=True, cwd=str(repo), capture_output=True, timeout=timeout)
+                salida = (p.stdout + b"\n" + p.stderr).decode("utf-8", errors="replace")
+                if p.returncode == 0:
+                    res_pru = self.t("fabrica_verde")
+                else:
+                    res_pru = self.t("fabrica_cerrar_pruebas_rojo", p.returncode)
+                    rojo = True
+            except subprocess.TimeoutExpired:
+                salida, res_pru, rojo = "", self.t("fabrica_cerrar_pruebas_tiempo", timeout), True
+            detalle += ["## Pruebas: `%s`" % cmd, "```", salida[-3000:].strip(), "```"]
+        # 3. gasto de la directora en este encargo (estimación por tiempo; no cuenta en los topes)
+        res_dir = self._anotar_directora(enc, repo, ahora)
+        detalle += ["## Directora", "- " + res_dir]
+        # 4. avance (solo si todo dio verde)
+        if not rojo:
+            self.avance(enc, "cierre mecánico en verde")
+        por_papel = {}
+        for x in self._gasto():
+            if x.get("encargo") == enc:
+                por_papel[x.get("papel", "?")] = por_papel.get(x.get("papel", "?"), 0) + x.get("tokens", 0)
+        txt_gasto = ", ".join("%s %d" % kv for kv in sorted(por_papel.items())) or "-"
+        ev = self.dir / "evidencia" / ("cerrar-encargo-%s.md" % re.sub(r"[^\w.-]", "_", enc))
+        ev.parent.mkdir(parents=True, exist_ok=True)
+        ev.write_text("\n".join(["# Cierre mecánico del encargo %s" % enc, ""] + detalle + ["", "## Gasto por papel", "- " + txt_gasto]) + "\n",
+                      encoding="utf-8")
+        rel = os.path.relpath(ev, self.raiz).replace("\\", "/")
+        verde_o_rojo = lambda c: self.t("fabrica_rojo") if c else self.t("fabrica_verde")  # noqa: E731
+        lineas = [self.t("fabrica_cerrar_titulo", enc),
+                  self.t("fabrica_cerrar_alcance", verde_o_rojo(c_alc) + " — " + (l_alc[0] if l_alc else "")),
+                  self.t("fabrica_cerrar_pruebas", res_pru),
+                  self.t("fabrica_cerrar_directora", res_dir),
+                  self.t("fabrica_cerrar_gasto", txt_gasto)]
+        lineas.append(self.t("fabrica_cerrar_no_cerrado", enc, rel) if rojo else self.t("fabrica_cerrar_verde_final", enc, rel))
+        return (1 if rojo else 0), lineas
+
+    def _anotar_directora(self, enc, repo, ahora):
+        """Anota lo que la directora gastó desde el arranque del encargo (o desde lo ya anotado), si se puede medir."""
+        foto = _json(self.estado / ("%s.foto.json" % enc), {})
+        desde = foto.get("hora") if isinstance(foto, dict) else None
+        previas = [x.get("hasta") for x in self._gasto()
+                   if x.get("papel") == PAPEL_DIRECTORA and x.get("encargo") == enc and isinstance(x.get("hasta"), (int, float))]
+        if previas:
+            desde = max(previas)  # sin contar dos veces si se cierra más de una vez
+        if not isinstance(desde, (int, float)):
+            return self.t("fabrica_cerrar_directora_nada")
+        try:
+            import medir
+            tokens, chats = medir.gasto_directora_entre(str(repo), desde, ahora)
+        except Exception:
+            return self.t("fabrica_cerrar_directora_nada")
+        if not chats or tokens <= 0:
+            return self.t("fabrica_cerrar_directora_nada")
+        g = self._gasto()
+        g.append({"encargo": enc, "tokens": int(tokens), "papel": PAPEL_DIRECTORA, "fallo": False,
+                  "desde": desde, "hasta": ahora, "estimacion": True})
+        _guardar(self.estado / "gasto.json", g)
+        return self.t("fabrica_cerrar_directora_ok", int(tokens))
 
     def topes(self, encargo=None, libre_semanal=None):
         tp_ = self.topes_efectivos()
@@ -762,6 +861,9 @@ class Fabrica:
         for x in gc:
             por_papel[x.get("papel", "?")] = por_papel.get(x.get("papel", "?"), 0) + x["tokens"]
         desglose = self.t("fabrica_topes_desglose", ", ".join("%s %d" % kv for kv in sorted(por_papel.items())) or "-")
+        dir_tokens = self.gasto_directora()
+        if dir_tokens and PAPEL_DIRECTORA not in por_papel:  # spec 091: solo se muestra, no cuenta en los topes
+            desglose += " " + self.t("fabrica_topes_directora", dir_tokens)
         if total > tp_["tope_mision_tokens"]:
             avisos.append(self.t("fabrica_tope_mision_tokens", total, tp_["tope_mision_tokens"]))
         n_enc = len({x["encargo"] for x in g})
@@ -783,7 +885,10 @@ class Fabrica:
             avisos.append(self.t("fabrica_freno_semanal", libre_semanal, tp_["libre_semanal_minimo"]))
         if avisos:
             return 1, avisos + [desglose, self.t("fabrica_parar")]
-        return 0, [self.t("fabrica_topes_ok", total, n_enc)]
+        ok = self.t("fabrica_topes_ok", total, n_enc)
+        if dir_tokens and PAPEL_DIRECTORA not in por_papel:
+            ok += " " + self.t("fabrica_topes_directora", dir_tokens)
+        return 0, [ok]
 
 
 def main(argv=None):
@@ -810,6 +915,7 @@ def main(argv=None):
     s = sub.add_parser("vueltas"); s.add_argument("resultado", nargs="?", default="estado")
     s = sub.add_parser("foto"); s.add_argument("--repo", default=None); s.add_argument("--encargo", required=True)
     s = sub.add_parser("alcance"); s.add_argument("encargo_md"); s.add_argument("--repo", default=None); s.add_argument("--encargo", required=True)
+    s = sub.add_parser("cerrar-encargo"); s.add_argument("encargo_md"); s.add_argument("--repo", default=None); s.add_argument("--encargo", required=True)
     s = sub.add_parser("gasto"); s.add_argument("--encargo", required=True); s.add_argument("--tokens", type=int, required=True)
     s.add_argument("--papel", required=True); s.add_argument("--fallo", action="store_true")
     s = sub.add_parser("topes"); s.add_argument("--encargo", default=None); s.add_argument("--libre-semanal", type=float, default=None)
@@ -850,6 +956,8 @@ def main(argv=None):
         codigo, lineas = f.foto(repo, a.encargo)
     elif a.orden == "alcance":
         codigo, lineas = f.alcance(a.encargo_md, repo, a.encargo)
+    elif a.orden == "cerrar-encargo":
+        codigo, lineas = f.cerrar_encargo(a.encargo_md, repo, a.encargo)
     elif a.orden == "gasto":
         codigo, lineas = f.gasto(a.encargo, a.tokens, a.papel, a.fallo)
     elif a.orden == "ampliar-topes":

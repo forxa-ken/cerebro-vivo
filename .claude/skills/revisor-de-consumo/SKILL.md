@@ -1,6 +1,6 @@
 ---
 name: revisor-de-consumo
-description: Use when a factory (.brain/fabrica/) finishes a module or the mission and you must check that the code does not waste resources (CPU, memory, disk, network, battery), or when Darwin asks for a resource-consumption review.
+description: Use only when Darwin explicitly asks, or the spec carries a resource budget, after a factory (.brain/fabrica/) module or mission, to check that the code does not waste resources (CPU, memory, disk, network, battery), or when Darwin asks for a resource-consumption review.
 ---
 
 # Revisor de consumo

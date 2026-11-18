@@ -428,6 +428,46 @@ def directora_de_proyecto(proyecto, carpeta=None):
     return chats
 
 
+def _epoch(marca):
+    """Marca de tiempo ISO de un registro de chat -> segundos desde 1970 (None si no se entiende)."""
+    from datetime import datetime
+    try:
+        return datetime.fromisoformat(str(marca).replace("Z", "+00:00")).timestamp()
+    except (ValueError, TypeError):
+        return None
+
+
+def gasto_directora_entre(proyecto, desde, hasta, carpeta=None):
+    """Spec 091: tokens (nuevos + salida, sin caché) de los chats de la directora entre dos instantes (segundos).
+    Es una estimación por tiempo: lo que la directora gasta en otra cosa dentro de esa ventana también cuenta. Solo lectura.
+    Devuelve (tokens, chats_de_la_directora)."""
+    total, chats = 0, 0
+    for c in directora_de_proyecto(proyecto, carpeta):
+        ruta = None
+        for r in glob.glob(os.path.join(carpeta or carpeta_de(proyecto), "*.jsonl")):
+            if os.path.basename(r).startswith(c["id"]):
+                ruta = r
+                break
+        if not ruta:
+            continue
+        chats += 1
+        por_mensaje = {}
+        with open(ruta, encoding="utf-8", errors="replace") as f:
+            for linea in f:
+                try:
+                    e = json.loads(linea)
+                except ValueError:
+                    continue
+                msg = e.get("message") or {}
+                uso = msg.get("usage")
+                if e.get("type") == "assistant" and isinstance(uso, dict):
+                    por_mensaje[msg.get("id") or e.get("uuid") or len(por_mensaje)] = (_epoch(e.get("timestamp")), uso)
+        for ts, u in por_mensaje.values():
+            if ts is not None and desde <= ts < hasta:
+                total += (u.get("input_tokens", 0) or 0) + (u.get("cache_creation_input_tokens", 0) or 0) + (u.get("output_tokens", 0) or 0)
+    return total, chats
+
+
 def imprimir_directora(chats):
     if not chats:
         print(tp("medir_directora_vacia"))

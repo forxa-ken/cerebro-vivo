@@ -6,6 +6,7 @@ import sys
 import subprocess
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -993,6 +994,76 @@ class DirectoraAutomaticoTest(unittest.TestCase):
             texto = ruta.read_text(encoding="utf-8")
             for marca in marcas:
                 self.assertIn(marca, texto, skill + "/" + nombre)
+
+
+class CerrarEncargoTest(FabricaTest):
+    """Spec 091: gasto de la directora por encargo y cierre mecánico de un encargo."""
+
+    def _cerrar(self, **kw):
+        import medir
+        with unittest.mock.patch.object(medir, "gasto_directora_entre", return_value=kw.get("directora", (5000, 1))):
+            return self.f.cerrar_encargo(self.encargo, self.repo, "001")
+
+    def test_todo_verde_resume_y_no_acepta(self):
+        self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n", encoding="utf-8")
+        self._listo()
+        (self.repo / "a.lua").write_text("v2", encoding="utf-8")
+        codigo, lineas = self._cerrar()
+        texto = "\n".join(lineas)
+        self.assertEqual(codigo, 0, texto)
+        self.assertIn("VERDE", texto)
+        self.assertIn("NO lo acepta", texto)
+        self.assertTrue((self.repo / ".brain" / "fabrica" / "evidencia" / "cerrar-encargo-001.md").is_file())
+
+    def test_fuera_de_alcance_da_rojo(self):
+        self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n", encoding="utf-8")
+        self._listo()
+        (self.repo / "b.lua").write_text("v2", encoding="utf-8")
+        codigo, lineas = self._cerrar()
+        self.assertEqual(codigo, 1)
+        self.assertIn("NO cerrado", lineas[-1])
+
+    def test_pruebas_rojas_dan_rojo(self):
+        self.carta.write_text("- comando_pruebas: python -c \"import sys; sys.exit(3)\"\n", encoding="utf-8")
+        self._listo()
+        codigo, lineas = self._cerrar()
+        self.assertEqual(codigo, 1)
+        self.assertIn("código 3", "\n".join(lineas))
+
+    def test_sin_pruebas_definidas_no_es_verde(self):
+        self._listo()
+        codigo, lineas = self._cerrar()
+        self.assertEqual(codigo, 1)
+        self.assertIn("sin pruebas definidas", "\n".join(lineas))
+
+    def test_gasto_de_la_directora_se_anota_solo_se_muestra_y_no_se_cuenta_dos_veces(self):
+        self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n- tope_encargo_tokens: 1000\n", encoding="utf-8")
+        self._listo()
+        self.f.gasto("001", 100, "ejecutora")
+        self._cerrar(directora=(5000, 1))
+        self.assertEqual(self.f.gasto_directora("001"), 5000)
+        codigo, lineas = self.f.topes("001")  # 5000 de la directora > tope 1000, pero no cuenta
+        self.assertEqual(codigo, 0, lineas)
+        self.assertIn("Directora", "\n".join(lineas))
+        self._cerrar(directora=(0, 1))  # segundo cierre: la ventana empieza donde acabó la anterior
+        self.assertEqual(self.f.gasto_directora("001"), 5000)
+
+    def test_directora_cuenta_si_la_carta_la_nombra(self):
+        self.carta.write_text("- topes_papeles: directora, ejecutora\n- tope_encargo_tokens: 1000\n", encoding="utf-8")
+        self._listo()
+        self.f.gasto("001", 5000, "directora")
+        self.assertEqual(self.f.topes("001")[0], 1)
+
+    def test_gasto_directora_no_reinicia_el_reloj_de_atasco(self):
+        self._listo()
+        antes = self.f.avance
+        llamadas = []
+        self.f.avance = lambda *a, **k: llamadas.append(a)
+        self.f.gasto("001", 10, "directora")
+        self.assertEqual(llamadas, [])
+        self.f.gasto("001", 10, "ejecutora")
+        self.assertEqual(len(llamadas), 1)
+        self.f.avance = antes
 
 
 if __name__ == "__main__":

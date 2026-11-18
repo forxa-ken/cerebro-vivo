@@ -271,3 +271,8 @@
 2026-11-18 | otro | Claude (cerebro-vivo #36) | subido a GitHub main 5936305 (v1.60.16, poda de hitos.py y bench/experimento-vmware al archivo) | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #37) | spec 090 (web local del cerebro) en borrador y pendiente 61; mensaje a directora #17 para estrenar camino corto en Prominimap (respondió: el 027 no vale, propondrá otro) | Cambio pequeño
 2026-11-18 | otro | Claude (cerebro-vivo #37) | v1.61.0: web local del cerebro fase 1 (web.py, solo lectura) con revisión aparte, prueba de uso real y 691 pruebas en verde; spec 090 actualizada; sin subir a GitHub | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #37) | spec 090 secciones 12 a 14 (web de ejecución, roles como Git, listo para internet, IAs por MCP) y pendiente 61; traspaso al #38; sin subir | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #38) | spec 090: respuestas de Darwin (sin curador, proyectos en pestañas) y seccion 15 revision exhaustiva de la fabrica; pendiente 62 | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #39) | Revisión exhaustiva de la fábrica (pendiente 62): informe en notas-chats con números, decisión por pieza y umbral; solo lectura, nada cambiado ni subido | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #39) | v1.61.1: skills directora-de-fabrica y fabrica (es/en): hasta 150 lineas y 3 archivos sin fabrica (subagente) y camino corto de 150 a 700 lineas, orden de Darwin; 691 pruebas OK; sin subir | Cambio pequeño
+2026-11-18 | otro | Claude (cerebro-vivo #39) | v1.61.2: la directora delega (Haiku mecanico, Sonnet prueba real), consumo solo bajo peticion; 691 pruebas OK; esquema del cascaron generico en notas-chats; sin subir | Cambio pequeño

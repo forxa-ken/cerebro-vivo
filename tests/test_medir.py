@@ -183,6 +183,20 @@ class TestMedirFabrica(unittest.TestCase):
         self.assertEqual(sorted(c["nuevos"] + c["salida"] for c in cs), [300, 1500])  # la caché no cuenta
         self.assertEqual(medir.directora_de_proyecto("X", os.path.join(d, "nada")), [])
 
+    def test_gasto_de_la_directora_entre_dos_instantes(self):
+        """Spec 091: solo cuentan los mensajes dentro de la ventana; la caché no cuenta."""
+        d = tempfile.mkdtemp()
+        ls = [{"type": "user", "timestamp": "2026-11-18T10:00:00Z", "message": {"content": "eres la directora de fábrica"}}]
+        for i, hora in enumerate(("10:01:00", "10:10:00", "10:30:00")):
+            ls.append({"type": "assistant", "timestamp": "2026-11-18T%sZ" % hora, "message": {"id": "m%d" % i, "usage": {
+                "input_tokens": 100, "output_tokens": 50, "cache_read_input_tokens": 99999}}})
+        with open(os.path.join(d, "a.jsonl"), "w", encoding="utf-8") as f:
+            f.write(chr(10).join(json.dumps(x) for x in ls))
+        desde = medir._epoch("2026-11-18T10:05:00Z")
+        hasta = medir._epoch("2026-11-18T10:20:00Z")
+        self.assertEqual(medir.gasto_directora_entre("X", desde, hasta, d), (150, 1))
+        self.assertEqual(medir.gasto_directora_entre("X", desde, hasta, os.path.join(d, "nada")), (0, 0))
+
 
 class TestPorTarea(unittest.TestCase):
     """Spec 038 (1B): tokens por tarea terminada (cierres escritos por la IA en el chat)."""

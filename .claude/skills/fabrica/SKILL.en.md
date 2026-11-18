@@ -18,6 +18,9 @@ Turns on, turns off or shows the `modo_fabrica` setting in `.brain/guardianes/gu
    - **Right away** `detach_session` with the id it returns, so it does not hang from this chat. Check with `get_session` (`session_id` the one it returns) that it ended up on Sonnet with medium effort: the app ignores a model higher than the opening chat's, so if this chat is not Opus it may inherit its own. If it does not match, fix it with `set_session_model` and `set_session_effort`, or tell Darwin. Tell Darwin the new chat's name. Note the model used in `.brain/fabrica/directora_n.txt` (second line) to cross the spend with `medir.py --fabrica`.
    - Without those tools (Codex) or if the app refuses after trying: say so clearly and give the sentence to open it by hand. Never say it is refused without having tried.
 
+## Small changes: no factory
+Even with factory mode on, a change of **up to 150 lines and 3 files, nothing delicate and a known cause** does not go through the factory: one subagent does it and it is closed with tests and a diff reading (details in `directora-de-fabrica`).
+
 ## Automatic mode (spec 050)
 - `/fabrica automatico si|no|estado` → `python .brain/guardianes/fabrica.py automatico WORD`. It only works with factory mode on; `fabrica.py arrancar` blocks an assignment from starting if the criterion is missing or you are on `main`; `estado` says what is missing (sealed charter, "expected" criterion in `.brain/fabrica/esperado.md`, a working branch that is not `main`). Setting `fabrica_automatica`: **it starts on together with the factory** (`/fabrica si`, Darwin's order, 2026-11-17); only when the mode was off, so repeating `/fabrica si` does not turn it back on if Darwin turned it off with `automatico no`. `/fabrica no` or `modo normal` also turn it off.
 - Turning it on opens no new chat: the only change is the startup notice. The later phases (spec reviewer, real-use test) are switched on by their own specs.
