@@ -8,6 +8,8 @@
   python .brain/guardianes/auditor.py cierre si|no|estado
   python .brain/guardianes/auditor.py quien general|cierre|spec [--interno] [archivos…]   (quién audita; --interno lo añade solo esta vez)
   python .brain/guardianes/auditor.py codex                       (el comando de Codex, en una línea)
+  python .brain/guardianes/auditor.py terminada NNN [archivos…]   (spec 092: una spec termina; marca el cierre «pendiente de auditar»)
+  python .brain/guardianes/auditor.py auditada                    (el auditor ya pasó: quita la marca)
 
 No lanza ninguna IA: solo guarda los ajustes y dice quién debe auditar y con qué comando. Lo lanza la IA
 con la skill `auditor`. Con `auditor_externo` en «no» no se llama a ninguna IA externa."""
@@ -156,6 +158,65 @@ def modo(raiz, aspecto, orden):
     return 0, lineas
 
 
+ESTADO_PENDIENTE = os.path.join(AQUI, "auditor_pendiente.json")
+
+
+def pendiente(raiz=None):
+    """Spec 092: el cierre marcado como pendiente de auditar ({"que": ..., "sensible": bool}) o None.
+    Ilegible o ausente = sin marca (el guardián nunca rompe el trabajo)."""
+    ruta = ESTADO_PENDIENTE if raiz is None else os.path.join(raiz, ".brain", "guardianes", "auditor_pendiente.json")
+    try:
+        with open(ruta, "rb") as f:
+            d = json.loads(f.read().decode("utf-8-sig"))
+    except Exception:
+        return None
+    return d if isinstance(d, dict) and d.get("que") else None
+
+
+def marcar_pendiente(raiz, que, archivos=None, forzar=False):
+    """Spec 092: marca un cierre (spec o encargo) como pendiente de auditar. Devuelve (código, texto).
+    Sin marca si el auditor de cierre está apagado o si solo hay documentos (con `forzar` no se mira el código)."""
+    _, cfg, _ = _cfg(raiz)
+    if not cierre_activo(cfg):
+        return 0, t(cfg, "auditor_terminada_apagado")
+    archivos = list(archivos or [])
+    if not forzar and not hay_codigo(archivos, cfg):
+        return 0, t(cfg, "auditor_terminada_sin_codigo")
+    ruta = os.path.join(raiz, ".brain", "guardianes", "auditor_pendiente.json")
+    datos = {"que": str(que), "sensible": bool(sensible(archivos, cfg)) and valor_externo(cfg) == "general-y-spec"}
+    try:
+        os.makedirs(os.path.dirname(ruta), exist_ok=True)
+        with open(ruta + ".tmp", "wb") as f:
+            f.write((json.dumps(datos, ensure_ascii=False) + chr(10)).encode("utf-8"))
+        os.replace(ruta + ".tmp", ruta)
+    except OSError as e:
+        return 1, t(cfg, "auditor_terminada_error", e)
+    return 0, t(cfg, "auditor_terminada_ok", que)
+
+
+def quitar_pendiente(raiz):
+    """Spec 092: el auditor ya pasó. Devuelve (código, texto)."""
+    _, cfg, _ = _cfg(raiz)
+    ruta = os.path.join(raiz, ".brain", "guardianes", "auditor_pendiente.json")
+    habia = os.path.exists(ruta)
+    try:
+        if habia:
+            os.remove(ruta)
+    except OSError as e:
+        return 1, t(cfg, "auditor_terminada_error", e)
+    return 0, t(cfg, "auditor_auditada_ok" if habia else "auditor_auditada_nada")
+
+
+def _cambios_git(raiz):
+    """Archivos con cambios sin commitear (para `terminada` sin lista de archivos). Vacío si git no responde."""
+    import subprocess
+    try:
+        p = subprocess.run(["git", "status", "--porcelain"], cwd=raiz, capture_output=True, timeout=30)
+        return [l[3:].strip().strip('"').split(" -> ")[-1] for l in p.stdout.decode("utf-8", "replace").splitlines() if len(l) > 3]
+    except Exception:
+        return []
+
+
 def hay_codigo(archivos, cfg):
     """True si entre los archivos hay código o configuración (no solo documentos). Tolera ajustes mal escritos
     (tipos raros) y no cuenta README/LICENSE/CHANGELOG sin extensión como código."""
@@ -185,6 +246,19 @@ def main(argv=None, raiz=None):
         con_interno = "--interno" in resto
         print(" + ".join(quien_audita(cfg, m, [a for a in resto if a != "--interno"], con_interno)))
         return 0
+    if aspecto == "terminada":
+        resto = argv[1:]
+        if not resto:
+            print(t(cfg, "auditor_uso"))
+            return 1
+        archivos = resto[1:] or _cambios_git(raiz)
+        codigo, texto = marcar_pendiente(raiz, "spec " + resto[0], archivos)
+        print(texto)
+        return codigo
+    if aspecto == "auditada":
+        codigo, texto = quitar_pendiente(raiz)
+        print(texto)
+        return codigo
     if aspecto == "codex":
         print(" ".join(a if " " not in a else '"' + a + '"' for a in comando_codex(cfg)))
         return 0

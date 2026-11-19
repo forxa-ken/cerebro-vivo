@@ -215,7 +215,7 @@ def cadena_avisos(editados, cfg):
     return avisos
 
 
-def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None, auditor_aparte=None):
+def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respuesta=None, editados=None, sin_cerrar=None, auditor_aparte=None, auditor_pendiente=None):
     """Devuelve la lista de avisos (vacía = todo en orden). Función pura, probada en tests.
     `editados` (spec 031): archivos que el chat editó con Edit/Write; si hay, solo cuentan esos cambios de git
     (lo que trajo `/actualizar` u otro chat no es de este chat). Sin lista, vale todo lo que git ve cambiado.
@@ -223,7 +223,9 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
     `cierre_bloque_max_ediciones` (15) no se pide la línea todavía: se cierra por bloque, no por tarea pequeña.
     Con `cierre_por_bloque` en false, o sin dato, se pide en cada respuesta como antes.
     `auditor_aparte` (spec 044, 1.44.3): si se pasa una lista, los avisos del auditor van a ella y no a `avisos`
-    (así `main` puede apagarlos si se repiten sin atenderse, spec 038)."""
+    (así `main` puede apagarlos si se repiten sin atenderse, spec 038).
+    `auditor_pendiente` (spec 092): `{"que": "spec 092", "sensible": bool}` si una spec o un encargo se marcó como terminado
+    y falta auditarlo. El auditor avisa SOLO con esa marca: ya no avisa por cada respuesta con cambios sin commitear."""
     avisos = []
     del_proyecto = [c for c in cambios if not esta_ignorada(c, cfg["ignorar_cambios"])]
     if editados:
@@ -234,20 +236,19 @@ def evaluar(cambios, tam_pendientes, cfg, hubo_ediciones=None, registro_en_respu
         registro_tocado = registro_en_respuesta
     else:
         registro_tocado = any(c == cfg["registro"] for c in cambios)
-    candidatos = del_proyecto  # el auditor mira esto aunque el bloque siga abierto (spec 044)
     por_bloque = bool(cfg.get("cierre_por_bloque", True)) and sin_cerrar is not None
     if por_bloque and sin_cerrar < cfg.get("cierre_bloque_max_ediciones", 15):
         del_proyecto = []  # el bloque sigue abierto: aún no toca cerrar
     if del_proyecto and not registro_tocado and hubo_ediciones is not False:
         avisos.append(t(cfg, "cierre_falta_linea",
                         ", ".join(del_proyecto[:4]) + ("…" if len(del_proyecto) > 4 else ""), cfg["registro"]))
-    if candidatos and hubo_ediciones is not False:  # spec 044: solo avisa; no lanza nada; un fallo aquí no tumba el cierre
-        try:
-            from auditor import cierre_activo, hay_codigo, sensible, valor_externo
-            if cierre_activo(cfg) and hay_codigo(candidatos, cfg):
+    if auditor_pendiente:  # spec 092: solo con un cierre marcado (spec o encargo terminado) y aún sin auditar
+        try:  # solo avisa; no lanza nada; un fallo aquí no tumba el cierre
+            from auditor import cierre_activo
+            if cierre_activo(cfg):
                 destino = avisos if auditor_aparte is None else auditor_aparte
-                destino.append(t(cfg, "cierre_auditor"))
-                if valor_externo(cfg) == "general-y-spec" and sensible(candidatos, cfg):
+                destino.append(t(cfg, "cierre_auditor", auditor_pendiente.get("que", "?")))
+                if auditor_pendiente.get("sensible"):
                     destino.append(t(cfg, "cierre_auditor_sensible"))
         except Exception:
             pass
@@ -336,7 +337,12 @@ def main():
             except Exception:
                 sin_cerrar = None
         aviso_auditor = []
-        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar, aviso_auditor)
+        try:
+            import auditor as _aud  # spec 092: solo avisa si hay un cierre marcado como terminado y sin auditar
+            marca = _aud.pendiente()
+        except Exception:
+            marca = None
+        avisos = evaluar(cambios_git(RAIZ), tam, cfg, ediciones, en_registro, editados, sin_cerrar, aviso_auditor, marca)
         informativos = {"longitud": [], "hitos": [], "auditor": aviso_auditor, "cadena": []}  # solo informan: si se repiten sin atenderse, se apagan en este chat (spec 038)
         if en_registro and editados and cfg.get("cadenas_activas", True):  # spec 047: solo al cerrar (hay línea de registro en esta respuesta)
             informativos["cadena"] = cadena_avisos(editados, cfg)

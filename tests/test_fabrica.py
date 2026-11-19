@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Spec 035 fase 2: el guardián de la fábrica (huellas, alcance del encargo, topes y parada)."""
 import importlib.util
+import json
 import os
 import sys
 import subprocess
@@ -1014,6 +1015,38 @@ class CerrarEncargoTest(FabricaTest):
         self.assertIn("VERDE", texto)
         self.assertIn("NO lo acepta", texto)
         self.assertTrue((self.repo / ".brain" / "fabrica" / "evidencia" / "cerrar-encargo-001.md").is_file())
+
+    def _marca_auditor(self):
+        return (self.repo / ".brain" / "guardianes" / "auditor_pendiente.json")
+
+    def _modo_fabrica(self, valor):
+        ruta = self.repo / ".brain" / "guardianes" / "guardianes.json"
+        ruta.parent.mkdir(parents=True, exist_ok=True)
+        ruta.write_text(json.dumps({"modo_fabrica": valor}), encoding="utf-8")
+
+    def test_cierre_verde_en_modo_fabrica_marca_el_auditor_pendiente(self):
+        """Spec 092: un encargo cerrado en verde, con la fábrica encendida, queda pendiente de auditar."""
+        self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n", encoding="utf-8")
+        self._modo_fabrica(True)
+        self._listo()
+        (self.repo / "a.lua").write_text("v2", encoding="utf-8")
+        self.assertEqual(self._cerrar()[0], 0)
+        self.assertIn("encargo 001", self._marca_auditor().read_text(encoding="utf-8"))
+
+    def test_cierre_verde_sin_modo_fabrica_no_marca(self):
+        self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n", encoding="utf-8")
+        self._modo_fabrica(False)
+        self._listo()
+        (self.repo / "a.lua").write_text("v2", encoding="utf-8")
+        self.assertEqual(self._cerrar()[0], 0)
+        self.assertFalse(self._marca_auditor().exists())
+
+    def test_cierre_rojo_no_marca(self):
+        self.carta.write_text("- comando_pruebas: python -c \"import sys; sys.exit(3)\"\n", encoding="utf-8")
+        self._modo_fabrica(True)
+        self._listo()
+        self.assertEqual(self._cerrar()[0], 1)
+        self.assertFalse(self._marca_auditor().exists())
 
     def test_fuera_de_alcance_da_rojo(self):
         self.carta.write_text("- comando_pruebas: python -c \"print(1)\"\n", encoding="utf-8")

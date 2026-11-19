@@ -775,6 +775,20 @@ class Fabrica:
                 return m.group(1).strip().strip("`")
         return None
 
+    def _marcar_auditor(self, enc, repo):
+        """Spec 092: en modo fábrica, un encargo cerrado en verde queda pendiente de auditar (solo avisa). Nunca falla."""
+        try:
+            cfg = _json(str(self.raiz / ".brain" / "guardianes" / "guardianes.json"), {})
+            if not (isinstance(cfg, dict) and cfg.get("modo_fabrica")):
+                return
+            import importlib.util
+            e = importlib.util.spec_from_file_location("auditor", os.path.join(os.path.dirname(os.path.abspath(__file__)), "auditor.py"))
+            m = importlib.util.module_from_spec(e)
+            e.loader.exec_module(m)
+            m.marcar_pendiente(str(self.raiz), "encargo " + str(enc), m._cambios_git(str(repo)), forzar=True)
+        except Exception:
+            pass
+
     def cerrar_encargo(self, ruta_encargo, repo, encargo, ahora=None, timeout=900):
         """Pasos mecánicos del cierre: alcance, pruebas, gasto de la directora y avance. Devuelve un resumen corto y
         guarda el detalle en `evidencia/cerrar-encargo-N.md`. NO acepta el encargo: eso lo decide la directora."""
@@ -809,6 +823,7 @@ class Fabrica:
         # 4. avance (solo si todo dio verde)
         if not rojo:
             self.avance(enc, "cierre mecánico en verde")
+            self._marcar_auditor(enc, repo)
         por_papel = {}
         for x in self._gasto():
             if x.get("encargo") == enc:
