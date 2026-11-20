@@ -923,6 +923,20 @@ window.DATOS = {
     "d": "Añade --historial para revisar también lo ya guardado en Git."
    },
    {
+    "c": "GitHub",
+    "t": "Primer día en un ordenador nuevo",
+    "w": "En la terminal, en la carpeta donde vivirá el proyecto",
+    "x": "git clone https://github.com/USUARIO/PROYECTO.git",
+    "d": "En un ordenador sin nada instalado no existe /actualizar ni /sincronizar: el arnés viaja dentro del propio proyecto, así que se trae con git clone (una sola vez por proyecto). Un addon de WoW se clona directamente dentro de la carpeta AddOns del juego; da igual que sea C: o F:. Después ya valen los comandos del chat."
+   },
+   {
+    "c": "GitHub",
+    "t": "Ponerte al día al volver a un ordenador",
+    "w": "En el chat, dentro del proyecto",
+    "x": "/sincronizar",
+    "d": "Baja de GitHub lo que se subió desde el otro ordenador (git pull sin mezclar ni pisar) y enseña el estado y el traspaso. Solo baja: para subir lo tuyo, di «sube». Sin la skill (proyecto aún sin la 1.62.0): git pull en la terminal."
+   },
+   {
     "c": "Proyectos",
     "t": "Instalar en un proyecto nuevo",
     "w": "En la terminal, desde cerebro-vivo",
@@ -2118,6 +2132,20 @@ window.DATOS = {
     "w": "In the terminal",
     "x": "python .brain/guardianes/secretos.py",
     "d": "Add --historial to also scan what is already saved in Git."
+   },
+   {
+    "c": "GitHub",
+    "t": "First day on a new computer",
+    "w": "In the terminal, in the folder where the project will live",
+    "x": "git clone https://github.com/USER/PROJECT.git",
+    "d": "On a computer with nothing installed there is no /actualizar or /sincronizar: the harness travels inside the project itself, so it is brought with git clone (once per project). A WoW addon is cloned straight into the game's AddOns folder; C: or F: does not matter. After that the chat commands work."
+   },
+   {
+    "c": "GitHub",
+    "t": "Catch up when you return to a computer",
+    "w": "In the chat, inside the project",
+    "x": "/sincronizar",
+    "d": "Pulls from GitHub what was pushed from the other computer (git pull without merging or overwriting) and shows the state and the handover. It only pulls: to push yours, say «push it». Without the skill (project not yet on 1.62.0): git pull in the terminal."
    },
    {
     "c": "Projects",
