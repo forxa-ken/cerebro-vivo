@@ -545,6 +545,26 @@ window.DATOS = {
     "d": "Recorre lecciones, decisiones, specs, respuestas y registro en cada consulta, sin índice: unos 470 KB tardan milisegundos. Ignora tildes, mayúsculas y palabras vacías, da más peso al título y a los encabezados y limita lo que suma un archivo largo por repetirse. Con --archivo incluye archive/. Umbral para pasar a un índice: 5 MB o más de 1 segundo."
    },
    {
+    "n": "Web local del cerebro",
+    "f": "web.py",
+    "w": "Abre en el navegador, solo para ti y solo lectura, el estado y la memoria.",
+    "c": "A mano (python .brain/guardianes/web.py)",
+    "e": "Solo lee",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Inicio, decisiones, lecciones, specs, biblioteca, respuestas, buscador y uso medido. Solo escucha en 127.0.0.1, pide una clave al azar en cada arranque, comprueba el nombre del servidor y rechaza cualquier petición que escriba. Solo sirve los .md y decisions.log de .brain/. Fases 2 y 3 (proyectos, simulaciones, editar y aprobar) sin hacer."
+   },
+   {
+    "n": "Ponerse al día con GitHub",
+    "f": "sincronizar.py",
+    "w": "Baja de GitHub lo nuevo y deja el ordenador listo para trabajar.",
+    "c": "A mano (/sincronizar)",
+    "e": "Baja, nunca sube",
+    "k": "mano",
+    "ek": "warn",
+    "d": "git fetch y git pull --ff-only: solo avanza, nunca mezcla, pisa ni sube. Si la rama se separó o choca con cambios locales, lo dice y no toca nada. Después enseña el resumen de arranque y el traspaso. --simular solo cuenta lo que haría."
+   },
+   {
     "n": "Textos en dos idiomas",
     "f": "textos.py",
     "w": "Guarda los mensajes de todos los guardianes en español e inglés.",
@@ -564,7 +584,8 @@ window.DATOS = {
      "prompt-inicial",
      "actualizar",
      "version",
-     "subir-a-github"
+     "subir-a-github",
+     "sincronizar"
     ]
    ],
    [
@@ -1756,6 +1777,26 @@ window.DATOS = {
     "d": "Sweeps lessons, decisions, specs, answers and log on every query, with no index: about 470 KB takes milliseconds. It ignores accents, case and filler words, gives more weight to the title and headings and limits what a long file earns by repeating itself. --archivo includes archive/. Threshold for moving to an index: 5 MB or more than 1 second."
    },
    {
+    "n": "Local web of the brain",
+    "f": "web.py",
+    "w": "Opens in the browser, only for you and read-only, the state and the memory.",
+    "c": "By hand (python .brain/guardianes/web.py)",
+    "e": "Read-only",
+    "k": "mano",
+    "ek": "ok",
+    "d": "Home, decisions, lessons, specs, library, answers, search and measured usage. It only listens on 127.0.0.1, asks for a random key on every start, checks the host name and rejects any request that writes. It only serves the .md files and decisions.log of .brain/. Phases 2 and 3 (projects, simulations, editing and approving) not built."
+   },
+   {
+    "n": "Catch up with GitHub",
+    "f": "sincronizar.py",
+    "w": "Pulls what is new from GitHub and leaves the computer ready to work.",
+    "c": "By hand (/sincronizar)",
+    "e": "Pulls, never pushes",
+    "k": "mano",
+    "ek": "warn",
+    "d": "git fetch and git pull --ff-only: it only moves forward, never merges, overwrites or pushes. If the branch diverged or clashes with local changes, it says so and touches nothing. Then it shows the startup summary and the handover. --simular only reports."
+   },
+   {
     "n": "Two-language texts",
     "f": "textos.py",
     "w": "Holds every guardian's messages in Spanish and English.",
@@ -1775,7 +1816,8 @@ window.DATOS = {
      "prompt-inicial",
      "actualizar",
      "version",
-     "subir-a-github"
+     "subir-a-github",
+     "sincronizar"
     ]
    ],
    [
