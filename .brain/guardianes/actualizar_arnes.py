@@ -141,9 +141,73 @@ def claves_nuevas(repo, proyecto):
     return {k: v for k, v in del_arnes.items() if k not in del_proyecto and k not in ("_ayuda", "arnes_repo")}
 
 
+# Spec 094: lo que es de cada ordenador (rutas y estados) no viaja con git. `arnes_repo` va en guardianes.local.json.
+LOCAL_CFG = "guardianes.local.json"
+ESTADO_LOCAL = ["/.brain/guardianes/librerias_estado.json", "/.brain/guardianes/longitud_estado.json",
+                "/.brain/guardianes/secretos_estado.json", "/.brain/guardianes/eventos_chat_estado.json",
+                "/.brain/guardianes/arranque_estado.json", "/.brain/guardianes/cierre_estado.json",
+                "/.brain/guardianes/auditor_pendiente.json", "/.brain/guardianes/" + LOCAL_CFG]
+
+
+def _ruta_local(proyecto):
+    return os.path.join(proyecto, ".brain", "guardianes", LOCAL_CFG)
+
+
+def leer_local(proyecto):
+    try:
+        with open(_ruta_local(proyecto), encoding="utf-8") as f:
+            datos = json.load(f)
+        return datos if isinstance(datos, dict) else {}
+    except Exception:
+        return {}
+
+
+def arnes_repo_de(proyecto, cfg=None):
+    """Dónde está el repo del arnés EN ESTE ORDENADOR: `guardianes.local.json` primero; si no, `arnes_repo` de guardianes.json
+    (proyectos anteriores a la 1.62.0). Vacío si no hay ninguno."""
+    return leer_local(proyecto).get("arnes_repo") or (cfg or {}).get("arnes_repo") or ""
+
+
+def guardar_local(proyecto, **valores):
+    datos = leer_local(proyecto)
+    datos.update(valores)
+    escribir_atomico(_ruta_local(proyecto), (json.dumps(datos, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+
+
+def asegurar_estado_local(proyecto, simular=False):
+    """Spec 094: añade a .gitignore lo que es de cada ordenador y saca del índice de git (sin borrar el archivo) lo que ya estuviera
+    subido. No hace commit. Devuelve la lista de líneas añadidas y de archivos sacados del índice."""
+    hecho = []
+    ignorar = os.path.join(proyecto, ".gitignore")
+    try:
+        with open(ignorar, encoding="utf-8") as f:
+            previo = f.read()
+    except OSError:
+        previo = ""
+    faltan = [l for l in ESTADO_LOCAL if l not in previo.splitlines() and l.lstrip("/") not in previo.splitlines()]
+    if faltan:
+        hecho += faltan
+        if not simular:
+            with open(ignorar, "a", encoding="utf-8", newline="\n") as f:
+                f.write(("" if not previo or previo.endswith("\n") else "\n") + "\n".join(faltan) + "\n")
+    if os.path.isdir(os.path.join(proyecto, ".git")):
+        for l in ESTADO_LOCAL:
+            rel = l.lstrip("/")
+            try:
+                sub = subprocess.run(["git", "ls-files", "--error-unmatch", rel], cwd=proyecto, capture_output=True, timeout=30)
+                if sub.returncode == 0:
+                    hecho.append("git rm --cached " + rel)
+                    if not simular:
+                        subprocess.run(["git", "rm", "--cached", "-q", rel], cwd=proyecto, capture_output=True, timeout=30)
+            except Exception:
+                pass
+    return hecho
+
+
 def completar_configuracion(repo, proyecto, simular=False):
-    """Spec 019: añade a `guardianes.json` las claves que le faltan (nunca cambia una que ya existe) y anota `arnes_repo` si falta
-    y el repo es una carpeta local. Devuelve las claves añadidas (o que se añadirían)."""
+    """Spec 019: añade a `guardianes.json` las claves que le faltan (nunca cambia una que ya existe). Spec 094: `arnes_repo` ya no
+    va ahí sino en `guardianes.local.json` (de cada ordenador); si un proyecto antiguo lo trae en guardianes.json, se mueve.
+    Devuelve las claves añadidas (o que se añadirían)."""
     ruta = os.path.join(proyecto, ".brain", "guardianes", "guardianes.json")
     try:
         with open(ruta, encoding="utf-8") as f:
@@ -151,10 +215,20 @@ def completar_configuracion(repo, proyecto, simular=False):
     except Exception:
         return {}
     nuevas = dict(claves_nuevas(repo, proyecto))
-    if not cfg.get("arnes_repo") and os.path.isabs(repo):
-        nuevas["arnes_repo"] = os.path.abspath(repo)
-    if nuevas and not simular:
-        cfg.update(nuevas)
+    local = leer_local(proyecto)
+    viejo = cfg.get("arnes_repo")
+    if not local.get("arnes_repo"):
+        origen = viejo or (os.path.abspath(repo) if os.path.isabs(repo) else "")
+        if origen:
+            nuevas["arnes_repo"] = origen
+            if not simular:
+                guardar_local(proyecto, arnes_repo=origen)
+    if "arnes_repo" in cfg and not simular:  # se quita de guardianes.json (no debe viajar con git)
+        del cfg["arnes_repo"]
+        cfg.update({k: v for k, v in nuevas.items() if k != "arnes_repo"})
+        escribir_atomico(ruta, (json.dumps(cfg, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+    elif nuevas and not simular:
+        cfg.update({k: v for k, v in nuevas.items() if k != "arnes_repo"})
         escribir_atomico(ruta, (json.dumps(cfg, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     return nuevas
 
@@ -303,7 +377,7 @@ def version_disponible(proyecto, cfg=None):
         if cfg is None:
             with open(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
                 cfg = json.load(f)
-        origen = cfg.get("arnes_repo") or ""
+        origen = arnes_repo_de(proyecto, cfg)
         if not origen or origen.startswith(("http://", "https://", "git@", "ssh://")) or origen.endswith(".git"):
             return None
         carpeta = origen if os.path.isabs(origen) else os.path.join(proyecto, origen)
@@ -439,6 +513,7 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     res["filas_quitadas"] = filas_de_retiradas(manifiesto, proyecto, salen)
     if simular:
         res["claves_escritas"] = completar_configuracion(repo, proyecto, simular=True)
+        res["estado_local"] = asegurar_estado_local(proyecto, simular=True)
         res["valores_migrados"] = migrar_auditor(proyecto, res["version_antes"], res["version"], simular=True)
         res["hooks_nuevos"] = completar_hooks(repo, proyecto, simular=True)
         llegan = [_skill_de(rel) for rel in res["nuevos"] if rel.startswith(".claude/") and _skill_de(rel)]
@@ -464,6 +539,8 @@ def sincronizar(repo, proyecto, dueno=None, simular=False, forzar=(), adoptar=()
     guardar_registro(proyecto, {"version": manifiesto.get("version"), "dueno": dueno, "archivos": archivos_reg,
                                 "nivel": "completo", "sin_aplicar": res["sin_aplicar"]})
     res["claves_escritas"] = completar_configuracion(repo, proyecto)
+    res["estado_local"] = asegurar_estado_local(proyecto)
+    res["estado_local"] = asegurar_estado_local(proyecto)
     res["valores_migrados"] = migrar_auditor(proyecto, res["version_antes"], res["version"])
     res["hooks_nuevos"] = completar_hooks(repo, proyecto, ahora=ahora)
     res["fichas"] = completar_fichas_skills(repo, proyecto)
@@ -487,9 +564,9 @@ def localizar_repo(proyecto, indicado):
     if not origen:
         try:
             with open(os.path.join(proyecto, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
-                origen = json.load(f).get("arnes_repo")
+                origen = arnes_repo_de(proyecto, json.load(f))
         except Exception:
-            origen = None
+            origen = leer_local(proyecto).get("arnes_repo")
     if not origen:
         raise ValueError(tp("actualizar_arnes_donde_esta_repo"))
     if origen.startswith(("http://", "https://", "git@", "ssh://")) or origen.endswith(".git"):

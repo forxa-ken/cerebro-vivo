@@ -137,3 +137,21 @@ Lo que se hace en ese caso: la IA dice en una frase qué va a tocar y cuánto ta
 ## 8. Qué decisión tomar primero
 
 **Aprobar el umbral de la sección 5** (≤150 líneas y ≤3 archivos, sin lo delicado y con causa conocida = sin fábrica). Es la decisión que más tiempo y gasto quita y de la que cuelgan casi todas las demás.
+
+## 9. Anexo: antes y después de las versiones 1.61.1 a 1.61.3 (pedido por el chat #38)
+
+**Medido, «antes»:** todo lo de arriba (36 encargos de empresa-virtual-sim, último el 036 del 17-nov 12:20).
+**Medido, «después»:** **nada**. Ningún encargo de ninguna fábrica se ha hecho todavía con estas versiones (empresa-virtual-sim no tiene commits desde el 18-nov y `gasto.json` acaba en el 036). El efecto de los cambios es **no medido**; lo que sigue es lo que deberían cambiar, no lo que han cambiado.
+
+| Queja de Darwin | Qué la ataca | Estado |
+|---|---|---|
+| **Más caro: cambios pequeños** (029: ≈179.500 tokens para ~6 líneas) | 1.61.1: hasta 150 líneas y 3 archivos, un subagente, sin spec, revisión ni informe | **Atendida en papel**; sin medir. Se verá con el primer cambio pequeño real |
+| **Más caro: revisión de consumo** (2 pasadas, 0 hallazgos) | 1.61.2: solo bajo petición | **Atendida** (se deja de gastar; ahorro no medido porque nunca se anotó su coste) |
+| **Más caro: la directora** (2,85 M tokens, sin medir por encargo) | 1.61.2: delega lo mecánico a Haiku; 1.61.3: se mide su gasto por encargo (no cuenta en topes) | **Medición atendida; ahorro por comprobar**. Haiku sin probar |
+| **Más tedioso: pasos sueltos de la directora** (`foto`, `alcance`, `gasto`, `topes`…) | 1.61.3: `cerrar-encargo` en un comando | **Atendida en parte**: falta ver si de verdad le ahorra mensajes |
+| **Más tedioso: 7 autorizaciones de tope tuyas** | Nada | **No atendida**: los topes de misión siguen pidiéndote permiso |
+| **Más tedioso: papeleo** (2,4 MB, informes de 6 secciones) | Solo en la ruta A (sin informe); en B y C sigue igual | **No atendida** en encargos medios y grandes |
+| **Revisión aparte** (20 de 31 sin cambios) | Solo en ruta A y en camino corto sin lógica nueva | **Atendida en parte**; en completo sigue en cada encargo |
+| **Revisor de spec** (65 k por 6 líneas) | Solo indirecto: lo pequeño ya no lo usa | **Atendida solo para lo pequeño**; las 2 vueltas máximo no están aplicadas en las skills |
+
+**Para medirlo bien:** repetir esta revisión cuando haya al menos 3 encargos pequeños (ruta A) y 1 misión grande hechos con 1.61.3; con `gasto_directora_entre` ya habrá cifra de la directora por encargo. Comparar con las medias de arriba: pequeños ≈51.000 tokens y 3-6 min; encargo medio ≈309.000; directora sin medir.

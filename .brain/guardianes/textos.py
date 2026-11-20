@@ -616,6 +616,18 @@ TEXTOS = {
         "web_vacio": "No hay documentos en esta carpeta.",
         "web_sin_resultados": "Sin resultados.",
         "web_error": "No se pudo leer.",
+        # sincronizar.py (spec 093)
+        "sync_titulo": "🔄 Sincronizar con GitHub:",
+        "sync_no_git": "Esta carpeta no es un repositorio de git; no hay con qué sincronizar.",
+        "sync_sin_remoto": "Esta rama no está enlazada a GitHub (falta el remoto); no puedo bajar nada.",
+        "sync_fetch_error": "No pude hablar con GitHub (¿hay internet?): %s",
+        "sync_al_dia": "Ya estabas al día con %s; no había nada que bajar.",
+        "sync_bajaria": "Bajaría %d cambio(s) nuevo(s) de %s (simulación: no he tocado nada).",
+        "sync_baja_ok": "Bajados %d cambio(s) nuevo(s) de %s. Ya estás al día.",
+        "sync_divergido": "Hay %d cambio(s) tuyo(s) sin subir y %d nuevo(s) en %s: la rama se separó. No he tocado nada; hay que decidir cómo juntarlos.",
+        "sync_conflicto": "No pude bajar porque choca con cambios locales: %s. No he tocado nada.",
+        "sync_adelantado": "Tienes %d commit(s) sin subir a GitHub (no se suben sin orden de Darwin).",
+        "sync_sucio": "Hay %d archivo(s) cambiado(s) sin commitear: %s.",
     },
     "en": {
         "arranque_titulo": "🐺 Cerebro Vivo · real status when opening the chat:",
@@ -1198,6 +1210,18 @@ TEXTOS = {
         "web_vacio": "There are no documents in this folder.",
         "web_sin_resultados": "No results.",
         "web_error": "Could not be read.",
+        # sincronizar.py (spec 093)
+        "sync_titulo": "🔄 Sync with GitHub:",
+        "sync_no_git": "This folder is not a git repository; there is nothing to sync with.",
+        "sync_sin_remoto": "This branch is not linked to GitHub (no remote); I cannot pull anything.",
+        "sync_fetch_error": "Could not reach GitHub (is there internet?): %s",
+        "sync_al_dia": "You were already up to date with %s; nothing to pull.",
+        "sync_bajaria": "Would pull %d new change(s) from %s (simulation: nothing touched).",
+        "sync_baja_ok": "Pulled %d new change(s) from %s. You are up to date.",
+        "sync_divergido": "You have %d local change(s) not pushed and %d new one(s) on %s: the branch diverged. Nothing was touched; they must be merged on purpose.",
+        "sync_conflicto": "Could not pull because it clashes with local changes: %s. Nothing was touched.",
+        "sync_adelantado": "You have %d commit(s) not pushed to GitHub (never pushed without Darwin's order).",
+        "sync_sucio": "%d file(s) changed and not committed: %s.",
     },
 }
 

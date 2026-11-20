@@ -279,3 +279,4 @@
 2026-11-18 | otro | Claude (cerebro-vivo #40) | v1.61.3: spec 091 aprobada y programada (cerrar-encargo y gasto de la directora por encargo); 724 pruebas OK; commit local d5712ae; sin subir; falta prueba de uso real | Cambio pequeño
 2026-11-19 | arnes | Claude (cerebro-vivo #38) | v1.61.4 spec 092: el auditor de cierre solo avisa al terminar una spec o encargo (terminada/auditada), no en cada respuesta | Cambio pequeño
 2026-11-20 | memoria | Claude (cerebro-vivo #38) | traspaso-out salgo: traspaso al otro ordenador escrito (v1.61.4, 4 commits sin subir) | Cambio pequeño
+2026-11-20 | otro | Claude (cerebro-vivo #39) | v1.62.0: comando /sincronizar (spec 093): git pull --ff-only + resumen de arranque; skill es/en, guardián, pruebas (741 en verde). Sin subir a GitHub. | Cambio pequeño

@@ -149,7 +149,8 @@ class TestSincronizar(Base):
         cfg = json.loads(leer(self.proy, ".brain/guardianes/guardianes.json"))
         self.assertEqual(cfg["mia"], True)
         self.assertEqual(cfg["a"], 5)  # lo que el proyecto ya tenía no se cambia (spec 019)
-        self.assertEqual(cfg["arnes_repo"], os.path.abspath(self.repo))  # se anota dónde está el arnés
+        self.assertNotIn("arnes_repo", cfg)  # spec 094: la ruta del arnés es de cada ordenador: va en guardianes.local.json
+        self.assertEqual(json.loads(leer(self.proy, ".brain/guardianes/guardianes.local.json"))["arnes_repo"], os.path.abspath(self.repo))
         self.assertEqual(res["claves_escritas"], {"arnes_repo": os.path.abspath(self.repo)})
 
     def test_claves_nuevas_se_anaden_y_con_simular_no_se_escribe(self):
@@ -647,6 +648,8 @@ class TestConElRepoReal(unittest.TestCase):
         self.assertEqual(act.cargar_registro(proy)["dueno"], "Ana")
         self.assertFalse(os.path.exists(os.path.join(proy, ".brain", "copias_arnes")), "instalar no debe dejar copias de seguridad")
         with open(os.path.join(proy, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+            self.assertNotIn("arnes_repo", json.load(f))  # spec 094
+        with open(os.path.join(proy, ".brain", "guardianes", "guardianes.local.json"), encoding="utf-8") as f:
             self.assertEqual(json.load(f)["arnes_repo"], RAIZ)
         self.assertTrue(os.path.isfile(os.path.join(proy, ".brain", "guardianes", "actualizar_arnes.py")))
         espec = importlib.util.spec_from_file_location("actualizar_del_proyecto", os.path.join(proy, ".brain", "guardianes", "actualizar_arnes.py"))
@@ -657,6 +660,43 @@ class TestConElRepoReal(unittest.TestCase):
         for skill in ("prompt-inicial", "resumen", "pendiente"):
             self.assertTrue(os.path.isdir(os.path.join(proy, ".claude", "skills", skill)))
         self.assertTrue(os.path.isfile(os.path.join(proy, ".brain", "biblioteca", "kit-traduccion", "i18n_motor.js")))
+
+
+class TestEstadoLocal(unittest.TestCase):
+    """Spec 094: lo que es de cada ordenador (ruta del arnés, estados) no viaja con git."""
+
+    def setUp(self):
+        self.proy = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.proy, True)
+
+    def test_arnes_repo_de_guardianes_json_se_mueve_al_local(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.json", json.dumps({"mia": 1, "arnes_repo": "F:/x"}))
+        act.completar_configuracion(os.path.join(self.proy, "no-absoluto-ni-existe"), self.proy)
+        cfg = json.loads(leer(self.proy, ".brain/guardianes/guardianes.json"))
+        self.assertNotIn("arnes_repo", cfg)
+        self.assertEqual(cfg["mia"], 1)
+        self.assertEqual(act.arnes_repo_de(self.proy, cfg), "F:/x")
+
+    def test_el_local_manda_sobre_guardianes_json(self):
+        escribir(self.proy, ".brain/guardianes/guardianes.local.json", json.dumps({"arnes_repo": "C:/otro"}))
+        self.assertEqual(act.arnes_repo_de(self.proy, {"arnes_repo": "F:/x"}), "C:/otro")
+        self.assertEqual(act.arnes_repo_de(self.proy, {"arnes_repo": "F:/x"}), "C:/otro")
+
+    def test_estado_local_se_ignora_y_se_saca_del_indice_sin_borrar(self):
+        import subprocess
+        subprocess.run(["git", "init", "-q"], cwd=self.proy, check=True)
+        escribir(self.proy, ".brain/guardianes/arranque_estado.json", "{}")
+        escribir(self.proy, ".gitignore", "__pycache__/")
+        subprocess.run(["git", "add", "-A"], cwd=self.proy, check=True)
+        hecho = act.asegurar_estado_local(self.proy, simular=True)
+        self.assertTrue(any("arranque_estado" in h for h in hecho))
+        self.assertNotIn("arranque_estado", leer(self.proy, ".gitignore"))  # simular no escribe
+        act.asegurar_estado_local(self.proy)
+        self.assertIn("/.brain/guardianes/arranque_estado.json", leer(self.proy, ".gitignore").splitlines())
+        tracked = subprocess.run(["git", "ls-files"], cwd=self.proy, capture_output=True, text=True).stdout
+        self.assertNotIn("arranque_estado.json", tracked)
+        self.assertTrue(os.path.isfile(os.path.join(self.proy, ".brain/guardianes/arranque_estado.json")))  # el archivo sigue ahí
+        self.assertEqual(act.asegurar_estado_local(self.proy), [])  # segunda vez: nada que hacer
 
 
 if __name__ == "__main__":

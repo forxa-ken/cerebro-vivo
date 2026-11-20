@@ -25,7 +25,7 @@ PLANTILLAS = os.path.join(AQUI, "plantillas")
 BRAIN_FUENTE = os.path.abspath(os.path.join(AQUI, "..", ".."))
 GUARDIANES_FUENTE = os.path.join(BRAIN_FUENTE, "guardianes")
 RAIZ_FUENTE = os.path.abspath(os.path.join(BRAIN_FUENTE, ".."))
-GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "lecciones", "respuestas", "buscar", "hitos", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "revisar_contenido", "archivos_gordos", "eventos_chat", "fabrica", "colabora", "hermanos", "auditor", "diapositivas", "diagramas", "web", "actualizar_arnes"]
+GUARDIANES = ["textos", "arranque", "guardar_traspaso", "cierre", "cerrar", "poda", "medir", "secretos", "librerias", "pruebas", "longitud", "lecciones", "respuestas", "buscar", "hitos", "analisis", "base_datos", "indices", "notas_abiertas", "revisar_indices", "revisar_contenido", "archivos_gordos", "eventos_chat", "fabrica", "colabora", "hermanos", "auditor", "diapositivas", "diagramas", "web", "sincronizar", "actualizar_arnes"]
 IAS = {"claude": ("CLAUDE.md", "Claude"), "gemini": ("GEMINI.md", "Antigravity/Gemini"), "codex": ("AGENTS.md", "GPT Codex")}
 NIVELES = ("ligero", "medio", "completo")
 BIBLIOTECA = ["CARTA_META_ARNES.md", "CEREBRO_VIVO.md"]
@@ -254,7 +254,7 @@ def configuracion(ias, idioma="español"):
     cfg["indices_entrada"] = archivos
     cfg["claude_md"] = archivos[0]
     if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")):  # spec 087: de dónde se actualiza el proyecto
-        cfg["arnes_repo"] = RAIZ_FUENTE
+        pass  # spec 094: arnes_repo no va en guardianes.json (viajaria a otros ordenadores): va en guardianes.local.json
     return cfg
 
 
@@ -374,6 +374,8 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
         texto = fuente(GUARDIANES_FUENTE, g + ".py")
         poner(".brain/guardianes/%s.py" % g, texto)
     poner(".brain/guardianes/guardianes.json", json.dumps(cfg, ensure_ascii=False, indent=2) + "\n")
+    if os.path.exists(os.path.join(RAIZ_FUENTE, "manifiesto.json")):
+        poner(".brain/guardianes/guardianes.local.json", json.dumps({"arnes_repo": RAIZ_FUENTE}, ensure_ascii=False, indent=2) + "\n")
     poner("tests/test_cerebro_indices.py", fuente(RAIZ_FUENTE, "tests", "test_cerebro_indices.py"))
     for b in BIBLIOTECA:
         poner(".brain/biblioteca/" + b, leer(edicion(os.path.join(BRAIN_FUENTE, "biblioteca", b))))
@@ -404,7 +406,7 @@ def instalar(destino, nombre, dueno, idioma, pruebas, ias, nivel, hoy=None, simu
     ignorar = os.path.join(destino, ".gitignore")
     previo = leer(ignorar) if os.path.exists(ignorar) else ""
     secretos = [a for a in cfg["secretos"]["archivos_secretos"] if a not in previo.splitlines()]
-    nuevas = [l for l in ["__pycache__/", "/.brain/guardianes/librerias_estado.json", "/.brain/guardianes/longitud_estado.json", "/.brain/guardianes/secretos_estado.json", "/.brain/guardianes/eventos_chat_estado.json", "/.brain/copias_arnes/"] + secretos if l not in previo.splitlines()]
+    nuevas = [l for l in ["__pycache__/", "/.brain/guardianes/librerias_estado.json", "/.brain/guardianes/longitud_estado.json", "/.brain/guardianes/secretos_estado.json", "/.brain/guardianes/eventos_chat_estado.json", "/.brain/guardianes/arranque_estado.json", "/.brain/guardianes/cierre_estado.json", "/.brain/guardianes/auditor_pendiente.json", "/.brain/guardianes/guardianes.local.json", "/.brain/copias_arnes/"] + secretos if l not in previo.splitlines()]
     if nuevas:
         with open(ignorar, "a", encoding="utf-8", newline="\n") as f:
             f.write(("" if not previo or previo.endswith("\n") else "\n") + "\n".join(nuevas) + "\n")
