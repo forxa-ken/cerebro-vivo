@@ -17,6 +17,6 @@
 - No subir a GitHub sin orden de Darwin (salvo el commit de memoria). No programar fases 2+ de la web sin spec aprobada. No ampliar la fábrica (spec 089 en pausa). No tocar el código del addon de Prominimap.
 
 ## Sin subir a GitHub
-- 4 commits locales (hasta `e05565c`, v1.61.4). Sin commitear: nota de la revisión de la fábrica y archivos del traspaso.
+- Nada de código: cerebro-vivo (hasta v1.61.4), Prominimap y YuGiWoW se subieron el 2026-11-20 por orden de Darwin. Solo queda sin commitear la nota `.brain/archive/notas-chats/2026-11-18-revision-de-la-fabrica.md`. En el otro ordenador: `git clone` o `git pull` y `traspaso-out entro`.
 
 Detalle completo: `/memoria-traspaso`
