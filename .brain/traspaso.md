@@ -1,21 +1,22 @@
-# Traspaso del chat #40 al #41 (2026-11-18)
+# Traspaso del chat #38 al #39 (2026-11-20)
 
 - **IA que lo escribe:** Claude
-- **IA que sigue:** (por decidir; Darwin la dirá)
+- **IA que sigue:** Claude (en otro ordenador)
 
 ## Lo último que pidió Darwin
-- «/traspaso salgo» (tras pasar la información al chat #38 y confirmar los cambios en un commit).
+- «Yo voy a trabajar en otro ordenador. Tengo que hacer un traspaso out en el proyecto. Y ¿cómo le digo para que se descargue los archivos desde GitHub?»
 
 ## Espera su respuesta
-- Nada pendiente. Falta la **prueba de uso real** de `cerrar-encargo` en un encargo de verdad (comparar la cifra de la directora con `medir.py`).
+- Spec 090 (web local): su sí al orden de fases (proyectos y simulaciones primero) y a «fábrica y chats: solo ver estado al principio»; luego aprobarla.
+- Informe de la revisión de la fábrica (`.brain/archive/notas-chats/2026-11-18-revision-de-la-fabrica.md`): decidir qué quitar o simplificar.
 
 ## Siguiente paso
-- Probar `fabrica.py cerrar-encargo` en un encargo real de un proyecto con `- comando_pruebas:` en su carta. Decidir si la línea de la directora también va en el informe final (hoy sale en `topes` y en el resumen del cierre, no en el informe).
+- Con su sí, fase 2 de la web: proyectos en pestañas, simulaciones, capa de permisos. Probar la v1.61.4 en Prominimap (aviso del auditor).
 
 ## NO hacer
-- Subir a GitHub sin orden de Darwin. Tocar spec 089 (en pausa) ni Prominimap. Meter el gasto de la directora en los topes sin que Darwin lo pida. Roles de usuario en la web (un solo perfil, el suyo).
+- No subir a GitHub sin orden de Darwin (salvo el commit de memoria). No programar fases 2+ de la web sin spec aprobada. No ampliar la fábrica (spec 089 en pausa). No tocar el código del addon de Prominimap.
 
 ## Sin subir a GitHub
-- Commit local `d5712ae` (v1.61.3, spec 091; incluye v1.61.1 y v1.61.2 y cambios de otros chats). Sin commitear: registro y este traspaso.
+- 4 commits locales (hasta `e05565c`, v1.61.4). Sin commitear: nota de la revisión de la fábrica y archivos del traspaso.
 
 Detalle completo: `/memoria-traspaso`
