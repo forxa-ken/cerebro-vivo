@@ -1,6 +1,6 @@
 # Spec 090: web de ejecución del cerebro (visor, proyectos, acciones y aprobaciones)
 
-- **Estado:** **fase 1 construida (v1.61.0), con revisión aparte y prueba de uso real; fases 2 y 3 en borrador.** Darwin aceptó empezar solo por la fase 1 (2026-11-18); las 3 preguntas de la sección 8 siguen abiertas para las fases 2 y 3.
+- **Estado:** **fase 1 construida (v1.61.0), con revisión aparte y prueba de uso real; spec aprobada por Darwin el 2026-11-20 (ver 12.4); fase 2 construida (v1.63.0), falta su revisión aparte.** Las 3 preguntas de la sección 8 quedan respondidas con las recomendaciones.
 - **Fecha:** 2026-11-18
 - **Se apoya en:** `buscar.py`, `medir.py`, `actualizar_arnes.py`, `hermanos.py`, `revisar_contenido.py`, `guardar_traspaso.py`, spec 035 (fábrica) y la regla de «mover, no borrar».
 - **Origen:** Darwin pidió (2026-11-18) una web para manejar el cerebro con interfaz, local y de un solo usuario. Funciones elegidas: ver y buscar, editar y aprobar, grafo de relaciones, medir uso y gestionar proyectos.
@@ -65,10 +65,10 @@ Cada fase se entrega y se prueba antes de empezar la siguiente.
 - El grafo depende de que las referencias estén escritas con un formato constante; lo que no siga el formato no aparecerá.
 
 ## 10. Cierre
-- [ ] Spec aprobada por Darwin (respuestas a la sección 8)
+- [x] Spec aprobada por Darwin (2026-11-20; ver 12.4)
 - [x] Fase 1 construida y probada (v1.61.0; revisión aparte y prueba de uso real en `.brain/fabrica/evidencia/090-fase1-*.md`)
-- [ ] Fase 2
-- [ ] Fase 3
+- [x] Fase 2 construida y probada con pruebas automáticas (v1.63.0, 2026-11-20). Revisión aparte hecha (apto con reparos; corregido lo grave). **Falta:** prueba de uso real por otra IA; permisos por ruta (13.5); no se ha probado en un proyecto que no sea el repo del arnés ni con clics en el navegador
+- [ ] Fase 3 (primer tramo construido en v1.64.0: actualizar e instalar de verdad, con pruebas automáticas; v1.65.0 añade tareas del método con parar; revisión aparte y prueba real sobre una copia hechas por la misma IA; falta prueba por otra IA, auditor externo y dos arreglos menores)
 - [ ] Línea añadida a `.brain/decisions.log`
 
 ## 11. Resultados de la fase 1 (2026-11-18)
@@ -100,17 +100,21 @@ Darwin probó la fase 1 y dijo que es «más una página de búsqueda tipo Obsid
 2. **Fase 2:** proyectos (registro, añadir, ver versión y atraso) y **simulaciones** (instalar y actualizar en simulado). Sigue sin cambiar nada.
 3. **Fase 3:** acciones que cambian cosas: instalador real, actualizar real, tareas del método. Con la sección 12.2 completa, revisión aparte, auditor externo y prueba de uso real **sobre una copia de un proyecto**, no sobre uno de verdad.
 4. **Fase 4:** aprobar cambios (bandeja de propuestas).
-5. **Fase 5:** fábrica y chats.
+5. **Fase 5:** fábrica y chats (solo ver estado al principio), más una **ventana de informes de la fábrica**: cuando la fábrica entrega el informe de lo que hizo, se ve ahí, organizado (por encargo, qué se hizo, qué se revisó, gasto y resultado), sin abrir archivos. Solo lectura. (Añadido por Darwin, 2026-11-20.)
 6. **Después:** grafo y pantalla de salud (sección 3 bis).
 
 ### 12.4 Respuestas de Darwin (2026-11-18)
 - **Proyectos:** se podrán registrar **todos los proyectos actuales**; cada uno con **perfil propio**, presentado **como pestañas** (pendientes, versión, simulaciones, permisos y colaboradores de ese proyecto en su pestaña). Para la prueba de uso real de la fase 3 se sigue usando una copia de uno.
-- **Orden de fases (propuesto, falta su sí expreso):** proyectos y simulaciones primero; lo que cambia cosas después.
-- **Fábrica y chats (propuesto, falta su sí expreso):** en la primera versión solo ver estado; lanzar comandos y abrir chats desde la web, más adelante y solo si la app lo permite.
+- **Orden de fases (APROBADO por Darwin, 2026-11-20):** proyectos y simulaciones primero; lo que cambia cosas después.
+- **Fábrica y chats (APROBADO por Darwin, 2026-11-20):** en la primera versión solo ver estado; lanzar comandos y abrir chats desde la web, más adelante y solo si la app lo permite.
+- **Ventana de informes de la fábrica (pedido de Darwin, 2026-11-20):** el informe que entrega la fábrica se ve organizado en una ventana propia de la web (fase 5).
+- **Spec aprobada por Darwin el 2026-11-20** («de resto lo apruebo»), con las recomendaciones de la sección 8: web primero solo en cerebro-vivo viendo todos los proyectos; las IAs también pueden proponer cambios; fase 1 ya aprobada.
 
 ### 12.5 Riesgos honestos
 - Es la parte más delicada del arnés hasta ahora: una página local que ejecuta comandos sobre varios proyectos. De ahí la lista cerrada, las confirmaciones y la prueba sobre una copia.
 - Instalar y actualizar ya existen y están probados por separado; lo nuevo es que ahora se disparan desde una página, y eso hay que probarlo entero.
+- **Riesgo aceptado de las tareas (auditoría externa, 2026-11-20):** correr las pruebas, el auditor o «cerrar» de un proyecto registrado **ejecuta código de ese proyecto con los permisos y el entorno de quien lanzó la web**. «Nunca subir ni tocar secretos» es una regla de lo que hace la web por sí misma, no una garantía técnica sobre ese código: un proyecto malicioso podría leer secretos o hacer `push`. Por eso solo se registran proyectos propios o de confianza y la pantalla de confirmación lo dice. Aislarlo de verdad (usuario o contenedor sin permisos) queda para la fase de internet.
+- **Cerrado tras la auditoría externa (v1.65.1):** el guardián debe colgar de `<proyecto>/.brain/guardianes` sin enlaces que salgan del proyecto (se comprueba al validar y otra vez justo antes de lanzar); los procesos hijos de una tarea mueren con ella (Job Object en Windows, grupo de procesos en el resto), también al acabar el padre, al parar y al pasar el límite; las simulaciones ocupan la carpeta como cualquier otra acción; el `Origin` de un POST debe ser exactamente esta web (esquema, host y puerto; sin cabecera sigue exigiéndose clave y token). Hueco conocido: un hijo creado en los microsegundos antes de entrar en el grupo en Windows.
 
 ## 13. Local primero, preparado para internet, con roles como en Git (Darwin, 2026-11-18)
 **Decisión de Darwin:** todo se hace **primero en local** y se deja **listo para internet**. Subirlo a internet **no** entra en esta spec: sería una spec aparte con revisión de seguridad.
