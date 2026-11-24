@@ -547,12 +547,12 @@ window.DATOS = {
    {
     "n": "Web local del cerebro",
     "f": "web.py",
-    "w": "Abre en el navegador, solo para ti y solo lectura, el estado y la memoria.",
+    "w": "Abre en el navegador, solo para ti, el estado y la memoria; con confirmación, también actualiza, instala y corre tareas en tus proyectos.",
     "c": "A mano (python .brain/guardianes/web.py)",
-    "e": "Solo lee",
+    "e": "Actúa",
     "k": "mano",
-    "ek": "ok",
-    "d": "Inicio, decisiones, lecciones, specs, biblioteca, respuestas, buscador y uso medido. Solo escucha en 127.0.0.1, pide una clave al azar en cada arranque, comprueba el nombre del servidor y rechaza cualquier petición que escriba. Solo sirve los .md y decisions.log de .brain/. Fases 2 y 3 (proyectos, simulaciones, editar y aprobar) sin hacer."
+    "ek": "act",
+    "d": "Inicio, decisiones, lecciones, specs, biblioteca, respuestas, buscador y uso medido (solo lectura). Pestaña Proyectos: registrar carpetas, simular actualizar o instalar y, tras una simulación reciente y con confirmación en pantalla, actualizar o instalar de verdad. Pestaña Tareas de cada proyecto: correr sus pruebas, ver el estado del auditor y cerrar una tarea, en segundo plano y con botón de Parar. Solo escucha en 127.0.0.1, pide una clave al azar en cada arranque y un token de un solo uso por acción, comprueba servidor y origen, y solo el dueño puede cambiar algo, solo en proyectos registrados y de uno en uno. Nunca sube a GitHub ni toca secretos. Ojo: las tareas ejecutan código del proyecto con tus permisos, así que solo con proyectos de confianza. Revisada por una IA externa en tres rondas; falta la prueba de uso real con clics en el navegador. Editar y aprobar (fases siguientes) sin hacer."
    },
    {
     "n": "Ponerse al día con GitHub",
@@ -1779,12 +1779,12 @@ window.DATOS = {
    {
     "n": "Local web of the brain",
     "f": "web.py",
-    "w": "Opens in the browser, only for you and read-only, the state and the memory.",
+    "w": "Opens in the browser, only for you, the state and the memory; with confirmation it also updates, installs and runs tasks in your projects.",
     "c": "By hand (python .brain/guardianes/web.py)",
-    "e": "Read-only",
+    "e": "Acts",
     "k": "mano",
-    "ek": "ok",
-    "d": "Home, decisions, lessons, specs, library, answers, search and measured usage. It only listens on 127.0.0.1, asks for a random key on every start, checks the host name and rejects any request that writes. It only serves the .md files and decisions.log of .brain/. Phases 2 and 3 (projects, simulations, editing and approving) not built."
+    "ek": "act",
+    "d": "Home, decisions, lessons, specs, library, answers, search and measured usage (read-only). Projects tab: register folders, simulate update or install and, after a recent simulation and with on-screen confirmation, really update or install. Each project's Tasks tab: run its tests, see the auditor status and close a task, in the background with a Stop button. It only listens on 127.0.0.1, asks for a random key on every start and a one-use token per action, checks host and origin, and only the owner can change anything, only in registered projects and one at a time. It never pushes to GitHub or touches secrets. Note: tasks run the project's code with your permissions, so trusted projects only. Reviewed by an external AI in three rounds; real-use testing with browser clicks is still missing. Editing and approving (later phases) not built."
    },
    {
     "n": "Catch up with GitHub",
