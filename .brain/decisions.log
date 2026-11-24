@@ -291,3 +291,4 @@
 2026-11-24 | otro | Claude (cerebro-vivo #42) | v1.65.2: corregidos 4 de 6 hallazgos de la segunda auditoría externa (hijos Windows, memoria, registro, Origin); 801 pruebas OK | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #42) | v1.65.3: corregidos los reparos de la tercera auditoría externa (simulación invalidada por tareas, sin registro no se ejecuta, guardián revalidado); 804 pruebas OK | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #42) | Darwin cierra la fase 3 de la web local (v1.65.3, tres auditorías externas); queda la prueba de uso real por otra IA | Cambio pequeño
+2026-11-25 | otro | Claude (cerebro-vivo #42) | Pagina publica (gh-pages) al dia con la 1.65.3: web local fases 2 y 3, 804 pruebas; subida a gh-pages por orden de Darwin (fd097cd), main sin subir | Cambio pequeño
