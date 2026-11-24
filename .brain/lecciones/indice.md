@@ -13,7 +13,7 @@
 | [arnes-skills](arnes-skills.md) | 1 |
 | [arnes-traspaso-y-arranque](arnes-traspaso-y-arranque.md) | 8 |
 | [metodo-experimento-vmware](metodo-experimento-vmware.md) | 7 |
-| [metodo-guardianes-y-pruebas](metodo-guardianes-y-pruebas.md) | 13 |
+| [metodo-guardianes-y-pruebas](metodo-guardianes-y-pruebas.md) | 14 |
 | [metodo-heredocs-rutas-y-comillas](metodo-heredocs-rutas-y-comillas.md) | 4 |
 | [metodo-heredocs-saltos-de-linea](metodo-heredocs-saltos-de-linea.md) | 12 |
 | [metodo-herramientas-y-rutas](metodo-herramientas-y-rutas.md) | 10 |

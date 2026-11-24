@@ -96,11 +96,13 @@ def anotar(raiz, usuario, accion, proyecto, resultado):
                      "rol": (usuario or {}).get("rol", "?"), "accion": accion, "proyecto": proyecto or "", "resultado": resultado}
             with open(ruta, "a", encoding="utf-8", newline="\n") as f:
                 f.write(json.dumps(linea, ensure_ascii=False) + "\n")
-    except OSError as e:  # no rompe la acción, pero el fallo se dice por la salida de error en vez de callarse
+        return True
+    except OSError as e:  # no rompe la acción, pero el fallo se dice por la salida de error y se devuelve False (las tareas no arrancan sin anotar)
         try:
             sys.stderr.write("web: no se pudo anotar la actividad (%s)\n" % type(e).__name__)
         except (OSError, ValueError):
             pass
+        return False
 
 
 def cargar_proyectos(raiz):
@@ -438,18 +440,27 @@ def _reanudar(proc):
         raise OSError("reanudar")
 
 
-def _arrancar(cmd, ruta, env):
+def _arrancar(cmd, ruta, env, validar=None):
     """(proceso, grupo). En Windows el proceso nace SUSPENDIDO, entra en el grupo (Job Object) y solo entonces corre: así ningún hijo
-    puede escapar antes de estar dentro. Si no se puede meter en el grupo, la tarea no arranca (taskkill no es una garantía equivalente)."""
+    puede escapar antes de estar dentro. Si no se puede meter en el grupo, la tarea no arranca (taskkill no es una garantía equivalente).
+    `validar()` devuelve un motivo de rechazo o None: se vuelve a llamar con el proceso ya creado y, en Windows, todavía parado, para que
+    el guardián no pueda cambiarse por un enlace entre la comprobación y la ejecución (queda solo el instante entre esa llamada y reanudar)."""
     comun = dict(cwd=ruta, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, text=True, encoding="utf-8",
                  errors="replace", env=env)
     if os.name != "nt":
-        return subprocess.Popen(cmd, start_new_session=True, **comun), None
+        proc = subprocess.Popen(cmd, start_new_session=True, **comun)
+        if validar and validar():  # en POSIX ya corre: si el guardián se cambió justo ahora, se mata el grupo
+            _matar(proc)
+            raise OSError("guardian")
+        return proc, None
     proc = subprocess.Popen(cmd, creationflags=0x00000004, **comun)  # CREATE_SUSPENDED
     try:
         grupo = _crear_grupo(proc)
         if not grupo:
             raise OSError("grupo")
+        if validar and validar():
+            _cerrar_asa(grupo)
+            raise OSError("guardian")
         try:
             _reanudar(proc)
         except OSError:
@@ -520,6 +531,8 @@ def lanzar_tarea(raiz, usuario, accion, ruta, datos):
         else:
             ocupado = False
             OCUPADOS.add(clave)
+            for k in [k for k in SIMULADAS if k[0] == clave]:
+                del SIMULADAS[k]  # una tarea puede cambiar el proyecto: lo simulado antes ya no describe lo que hay
         for k in [k for k, j in TRABAJOS.items() if j["estado"] != "corriendo"][:max(0, len(TRABAJOS) - MAX_TRABAJOS)]:
             del TRABAJOS[k]  # los terminados más viejos se olvidan (la actividad queda en el registro)
     if ocupado:
@@ -530,11 +543,17 @@ def lanzar_tarea(raiz, usuario, accion, ruta, datos):
         if error:
             raise OSError(error)
         env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-        proc, grupo = _arrancar(cmd, ruta, env)
+        if not anotar(raiz, usuario, accion, ruta, "iniciada"):  # sin poder dejar constancia, no se ejecuta nada
+            raise OSError("registro")
+        proc, grupo = _arrancar(cmd, ruta, env, lambda: _comando_tarea(accion, ruta, datos)[1])
     except OSError as e:
         with CERROJO_ESTADO:
             OCUPADOS.discard(clave)
         anotar(raiz, usuario, accion, ruta, "error: " + type(e).__name__ + " " + str(e)[:80])
+        if str(e) == "registro":
+            return 500, {"error": tp("web_err_registro")}
+        if str(e) == "guardian":
+            return 409, {"error": tp("web_err_sin_guardian")}
         if str(e) in ("grupo", "reanudar"):
             return 500, {"error": tp("web_err_grupo")}
         return 500, {"error": tp("web_err_simulacion") % type(e).__name__}
@@ -542,7 +561,6 @@ def lanzar_tarea(raiz, usuario, accion, ruta, datos):
     with CERROJO_ESTADO:
         TRABAJOS[job_id] = {"clave": clave, "ruta": ruta, "raiz": raiz, "usuario": usuario, "accion": accion, "estado": "corriendo",
                             "salida": "", "codigo": None, "proc": proc, "grupo": grupo}
-    anotar(raiz, usuario, accion, ruta, "iniciada")
     threading.Thread(target=_vigilar, args=(job_id,), daemon=True).start()
     return 200, {"id": job_id}
 

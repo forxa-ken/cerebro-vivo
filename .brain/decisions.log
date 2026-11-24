@@ -289,3 +289,4 @@
 2026-11-20 | auto | Claude (auto) | (auto) tocó C:/Users/darwi/AppData/Local/Temp/claude/f77ac1ac50cd2b3a/a867ea21-7449-4aba-bb99-d4f9c0767881/scratchpad/auditoria.txt, C:/Users/darwi/AppData/Local/Temp/claude/f77ac1ac50cd2b3a/a867ea21-7449-4aba-bb99-d4f9c0767881/scratchpad/parche.py; pruebas en verde | Cambio pequeño
 2026-11-20 | otro | Claude (cerebro-vivo #42) | v1.65.1: corregidos los 5 hallazgos de la auditoría externa (junction, hijos huérfanos, simulaciones, riesgo aceptado, Origin); 797 pruebas OK | Cambio pequeño
 2026-11-24 | otro | Claude (cerebro-vivo #42) | v1.65.2: corregidos 4 de 6 hallazgos de la segunda auditoría externa (hijos Windows, memoria, registro, Origin); 801 pruebas OK | Cambio pequeño
+2026-11-25 | otro | Claude (cerebro-vivo #42) | v1.65.3: corregidos los reparos de la tercera auditoría externa (simulación invalidada por tareas, sin registro no se ejecuta, guardián revalidado); 804 pruebas OK | Cambio pequeño

@@ -619,6 +619,46 @@ class TestTareas(Base):
                             total += len(f.read().splitlines())
         self.assertEqual(total, 8 * 15)
 
+    def test_una_tarea_invalida_la_simulacion_previa(self):  # tercera auditoría, hallazgo 1
+        self.assertEqual(self.lanzar("simular_actualizar")[0], 200)
+        codigo, res = self.lanzar("tarea_pruebas")
+        self.assertEqual(codigo, 200, res)
+        self.terminar(res["id"])
+        self.esperar_libre()
+        self.assertEqual(self.lanzar("actualizar_real")[0], 409)  # hay que simular otra vez
+
+    def test_sin_poder_anotar_el_inicio_no_se_ejecuta_nada(self):  # tercera auditoría, hallazgo 2
+        poner(self.proy, ".brain/guardianes/auditor.py", "open(__file__ + '.marca', 'w').write('corrio')")
+        original = capa.anotar
+        capa.anotar = lambda *a, **k: False
+        try:
+            codigo, res = self.lanzar("tarea_auditor")
+        finally:
+            capa.anotar = original
+        self.assertEqual(codigo, 500, res)
+        self.assertEqual(capa.OCUPADOS, set())
+        import time
+        time.sleep(1.5)
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".brain", "guardianes", "auditor.py.marca")))
+
+    def test_el_guardian_se_revalida_con_el_proceso_ya_creado(self):  # tercera auditoría, hallazgo 3
+        poner(self.proy, ".brain/guardianes/auditor.py", "open(__file__ + '.marca', 'w').write('corrio')")
+        original, llamadas = capa._comando_tarea, []
+        def cambiante(accion, ruta, datos):
+            llamadas.append(1)
+            return original(accion, ruta, datos) if len(llamadas) < 3 else (None, "web_err_sin_guardian")  # la 3.ª es la de justo antes de correr
+        capa._comando_tarea = cambiante
+        try:
+            codigo, res = self.lanzar("tarea_auditor")
+        finally:
+            capa._comando_tarea = original
+        self.assertEqual(codigo, 409, res)
+        self.assertEqual(len(llamadas), 3)
+        self.assertEqual(capa.OCUPADOS, set())
+        import time
+        time.sleep(1.5)
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".brain", "guardianes", "auditor.py.marca")), "corrió un guardián que dejó de ser válido")
+
     def test_textos_de_tareas_en_los_dos_idiomas(self):
         textos = _cargar("textos_t2", "textos.py").TEXTOS
         for clave in [k for k in textos["es"] if k.startswith("web_tarea") or k in ("web_t_tareas", "web_confirma_tarea", "web_confirma_cerrar", "web_err_sin_tests", "web_err_sin_guardian", "web_err_sin_tarea")]:
