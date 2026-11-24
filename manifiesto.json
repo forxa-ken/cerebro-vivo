@@ -80,9 +80,9 @@
   ".brain/guardianes/revisar_indices.py": "184c574a1612cdbf54b1a1bf13d8ac0bb68bc981d22c7508c0eebb5c8199a6c9",
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
   ".brain/guardianes/sincronizar.py": "07a64be9b497a6ab76904c1aa91e7668e2e1258d7597fa20d9e7a5d4b6c5aa97",
-  ".brain/guardianes/textos.py": "95d9f5662b5f8771a3dfc216d7aab8ff914c490723c1868d3e677d5e2acf8720",
-  ".brain/guardianes/web.py": "78253acb776b5408122e7a05358492cf9afa38df20157a77bf86a27172bd030f",
-  ".brain/guardianes/web_proyectos.py": "1886ccd9711ed50c88466998e276e824ff08af63c496cee4bfa902598d636e24",
+  ".brain/guardianes/textos.py": "3b60dec49fbd3ff531800dd1744dedd7e3837196921721bcd6cab224891d7040",
+  ".brain/guardianes/web.py": "97eb1d9b4d3bcd0086cd7ac6596190298a2343568d1c1b899a3a18768c984940",
+  ".brain/guardianes/web_proyectos.py": "9b6a109a03ce9c7a29ef79e70078022cc15b7f5d5d44e1def08ef62bf037a2ee",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -212,7 +212,7 @@
   "tests/test_textos.py": "7b2d157fbe7151bc67e5f09e8accb3181009a25d4711bd895e98f762e1e51045",
   "tests/test_traspaso_in_out.py": "6a07aa53d2cb88cf3f2ceb1381ca5af2c7641d7f13a5a69c4fe600e1d7f0d335",
   "tests/test_web.py": "96fb5a752543a8396b74901b24901bb72ca32c4ee3a1c0a7403cdc7b9858a5a0",
-  "tests/test_web_proyectos.py": "cc262e1161993580df32ec0b8c1a4ccbf5644a30fffe9a2f7e34ed7fc746f69e"
+  "tests/test_web_proyectos.py": "defd991e3ff02a52dfb488f14c830eb80773f8665b833f50645c7dcdf6f7bd59"
  },
  "pruebas": [
   "tests.test_arranque",
@@ -249,5 +249,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.65.1"
+ "version": "1.65.2"
 }

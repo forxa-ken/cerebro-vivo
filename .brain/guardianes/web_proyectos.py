@@ -78,21 +78,29 @@ def _atomico(ruta, texto):
     os.replace(tmp, ruta)
 
 
+CERROJO_ACTIVIDAD = threading.Lock()
+
+
 def anotar(raiz, usuario, accion, proyecto, resultado):
     """Una línea JSON por acción: cuándo, quién, qué, sobre qué proyecto y cómo acabó. Nunca rompe la acción si no puede escribir."""
     ruta = os.path.join(raiz, *ARCHIVO_ACTIVIDAD.split("/"))
     try:
-        os.makedirs(os.path.dirname(ruta), exist_ok=True)
-        if os.path.exists(ruta) and os.path.getsize(ruta) > TOPE_ACTIVIDAD:  # mover, no borrar: la actividad vieja pasa a archive/
-            destino = os.path.join(raiz, ".brain", "archive", "web_actividad-%s.log" % datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-            os.makedirs(os.path.dirname(destino), exist_ok=True)
-            os.replace(ruta, destino)
-        linea = {"cuando": datetime.datetime.now().isoformat(timespec="seconds"), "quien": (usuario or {}).get("nombre", "?"),
-                 "rol": (usuario or {}).get("rol", "?"), "accion": accion, "proyecto": proyecto or "", "resultado": resultado}
-        with open(ruta, "a", encoding="utf-8", newline="\n") as f:
-            f.write(json.dumps(linea, ensure_ascii=False) + "\n")
-    except OSError:
-        pass
+        with CERROJO_ACTIVIDAD:  # rotar y escribir no se mezclan entre dos hilos
+            os.makedirs(os.path.dirname(ruta), exist_ok=True)
+            if os.path.exists(ruta) and os.path.getsize(ruta) > TOPE_ACTIVIDAD:  # mover, no borrar: la actividad vieja pasa a archive/
+                destino = os.path.join(raiz, ".brain", "archive", "web_actividad-%s-%s.log" % (
+                    datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f"), uuid.uuid4().hex[:6]))  # nombre único: nunca pisa otro archivo
+                os.makedirs(os.path.dirname(destino), exist_ok=True)
+                os.replace(ruta, destino)
+            linea = {"cuando": datetime.datetime.now().isoformat(timespec="seconds"), "quien": (usuario or {}).get("nombre", "?"),
+                     "rol": (usuario or {}).get("rol", "?"), "accion": accion, "proyecto": proyecto or "", "resultado": resultado}
+            with open(ruta, "a", encoding="utf-8", newline="\n") as f:
+                f.write(json.dumps(linea, ensure_ascii=False) + "\n")
+    except OSError as e:  # no rompe la acción, pero el fallo se dice por la salida de error en vez de callarse
+        try:
+            sys.stderr.write("web: no se pudo anotar la actividad (%s)\n" % type(e).__name__)
+        except (OSError, ValueError):
+            pass
 
 
 def cargar_proyectos(raiz):
@@ -420,15 +428,62 @@ def _comando_tarea(accion, ruta, datos):
     return cmd, None
 
 
+def _reanudar(proc):
+    """Windows: reanuda un proceso creado suspendido (NtResumeProcess)."""
+    import ctypes
+    from ctypes import wintypes
+    nt = ctypes.WinDLL("ntdll")
+    nt.NtResumeProcess.argtypes = [wintypes.HANDLE]
+    if nt.NtResumeProcess(wintypes.HANDLE(int(proc._handle))) != 0:
+        raise OSError("reanudar")
+
+
+def _arrancar(cmd, ruta, env):
+    """(proceso, grupo). En Windows el proceso nace SUSPENDIDO, entra en el grupo (Job Object) y solo entonces corre: así ningún hijo
+    puede escapar antes de estar dentro. Si no se puede meter en el grupo, la tarea no arranca (taskkill no es una garantía equivalente)."""
+    comun = dict(cwd=ruta, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, text=True, encoding="utf-8",
+                 errors="replace", env=env)
+    if os.name != "nt":
+        return subprocess.Popen(cmd, start_new_session=True, **comun), None
+    proc = subprocess.Popen(cmd, creationflags=0x00000004, **comun)  # CREATE_SUSPENDED
+    try:
+        grupo = _crear_grupo(proc)
+        if not grupo:
+            raise OSError("grupo")
+        try:
+            _reanudar(proc)
+        except OSError:
+            _cerrar_asa(grupo)
+            raise
+        return proc, grupo
+    except OSError:
+        try:
+            proc.kill()
+            proc.wait(timeout=10)
+        except (OSError, subprocess.SubprocessError):
+            pass
+        raise
+
+
 def _vigilar(job_id):
     job = TRABAJOS[job_id]
     proc = job["proc"]
     def leer():
         try:
-            for linea in proc.stdout:
+            import codecs
+            deco = codecs.getincrementaldecoder("utf-8")(errors="replace")
+            while True:
+                bruto = proc.stdout.buffer.read1(4096)  # lo que haya (no espera a llenar el trozo) y nunca más de 4096: una línea sin salto no crece sin límite
+                trozo = deco.decode(bruto, final=not bruto)
+                if not bruto:
+                    if trozo:
+                        with CERROJO_ESTADO:
+                            if len(job["salida"]) < TOPE_SALIDA:
+                                job["salida"] += trozo[:TOPE_SALIDA - len(job["salida"])]
+                    break
                 with CERROJO_ESTADO:
-                    if len(job["salida"]) < TOPE_SALIDA:
-                        job["salida"] += linea
+                    if len(job["salida"]) < TOPE_SALIDA:  # lo que sobra se lee y se descarta, para no bloquear la tarea
+                        job["salida"] += trozo[:TOPE_SALIDA - len(job["salida"])]
         except (OSError, ValueError):
             pass
     lector = threading.Thread(target=leer, daemon=True)
@@ -475,17 +530,18 @@ def lanzar_tarea(raiz, usuario, accion, ruta, datos):
         if error:
             raise OSError(error)
         env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-        proc = subprocess.Popen(cmd, cwd=ruta, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
-                                text=True, encoding="utf-8", errors="replace", env=env, start_new_session=(os.name != "nt"))
+        proc, grupo = _arrancar(cmd, ruta, env)
     except OSError as e:
         with CERROJO_ESTADO:
             OCUPADOS.discard(clave)
-        anotar(raiz, usuario, accion, ruta, "error: " + type(e).__name__)
+        anotar(raiz, usuario, accion, ruta, "error: " + type(e).__name__ + " " + str(e)[:80])
+        if str(e) in ("grupo", "reanudar"):
+            return 500, {"error": tp("web_err_grupo")}
         return 500, {"error": tp("web_err_simulacion") % type(e).__name__}
     job_id = uuid.uuid4().hex[:12]
     with CERROJO_ESTADO:
         TRABAJOS[job_id] = {"clave": clave, "ruta": ruta, "raiz": raiz, "usuario": usuario, "accion": accion, "estado": "corriendo",
-                            "salida": "", "codigo": None, "proc": proc, "grupo": _crear_grupo(proc)}
+                            "salida": "", "codigo": None, "proc": proc, "grupo": grupo}
     anotar(raiz, usuario, accion, ruta, "iniciada")
     threading.Thread(target=_vigilar, args=(job_id,), daemon=True).start()
     return 200, {"id": job_id}

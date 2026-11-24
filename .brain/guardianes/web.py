@@ -250,11 +250,8 @@ class Manejador(http.server.BaseHTTPRequestHandler):
         """El `Origin` de un POST debe ser exactamente esta web: http, un host local y el puerto del servidor. Sin la cabecera
         (clientes que no son un navegador) la petición sigue necesitando la clave en cabecera y el token; los navegadores siempre
         mandan `Origin` en un POST, y «null» o cualquier otro se rechaza."""
-        try:
-            u = urllib.parse.urlsplit(origen)
-            return u.scheme == "http" and (u.hostname or "") in HOSTS and u.port == self.server.server_address[1]
-        except ValueError:
-            return False
+        puerto = self.server.server_address[1]
+        return origen in {"http://%s:%d" % (h, puerto) for h in HOSTS}  # comparación literal: sin ruta, usuario ni consulta
 
     def do_GET(self):
         url = urllib.parse.urlsplit(self.path)

@@ -556,6 +556,69 @@ class TestTareas(Base):
             except OSError:
                 pass
 
+    def test_si_no_entra_en_el_grupo_la_tarea_no_arranca(self):  # hallazgo 1 de la segunda auditoría: sin grupo no hay garantía de parar a los hijos
+        if os.name != "nt":
+            self.skipTest("el grupo de procesos con Job Object es de Windows")
+        poner(self.proy, ".brain/guardianes/auditor.py", "open(__file__ + '.marca', 'w').write('corrio')\n")
+        original = capa._crear_grupo
+        capa._crear_grupo = lambda proc: None
+        antes = set(capa.TRABAJOS)
+        try:
+            codigo, res = self.lanzar("tarea_auditor")
+        finally:
+            capa._crear_grupo = original
+        self.assertEqual(codigo, 500, res)
+        self.assertEqual(capa.OCUPADOS, set())
+        self.assertEqual(set(capa.TRABAJOS), antes)
+        import time
+        time.sleep(1.5)
+        self.assertFalse(os.path.exists(os.path.join(self.proy, ".brain", "guardianes", "auditor.py.marca")), "el proceso corrió sin estar en el grupo")
+
+    def test_el_proceso_no_corre_antes_de_estar_en_el_grupo(self):  # hallazgo 1: nace suspendido
+        if os.name != "nt":
+            self.skipTest("solo Windows")
+        import subprocess, sys, time
+        marca = os.path.join(self.repo, "marca-arranque")
+        proc = subprocess.Popen([sys.executable, "-c", "open(%r,'w').write('x')" % marca], creationflags=0x4, stdout=subprocess.PIPE)
+        try:
+            time.sleep(1)
+            self.assertFalse(os.path.exists(marca), "un proceso suspendido no debería haber corrido")
+            capa._reanudar(proc)
+            proc.wait(timeout=20)
+            self.assertTrue(os.path.exists(marca))
+        finally:
+            proc.kill()
+            proc.stdout.close()
+
+    def test_una_linea_enorme_sin_salto_no_pasa_del_tope(self):  # hallazgo 4
+        poner(self.proy, ".brain/guardianes/auditor.py", "import sys\nsys.stdout.write('A' * 3_000_000)\nsys.stdout.flush()\nprint()\nprint('FIN-OK')\n")
+        codigo, res = self.lanzar("tarea_auditor")
+        self.assertEqual(codigo, 200, res)
+        e = self.terminar(res["id"])
+        self.assertEqual((e["estado"], e["codigo"]), ("ok", 0))  # la tarea no se bloqueó: se leyó todo y se descartó el exceso
+        self.assertLessEqual(len(e["salida"]), capa.TOPE_SALIDA)
+
+    def test_el_registro_de_actividad_no_pierde_entradas_en_paralelo(self):  # hallazgo 5
+        raiz = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, raiz, True)
+        anterior, capa.TOPE_ACTIVIDAD = capa.TOPE_ACTIVIDAD, 300  # rota muchas veces
+        try:
+            hilos = [threading.Thread(target=lambda i=i: [capa.anotar(raiz, self.dueno, "x", "p%d" % i, "ok") for _ in range(15)]) for i in range(8)]
+            for h in hilos:
+                h.start()
+            for h in hilos:
+                h.join()
+        finally:
+            capa.TOPE_ACTIVIDAD = anterior
+        total = 0
+        for carpeta in (os.path.join(raiz, ".brain"), os.path.join(raiz, ".brain", "archive")):
+            if os.path.isdir(carpeta):
+                for n in os.listdir(carpeta):
+                    if n.startswith("web_actividad"):
+                        with open(os.path.join(carpeta, n), encoding="utf-8") as f:
+                            total += len(f.read().splitlines())
+        self.assertEqual(total, 8 * 15)
+
     def test_textos_de_tareas_en_los_dos_idiomas(self):
         textos = _cargar("textos_t2", "textos.py").TEXTOS
         for clave in [k for k in textos["es"] if k.startswith("web_tarea") or k in ("web_t_tareas", "web_confirma_tarea", "web_confirma_cerrar", "web_err_sin_tests", "web_err_sin_guardian", "web_err_sin_tarea")]:
@@ -633,7 +696,9 @@ class TestHttp(Base):
 
     def test_origen_exacto_esquema_host_y_puerto(self):  # hallazgo 5 (auditoría externa)
         for malo in ("http://127.0.0.1:9", "https://127.0.0.1:%d" % self.puerto, "http://127.0.0.1", "null", "", "http://127.0.0.1:%d.malo.example" % self.puerto,
-                     "http://malo.example:%d" % self.puerto, "ftp://127.0.0.1:%d" % self.puerto):
+                     "http://malo.example:%d" % self.puerto, "ftp://127.0.0.1:%d" % self.puerto,
+                     "http://127.0.0.1:%d/ruta" % self.puerto, "http://usuario@127.0.0.1:%d" % self.puerto, "http://127.0.0.1:%d?x=1" % self.puerto,
+                     "http://127.0.0.1:%d/" % self.puerto):
             cuerpo = {"accion": "registrar_proyecto", "ruta": self.proy, "token": self.token("registrar_proyecto")}
             self.assertEqual(self.pedir("/api/accion", "POST", cuerpo, extra={"Origin": malo})[0], 403, malo)
         self.assertEqual(capa.cargar_proyectos(self.repo), [])
