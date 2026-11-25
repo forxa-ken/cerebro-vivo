@@ -41,6 +41,49 @@ class ArranqueManualTest(unittest.TestCase):
             salida = destino.read()
         datos = json.loads(salida.decode("utf-8"))
         self.assertIn("additionalContext", datos["hookSpecificOutput"])
+        # las reglas de la constitución van a la IA, no a la pantalla de Darwin
+        self.assertIn("constitution.md", datos["hookSpecificOutput"]["additionalContext"])
+        self.assertNotIn("REGLAS INNEGOCIABLES", datos["systemMessage"])
+
+
+class ConstitucionEnArranqueTest(unittest.TestCase):
+    """La IA recibe las reglas de la constitución en el arranque aunque no abra el archivo (2026-11-25)."""
+
+    def setUp(self):
+        self.m = _cargar_arranque()
+        self.tmp = tempfile.TemporaryDirectory()
+        self.raiz = self.tmp.name
+        os.makedirs(os.path.join(self.raiz, ".brain"))
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _constitucion(self, texto):
+        with open(os.path.join(self.raiz, ".brain", "constitution.md"), "w", encoding="utf-8") as f:
+            f.write(texto)
+
+    def test_copia_las_reglas_con_su_cabecera(self):
+        self._constitucion("# Constitución\n1. **Idioma:** responder en español.")
+        bloque = self.m.bloque_constitucion(self.raiz, {"idioma": "es"})
+        self.assertIn("responder en español", bloque)
+        self.assertTrue(bloque.startswith(self.m.t("es", "arranque_constitucion")))
+
+    def test_sin_archivo_o_apagado_no_añade_nada(self):
+        self.assertEqual(self.m.bloque_constitucion(self.raiz, {}), "")
+        self._constitucion("1. regla")
+        self.assertEqual(self.m.bloque_constitucion(self.raiz, {"constitucion_en_arranque": False}), "")
+
+    def test_constitucion_larga_se_corta_con_aviso(self):
+        self._constitucion("x" * (self.m.TOPE_CONSTITUCION + 500))
+        bloque = self.m.bloque_constitucion(self.raiz, {"idioma": "es"})
+        self.assertLess(len(bloque), self.m.TOPE_CONSTITUCION + 600)
+        self.assertIn("constitution.md", bloque.splitlines()[-1])
+
+    def test_con_contexto_lleno_se_recorta_mas_pero_no_desaparece(self):
+        self._constitucion("x" * 5000)
+        bloque = self.m.bloque_constitucion(self.raiz, {"idioma": "es"}, ocupado=9000)
+        self.assertLess(len(bloque), self.m.MINIMO_CONSTITUCION + 600)
+        self.assertIn("x" * self.m.MINIMO_CONSTITUCION, bloque)
 
 
 def _cargar_arranque():
@@ -243,13 +286,31 @@ class NotasAntigravityTest(NotasAbiertasTest):
         datos = json.loads(out)
         self.assertIn("algo", datos["injectSteps"][0]["ephemeralMessage"])
 
+    def _sin_recordatorio(self):
+        os.makedirs(os.path.join(self.raiz, ".brain", "guardianes"), exist_ok=True)
+        with open(os.path.join(self.raiz, ".brain", "guardianes", "guardianes.json"), "w", encoding="utf-8") as f:
+            json.dump({"recordar_idioma": False}, f)
+
+    def test_recordatorio_de_idioma_en_cada_mensaje_y_se_apaga(self):
+        out = self.m.salida({"session_id": "s1"}, self.raiz)
+        self.assertIn(self.m.tp("notas_abiertas_idioma"), out)
+        self.assertIn(self.m.tp("notas_abiertas_idioma"), self.m.salida({"session_id": "s1"}, self.raiz))
+        self._nota("a.md")
+        out = self.m.salida({"session_id": "s1"}, self.raiz)
+        self.assertTrue(out.startswith("NOTA NUEVA"))
+        self.assertIn(self.m.tp("notas_abiertas_idioma"), out)
+        self._sin_recordatorio()
+        self.assertEqual(self.m.salida({"session_id": "s1"}, self.raiz), "")
+
     def test_llamadas_siguientes_callan_y_no_gastan_la_nota(self):
+        self._sin_recordatorio()
         self._nota("a.md")
         self.assertEqual(self.m.salida({"conversationId": "c1", "invocationNum": 2}, self.raiz), "")
         self.assertTrue(self.m.salida({"conversationId": "c1", "invocationNum": 1}, self.raiz))
         self.assertEqual(self.m.salida({"conversationId": "c1", "invocationNum": 1}, self.raiz), "")
 
     def test_sin_notas_no_imprime_y_claude_sigue_en_texto(self):
+        self._sin_recordatorio()
         self.assertEqual(self.m.salida({"conversationId": "c1", "invocationNum": 1}, self.raiz), "")
         self._nota("a.md")
         out = self.m.salida({"session_id": "s1"}, self.raiz)

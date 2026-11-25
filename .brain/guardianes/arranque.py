@@ -384,6 +384,30 @@ def resumen(raiz, cfg):
     return "\n".join(lineas) + "\n"
 
 
+TOPE_CONSTITUCION = 6000  # caracteres de la constitución que se copian en el contexto del arranque
+TOPE_CONTEXTO = 9500  # el contexto que mete un hook tiene un tope (unos 10 000 caracteres, sin confirmar): no pasarse
+MINIMO_CONSTITUCION = 1500  # aunque el resumen y el traspaso sean largos, al menos el principio de las reglas
+
+
+def bloque_constitucion(raiz, cfg, ocupado=0):
+    """Las reglas de `.brain/constitution.md` copiadas para la IA (no para la pantalla): así llegan aunque
+    la IA no abra el archivo, por ejemplo en un chat nacido de un traspaso. Vacío si no hay o si se apaga
+    con `"constitucion_en_arranque": false` en guardianes.json. `ocupado`: caracteres que ya lleva el contexto."""
+    tope = max(MINIMO_CONSTITUCION, min(TOPE_CONSTITUCION, TOPE_CONTEXTO - ocupado))
+    if not cfg.get("constitucion_en_arranque", True):
+        return ""
+    try:
+        with open(os.path.join(raiz, ".brain", "constitution.md"), encoding="utf-8") as f:
+            reglas = f.read().strip()
+    except (OSError, UnicodeDecodeError):
+        return ""
+    if not reglas:
+        return ""
+    if len(reglas) > tope:
+        reglas = reglas[:tope] + t(cfg, "arranque_constitucion_cortada")
+    return t(cfg, "arranque_constitucion") + "\n" + reglas + "\n"
+
+
 # La app de escritorio no pinta el `systemMessage` del hook: se pide a la IA que lo muestre ella.
 ORDEN_A_LA_IA = t("es", "arranque_orden")  # main() la pide en el idioma del proyecto
 
@@ -451,7 +475,8 @@ def main():
     # JSON (ASCII escapado, sin problemas de consola): `systemMessage` lo ve Darwin en pantalla y
     # `additionalContext` llega a la IA como contexto.
     salida = {"systemMessage": texto.rstrip("\n"),
-              "hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": texto + t(cfg, "arranque_orden")}}
+              "hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": texto + bloque_constitucion(RAIZ, cfg, len(texto) + len(t(cfg, "arranque_orden")) + 300)
+                                                                                   + t(cfg, "arranque_orden")}}
     sys.stdout.write(json.dumps(salida))
     sys.stdout.flush()
     return 0

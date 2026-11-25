@@ -30,6 +30,9 @@ TEXTOS = {
         "arranque_recortado": "\n[…recortado; el original queda archivado]",
         "arranque_notas": "- NOTAS DE CHATS AUXILIARES (lo que hicieron otros chats mientras tanto; resúmeselo a Darwin):",
         "arranque_leer": "- Lee CLAUDE.md, la constitución y pendientes.md; cierra cada tarea con su línea en el registro.",
+        "arranque_constitucion": ("- REGLAS INNEGOCIABLES del proyecto (copia de `.brain/constitution.md`, para que no dependa de abrirla; "
+                                  "cúmplelas siempre, también la del idioma, en cada mensaje y en los de avance mientras trabajas):"),
+        "arranque_constitucion_cortada": "\n[…sigue en `.brain/constitution.md`; léela entera antes de tocar algo que dependa de esas reglas]",
         "arranque_orden": ("INSTRUCCIÓN para el asistente: en tu primera respuesta de esta sesión, dile a Darwin el resumen en "
                            "4-5 viñetas sin jerga (o en una línea si no hay nada que requiera acción) antes de seguir con lo que pida.\n"),
         # cierre.py (hook Stop)
@@ -381,6 +384,7 @@ TEXTOS = {
         "guardar_traspaso_podido_guardar_memoria": "No he podido guardar la memoria (%s). El traspaso sigue adelante. Haz el commit de `.brain/` a mano cuando puedas.",
         "guardar_traspaso_sin_detalle": "(sin detalle)",
         # notas_abiertas.py
+        "notas_abiertas_idioma": "Recuerda (regla de idioma del proyecto): responde en español en todo, también en los mensajes de avance mientras trabajas y en los resúmenes.",
         "notas_abiertas_nota_nueva_chat": "NOTA NUEVA DE UN CHAT AUXILIAR (spec 081; cuéntasela a Darwin en una frase y sigue con lo suyo):",
         "notas_abiertas_mas_brain_notas": "(y %d más en .brain/notas-chats/)",
         # indices.py
@@ -708,6 +712,9 @@ TEXTOS = {
         "arranque_recortado": "\n[…trimmed; the original stays archived]",
         "arranque_notas": "- NOTES FROM HELPER CHATS (what other chats did in the meantime; summarize them for Darwin):",
         "arranque_leer": "- Read CLAUDE.md, the constitution and pendientes.md; close each task with its line in the log.",
+        "arranque_constitucion": ("- NON-NEGOTIABLE RULES of the project (copy of `.brain/constitution.md`, so it does not depend on opening it; "
+                                  "always follow them, the language one too, in every message and in progress messages while you work):"),
+        "arranque_constitucion_cortada": "\n[…continues in `.brain/constitution.md`; read it in full before touching anything that depends on those rules]",
         "arranque_orden": ("INSTRUCTION for the assistant: in your first reply of this session, give Darwin the summary in "
                            "4-5 jargon-free bullets (or one line if nothing needs action) before going on with what they ask.\n"),
         "cierre_titulo": "🐺 Cerebro Vivo · before calling the task finished:",
@@ -1046,6 +1053,7 @@ TEXTOS = {
         "guardar_traspaso_git_fallo": "Git failed",
         "guardar_traspaso_podido_guardar_memoria": "I could not save the memory (%s). The handover goes on. Commit `.brain/` by hand when you can.",
         "guardar_traspaso_sin_detalle": "(no detail)",
+        "notas_abiertas_idioma": "Reminder (project language rule): reply in English in everything, including progress messages while you work and summaries.",
         "notas_abiertas_nota_nueva_chat": "NEW NOTE FROM A HELPER CHAT (spec 081; tell Darwin about it in one sentence and carry on with your work):",
         "notas_abiertas_mas_brain_notas": "(and %d more in .brain/notas-chats/)",
         "indices_hechos_indice_tiene": "hechos-indice.md has no table",

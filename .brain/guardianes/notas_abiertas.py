@@ -5,7 +5,8 @@
 Se ejecuta como hook `UserPromptSubmit` de Claude Code: cuando Darwin envía un mensaje, si hay
 notas nuevas en `.brain/notas-chats/` que ESTE chat aún no ha recibido, las imprime (Claude las
 lee como contexto). No mueve ni borra nada (el archivado es del arranque, spec 080).
-Sin notas nuevas no imprime nada; ante cualquier fallo calla. Solo librería estándar.
+Además recuerda en una línea el idioma del proyecto (orden de Darwin, 2026-11-25; se apaga con `recordar_idioma: false`).
+Sin notas nuevas solo imprime esa línea; ante cualquier fallo calla. Solo librería estándar.
 
 Spec 082: también lo lanza el hook `PreInvocation` de Antigravity (`.agents/hooks.json`): entrada con `conversationId`,
 solo actúa en `invocationNum == 1` y responde un JSON con `injectSteps` (formato según Gemini, sin comprobar en vivo)."""
@@ -66,6 +67,19 @@ def avisar(raiz, sesion):
     return lineas
 
 
+def recordatorio_idioma(raiz):
+    """Una línea que recuerda el idioma del proyecto en cada mensaje de Darwin (la IA se pasaba al inglés en
+    tareas largas). Se apaga con `"recordar_idioma": false` en guardianes.json."""
+    try:
+        with open(os.path.join(raiz, ".brain", "guardianes", "guardianes.json"), encoding="utf-8") as f:
+            cfg = json.load(f)
+    except Exception:
+        cfg = {}
+    if isinstance(cfg, dict) and cfg.get("recordar_idioma", True) is False:
+        return ""
+    return tp("notas_abiertas_idioma")
+
+
 def decidir(datos):
     """Devuelve (modo, sesion) según quién llama: Antigravity manda `conversationId`; Claude Code y Codex, `session_id`."""
     if "conversationId" in datos:
@@ -79,6 +93,9 @@ def salida(datos, raiz=RAIZ):
     if modo == "antigravity" and datos.get("invocationNum") != 1:
         return ""  # PreInvocation salta antes de cada llamada al modelo: solo la primera tras el mensaje de Darwin
     lineas = avisar(raiz, sesion)
+    idioma = recordatorio_idioma(raiz)
+    if idioma:
+        lineas.append(idioma)
     if not lineas:
         return ""
     texto = "\n".join(lineas) + "\n"
