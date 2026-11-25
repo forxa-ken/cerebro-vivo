@@ -293,3 +293,4 @@
 2026-11-25 | otro | Claude (cerebro-vivo #42) | Darwin cierra la fase 3 de la web local (v1.65.3, tres auditorías externas); queda la prueba de uso real por otra IA | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #42) | Pagina publica (gh-pages) al dia con la 1.65.3: web local fases 2 y 3, 804 pruebas; subida a gh-pages por orden de Darwin (fd097cd), main sin subir | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #43) | Prueba de uso real de la fase 3 de la web local (v1.65.3), todo verde con 2 detalles menores; evidencia en 090-fase3-uso-real-2.md | Cambio pequeño
+2026-11-25 | otro | Claude (cerebro-vivo #43) | Darwin cierra la fase 3 de la web local (spec 090) tras la prueba de uso real; spec y pendientes al día | Cambio pequeño

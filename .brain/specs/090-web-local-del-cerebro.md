@@ -68,7 +68,7 @@ Cada fase se entrega y se prueba antes de empezar la siguiente.
 - [x] Spec aprobada por Darwin (2026-11-20; ver 12.4)
 - [x] Fase 1 construida y probada (v1.61.0; revisión aparte y prueba de uso real en `.brain/fabrica/evidencia/090-fase1-*.md`)
 - [x] Fase 2 construida y probada con pruebas automáticas (v1.63.0, 2026-11-20). Revisión aparte hecha (apto con reparos; corregido lo grave). **Falta:** prueba de uso real por otra IA; permisos por ruta (13.5); no se ha probado en un proyecto que no sea el repo del arnés ni con clics en el navegador
-- [ ] Fase 3 (primer tramo construido en v1.64.0: actualizar e instalar de verdad, con pruebas automáticas; v1.65.0 añade tareas del método con parar; revisión aparte y prueba real sobre una copia hechas por la misma IA; falta prueba por otra IA, auditor externo y dos arreglos menores)
+- [x] Fase 3 **cerrada por Darwin el 2026-11-25** (v1.65.3): actualizar e instalar de verdad, tareas del método con parar; tres auditorías externas (Codex) corregidas; prueba de uso real por otro chat (`.brain/fabrica/evidencia/090-fase3-uso-real-2.md`, verde). Cerrada sin prueba por una IA de otra familia y con los límites conocidos (instante entre revalidar el guardián y reanudar; tareas y simulaciones no ligadas a la instancia)
 - [ ] Línea añadida a `.brain/decisions.log`
 
 ## 11. Resultados de la fase 1 (2026-11-18)
