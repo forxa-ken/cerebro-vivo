@@ -365,7 +365,7 @@ footer{border-top:1px solid var(--line);padding-block:18px;color:var(--muted);fo
           </ol></div>
         </section>
 
-        <section class="ch" id="c12" data-t="Qué está demostrado">
+        <section class="ch" id="c12" data-t="Qué está demostrado" hidden><!-- oculto hasta tener las pruebas hechas al 100 % (Darwin, 2026-11-25) -->
           <div class="eyebrow" data-i18n="c12.t1">CAPÍTULO 12</div>
           <h2 data-i18n="c12.t2">Lo que se ha medido, y lo que todavía no</h2>
           <p class="txt" data-i18n="c12.t3">Datos de la medición del 1 de noviembre de 2026. Son muestras pequeñas: sirven como indicio, no como prueba general.</p>
@@ -606,7 +606,7 @@ function buildT(){uF.textContent="";uCat="";["",...new Set(T.map(t=>t.c))].forEa
 $("#useQ").addEventListener("input",drawT);
 
 const side=$("#side");
-function buildSide(){side.textContent="";document.querySelectorAll("section.ch").forEach((s,i)=>{const a=document.createElement("a");a.href="#"+s.id;const b=document.createElement("b");b.textContent=i+1;const t=document.createElement("span");t.textContent=tr("side."+s.id);a.append(b,t);a.onclick=e=>{e.preventDefault();s.scrollIntoView()};side.append(a)})}
+function buildSide(){side.textContent="";document.querySelectorAll("section.ch:not([hidden])").forEach((s,i)=>{const e=s.querySelector(".eyebrow");if(e)e.textContent=e.textContent.replace(/\d+/,i+1);const a=document.createElement("a");a.href="#"+s.id;const b=document.createElement("b");b.textContent=i+1;const t=document.createElement("span");t.textContent=tr("side."+s.id);a.append(b,t);a.onclick=e=>{e.preventDefault();s.scrollIntoView()};side.append(a)})}
 
 let logDone=false,logList=null,logSt=["ui.log.cargando"];
 function setSt(k,n){logSt=[k,n];$("#logState").textContent=tr(k,n)}
