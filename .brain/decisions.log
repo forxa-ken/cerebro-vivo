@@ -301,3 +301,4 @@
 2026-11-25 | otro | Claude (cerebro-vivo #43) | Subida la pagina publica con el capitulo de lo medido oculto (gh-pages 0595546) | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #43) | v1.66.0: el arranque copia la constitucion a la IA y cada mensaje recuerda el idioma del proyecto (caso ProMaps #127); 809 pruebas OK | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #44) | ProMaps y yu-gi-wow actualizados de 1.65.1 a 1.66.0 (simulacro y real, pruebas del metodo en verde en los dos; en ProMaps se respeta tests/test_cerebro_indices.py tocado a mano) | Cambio pequeño
+2026-11-26 | otro | Claude (cerebro-vivo #44) | Subidos a GitHub 7 commits de main (hasta ebf3faf), con la v1.66.0; 809 pruebas OK | Cambio pequeño
