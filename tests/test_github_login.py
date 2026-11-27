@@ -20,8 +20,8 @@ _e = importlib.util.spec_from_file_location("web", os.path.join(GUARD, "web.py")
 web = importlib.util.module_from_spec(_e)
 _e.loader.exec_module(web)
 
-SECRETO = "ghu_SECRETO_DE_PRUEBA_123"
-RENOVACION = "ghr_RENOVACION_DE_PRUEBA_456"
+SECRETO = "falso-acceso-PRUEBA-123"
+RENOVACION = "falso-renovacion-PRUEBA-456"
 
 
 class Falso:
@@ -127,12 +127,12 @@ class TestLogin(Base):
 
     def test_renovacion_antes_de_caducar(self):
         self.sesion(vence=1000.0 + 30)  # caduca en 30 s: dentro del margen
-        self.f.cola.append((200, {"access_token": "ghu_NUEVO", "expires_in": 28800, "refresh_token": "ghr_NUEVO", "refresh_token_expires_in": 15000000}))
+        self.f.cola.append((200, {"access_token": "falso-acceso-NUEVO", "expires_in": 28800, "refresh_token": "falso-renovacion-NUEVO", "refresh_token_expires_in": 15000000}))
         self.assertTrue(gh.estado()["sesion"])
         _, url, datos, _ = self.f.llamadas[0]
         self.assertEqual(url, "https://github.com/login/oauth/access_token")
         self.assertEqual((datos["grant_type"], datos["refresh_token"]), ("refresh_token", RENOVACION))
-        self.assertEqual(json.loads(self.alm.leer())["acceso"], "ghu_NUEVO")
+        self.assertEqual(json.loads(self.alm.leer())["acceso"], "falso-acceso-NUEVO")
 
     def test_sin_renovacion_posible_se_cierra_la_sesion(self):
         self.sesion(vence=900.0, renovacion="", vence_renovacion=0)

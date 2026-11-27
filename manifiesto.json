@@ -184,7 +184,7 @@
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_fabrica.py": "779521091709d831873dfee7ec7ee5637689acf04d06dacb02bc035d53af2195",
-  "tests/test_github_login.py": "a2d37c95793468f89bd8af790cc2fe475c42df2247e8062126bcbfc66f74bab9",
+  "tests/test_github_login.py": "48ed443d15a70af9aa60ed4dfd8f28bddbf1aed3d2ae793f456a08a9d797c3c4",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hermanos.py": "6ad7017262e7a0014168489c50ad682d3fdb067b2c48aa9b5747480ffe809238",
   "tests/test_hitos.py": "33fe63de0bbe5ea1bb197ecd0dde74e778919175e33d65b901f5ed22f0f7d3d5",
