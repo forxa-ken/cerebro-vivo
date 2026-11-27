@@ -302,3 +302,7 @@
 2026-11-25 | otro | Claude (cerebro-vivo #43) | v1.66.0: el arranque copia la constitucion a la IA y cada mensaje recuerda el idioma del proyecto (caso ProMaps #127); 809 pruebas OK | Cambio pequeño
 2026-11-25 | otro | Claude (cerebro-vivo #44) | ProMaps y yu-gi-wow actualizados de 1.65.1 a 1.66.0 (simulacro y real, pruebas del metodo en verde en los dos; en ProMaps se respeta tests/test_cerebro_indices.py tocado a mano) | Cambio pequeño
 2026-11-26 | otro | Claude (cerebro-vivo #44) | Subidos a GitHub 7 commits de main (hasta ebf3faf), con la v1.66.0; 809 pruebas OK | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 095 (sugeridor de lecciones al cerrar, comparación con Hermes Agent) en borrador; pendientes 65 y 66; historial del 61 movido a notas-chats | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 095 ajustada tras revisar la documentación de Hermes: cola de aprobación, avisos de tamaño y duplicados, datos contrastados | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 095 aprobada e implementada (v1.67.0, sugeridor.py, 14 pruebas); spec 096 (refinar skills, utilidad y uso) en borrador; pendientes 65 y 67 | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 096 aprobada: fases 1 y 2 hechas (v1.68.0, medir.py --skills --todos con lecturas y tamaño; 33 de 44 skills usadas); informe de clasificación en notas-chats; pendiente 67 | Cambio pequeño

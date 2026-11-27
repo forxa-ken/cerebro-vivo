@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import os
+import re
 import tempfile
 import unittest
 
@@ -114,6 +115,85 @@ class TestSkills(unittest.TestCase):
 
     def test_sin_registros_ni_skills_no_falla(self):
         self.assertEqual(medir.uso_de_skills(self.dir, tempfile.mkdtemp()), [])
+
+
+class TestSkillsVariosProyectos(unittest.TestCase):
+    """Spec 096, fase 1: skills de varios proyectos, con lecturas directas de SKILL.md y tamaño."""
+    def setUp(self):
+        self.raiz = tempfile.mkdtemp()
+        for n, texto in (("traspaso-in", "x" * 2048), ("pendiente", "y" * 100), ("nunca", "z")):
+            os.makedirs(os.path.join(self.raiz, ".claude", "skills", n))
+            with open(os.path.join(self.raiz, ".claude", "skills", n, "SKILL.md"), "w", encoding="utf-8") as f:
+                f.write(texto)
+        self.a, self.b = tempfile.mkdtemp(), tempfile.mkdtemp()
+
+    def escribir(self, carpeta, nombre, eventos):
+        with open(os.path.join(carpeta, nombre), "w", encoding="utf-8") as f:
+            f.write("\n".join(json.dumps(e) for e in eventos))
+
+    def skill(self, n):
+        return {"type": "assistant", "timestamp": "2026-11-08T10:00:00Z",
+                "message": {"id": n, "content": [{"type": "tool_use", "name": "Skill", "input": {"skill": n}}]}}
+
+    def lee(self, ruta):
+        return {"type": "assistant", "timestamp": "2026-11-09T10:00:00Z",
+                "message": {"id": ruta, "content": [{"type": "tool_use", "name": "Read", "input": {"file_path": ruta}}]}}
+
+    def test_lecturas_de_skill_md_se_cuentan_aparte(self):
+        self.escribir(self.a, "a.jsonl", [self.lee("F:\\x\\.claude\\skills\\pendiente\\SKILL.md"), self.lee("F:/x/.claude/skills/pendiente/SKILL.en.md"),
+                                          self.lee("F:/x/src/app.py")])
+        self.assertEqual(medir.skills_leidas(os.path.join(self.a, "a.jsonl")), {"pendiente": 2})
+
+    def test_suma_proyectos_lecturas_tamano_y_no_usadas(self):
+        self.escribir(self.a, "a.jsonl", [self.skill("traspaso-in"), self.skill("traspaso-in")])
+        self.escribir(self.b, "b.jsonl", [self.skill("traspaso-in"), self.lee("/x/.claude/skills/pendiente/SKILL.md"), self.skill("ajena")])
+        filas = medir.uso_de_skills_varios([("A", self.a), ("B", self.b)], self.raiz)
+        por = {x["skill"]: x for x in filas}
+        self.assertEqual([x["skill"] for x in filas], ["traspaso-in", "pendiente", "nunca"])
+        self.assertEqual((por["traspaso-in"]["usos"], por["traspaso-in"]["chats"], por["traspaso-in"]["proyectos"]), (3, 2, ["A", "B"]))
+        self.assertEqual((por["pendiente"]["usos"], por["pendiente"]["lecturas"], por["pendiente"]["proyectos"]), (0, 1, ["B"]))
+        self.assertEqual((por["nunca"]["usos"], por["nunca"]["chats"], por["nunca"]["bytes"]), (0, 0, 1))
+        self.assertEqual(por["traspaso-in"]["bytes"], 2048)
+        self.assertNotIn("ajena", por)
+
+    def test_sin_carpetas_ni_catalogo_no_falla(self):
+        self.assertEqual(medir.uso_de_skills_varios([], tempfile.mkdtemp()), [])
+        self.assertEqual(len(medir.uso_de_skills_varios([("X", os.path.join(self.a, "no-existe"))], self.raiz)), 3)
+
+    def test_carpetas_dejan_fuera_experimentos_y_repetidos(self):
+        casa = tempfile.mkdtemp()
+        base = os.path.join(casa, ".claude", "projects")
+        for n in ("F--Proyectos-LoboHook", "F--Proyectos-bench-cerebro-con", "F--Proyectos-vmware-ronda3-A", "F--Proyectos-ProMaps"):
+            os.makedirs(os.path.join(base, n))
+        previo = os.environ.get("USERPROFILE"), os.environ.get("HOME")
+        os.environ["USERPROFILE"] = os.environ["HOME"] = casa
+        try:
+            nombres = [n for n, _ in medir.carpetas_de_proyectos(True, ["F--Proyectos-ProMaps"])]
+        finally:
+            for k, v in zip(("USERPROFILE", "HOME"), previo):
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+        self.assertEqual(nombres, ["F--Proyectos-ProMaps", "F--Proyectos-LoboHook"])
+
+    def test_una_ruta_de_proyecto_no_se_mide_dos_veces(self):
+        casa = tempfile.mkdtemp()
+        proyecto = tempfile.mkdtemp()  # existe como carpeta, como el proyecto real
+        carpeta = os.path.join(casa, ".claude", "projects", re.sub(r"[^A-Za-z0-9]", "-", os.path.abspath(proyecto)))
+        os.makedirs(carpeta)
+        previo = os.environ.get("USERPROFILE"), os.environ.get("HOME")
+        os.environ["USERPROFILE"] = os.environ["HOME"] = casa
+        try:
+            res = medir.carpetas_de_proyectos(True, [proyecto])
+        finally:
+            for k, v in zip(("USERPROFILE", "HOME"), previo):
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+        self.assertEqual(len(res), 1)
+        self.assertEqual(res[0][1], carpeta)
 
 
 class TestRitual(unittest.TestCase):

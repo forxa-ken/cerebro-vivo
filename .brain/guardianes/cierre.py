@@ -363,6 +363,14 @@ def main():
             informativos["hitos"] += hitos.avisos(datos.get("transcript_path"), cfg, RAIZ)
         except Exception:
             pass
+        informativos["sugeridor"] = []
+        try:  # spec 095: correcciones, decisiones y órdenes repetidas sin apuntar (solo sugiere; se apaga solo si se repite)
+            espec = importlib.util.spec_from_file_location("sugeridor", os.path.join(AQUI, "sugeridor.py"))
+            sugeridor = importlib.util.module_from_spec(espec)
+            espec.loader.exec_module(sugeridor)
+            informativos["sugeridor"] += sugeridor.avisos(datos.get("transcript_path"), cfg, RAIZ)
+        except Exception:
+            pass
         try:  # spec 038: el cierre (línea de registro, tope de pendientes) nunca se apaga; estos dos sí si se repiten
             estado = _estado_repetidos()
             sesion = str(datos.get("session_id") or "sin-sesion")

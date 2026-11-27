@@ -211,6 +211,15 @@ TEXTOS = {
                            "el siguiente paso, NO hacer y lo sin subir) y pasa el resto del historial a .brain/traspaso-completo.md."),
         "hitos_uso": "Uso: hitos.py RUTA_DEL_REGISTRO.jsonl",
         "hitos_nada": "Sin hitos pendientes.",
+        "sugeridor_correccion": "Darwin corrigió: «%s»",
+        "sugeridor_decision": "decisión tomada: «%s»",
+        "sugeridor_orden": "misma orden %d veces (¿skill?): %s",
+        "sugeridor_aviso": ("Posibles lecciones sin apuntar (solo sugerencia): %s. Antes de dar la tarea por terminada, ¿alguna es una lección, una decisión "
+                            "o un procedimiento repetido que aún no está apuntado? Si sí: python .brain/guardianes/lecciones.py --tema TEMA \"problema | causa | regla\" "
+                            "o proponla (texto completo) en .brain/propuestas.md; nada entra en la memoria sin que Darwin lo apruebe. "
+                            "Si no: python .brain/guardianes/lecciones.py ninguna \"motivo\"."),
+        "sugeridor_uso": "Uso: sugeridor.py RUTA_DEL_REGISTRO.jsonl",
+        "sugeridor_nada": "Nada que sugerir.",
         "arranque_lecciones": "- Lecciones aprendidas (léelas antes de repetir ese trabajo, en .brain/lecciones/): %s.",
         "arranque_traspaso_completo": "(Historial completo del chat anterior: `/memoria-traspaso`; solo si Darwin lo pide.)",
         # cerrar.py (cierre rápido a mano)
@@ -495,6 +504,11 @@ TEXTOS = {
         "medir_ritual_total": "Atribuible al arnés (memoria + chat nuevo + aviso): %.1f %% del coste",
         "medir_ritual_avisos": "Avisos del guardián: %d (%.1f por chat). Hito sin lección: %d; registro: %d; chat largo: %d; otros: %d",
         "ayuda_medir_skills": "uso real de cada skill (llamadas y comandos /skill leídos de los registros de los chats); las no usadas salen con 0",
+        "ayuda_medir_todos": "con --skills: suma todos los proyectos de ~/.claude/projects (salvo experimentos: bench, scratch, ronda…)",
+        "ayuda_medir_proyectos": "con --skills: suma además estos proyectos (ruta, o nombre de su carpeta en ~/.claude/projects)",
+        "medir_proyectos_medidos": "Proyectos medidos (%d): %s",
+        "medir_lecturas": "Lecturas",
+        "medir_proyectos": "Proyectos",
         "medir_skill": "Skill",
         "medir_veces": "Veces",
         "medir_ultima": "Última vez",
@@ -891,6 +905,15 @@ TEXTOS = {
                            "the next step, DO NOT do and what is not pushed) and move the rest of the history to .brain/traspaso-completo.md."),
         "hitos_uso": "Usage: hitos.py PATH_TO_TRANSCRIPT.jsonl",
         "hitos_nada": "No pending milestones.",
+        "sugeridor_correccion": "Darwin corrected: «%s»",
+        "sugeridor_decision": "decision made: «%s»",
+        "sugeridor_orden": "same command %d times (a skill?): %s",
+        "sugeridor_aviso": ("Possible lessons not written down (suggestion only): %s. Before calling the task finished, is any of these a lesson, a decision "
+                            "or a repeated procedure that is not written down yet? If so: python .brain/guardianes/lecciones.py --tema TOPIC \"problem | cause | rule\" "
+                            "or propose it (full text) in .brain/propuestas.md; nothing enters the memory without Darwin's approval. "
+                            "If not: python .brain/guardianes/lecciones.py ninguna \"reason\"."),
+        "sugeridor_uso": "Usage: sugeridor.py PATH_TO_TRANSCRIPT.jsonl",
+        "sugeridor_nada": "Nothing to suggest.",
         "arranque_lecciones": "- Lessons learned (read them before repeating that work, in .brain/lecciones/): %s.",
         "arranque_traspaso_completo": "(Full history of the previous chat: `/memoria-traspaso`; only if Darwin asks.)",
         "cerrar_descripcion": "Adds the closing line to the log",
@@ -1161,6 +1184,11 @@ TEXTOS = {
         "medir_ritual_total": "Attributable to the harness (memory + new chat + warning): %.1f %% of the cost",
         "medir_ritual_avisos": "Guardian warnings: %d (%.1f per chat). Lesson-less milestone: %d; log: %d; long chat: %d; other: %d",
         "ayuda_medir_skills": "real use of each skill (calls and /skill commands read from the chat logs); unused ones show 0",
+        "ayuda_medir_todos": "with --skills: add up every project in ~/.claude/projects (except experiments: bench, scratch, ronda…)",
+        "ayuda_medir_proyectos": "with --skills: also add up these projects (path, or the name of its folder in ~/.claude/projects)",
+        "medir_proyectos_medidos": "Projects measured (%d): %s",
+        "medir_lecturas": "Reads",
+        "medir_proyectos": "Projects",
         "medir_skill": "Skill",
         "medir_veces": "Times",
         "medir_ultima": "Last used",

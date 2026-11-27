@@ -261,6 +261,83 @@ def uso_de_skills(carpeta, raiz):
     return sorted(((n, veces[n], chats[n], ultima[n]) for n in nombres), key=lambda f: (-f[1], f[0]))
 
 
+LEE_SKILL = re.compile(r"/skills/([^/\\]+)/SKILL(?:\.en)?\.md$")
+CARPETAS_DE_PRUEBA = re.compile(r"bench|scratch|temp|ronda|rama-|encargo", re.I)  # experimentos y copias, no proyectos de trabajo
+
+
+def skills_leidas(ruta):
+    """{skill: veces} que la IA LEYÓ el `SKILL.md` de UN chat con la herramienta Read (spec 096). Es otra forma de usar una skill:
+    no pasa por la herramienta Skill, así que `skills_usadas` no la ve."""
+    veces = {}
+    with open(ruta, encoding="utf-8", errors="replace") as f:
+        for linea in f:
+            try:
+                e = json.loads(linea)
+            except ValueError:
+                continue
+            contenido = (e.get("message") or {}).get("content")
+            for b in contenido if isinstance(contenido, list) else []:
+                if isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") == "Read":
+                    m = LEE_SKILL.search(str((b.get("input") or {}).get("file_path", "")).replace("\\", "/"))
+                    if m:
+                        veces[m.group(1)] = veces.get(m.group(1), 0) + 1
+    return veces
+
+
+def carpetas_de_proyectos(todos=False, proyectos=()):
+    """[(nombre, carpeta de registros)] de lo que se mide (spec 096). Cada entrada de `proyectos` es una ruta de proyecto o el nombre
+    de una carpeta de `~/.claude/projects` (la ruta con guiones, que no siempre se puede deshacer). Con `todos`, todas salvo las de
+    experimentos (`bench`, `scratch`, `ronda`…). Sin repetidos."""
+    base = os.path.join(os.path.expanduser("~"), ".claude", "projects")
+    salida, vistas = [], set()
+
+    def anadir(nombre, carpeta):
+        clave = os.path.normcase(os.path.abspath(carpeta))
+        if os.path.isdir(carpeta) and clave not in vistas:
+            vistas.add(clave)
+            salida.append((nombre, carpeta))
+
+    for p in proyectos:
+        directa = os.path.join(base, p) if not re.search(r"[\\/:]", p) else ""  # una ruta con separadores no es un nombre de carpeta
+        anadir(p, directa if directa and os.path.isdir(directa) else carpeta_de(p))
+    if todos and os.path.isdir(base):
+        for n in sorted(os.listdir(base)):
+            if not CARPETAS_DE_PRUEBA.search(n):
+                anadir(n, os.path.join(base, n))
+    return salida
+
+
+def uso_de_skills_varios(carpetas, raiz):
+    """Spec 096, fase 1: tabla por skill del catálogo de `raiz`, sumando varios proyectos. Devuelve una lista de diccionarios
+    {skill, usos (Skill + /comando), lecturas (SKILL.md leído), chats, proyectos, ultima, bytes}, de más a menos usadas.
+    `chats` cuenta chats donde salió por cualquiera de las dos vías; `proyectos`, los proyectos donde salió."""
+    ruta_skills = os.path.join(raiz, ".claude", "skills")
+    nombres = sorted(d for d in os.listdir(ruta_skills) if os.path.isdir(os.path.join(ruta_skills, d))) if os.path.isdir(ruta_skills) else []
+    f = {n: {"skill": n, "usos": 0, "lecturas": 0, "chats": 0, "proyectos": [], "ultima": "", "bytes": 0} for n in nombres}
+    for n in nombres:
+        try:
+            f[n]["bytes"] = os.path.getsize(os.path.join(ruta_skills, n, "SKILL.md"))
+        except OSError:
+            pass
+    for nombre_proyecto, carpeta in carpetas:
+        for ruta in glob.glob(os.path.join(carpeta, "*.jsonl")):
+            try:
+                usos, lecturas = skills_usadas(ruta), skills_leidas(ruta)
+                fecha = leer_chat(ruta)["fecha"]
+            except Exception:
+                continue
+            for n in set(usos) | set(lecturas):
+                if n not in f:
+                    continue
+                f[n]["usos"] += usos.get(n, 0)
+                f[n]["lecturas"] += lecturas.get(n, 0)
+                f[n]["chats"] += 1
+                f[n]["ultima"] = max(f[n]["ultima"], fecha or "")
+                if nombre_proyecto not in f[n]["proyectos"]:
+                    f[n]["proyectos"].append(nombre_proyecto)
+    return sorted(f.values(), key=lambda x: (-(x["usos"] + x["lecturas"]), x["skill"]))
+
+
 # Informe 032: coste de los rituales del arnés. Se clasifica cada llamada de la IA por lo que hizo (por reglas sobre el texto
 # de sus herramientas; una llamada mixta cuenta como trabajo) y se cuentan los avisos del guardián de cierre.
 RITUAL_ORDEN = re.compile(r"cerrar\.py|lecciones\.py|arranque\.py|cierre\.py|hitos\.py|traspaso|decisions\.log|hechos|\.brain/lecciones|pendientes|\.brain/notas|\.brain/constitution|\.brain/decisions", re.I)
@@ -504,6 +581,8 @@ def main(argv=None):
     ap.add_argument("--ultimos", type=int, default=0)
     ap.add_argument("--tarea", default="", help=tp("ayuda_medir_tarea"))
     ap.add_argument("--skills", action="store_true", help=tp("ayuda_medir_skills"))
+    ap.add_argument("--todos", action="store_true", help=tp("ayuda_medir_todos"))
+    ap.add_argument("--proyectos", nargs="+", metavar="RUTA", default=[], help=tp("ayuda_medir_proyectos"))
     ap.add_argument("--fabrica", action="store_true", help=tp("ayuda_medir_fabrica"))
     ap.add_argument("--ritual", action="store_true", help=tp("ayuda_medir_ritual"))
     a = ap.parse_args(argv)
@@ -512,6 +591,15 @@ def main(argv=None):
         return 0
     if a.ritual:
         imprimir_ritual(*ritual_de_proyecto(carpeta_de(a.proyecto), a.proyecto))
+        return 0
+    if a.skills and (a.todos or a.proyectos):  # spec 096: varios proyectos, con lecturas directas y tamaño
+        carpetas = carpetas_de_proyectos(a.todos, [a.proyecto] + a.proyectos if a.proyectos else [a.proyecto])
+        filas = uso_de_skills_varios(carpetas, a.proyecto)
+        print(tp("medir_proyectos_medidos") % (len(carpetas), ", ".join(n for n, _ in carpetas)))
+        print("%-34s %6s %9s %6s %9s %7s  %s" % (tp("medir_skill"), tp("medir_veces"), tp("medir_lecturas"), "Chats", tp("medir_proyectos"), "KB", tp("medir_ultima")))
+        for x in filas:
+            print("%-34s %6d %9d %6d %9d %7.1f  %s" % (x["skill"], x["usos"], x["lecturas"], x["chats"], len(x["proyectos"]), x["bytes"] / 1024.0, x["ultima"] or "-"))
+        print(tp("medir_skills_resumen") % (sum(1 for x in filas if x["usos"] or x["lecturas"]), len(filas)))
         return 0
     if a.skills:
         tabla = uso_de_skills(carpeta_de(a.proyecto), a.proyecto)
