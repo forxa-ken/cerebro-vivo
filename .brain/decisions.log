@@ -312,3 +312,5 @@
 2026-11-27 | otro | Claude (cerebro-vivo #46) | documentado el experimento de ProMaps (pendiente 68, anexo spec 095); encargo enviado a Mappro #156 | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #46) | v1.70.1: descripcion de adopta corregida; adopta y adoptar-indice-existente se quedan (spec 096 fase 3) | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #46) | traspaso del #46 al #47 escrito; chat nuevo abierto | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #47) | spec 097 (trabajar desde un ordenador vacio: puerta web, instalador y login local con GitHub, sin hosting) escrita, auditada por Codex y APROBADA por Darwin; pendiente 69 abierto | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #47) | spec 097 fase 1 a medias: GitHub App de prueba registrada y probada (listado y clonado privado con login de dispositivo, todos los repos); traspaso al #48 escrito | Cambio pequeño
