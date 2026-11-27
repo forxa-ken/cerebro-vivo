@@ -23,3 +23,10 @@
 
 ## Sin confirmar
 - Si en ProMaps la lección precedió a cada skill o se escribieron a la vez: se dedujo de la ficha, no del historial de Git.
+
+## Experimento en ProMaps (encargo enviado el 2026-11-27 al chat Mappro #156)
+- **Qué se prueba:** que una skill larga con tres listas solapadas, rehecha como «espina» corta con puertas enlazadas a `referencia.md` más dos frenos de código, deja de perder pasos. Los pasos que se saltaba, según Darwin: leer los comentarios de la ficha y mirar el mapa (coordenadas).
+- **Los dos frenos:** (a) `revisar_zona.py` pone en el informe, por cada misión dudosa, las líneas del mapa (`M`) y los comentarios (`C`); (b) `zonas.py` no deja cerrar sin una nota por dudosa en `pendientes-misiones.md` con lo que dijeron el mapa y los comentarios.
+- **Cómo se mide:** en la siguiente zona de ProMaps, contar las dudosas sin nota de mapa o comentarios (antes del cambio y después) y si Darwin tuvo que reclamar esos pasos. Resultado en una nota del chat de ProMaps (`.brain/notas-chats/` de ese proyecto).
+- **Qué decide:** si funciona, cerebro-vivo escribe una spec de plantilla general de skills largas (espina + módulos + índice). Esa plantilla también resolvería el troceo de `directora-de-fabrica`, `revisor-de-spec` y `fabrica`. Si no funciona, se descarta o se cambia el enfoque.
+- **Estado:** enviado, en cola (el chat estaba trabajando). Sin respuesta todavía.
