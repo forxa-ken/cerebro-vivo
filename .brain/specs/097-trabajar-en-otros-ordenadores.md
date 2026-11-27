@@ -110,7 +110,7 @@ El ordenador de llegada **no tiene nada**: ni Git, ni Python, ni la IA, ni el ar
 
 ## 10. Fases propuestas (cada una se aprueba aparte)
 1. **Comprobaciones** (§9, puntos 1 a 3) en un ordenador o máquina limpia; sin construir nada.
-2. **Login local con GitHub** y listado de repositorios permitidos (solo lectura) en la web local.
+2. **Login local con GitHub** y listado de repositorios permitidos (solo lectura) en la web local. **HECHA y probada por Darwin (2026-11-27, v1.71.0, commit 9e7393b):** login real, 15 repositorios listados.
 3. **Clonado** con simulación y confirmación, y aviso de lo que no viaja.
 4. **Instalador y página de entrada** (mostrar la pestaña «Instalar»; ver pendiente 64).
 5. **Auditoría independiente** y prueba de uso real en un ordenador sin nada.
