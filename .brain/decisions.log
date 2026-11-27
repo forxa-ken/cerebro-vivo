@@ -306,3 +306,4 @@
 2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 095 ajustada tras revisar la documentación de Hermes: cola de aprobación, avisos de tamaño y duplicados, datos contrastados | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 095 aprobada e implementada (v1.67.0, sugeridor.py, 14 pruebas); spec 096 (refinar skills, utilidad y uso) en borrador; pendientes 65 y 67 | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #45) | Spec 096 aprobada: fases 1 y 2 hechas (v1.68.0, medir.py --skills --todos con lecturas y tamaño; 33 de 44 skills usadas); informe de clasificación en notas-chats; pendiente 67 | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #46) | v1.69.0: archivadas 3 skills sin uso (implementada-no-es-hecha, explicar-a-darwin-en-llano, probar-guardian-en-windows) a .brain/archive/skills; commit del trabajo del #45 | Cambio pequeño

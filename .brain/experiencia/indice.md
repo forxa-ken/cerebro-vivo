@@ -10,10 +10,8 @@
 | [cerrar-una-tarea](../../.claude/skills/cerrar-una-tarea/SKILL.md) | finishing any task in the project | Método | cerebro-vivo 1.0.0 |
 | [guardar-respuesta](../../.claude/skills/guardar-respuesta/SKILL.md) | Darwin types /guardar-respuesta, says "guarda esta respuesta" or "apunta esto", or an answer or comparison in the chat is worth keeping even though no error produced it | Método | cerebro-vivo 1.49.0 |
 | [diapositivas](../../.claude/skills/diapositivas/SKILL.md) | Darwin types /diapositivas (with or without a topic or a document name) or asks to explain something as slides or a presentation | Método | cerebro-vivo 1.45.0 |
-| [explicar-a-darwin-en-llano](../../.claude/skills/explicar-a-darwin-en-llano/SKILL.md) | explaining something technical to Darwin, the project owner | Método | cerebro-vivo 1.0.0 |
 | [guardian-avisa-o-bloquea](../../.claude/skills/guardian-avisa-o-bloquea/SKILL.md) | creating an automatic check (guardian) for the Cerebro Vivo method | Método | cerebro-vivo 1.0.0 |
 | [hermanos](../../.claude/skills/hermanos/SKILL.md) | the project has sibling projects (same origin, different variant), the arranque says "N commits de X sin portar", or Darwin asks to set up or adopt a "portar" file | Método | cerebro-vivo 1.43.0 |
-| [implementada-no-es-hecha](../../.claude/skills/implementada-no-es-hecha/SKILL.md) | about to call a task finished or done | Método | cerebro-vivo 1.0.0 |
 | [licencia-antes-de-usar](../../.claude/skills/licencia-antes-de-usar/SKILL.md) | adopting a free service, voice, font, model or library in something commercial | Método | cerebro-vivo 1.0.0 |
 | [actualizar](../../.claude/skills/actualizar/SKILL.md) | typing /actualizar or the arranque says there is a new arnés version available | Método | cerebro-vivo 1.17.0 |
 | [trocea](../../.claude/skills/trocea/SKILL.md) | typing /trocea or a .brain/ file is over its size cap | Método | cerebro-vivo 1.16.0 |
@@ -23,7 +21,6 @@
 | [mover-no-borrar](../../.claude/skills/mover-no-borrar/SKILL.md) | pruning, archiving or replacing information in the brain | Método | cerebro-vivo 1.0.0 |
 | [pendiente](../../.claude/skills/pendiente/SKILL.md) | Darwin types /pendiente or asks to see a list of what is missing | Método | cerebro-vivo 1.4.2 |
 | [pendientes-solo-lo-que-falta](../../.claude/skills/pendientes-solo-lo-que-falta/SKILL.md) | Darwin confirms he tested a task or when pendientes.md changes | Método | cerebro-vivo 1.0.0 |
-| [probar-guardian-en-windows](../../.claude/skills/probar-guardian-en-windows/SKILL.md) | testing a guardian, hook or script that prints to the Windows console | Método | cerebro-vivo 1.0.0 |
 | [prompt-inicial](../../.claude/skills/prompt-inicial/SKILL.md) | Darwin wants to start a project or task with a complete prompt, or types /prompt-inicial | Método | cerebro-vivo 1.0.0 |
 | [quitar-codigo-antiguo-con-test](../../.claude/skills/quitar-codigo-antiguo-con-test/SKILL.md) | removing an old function, window or feature | Método | cerebro-vivo 1.0.0 |
 | [resumen](../../.claude/skills/resumen/SKILL.md) | Darwin types /resumen or asks where the project stands | Método | cerebro-vivo 1.4.2 |

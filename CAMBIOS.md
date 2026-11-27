@@ -538,3 +538,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.68.0 (2026-11-27)
 - **`medir.py --skills` mide varios proyectos** (spec 096, fase 1). Nuevas opciones `--todos` (todos los proyectos de `~/.claude/projects`, salvo experimentos `bench`, `scratch`, `ronda`, `rama-`, `encargo`) y `--proyectos RUTA…` (ruta o nombre de carpeta). La tabla suma usos (herramienta Skill y comandos `/skill`), **lecturas directas de `SKILL.md`** (columna nueva: antes una skill aplicada leyendo el archivo salía con 0), chats, proyectos donde se usa y tamaño en KB. Sin las opciones nuevas, todo funciona como antes. Textos es/en y 5 pruebas nuevas. Medido hoy: 33 de 44 skills se usan (solo este repo daba 15).
+
+## 1.69.0 (2026-11-27)
+- **Se archivan 3 skills sin uso** (spec 096, fase 3; orden de Darwin): `implementada-no-es-hecha` (la dice la regla 5 de la constitución), `explicar-a-darwin-en-llano` (lo piden `CLAUDE.md` y la memoria) y `probar-guardian-en-windows` (la lección ya está en `lecciones/`). Pasan a `.brain/archive/skills/`, no se borran. Al actualizar, el actualizador las retira de los proyectos donde estén sin modificar (queda copia de seguridad).
