@@ -69,6 +69,9 @@ La IA responde de una de tres formas: `lecciones.py --tema …` (apunta), propon
 - `python -m unittest discover tests` en verde.
 - Prueba de uso real: tres chats de cerebro-vivo con el sugeridor activo; contar cuántas señales eran útiles y cuántas ruido (`medir.py`). Si menos de la mitad sirve, ajustar o descartar.
 
+## 7b. Idea para la fase 2
+- Cómo nacen las skills en el trabajo real (caso ProMaps) y qué señales buscar: ver [`095-anexo-skills-que-nacen-del-trabajo.md`](095-anexo-skills-que-nacen-del-trabajo.md).
+
 ## 8. Cierre
 - [ ] Spec aprobada por Darwin antes de programar
 - [ ] Probada en tres chats reales
