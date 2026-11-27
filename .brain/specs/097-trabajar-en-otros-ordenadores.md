@@ -88,7 +88,7 @@ El ordenador de llegada **no tiene nada**: ni Git, ni Python, ni la IA, ni el ar
 - **Ampliado a «todos los repositorios» (19:34):** la instalación pasó a `all` y el token de usuario listó los **15** repositorios de `forxa-ken` (los mismos que `gh repo list`: 11 privados y 4 públicos, ninguno archivado ni fork). El primer intento de guardar el cambio no se aplicó; hay que verificar siempre recargando.
 - El token se usó solo en memoria durante la prueba y no se escribió en ningún archivo; el clon de prueba se borró.
 
-**Punto 4 (en este ordenador):** Git, Python 3.12 y Git Credential Manager están instalados; el almacén de Windows existe. **Falta** comprobar el guardado y el borrado del token desde Python sin dependencias nuevas.
+**Punto 4 (en este ordenador):** Git, Python 3.12 y Git Credential Manager están instalados; el almacén de Windows existe. **Comprobado (2026-11-27, con un valor falso, no un token real):** desde Python 3.12 solo con la biblioteca estándar (`ctypes` sobre `advapi32`: `CredWriteW`, `CredReadW`, `CredDeleteW`) se guarda, se lee de vuelta idéntico y se borra en el Administrador de credenciales de Windows; tras borrar no queda rastro (`cmdkey /list`). **Sin dependencias nuevas, sin archivo con el token.** Límite: la entrada queda ligada al usuario de Windows y no es un cofre contra malware que corra como ese mismo usuario. Mac y Linux quedan fuera de esta comprobación (Mac, olvidado por orden de Darwin). El script de prueba no se guardó en el repositorio.
 
 **Puntos 2, 3 y 5:** necesitan un ordenador o máquina **limpia** y repositorios reales; no se pueden comprobar aquí con rigor. Pendientes de que Darwin indique dónde probar.
 

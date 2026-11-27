@@ -314,3 +314,5 @@
 2026-11-27 | otro | Claude (cerebro-vivo #46) | traspaso del #46 al #47 escrito; chat nuevo abierto | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #47) | spec 097 (trabajar desde un ordenador vacio: puerta web, instalador y login local con GitHub, sin hosting) escrita, auditada por Codex y APROBADA por Darwin; pendiente 69 abierto | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #47) | spec 097 fase 1 a medias: GitHub App de prueba registrada y probada (listado y clonado privado con login de dispositivo, todos los repos); traspaso al #48 escrito | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 fase 1: probado que la GitHub App de prueba ve sola un repo nuevo (todos los repos); repo de prueba borrado; faltan puntos 4, 2, 3, 5 | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 punto 4 comprobado: guardar, leer y borrar un secreto en el almacen de Windows con ctypes, sin dependencias (valor falso) | Cambio pequeño
