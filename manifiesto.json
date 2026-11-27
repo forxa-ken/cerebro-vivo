@@ -3,8 +3,8 @@
   ".brain/biblioteca/CARTA_EJECUTORA.en.md": "9650e329039ae60833949f2e06ef6371d567c198be5124126a4847027444faba",
   ".brain/biblioteca/CARTA_EJECUTORA.md": "b05e3b9b4a25c10cfeb5301b33afcf4fd848bfccb831cc2b83b18ca81bc44145",
   ".brain/biblioteca/CARTA_META_ARNES.md": "eeecae8e60fe0d8811659e78b083f84cccb0f6af1cada977d68356ee9da59320",
-  ".brain/biblioteca/CEREBRO_VIVO.en.md": "818445eada370c99f9e59ba9bf7f5e4259363ae65a68e928e38f3d34f0770d3f",
-  ".brain/biblioteca/CEREBRO_VIVO.md": "f0cfe426460a8b40914e7339a31ce7ed0b71f0a706ff405212e8bfca72c75fc4",
+  ".brain/biblioteca/CEREBRO_VIVO.en.md": "d08e7e639bc503221f74e09c655afd65318717753bedefce16e8dfdcf745264c",
+  ".brain/biblioteca/CEREBRO_VIVO.md": "891df7538722187bddb61b6d9942c3ff6f742a6ee651b6fe7b22164d25381e61",
   ".brain/biblioteca/IAS_COLABORATIVAS.en.md": "b72323ce665238d67622130bd54ed7c5ebde3871d8d73c47a30ff6f7f5d6d54a",
   ".brain/biblioteca/IAS_COLABORATIVAS.md": "af323712ee73b8e181348f9b28be4817e096cc30f4ade55f58283b8f36f8cb66",
   ".brain/biblioteca/PLANTILLAS_FABRICA.en.md": "856fa444337f0ba33fa92c4d0fcf86311dddb918038c2fea81d77215f150062f",
@@ -24,7 +24,7 @@
   ".brain/biblioteca/kit-arranque/README.en.md": "1d1aeeb8fcb9be2ac86ca596384a9876e5356d5ee5eb2747c2f5e03c37839d53",
   ".brain/biblioteca/kit-arranque/README.md": "79bfbdfab626c8688c94a5abd3557a271e6a4845fd6d870b35398003e495f232",
   ".brain/biblioteca/kit-arranque/ajustes_neutros.json": "eba75ea40356810232e2d84f3a6b142816cc2524eedad7c71bcacbd0d08fe6aa",
-  ".brain/biblioteca/kit-arranque/instalar.py": "cc0b42e9fb7e1083f5660c7e74e3e2f689a38fb156f0408c983dd7e8ea33b16b",
+  ".brain/biblioteca/kit-arranque/instalar.py": "674f25789758a825979cc4d736a766bbf3b02e0e47ffdcd0e23e15f2ae2ae048",
   ".brain/biblioteca/kit-arranque/instalar_gui.py": "7d9cb4b4c26d93afc996138b4d6c93bc29f33228dc7f6e1761859087cf49cce0",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.en.md": "ae08b139c70261b465643e0fcb087572fa924feb9d48b2e6ca69538f0a347b6c",
   ".brain/biblioteca/kit-arranque/plantillas/constitution.md": "f07c33e32ea6057ae4ac707e6d47c55560f4d8278f524d822509d34214f62fd3",
@@ -64,6 +64,7 @@
   ".brain/guardianes/diapositivas.py": "415afda3d778fdc8d4e680b1f348fe23435d03e460014b5f36026fc84eed777a",
   ".brain/guardianes/eventos_chat.py": "441c3908a6eefacb423a5ecf0e677da9c2435beeb0b647ba2a82a6fd7ce6864e",
   ".brain/guardianes/fabrica.py": "f2797803dc77d38f0be0b0dddbb1aeabc6f4dc08ac08bb8cb225b066ac2a12bd",
+  ".brain/guardianes/github_login.py": "a9c17bfb42245a681034f78204e337506e917e4845bfcc1727d6da562985f405",
   ".brain/guardianes/guardar_traspaso.py": "4ce4359519f95863711aad34f074360bb902f1efc8c4c2f9f4cfd277e312eb0f",
   ".brain/guardianes/hermanos.py": "9a05cdf6f2f72f235a86a38f2ea5f3c9c6408c0760ea545c505ba1315e7ff4ab",
   ".brain/guardianes/hitos.py": "aa19d428a412e682812e41981d9096022cbe9e0a02a0a39b5e2caeba543403d4",
@@ -81,9 +82,9 @@
   ".brain/guardianes/secretos.py": "541489e5da1125eff3226359cf86f9f25e7b5a768dd669f4cc67ff1463674650",
   ".brain/guardianes/sincronizar.py": "07a64be9b497a6ab76904c1aa91e7668e2e1258d7597fa20d9e7a5d4b6c5aa97",
   ".brain/guardianes/sugeridor.py": "2ea412115c6d49c93de99438085eb6a82a89863f1a4b4e5980666fb0a11b3602",
-  ".brain/guardianes/textos.py": "3b7084061118c9640a268f4affbf2ec1cebd908c0a1c72346ff0601214a6f239",
-  ".brain/guardianes/web.py": "97eb1d9b4d3bcd0086cd7ac6596190298a2343568d1c1b899a3a18768c984940",
-  ".brain/guardianes/web_proyectos.py": "515921a6e00d91d377c039c66792262f7e449920cc162f24fe598eb16d6f18bc",
+  ".brain/guardianes/textos.py": "95ca9c9b70271de1d990b61744a71659252c7342a4ebc5955fc73b1fb5c2966d",
+  ".brain/guardianes/web.py": "2b13dd656c068313bef16cb9f10eafba89d47f59378ba79efb56717c1831de02",
+  ".brain/guardianes/web_proyectos.py": "0c5b3a5900f5dda70dfa2c8f2630fe3e5a40ae7fadd9d3377b3fe91a4885bc1a",
   ".brain/pruebas/_plantilla.en.md": "06242a2a2b21091835e2922a523aa29b97bbd6afa4fe5603a6b35d2a3bf2ae92",
   ".brain/pruebas/_plantilla.md": "14e3cf8def6296e9ebd45f79aba9385c555ba1550ee4b3eedd989d86c9ea8073",
   ".brain/specs/_template.en.md": "4480e72e09727c9b5afeadd2122257f94e03d56fd11b10ce044d2ec6fd538108",
@@ -183,6 +184,7 @@
   "tests/test_eventos_chat.py": "c67c41772902feaa452de0d85e5a6a5be880ee6e4278ae1a4fa5b2fe03ceecd3",
   "tests/test_experiencia.py": "d56ff07dc0e05d9581bfee5dbc36f7d130d25b5f6c689776742ecb6d0d15d75a",
   "tests/test_fabrica.py": "779521091709d831873dfee7ec7ee5637689acf04d06dacb02bc035d53af2195",
+  "tests/test_github_login.py": "a2d37c95793468f89bd8af790cc2fe475c42df2247e8062126bcbfc66f74bab9",
   "tests/test_guardar_traspaso.py": "7db9680dbd33f4369f8a33427bcd3e48318823fa4bb6fb5a17c40bb3fdbf6dca",
   "tests/test_hermanos.py": "6ad7017262e7a0014168489c50ad682d3fdb067b2c48aa9b5747480ffe809238",
   "tests/test_hitos.py": "33fe63de0bbe5ea1bb197ecd0dde74e778919175e33d65b901f5ed22f0f7d3d5",
@@ -232,7 +234,8 @@
   "tests.test_fabrica",
   "tests.test_auditor",
   "tests.test_web",
-  "tests.test_web_proyectos"
+  "tests.test_web_proyectos",
+  "tests.test_github_login"
  ],
  "retirados": [
   ".brain/guardianes/modo_auto.py",
@@ -251,5 +254,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.70.1"
+ "version": "1.71.0"
 }

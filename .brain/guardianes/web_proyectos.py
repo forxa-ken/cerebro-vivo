@@ -25,7 +25,11 @@ ROLES = ("lectura", "colaborador", "dueno")  # de menos a más
 # Lista cerrada de acciones y el rol mínimo de cada una. Un colaborador y las IAs conectadas (fase posterior) no entran en las que cambian algo.
 ACCIONES = {"ver_proyectos": "lectura", "registrar_proyecto": "dueno", "simular_actualizar": "dueno", "simular_instalar": "dueno",
             "actualizar_real": "dueno", "instalar_real": "dueno",  # cambian el proyecto (fase 3)
-            "tarea_pruebas": "dueno", "tarea_auditor": "dueno", "tarea_cerrar": "dueno", "parar_tarea": "dueno"}  # tareas del método (fase 3)
+            "tarea_pruebas": "dueno", "tarea_auditor": "dueno", "tarea_cerrar": "dueno", "parar_tarea": "dueno",  # tareas del método (fase 3)
+            "github_estado": "dueno", "github_repos": "dueno",  # spec 097, fase 2: login local con GitHub, solo lectura; es la sesión del dueño, nadie más la usa
+            "github_iniciar": "dueno", "github_sondear": "dueno", "github_salir": "dueno"}
+GITHUB = {"github_estado": "estado", "github_repos": "repositorios", "github_iniciar": "iniciar", "github_sondear": "sondear",
+          "github_salir": "salir"}  # acción -> función de github_login.py; nada de lo que llega de fuera elige otra cosa
 REALES = {"actualizar_real": "simular_actualizar", "instalar_real": "simular_instalar"}  # cada acción real exige su simulación hecha antes
 VIDA_SIMULACION = 600  # segundos que vale una simulación para autorizar la acción real
 USUARIO_LOCAL = {"nombre": "local", "rol": "dueno"}  # hoy, un solo usuario: el dueño
@@ -585,6 +589,21 @@ def parar_tarea(raiz, usuario, job_id):
     return 200, {"ok": True}
 
 
+def _github(raiz, usuario, accion):
+    import github_login as gh  # perezoso: solo se carga si se usa
+    try:
+        res = getattr(gh, GITHUB[accion])()
+    except gh.ErrorGitHub as e:
+        anotar(raiz, usuario, accion, "", "error: " + e.clave)
+        return e.codigo, {"error": e.texto()}
+    except Exception as e:  # nunca se anota el mensaje: podría llevar algo sensible
+        anotar(raiz, usuario, accion, "", "error: " + type(e).__name__)
+        return 500, {"error": tp("web_gh_err_respuesta")}
+    if accion not in ("github_estado", "github_repos"):
+        anotar(raiz, usuario, accion, "", "ok")
+    return 200, res
+
+
 def ejecutar(raiz, usuario, accion, ruta=None, datos=None):
     """Única puerta de entrada. Devuelve (código HTTP, dict). Comprueba la acción y el permiso, y anota lo que no es solo mirar."""
     datos = datos if isinstance(datos, dict) else {}
@@ -593,6 +612,8 @@ def ejecutar(raiz, usuario, accion, ruta=None, datos=None):
     if not permitido(usuario, accion):
         anotar(raiz, usuario, accion, ruta, "denegado")
         return 403, {"error": tp("web_err_permiso")}
+    if accion in GITHUB:  # no depende de ningún proyecto; el token nunca se anota ni se devuelve
+        return _github(raiz, usuario, accion)
     if not es_repo_arnes(raiz):
         return 409, {"error": tp("web_err_no_repo")}
     try:

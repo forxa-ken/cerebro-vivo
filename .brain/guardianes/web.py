@@ -209,6 +209,34 @@ async function proyectos(){marca('proyectos');limpia($('lado'));pre(T.web_cargan
  $('lado').appendChild(el('button',T.web_anadir,async()=>{if(!f.value.trim())return;if(!confirm(T.web_confirma_anadir+'\\n'+f.value))return;
   try{await post('registrar_proyecto',{ruta:f.value});await proyectos()}catch(x){pre(x.message)}}));
  pre(d.proyectos.length?T.web_elige_proyecto:T.web_sin_proyectos)}catch(x){pre(x.message)}}
+function tam(kb){return kb>=1024?(kb/1024).toFixed(1)+' MB':kb+' KB'}
+async function github(){marca('github');limpia($('lado'));pre(T.web_cargando);let e;try{e=await (await api('/api/github/estado')).json()}catch(x){pre(x.message);return}
+ const c=$('cuerpo');limpia(c);c.appendChild(el('div',T['web_gh_almacen_'+e.almacen]||''));
+ if(!e.sesion){const s=el('pre');c.appendChild(el('button',T.web_gh_entrar,()=>ghEntrar(c,s)));
+  if(e.en_curso){c.appendChild(el('button',T.web_gh_comprobar,()=>{limpia(s);const m=el('div',T.web_gh_esperando);s.appendChild(m);ghEsperar(m,1)}))}c.appendChild(s);return}
+ c.appendChild(el('button',T.web_gh_salir,async()=>{try{await post('github_salir',{})}catch(x){}github()}));
+ c.appendChild(el('button',T.web_gh_actualizar,github));const s=el('div');c.appendChild(s);s.textContent=T.web_cargando;
+ let d;try{d=await (await api('/api/github/repos')).json()}catch(x){if(x.message===T.web_gh_err_sesion){github()}else s.textContent=x.message;return}
+ limpia(s);s.appendChild(el('p',T.web_gh_hola+' '+d.usuario));const lista=el('div'),tot=el('p');let ocultos=false;
+ const fila=[];d.repos.forEach(r=>{const l=el('label');l.style.display='block';const k=document.createElement('input');k.type='checkbox';k.checked=r.marcado;k.onchange=sumar;
+  l.appendChild(k);l.appendChild(document.createTextNode(' '+r.nombre+' · '+tam(r.kb)+(r.privado?' · '+T.web_gh_privado:'')+(r.fork?' · '+T.web_gh_fork:'')+(r.archivado?' · '+T.web_gh_archivado:'')));
+  fila.push({r:r,k:k,l:l});lista.appendChild(l)});
+ function sumar(){let n=0,kb=0;fila.forEach(f=>{const raro=f.r.fork||f.r.archivado;f.l.style.display=raro&&!ocultos?'none':'block';if(f.k.checked&&(!raro||ocultos)){n++;kb+=f.r.kb}});tot.textContent=T.web_gh_total.replace('%%d',n).replace('%%s',tam(kb))}
+ s.appendChild(el('button',T.web_gh_ver_ocultos,()=>{ocultos=!ocultos;sumar()}));s.appendChild(tot);
+ if(!d.repos.length)s.appendChild(el('p',T.web_gh_sin_repos));if(d.cortado)s.appendChild(el('p',T.web_gh_cortado));s.appendChild(lista);
+ if(d.instalaciones.some(i=>i.seleccion!=='all')||!d.repos.length){s.appendChild(el('p',T.web_gh_solo_algunos));
+  const a=el('a',d.instalar);if(d.instalar.indexOf('https://github.com/')===0)a.href=d.instalar;a.target='_blank';a.rel='noopener noreferrer';s.appendChild(a)}
+ sumar()}
+async function ghEntrar(c,s){let d;try{d=await post('github_iniciar',{})}catch(x){s.textContent=x.message;return}
+ limpia(s);const g=el('div',d.codigo);g.style.cssText='font:700 32px ui-monospace,Consolas,monospace;letter-spacing:4px;margin:8px 0';
+ s.appendChild(el('div',T.web_gh_codigo));s.appendChild(g);s.appendChild(el('div',T.web_gh_abre));
+ const a=el('a',T.web_gh_abrir);a.style.cssText='display:inline-block;margin:6px 0;padding:6px 12px;border:1px solid var(--a);border-radius:6px';
+ if(d.direccion.indexOf('https://github.com/')===0){a.href=d.direccion;a.target='_blank';a.rel='noopener noreferrer'}
+ s.appendChild(el('div',d.direccion));s.appendChild(a);const m=el('div',T.web_gh_esperando);s.appendChild(m);ghEsperar(m,d.espera||5)}
+async function ghEsperar(m,espera){
+ for(;;){await new Promise(r=>setTimeout(r,espera*1000));if(!document.body.contains(m))return;let j;try{j=await post('github_sondear',{})}catch(x){m.textContent=x.message;return}
+  if(j.estado==='pendiente'){espera=j.espera||espera;continue}
+  if(j.estado==='ok'){github();return}m.textContent=T['web_gh_'+j.estado]||T.web_error;return}}
 (async()=>{try{T=await (await api('/api/textos')).json()}catch(e){document.body.textContent='?';return}
  $('ro').textContent=T.web_modo;const nav=$('nav');
  const bt=(id,txt,fn)=>{const b=document.createElement('button');b.dataset.id=id;b.textContent=txt;b.onclick=fn;nav.appendChild(b)};
@@ -216,6 +244,7 @@ async function proyectos(){marca('proyectos');limpia($('lado'));pre(T.web_cargan
  ['decisiones','lecciones','specs','biblioteca','respuestas'].forEach(c=>bt(c,T['web_c_'+c],()=>carpeta(c)));
  bt('medir',T.web_medir,()=>medir('skills'));
  bt('proyectos',T.web_proyectos,proyectos);
+ bt('github',T.web_gh,github);
  const f=document.createElement('input');f.type='search';f.placeholder=T.web_buscar;f.onkeydown=e=>{if(e.key==='Enter')buscar(f.value)};nav.appendChild(f);
  inicio()})();
 </script></body></html>
@@ -280,9 +309,12 @@ class Manejador(http.server.BaseHTTPRequestHandler):
             if p == "/api/proyectos":
                 codigo, res = _capa.ejecutar(raiz, _capa.USUARIO_LOCAL, "ver_proyectos")
                 return self._responder(codigo, json.dumps(res, ensure_ascii=False), "application/json; charset=utf-8")
+            if p in ("/api/github/estado", "/api/github/repos"):  # spec 097, fase 2: solo mirar; el token de GitHub nunca sale del servidor
+                codigo, res = _capa.ejecutar(raiz, _capa.USUARIO_LOCAL, "github_" + p.rsplit("/", 1)[1])
+                return self._responder(codigo, json.dumps(res, ensure_ascii=False), "application/json; charset=utf-8")
             if p == "/api/token":  # un token de un solo uso por acción que cambia algo (spec 090, 12.2)
                 a = arg("a")
-                if a not in _capa.ACCIONES or a == "ver_proyectos":
+                if a not in _capa.ACCIONES or a in ("ver_proyectos", "github_estado", "github_repos"):  # las de solo mirar no piden token
                     return self._responder(404, "404")
                 return self._responder(200, json.dumps({"token": self.server.nuevo_token(a)}), "application/json; charset=utf-8")
             if p == "/api/tarea":
