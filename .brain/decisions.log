@@ -324,3 +324,4 @@
 2026-11-27 | otro | Claude (cerebro-vivo #49) | Login real de GitHub probado por Darwin: sesión forxa-ken, 15 repos listados (1,4 GB); añadido botón 'comprobar' porque salir de la web a media espera cortaba el sondeo; manual es/en al día | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #49) | Subido a GitHub: 14 commits hasta 3c7c43f (spec 097 fase 2, v1.71.0); valores falsos de prueba sin forma de token para pasar el guardián de secretos | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #49) | Darwin da por buena la fase 2 de la spec 097 (login real probado, 15 repos); el pendiente 69 sigue con las fases 3 a 5 | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #49) | Darwin borró la app de prueba cerebro-vivo-prueba-fase1; anotado en la spec 097 | Cambio pequeño
