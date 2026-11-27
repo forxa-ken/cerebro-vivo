@@ -541,3 +541,7 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 
 ## 1.69.0 (2026-11-27)
 - **Se archivan 3 skills sin uso** (spec 096, fase 3; orden de Darwin): `implementada-no-es-hecha` (la dice la regla 5 de la constitución), `explicar-a-darwin-en-llano` (lo piden `CLAUDE.md` y la memoria) y `probar-guardian-en-windows` (la lección ya está en `lecciones/`). Pasan a `.brain/archive/skills/`, no se borran. Al actualizar, el actualizador las retira de los proyectos donde estén sin modificar (queda copia de seguridad).
+
+## 1.70.0 (2026-11-27)
+- **`buscar-en-la-memoria` y `guardar-respuesta` dejan de estar en desuso** (spec 096, fase 3; orden de Darwin). El resumen de arranque lleva una línea: antes de investigar, `buscar.py`; una explicación o comparación útil, `/guardar-respuesta` (ajuste `buscar_en_arranque`, activo por defecto). El aviso del sugeridor ofrece también guardar la respuesta.
+- **`mover-no-borrar` se archiva** (a `.brain/archive/skills/`): `trocea` ya mueve el original a `archive/` con índice y ahora lleva además la regla de fondo (mover, no borrar; decisión cambiada = «reemplazada por D-NNN»; poda por `poda.py`). `revisar-contenido` apunta a `trocea`.

@@ -15,6 +15,11 @@ Divide un archivo de `.brain/` que pasa de `tope_archivo_memoria_bytes` (8 KB) e
 5. Comprobar que no se perdió texto: el contenido de los trozos juntos coincide con la copia (mismas líneas). Volver a lanzar `archivos_gordos.py`: nada sobre el tope, o decir qué sigue grande.
 6. Pruebas en verde y línea en `decisions.log`.
 
+## Regla de fondo: mover, no borrar (antes skill `mover-no-borrar`)
+- Al podar, archivar o sustituir información de `.brain/`: mover a `.brain/archive/` (o subcarpeta) con un índice para no abrirlo entero; nunca borrar.
+- Una decisión que cambia se marca «reemplazada por D-NNN». La poda de specs cerradas la hace el guardián `poda.py` (`poda_activa`).
+- Motivo: borrar historia impide entender por qué se decidió algo; abrirla entera gasta tokens (spec 048, D-007, D-043).
+
 ## Error que evita (caso real)
 - Tras adoptar un proyecto antiguo, `referencias.md` quedó con 47 KB: acortar el CLAUDE.md solo movió el problema y la IA seguía abriendo un archivo enorme para tocar un módulo.
 

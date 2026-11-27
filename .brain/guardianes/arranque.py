@@ -371,6 +371,8 @@ def resumen(raiz, cfg):
         pass
     if cfg.get("modo_ligero_activo"):  # spec 002: el resumen solo lleva lo que pide acción
         lineas = [l for l in lineas if not re.search(r"sin avisos|sin hallazgos|todo en orden|al día\.?$|no warnings|no findings|all in order|up to date\.?$", l)]
+    if cfg.get("buscar_en_arranque", True):  # spec 096: que buscar.py y /guardar-respuesta no queden en desuso
+        lineas.append(t(cfg, "arranque_buscar"))
     try:  # spec 026: temas con lecciones aprendidas (línea solo si las hay)
         import lecciones
         temas = lecciones.resumen_temas(raiz)

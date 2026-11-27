@@ -18,7 +18,6 @@
 | [acorta](../../.claude/skills/acorta/SKILL.md) | typing /acorta or an AI index is over its size cap after adopting | Método | cerebro-vivo 1.15.0 |
 | [adopta](../../.claude/skills/adopta/SKILL.md) | typing /adopta (adopt, shorten and split an existing CLAUDE.md in one go) | Método | cerebro-vivo 1.18.0 |
 | [adoptar-indice-existente](../../.claude/skills/adoptar-indice-existente/SKILL.md) | adapting what the project already had (CLAUDE.md, GEMINI.md or AGENTS.md) to the .brain memory | Método | cerebro-vivo 1.13.0 |
-| [mover-no-borrar](../../.claude/skills/mover-no-borrar/SKILL.md) | pruning, archiving or replacing information in the brain | Método | cerebro-vivo 1.0.0 |
 | [pendiente](../../.claude/skills/pendiente/SKILL.md) | Darwin types /pendiente or asks to see a list of what is missing | Método | cerebro-vivo 1.4.2 |
 | [pendientes-solo-lo-que-falta](../../.claude/skills/pendientes-solo-lo-que-falta/SKILL.md) | Darwin confirms he tested a task or when pendientes.md changes | Método | cerebro-vivo 1.0.0 |
 | [prompt-inicial](../../.claude/skills/prompt-inicial/SKILL.md) | Darwin wants to start a project or task with a complete prompt, or types /prompt-inicial | Método | cerebro-vivo 1.0.0 |

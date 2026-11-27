@@ -216,10 +216,11 @@ TEXTOS = {
         "sugeridor_orden": "misma orden %d veces (¿skill?): %s",
         "sugeridor_aviso": ("Posibles lecciones sin apuntar (solo sugerencia): %s. Antes de dar la tarea por terminada, ¿alguna es una lección, una decisión "
                             "o un procedimiento repetido que aún no está apuntado? Si sí: python .brain/guardianes/lecciones.py --tema TEMA \"problema | causa | regla\" "
-                            "o proponla (texto completo) en .brain/propuestas.md; nada entra en la memoria sin que Darwin lo apruebe. "
+                            "o, si es una explicación o comparación útil, guárdala con /guardar-respuesta; o proponla (texto completo) en .brain/propuestas.md; nada entra en la memoria sin que Darwin lo apruebe. "
                             "Si no: python .brain/guardianes/lecciones.py ninguna \"motivo\"."),
         "sugeridor_uso": "Uso: sugeridor.py RUTA_DEL_REGISTRO.jsonl",
         "sugeridor_nada": "Nada que sugerir.",
+        "arranque_buscar": "- Antes de investigar o de preguntar algo: python .brain/guardianes/buscar.py PALABRAS (¿ya está apuntado?). Una explicación o comparación útil, guárdala con /guardar-respuesta.",
         "arranque_lecciones": "- Lecciones aprendidas (léelas antes de repetir ese trabajo, en .brain/lecciones/): %s.",
         "arranque_traspaso_completo": "(Historial completo del chat anterior: `/memoria-traspaso`; solo si Darwin lo pide.)",
         # cerrar.py (cierre rápido a mano)
@@ -910,10 +911,11 @@ TEXTOS = {
         "sugeridor_orden": "same command %d times (a skill?): %s",
         "sugeridor_aviso": ("Possible lessons not written down (suggestion only): %s. Before calling the task finished, is any of these a lesson, a decision "
                             "or a repeated procedure that is not written down yet? If so: python .brain/guardianes/lecciones.py --tema TOPIC \"problem | cause | rule\" "
-                            "or propose it (full text) in .brain/propuestas.md; nothing enters the memory without Darwin's approval. "
+                            "or, if it is a useful explanation or comparison, save it with /guardar-respuesta; or propose it (full text) in .brain/propuestas.md; nothing enters the memory without Darwin's approval. "
                             "If not: python .brain/guardianes/lecciones.py ninguna \"reason\"."),
         "sugeridor_uso": "Usage: sugeridor.py PATH_TO_TRANSCRIPT.jsonl",
         "sugeridor_nada": "Nothing to suggest.",
+        "arranque_buscar": "- Before investigating or asking something: python .brain/guardianes/buscar.py WORDS (is it already written down?). A useful explanation or comparison: save it with /guardar-respuesta.",
         "arranque_lecciones": "- Lessons learned (read them before repeating that work, in .brain/lecciones/): %s.",
         "arranque_traspaso_completo": "(Full history of the previous chat: `/memoria-traspaso`; only if Darwin asks.)",
         "cerrar_descripcion": "Adds the closing line to the log",

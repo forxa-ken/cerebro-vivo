@@ -14,7 +14,7 @@ Memory rots without anyone noticing: a page nobody links, a sentence that is no 
 4. **Optional, only for the doubtful ones:** if the project has another AI configured (Gemini, Codex; see `colaboracion.md`), ask it for a second opinion in the same way.
 5. Note the dismissed ones so they do not come back: `python .brain/guardianes/revisar_contenido.py --descartar CLAVE --motivo "why"`.
 6. **Show Darwin**, in plain language and before touching anything: *certain* (survive the refutation), *doubtful* («do not touch unless you look at it yourself») and how many were dismissed and why. Wait for his approval.
-7. Apply only what is approved: link the orphan page from its index, fix the sentence, or **move** the old content to `.brain/archive/` (never delete; see the `mover-no-borrar` skill).
+7. Apply only what is approved: link the orphan page from its index, fix the sentence, or **move** the old content to `.brain/archive/` (never delete; see the "move, do not delete" rule in the `trocea` skill).
 8. Close: `python .brain/guardianes/revisar_contenido.py --marcar-revision`, run the report again, tests green and a line in `decisions.log`.
 
 ## Mistake it avoids (real case)

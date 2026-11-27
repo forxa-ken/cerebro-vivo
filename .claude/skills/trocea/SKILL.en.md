@@ -15,6 +15,11 @@ Splits a `.brain/` file that goes over `tope_archivo_memoria_bytes` (8 KB) into 
 5. Check that no text was lost: the content of the pieces together matches the copy (same lines). Run `archivos_gordos.py` again: nothing over the cap, or say what is still big.
 6. Tests green and a line in `decisions.log`.
 
+## Underlying rule: move, do not delete (formerly the `mover-no-borrar` skill)
+- When pruning, archiving or replacing information in `.brain/`: move it to `.brain/archive/` (or a subfolder) with an index so it is not opened whole; never delete.
+- A decision that changes is marked "replaced by D-NNN". Pruning of closed specs is done by the `poda.py` guardian (`poda_activa`).
+- Why: deleting history makes it impossible to understand why something was decided; opening it whole wastes tokens (spec 048, D-007, D-043).
+
 ## Error it prevents (real case)
 - After adopting an old project, `referencias.md` ended up at 47 KB: shortening CLAUDE.md only moved the problem and the AI kept opening a huge file to touch one module.
 

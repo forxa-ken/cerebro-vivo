@@ -14,7 +14,7 @@ La memoria se pudre sin que nadie lo note: una página que nadie enlaza, una fra
 4. **Opcional, solo para lo dudoso:** si el proyecto tiene otra IA configurada (Gemini, Codex; ver `colaboracion.md`), pídele un segundo juicio del mismo modo.
 5. Anota los descartados para que no vuelvan: `python .brain/guardianes/revisar_contenido.py --descartar CLAVE --motivo "por qué"`.
 6. **Enseña a Darwin**, en lenguaje llano y antes de tocar nada: *seguros* (sobreviven a la refutación), *dudosos* («no tocar sin que lo mires tú») y cuántos se descartaron y por qué. Espera su visto bueno.
-7. Aplica solo lo aprobado: enlazar la página huérfana desde su índice, corregir la frase, o **mover** lo viejo a `.brain/archive/` (nunca borrar; ver la skill `mover-no-borrar`).
+7. Aplica solo lo aprobado: enlazar la página huérfana desde su índice, corregir la frase, o **mover** lo viejo a `.brain/archive/` (nunca borrar; ver la regla «mover, no borrar» en la skill `trocea`).
 8. Cierra: `python .brain/guardianes/revisar_contenido.py --marcar-revision`, vuelve a lanzar el informe, pruebas en verde y línea en `decisions.log`.
 
 ## Error que evita (caso real)
