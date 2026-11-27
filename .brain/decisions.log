@@ -317,3 +317,4 @@
 2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 fase 1: probado que la GitHub App de prueba ve sola un repo nuevo (todos los repos); repo de prueba borrado; faltan puntos 4, 2, 3, 5 | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 punto 4 comprobado: guardar, leer y borrar un secreto en el almacen de Windows con ctypes, sin dependencias (valor falso) | Cambio pequeño
 2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 pruebas en Windows 10 limpio: winget instala Git y Python, login y clonado privado OK, arranque OK, 3 pruebas web intermitentes (WinError 10053) sin causa fijada | Cambio pequeño
+2026-11-27 | otro | Claude (cerebro-vivo #48) | spec 097 punto 3 cubierto en Windows limpio: Claude Code instalado con winget, SessionStart, idioma y 44 skills OK; sugeridor probado aqui con registro falso | Cambio pequeño
