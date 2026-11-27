@@ -92,8 +92,8 @@
   ".claude/skills/acorta/SKILL.md": "4ef4cf6ef73a5ae936331c57b4c2b6306792bdb7fd2c8457e3cbf5c72614840f",
   ".claude/skills/actualizar/SKILL.en.md": "966e505a6823dee1bbfd74174dc252ebba9625d0ff50a12876d0085967b6bac3",
   ".claude/skills/actualizar/SKILL.md": "d12aec916b832fd23b47dbeafcd69bc54e045668306ba691b977fc47255b86e9",
-  ".claude/skills/adopta/SKILL.en.md": "d8d06506e12c3f132ec681461cc7a4e049db41f4fb8d57812ce22ff1b712f48c",
-  ".claude/skills/adopta/SKILL.md": "02a47353a1dbf4aee50be3b012507b96239da9dfbd33bf75a2a96d22d9130c02",
+  ".claude/skills/adopta/SKILL.en.md": "83289efd18ee65ecf77cb8a104cfd146713fe9b053f89fbcf55e95de4dbfd68a",
+  ".claude/skills/adopta/SKILL.md": "d5528c58187e60aae763aae3dd5b85a154838c22dfb5f72590deb0f6d8b67f1a",
   ".claude/skills/adoptar-indice-existente/SKILL.en.md": "9a9de11e606154323ad4edf1120d2eacbb8e25744516670473054182d7d7d388",
   ".claude/skills/adoptar-indice-existente/SKILL.md": "8ecd8f70beba40bbe6b68f55d88a00bdc5fb0cae9bcf02dfb25c75a55892d062",
   ".claude/skills/auditor/SKILL.en.md": "185f227a94a4c286a8e5a3ed319136a8a4ee576d14eeaa687469a28c5546232e",
@@ -251,5 +251,5 @@
   "tests/test_esperando_prueba.py",
   "tests/test_modo_auto.py"
  ],
- "version": "1.70.0"
+ "version": "1.70.1"
 }

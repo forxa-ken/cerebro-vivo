@@ -62,3 +62,5 @@
 1. ¿Mido también los otros proyectos (LoboHook, ProMaps, yu-gi-wow, Prominimap)? Recomendado: sí; solo leo sus registros, no toco nada.
 2. ¿Las skills de fábrica (`fabrica`, `directora-de-fabrica`, `revisor-*`, `prueba-de-uso-real`) entran ahora o esperan al resultado del pendiente 62? Recomendado: entran solo para medir tamaño; las decisiones esperan al 62.
 3. ¿Una skill archivada se retira también de los proyectos al actualizar, o solo del repo? Recomendado: solo del repo; en los proyectos se avisa y la quita quien quiera.
+
+- **Fase 3 (2026-11-27, chat #46):** archivadas `implementada-no-es-hecha`, `explicar-a-darwin-en-llano`, `probar-guardian-en-windows` y `mover-no-borrar` (fundida en `trocea`); `buscar-en-la-memoria` y `guardar-respuesta` se quedan y se enlazan desde el arranque; `adopta` y `adoptar-indice-existente` **se quedan** (solo se corrigió la descripción de `adopta`). Falta revisar las skills de fábrica tras los pendientes 62 y 68.

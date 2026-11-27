@@ -1,6 +1,6 @@
 ---
 name: adopta
-description: Use when Darwin types /adopta (atajo de adoptar-indice-existente) to split the project's existing CLAUDE.md, GEMINI.md or AGENTS.md into the .brain memory.
+description: Use when Darwin types /adopta to adopt the project's existing CLAUDE.md, GEMINI.md or AGENTS.md in one go (split it into .brain, shorten the indexes, chunk fat files); chains adoptar-indice-existente, acorta and trocea.
 ---
 
 # /adopta — adopt, shorten and split in one go

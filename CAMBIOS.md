@@ -545,3 +545,6 @@ Una línea por versión. Subir `VERSION`, anotar aquí y lanzar `python generar_
 ## 1.70.0 (2026-11-27)
 - **`buscar-en-la-memoria` y `guardar-respuesta` dejan de estar en desuso** (spec 096, fase 3; orden de Darwin). El resumen de arranque lleva una línea: antes de investigar, `buscar.py`; una explicación o comparación útil, `/guardar-respuesta` (ajuste `buscar_en_arranque`, activo por defecto). El aviso del sugeridor ofrece también guardar la respuesta.
 - **`mover-no-borrar` se archiva** (a `.brain/archive/skills/`): `trocea` ya mueve el original a `archive/` con índice y ahora lleva además la regla de fondo (mover, no borrar; decisión cambiada = «reemplazada por D-NNN»; poda por `poda.py`). `revisar-contenido` apunta a `trocea`.
+
+## 1.70.1 (2026-11-27)
+- **`adopta`: descripción corregida** (spec 096, fase 3). Decía «atajo de adoptar-indice-existente»; en realidad es el comando completo que encadena `adoptar-indice-existente`, `acorta` y `trocea`. Revisada la fusión con `adoptar-indice-existente`: **se quedan las dos** (el instalador y los textos citan `/adopta`; fusionar tocaría todo eso por un ahorro mínimo, como ya se descartó en la spec 034).
